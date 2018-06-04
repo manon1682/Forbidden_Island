@@ -1,7 +1,7 @@
 package Aventurier;
 
 import Cartes.CarteTresor;
-import Cartes.CarteUtilisable;
+import Enumeration.CarteUtilisable;
 import Enumeration.Couleur;
 import forbidden_island.Grille;
 import Enumeration.Tresor;
@@ -10,34 +10,26 @@ import java.util.ArrayList;
 
 public abstract class Aventurier {
 
-    ArrayList<CarteTresor> mainAventurier;
+    private ArrayList<CarteTresor> mainAventurier;
     private Couleur couleur;
     private String pseudo;
     private int posLigne;
     private int posColonne;
-    private static Tresor tresorObtenu;
+    private static ArrayList<Tresor> tresorsObtenus;
 
-    public void getMainA() {
-        // TODO - implement Aventurier.getMainA
-        throw new UnsupportedOperationException();
+    public ArrayList<CarteTresor> getMainA() {
+       return mainAventurier;
     }
 
-    /**
-     *
-     * @param nomCarte
-     */
     public void removeMainA(CarteUtilisable nomCarte) {
-        // TODO - implement Aventurier.removeMainA
-        throw new UnsupportedOperationException();
+        mainAventurier.remove(nomCarte);
     }
 
-    /**
-     *
-     * @param grille
-     */
     public void déplacementPossible(Grille grille) {
-        // TODO - implement Aventurier.déplacementPossible
-        throw new UnsupportedOperationException();
+        boolean[][] g = new boolean[6][6];
+        
+        initialisation(g);
+        getGrillePossible(g, grille);
     }
 
     public void déplacer(int l, int c) {
@@ -45,10 +37,6 @@ public abstract class Aventurier {
         setColonne(c);
     }
 
-    /**
-     *
-     * @param grille
-     */
     public void assechementPossible(Grille grille) {
         // TODO - implement Aventurier.assechementPossible
         throw new UnsupportedOperationException();
@@ -67,52 +55,38 @@ public abstract class Aventurier {
         return posColonne;
     }
 
-    public void getTresor() {
-        // TODO - implement Aventurier.getTresor
-        throw new UnsupportedOperationException();
+    public ArrayList<Tresor> getTresor() {
+        return tresorsObtenus;
     }
 
-    /**
-     *
-     * @param tr
-     */
-    public void mainTresor(Tresor tr) {
-        // TODO - implement Aventurier.mainTresor
-        throw new UnsupportedOperationException();
+    public ArrayList<CarteTresor> mainTresor(Tresor tr) {
+        ArrayList<CarteTresor> cartes = getMainA();
+        ArrayList<CarteTresor> cartesOK = new ArrayList<>();
+        
+        for (CarteTresor c : cartes){
+            if (tr.toString() == c.getNom()) {
+                cartesOK.add(c);
+            }
+        }
+        
+        return cartesOK;
     }
 
-    /**
-     *
-     * @param tr
-     */
     public void ajoutTresor(Tresor tr) {
         // TODO - implement Aventurier.ajoutTresor
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param jr
-     * @param carte
-     */
     public void donnerCarte(Aventurier jr, CarteUtilisable carte) {
         // TODO - implement Aventurier.donnerCarte
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param nomCarte
-     */
     public void addMain(CarteUtilisable nomCarte) {
         // TODO - implement Aventurier.addMain
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param g
-     */
     public void initialisation(boolean[][] g) {
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
