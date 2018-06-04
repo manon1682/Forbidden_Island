@@ -18,12 +18,11 @@ public class Tuile {
     public Tuile() {
     }
 
-    public Tuile(String nom, Tresor tresor, int ligne, int colonne) {
+    public Tuile(String nom, int ligne, int colonne) {
         this.setNom(nom);
         this.setEtat(etat.sèche);
         this.setLigne(ligne);
         this.setColonne(colonne);
-        this.setTresor(tresor);
     }
 
     public int getLigne() {
@@ -58,6 +57,10 @@ public class Tuile {
 
     public EtatTuile getEtat() {
         return this.etat;
+    }
+    
+    public String getNom(){
+        return this.nom;
     }
 
     public void setNom(String nom) {

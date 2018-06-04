@@ -5,6 +5,7 @@ import Cartes.Deck_Innondation;
 import Cartes.Deck_Tresor;
 import Aventurier.Aventurier;
 import Cartes.Deck;
+import Enumeration.Tresor;
 
 /*Charger fichier tuiles*/
 import java.io.BufferedReader;
@@ -41,6 +42,32 @@ public class Controleur {
         return nomTuile;
     }
 
+    public Tresor assigneTresorTuile(String nomTuile) {
+        Tresor t;
+        switch (nomTuile) {
+            case "Le Temple de La Lune":
+            case "Le Temple du Soleil":
+                t = Tresor.Pierre_Sacré;
+                break;
+            case "Le Jardin des Murmures":
+            case "Le Jardin des Hurlements":
+                t = Tresor.Statue_du_Zéphir;
+                break;
+            case "La Caverne du Brasier":
+            case "La Caverne des Ombres":
+                t = Tresor.Cristal_Ardent;
+                break;
+            case "Le Palais des Marees":
+            case "Le Palais de Corail":
+                t = Tresor.Calice_de_Ordre;
+                break;
+            default:
+                t = null;
+                break;
+        }
+        return t;
+    }
+
     public Grille initPlateau() {
         Tuile[][] tuiles = new Tuile[6][6];
         ArrayList<String> nomTuile = chargerNomString();
@@ -55,104 +82,67 @@ public class Controleur {
                     //On est dans un angles donc on met une tuile null
                     tuiles[l][c] = new Tuile();
                 } else {
-                    int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size()); 
+                    int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
                     //On genere un nombre aleatoire compris entre 0 et le nombre de nomtuile qu'il reste
-                    tuile = new Tuile();
-  
+                    tuile = new Tuile(nomTuile.get(rand), l, c);
+                    Tresor t = assigneTresorTuile(nomTuile.get(rand));
+                    if (t != null) {
+                        tuile.setTresor(t);
+                    }
+                    tuiles[l][c] = tuile;
+                    nomTuile.remove(rand);
                 }
             }
         }
-
         grille = new Grille(tuiles);
-
         return grille;
     }
 
-    /**
-     *
-     * @param a
-     */
     public void jouerTour(Aventurier a) {
         // TODO - implement Controleur.jouerTour
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param nomCarte
-     */
     public void saisir(CarteUtilisable nomCarte) {
         // TODO - implement Controleur.saisir
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param nomCarte
-     */
     public void addDefausseT(CarteUtilisable nomCarte) {
         // TODO - implement Controleur.addDefausseT
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param a
-     */
     public void actionPossible(Aventurier a) {
         // TODO - implement Controleur.actionPossible
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param choixAction
-     */
     public void saisirAction(String choixAction) {
         // TODO - implement Controleur.saisirAction
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param tuile
-     */
     public void choisir(Tuile tuile) {
         // TODO - implement Controleur.choisir
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param tuile
-     */
     public void asseche(Tuile tuile) {
         // TODO - implement Controleur.asseche
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param a
-     */
     public void getTresor(Aventurier a) {
         // TODO - implement Controleur.getTresor
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param jr
-     */
     public void choixJoueurPossible(Aventurier jr) {
         // TODO - implement Controleur.choixJoueurPossible
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param a
-     */
     public void getEchangePossible(Aventurier a) {
         // TODO - implement Controleur.getEchangePossible
         throw new UnsupportedOperationException();
@@ -163,10 +153,6 @@ public class Controleur {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param grille
-     */
     public void assecherSpecial(Grille grille) {
         // TODO - implement Controleur.assecherSpecial
         throw new UnsupportedOperationException();
