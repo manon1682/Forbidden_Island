@@ -5,7 +5,14 @@ import java.util.*;
 
 public class Deck_Tresor extends Deck {
 
-	ArrayList<CarteTresor> tasPioche_Tresor;
-	ArrayList<CarteTresor> tasDefausse_Tresor;
+    public Deck_Tresor(Stack<Carte> p, Stack<Carte> d) {
+        super(p, d);
+    }
+
+    @Override
+    public Carte pioche() {
+        return getPioche().pop();
+    }
+
 
 }
