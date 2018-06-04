@@ -6,7 +6,16 @@ public enum Tresor {
 	Cristal_Ardent,
 	Calice_de_Ordre;
         
-        public String toString() {
-        return name().toLowerCase();
+        
+    private String label;
+    
+    private Tresor(String label) {
+        this.label = label;
     }
+        
+        public String toString() {
+        return this.label;
+    }
+
+        
 }
