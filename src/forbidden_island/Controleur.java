@@ -15,6 +15,38 @@ public class Controleur {
 	Deck_Innondation deck_I;
 	private int jaugeInnondation;
 
+        
+        public ArrayList<String> chargerNomString(){
+            ArrayList<String> nomTuile = new ArrayList<String>();
+            
+            
+            return nomTuile;
+        }
+        
+        
+        
+        public Grille initPlateau(){
+            Tuile[][] tuiles = new Tuile[6][6];
+            ArrayList<String> nomTuile = chargerNomString();
+            for (int l = 0; l < 6; l++) {
+                for (int c = 0; c < 6; c++) {
+                    
+                    
+                    
+                    
+                }
+            }
+            
+            
+            
+            
+            grille = new Grille(tuiles);
+            
+            
+            return grille;
+        }
+        
+        
 	/**
 	 * 
 	 * @param a
