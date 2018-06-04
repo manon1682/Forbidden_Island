@@ -36,11 +36,13 @@ public abstract class Aventurier {
         mainAventurier.remove(nomCarte);
     }
 
-    public void déplacementPossible(Grille grille) {
+    public boolean[][] déplacementPossible(Grille grille) {
         boolean[][] g = new boolean[6][6];
         
         initialisation(g);
         getGrillePossibleD(g, grille);
+        
+        return g;
     }
 
     public void déplacer(int l, int c) {
@@ -48,11 +50,13 @@ public abstract class Aventurier {
         setColonne(c);
     }
 
-    public void assechementPossible(Grille grille) {
+    public boolean[][] assechementPossible(Grille grille) {
         boolean[][] g = new boolean [6][6];
         
         initialisation(g);
         getGrillePossibleA(g, grille);
+        
+        return g;
     }
 
     public int getL() {

@@ -1,6 +1,7 @@
 package Aventurier;
 
 import Enumeration.Couleur;
+import forbidden_island.Grille;
 
 public class Ingénieur extends Aventurier {
 
@@ -8,9 +9,8 @@ public class Ingénieur extends Aventurier {
         super(coul, nm, l, c);
     }
 
-	public void assecherSpeciale() {
-		// TODO - implement Ingénieur.assecherSpeciale
-		throw new UnsupportedOperationException();
+	public void assecherSpeciale(Grille g) {
+		super.assechementPossible(g);
 	}
 
 }
