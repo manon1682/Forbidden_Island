@@ -13,14 +13,13 @@ public class Tuile {
 	private int colonne;
 
 	public void getLigne() {
-		// TODO - implement Tuile.getLigne
-		throw new UnsupportedOperationException();
+		return ligne;
 	}
 
 	public void getColonne() {
 		// TODO - implement Tuile.getColonne
-		throw new UnsupportedOperationException();
-	}
+                
+    	}
 
 	public boolean verifTuileA() {
 		// TODO - implement Tuile.verifTuileA
