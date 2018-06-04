@@ -68,7 +68,7 @@ public class Controleur {
         return t;
     }
 
-    public Grille initPlateau() {
+    public void initPlateau() {
         Tuile[][] tuiles = new Tuile[6][6];
         ArrayList<String> nomTuile = chargerNomString();
         Tuile tuile;
@@ -95,7 +95,6 @@ public class Controleur {
             }
         }
         grille = new Grille(tuiles);
-        return grille;
     }
 
     public void jouerTour(Aventurier a) {
