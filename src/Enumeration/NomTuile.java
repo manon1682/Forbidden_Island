@@ -2,28 +2,27 @@ package Enumeration;
 
 public enum NomTuile {
     Le_Temple_de_la_Lune,
-
-Le Pont des Abimes,
-"La Porte de Bronze", Pion.ROUGE
-"La Caverne des Ombres"
-"La Porte de Fer", Pion.VIOLET
-"La Porte d’Or", Pion.JAUNE
-"Les Falaises de l’Oubli"
-"Le Palais de Corail"
-"La Porte d’Argent", Pion.ORANGE
-"Les Dunes de l’Illusion"
-"Heliport", Pion.BLEU 
-"La Porte de Cuivre", Pion.VERT
-"Le Jardin des Hurlements"
-"La Foret Pourpre"
-"Le Lagon Perdu"
-"Le Marais Brumeux"
-"Observatoire"
-"Le Rocher Fantome"
-"La Caverne du Brasier"
-"Le Temple du Soleil"
-"Le Palais des Marees"
-"Le Val du Crepuscule"
-"La Tour du Guet"
-"Le Jardin des Murmures";
+    Le_Pont_des_Abimes,
+    La_Porte_de_Bronze,
+    La_Caverne_des_Ombres,
+    La_Porte_de_Fer,
+    La_Porte_d_Or,
+    Les_Falaises_de_l_Oubli,
+    Le_Palais_de_Corail,
+    La_Porte_d_Argent,
+    Les_Dunes_de_l_Illusion,
+    Heliport,
+    La_Porte_de_Cuivre,
+    Le_Jardin_des_Hurlements,
+    La_Foret_Pourpre,
+    Le_Lagon_Perdu,
+    Le_Marais_Brumeux,
+    Observatoire,
+    Le_Rocher_Fantome,
+    La_Caverne_du_Brasier,
+    Le_Temple_du_Soleil,
+    Le_Palais_des_Marees,
+    Le_Val_du_Crepuscule,
+    La_Tour_du_Guet,
+    Le_Jardin_des_Murmures;
 }
