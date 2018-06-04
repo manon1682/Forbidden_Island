@@ -1,6 +1,6 @@
 package forbidden_island;
 
-import Cartes.CarteUtilisable;
+import Enumeration.CarteUtilisable;
 import Cartes.Deck_Innondation;
 import Cartes.Deck_Tresor;
 import Aventurier.Aventurier;
@@ -11,10 +11,42 @@ public class Controleur {
 
 	private Grille grille;
 	private Collection<Aventurier> joueurs;
-	Deck_Tresor deck_T;
-	Deck_Innondation deck_I;
+	private Deck_Tresor deck_T;
+	private Deck_Innondation deck_I;
 	private int jaugeInnondation;
 
+        
+        public ArrayList<String> chargerNomString(){
+            ArrayList<String> nomTuile = new ArrayList<String>();
+            
+            
+            return nomTuile;
+        }
+        
+        
+        
+        public Grille initPlateau(){
+            Tuile[][] tuiles = new Tuile[6][6];
+            ArrayList<String> nomTuile = chargerNomString();
+            for (int l = 0; l < 6; l++) {
+                for (int c = 0; c < 6; c++) {
+                    
+                    
+                    
+                    
+                }
+            }
+            
+            
+            
+            
+            grille = new Grille(tuiles);
+            
+            
+            return grille;
+        }
+        
+        
 	/**
 	 * 
 	 * @param a

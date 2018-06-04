@@ -1,11 +1,23 @@
 package Cartes;
 
+import Enumeration.CarteUtilisable;
+
 public class CarteTresor {
 
-	private CarteUtilisable nom;
+    private CarteUtilisable nom;
 
-	public CarteUtilisable getNom() {
-		return nom;
-	}
+    /*Constructeurs (initialisation) */
+    public CarteTresor(CarteUtilisable nom) {
+        setNom(nom);
+    }
+
+    /*Methodes*/
+    public String getNom() {
+        return nom.toString();
+    }
+
+    public void setNom(CarteUtilisable nom) {
+        this.nom = nom;
+    }
 
 }
