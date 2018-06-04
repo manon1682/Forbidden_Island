@@ -40,14 +40,9 @@ public abstract class Aventurier {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     *
-     * @param l
-     * @param c
-     */
     public void déplacer(int l, int c) {
-        // TODO - implement Aventurier.déplacer
-        throw new UnsupportedOperationException();
+        setLigne(l);
+        setColonne(c);
     }
 
     /**
@@ -126,11 +121,6 @@ public abstract class Aventurier {
         }
     }
 
-    /**
-     *
-     * @param g
-     * @param grille
-     */
     public void getGrillePossible(boolean[][] g, Grille grille) {
 
         Tuile[][] tuiles = grille.getTuiles();
@@ -159,18 +149,11 @@ public abstract class Aventurier {
         }
     }
 
-    /**
-     *
-     * @param l
-     */
     public void setLigne(int l) {
         posLigne = l;
     }
 
-    /**
-     *
-     * @param c
-     */
+
     public void setColonne(int c) {
         posColonne = c;
     }
