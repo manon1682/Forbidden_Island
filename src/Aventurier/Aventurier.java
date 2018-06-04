@@ -16,20 +16,33 @@ public abstract class Aventurier {
     private int posLigne;
     private int posColonne;
     private static ArrayList<Tresor> tresorsObtenus;
+    
+    /* Construsteur*/
+    public Aventurier(Couleur coul, String nm, int l, int c){
+        couleur = coul;
+        pseudo = nm;
+        posLigne = l;
+        posColonne = c;
+        
+        tresorsObtenus = new ArrayList<>();
+        mainAventurier = new ArrayList<>();
+    }
 
     public ArrayList<CarteTresor> getMainA() {
        return mainAventurier;
     }
 
-    public void removeMainA(CarteUtilisable nomCarte) {
+    public void removeMainA(CarteTresor nomCarte) {
         mainAventurier.remove(nomCarte);
     }
 
-    public void déplacementPossible(Grille grille) {
+    public boolean[][] déplacementPossible(Grille grille) {
         boolean[][] g = new boolean[6][6];
         
         initialisation(g);
-        getGrillePossible(g, grille);
+        getGrillePossibleD(g, grille);
+        
+        return g;
     }
 
     public void déplacer(int l, int c) {
@@ -37,14 +50,13 @@ public abstract class Aventurier {
         setColonne(c);
     }
 
-    public void assechementPossible(Grille grille) {
-        // TODO - implement Aventurier.assechementPossible
-        throw new UnsupportedOperationException();
-    }
-
-    public void asseche() {
-        // TODO - implement Aventurier.asseche
-        throw new UnsupportedOperationException();
+    public boolean[][] assechementPossible(Grille grille) {
+        boolean[][] g = new boolean [6][6];
+        
+        initialisation(g);
+        getGrillePossibleA(g, grille);
+        
+        return g;
     }
 
     public int getL() {
@@ -73,18 +85,16 @@ public abstract class Aventurier {
     }
 
     public void ajoutTresor(Tresor tr) {
-        // TODO - implement Aventurier.ajoutTresor
-        throw new UnsupportedOperationException();
+        tresorsObtenus.add(tr);
     }
 
-    public void donnerCarte(Aventurier jr, CarteUtilisable carte) {
-        // TODO - implement Aventurier.donnerCarte
-        throw new UnsupportedOperationException();
+    public void donnerCarte(Aventurier j, CarteTresor carte) {
+        j.addMain(carte);
+        removeMainA(carte);
     }
 
-    public void addMain(CarteUtilisable nomCarte) {
-        // TODO - implement Aventurier.addMain
-        throw new UnsupportedOperationException();
+    public void addMain(CarteTresor nomCarte) {
+        mainAventurier.add(nomCarte);
     }
 
     public void initialisation(boolean[][] g) {
@@ -95,7 +105,35 @@ public abstract class Aventurier {
         }
     }
 
-    public void getGrillePossible(boolean[][] g, Grille grille) {
+    public void getGrillePossibleD(boolean[][] g, Grille grille) {
+
+        Tuile[][] tuiles = grille.getTuiles();
+        
+        int l = getL();
+        int c = getC();
+
+        if (l-1 >= 0) {
+            Tuile tuile = tuiles[l-1][c];
+            g[l-1][c] = tuile.verifTuileD();
+        }
+        
+        if (c+1 < 6) {
+            Tuile tuile = tuiles[l][c+c];
+            g[l][c+1] = tuile.verifTuileD();
+        }
+        
+        if (l+1 < 6) {
+            Tuile tuile = tuiles[l+1][c];
+            g[l+1][c] = tuile.verifTuileD();
+        }
+        
+        if (c-1 >= 0) {
+            Tuile tuile = tuiles[l][c-1];
+            g[l][c-1] = tuile.verifTuileD();
+        }
+    }
+    
+    public void getGrillePossibleA(boolean[][] g, Grille grille) {
 
         Tuile[][] tuiles = grille.getTuiles();
         
@@ -119,9 +157,10 @@ public abstract class Aventurier {
         
         if (c-1 >= 0) {
             Tuile tuile = tuiles[l][c-1];
-            g[l][c-1] = tuile.verifTuileA();
+            g[l][c-1] = tuile.verifTuileA();    
         }
     }
+    
 
     public void setLigne(int l) {
         posLigne = l;
