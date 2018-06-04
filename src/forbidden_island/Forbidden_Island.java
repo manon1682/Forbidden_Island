@@ -15,7 +15,18 @@ public class Forbidden_Island {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        /*Controleur c = new Controleur();
+        Tuile[][] t = c.getGrille().getTuiles();
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                System.out.print(t[i][j].getNom() +"  ");
+                if(t[i][j].getTresor() != null){
+                    System.out.print(" Tr : ON");
+                }
+                
+            }
+            System.out.println("");
+        }*/
     }
     
 }

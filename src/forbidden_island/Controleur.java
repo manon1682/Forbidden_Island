@@ -26,8 +26,12 @@ public class Controleur {
     private Deck_Innondation deck_I;
     private int jaugeInnondation;
 
+    public Controleur(){
+        initPlateau();
+    }
+    
     public ArrayList<String> chargerNomString() {
-        File fileNomTuile = new File("/Fichier_Texte/nomTuile.txt");
+        File fileNomTuile = new File("src/nomTuile");
         ArrayList<String> nomTuile = new ArrayList<String>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileNomTuile))) {
             String ligne;
@@ -97,6 +101,7 @@ public class Controleur {
         grille = new Grille(tuiles);
     }
 
+    
     public void jouerTour(Aventurier a) {
         // TODO - implement Controleur.jouerTour
         throw new UnsupportedOperationException();
@@ -155,5 +160,9 @@ public class Controleur {
     public void assecherSpecial(Grille grille) {
         // TODO - implement Controleur.assecherSpecial
         throw new UnsupportedOperationException();
+    }
+    
+    public Grille getGrille(){
+        return this.grille;
     }
 }
