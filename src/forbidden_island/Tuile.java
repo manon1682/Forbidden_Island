@@ -18,12 +18,11 @@ public class Tuile {
     public Tuile() {
     }
 
-    public Tuile(String nom, Tresor tresor, int ligne, int colonne) {
+    public Tuile(String nom, int ligne, int colonne) {
         this.setNom(nom);
         this.setEtat(etat.sèche);
         this.setLigne(ligne);
         this.setColonne(colonne);
-        this.setTresor(tresor);
     }
 
     public boolean verifTuileD() {
@@ -63,6 +62,10 @@ public class Tuile {
     public EtatTuile getEtat() {
         return this.etat;
     }
+    
+    public String getNom(){
+        return this.nom;
+    }
 
     public void setNom(String nom) {
         this.nom = nom;
@@ -79,5 +82,10 @@ public class Tuile {
     public void setColonne(int colonne) {
         this.colonne = colonne;
     }
+
+    public Tresor getTresor() {
+        return tresor;
+    }
+
 
 }

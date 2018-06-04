@@ -27,8 +27,12 @@ public class Controleur {
     private Deck_Innondation deck_I;
     private int jaugeInnondation;
 
+    public Controleur(){
+        initPlateau();
+    }
+    
     public ArrayList<String> chargerNomString() {
-        File fileNomTuile = new File("/Fichier_Texte/nomTuile.txt");
+        File fileNomTuile = new File("src/nomTuile");
         ArrayList<String> nomTuile = new ArrayList<String>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileNomTuile))) {
             String ligne;
@@ -43,7 +47,33 @@ public class Controleur {
         return nomTuile;
     }
 
-    public Grille initPlateau() {
+    public Tresor assigneTresorTuile(String nomTuile) {
+        Tresor t;
+        switch (nomTuile) {
+            case "Le Temple de La Lune":
+            case "Le Temple du Soleil":
+                t = Tresor.PIERRE_SACRE;
+                break;
+            case "Le Jardin des Murmures":
+            case "Le Jardin des Hurlements":
+                t = Tresor.STATUE_DU_ZEPHIR;
+                break;
+            case "La Caverne du Brasier":
+            case "La Caverne des Ombres":
+                t = Tresor.CRISTAL_ARDENT;
+                break;
+            case "Le Palais des Marees":
+            case "Le Palais de Corail":
+                t = Tresor.CALICE_DE_ORDRE;
+                break;
+            default:
+                t = null;
+                break;
+        }
+        return t;
+    }
+
+    public void initPlateau() {
         Tuile[][] tuiles = new Tuile[6][6];
         ArrayList<String> nomTuile = chargerNomString();
         Tuile tuile;
@@ -57,23 +87,22 @@ public class Controleur {
                     //On est dans un angles donc on met une tuile null
                     tuiles[l][c] = new Tuile();
                 } else {
-                    int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size()); 
+                    int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
                     //On genere un nombre aleatoire compris entre 0 et le nombre de nomtuile qu'il reste
-                    tuile = new Tuile();
-  
+                    tuile = new Tuile(nomTuile.get(rand), l, c);
+                    Tresor t = assigneTresorTuile(nomTuile.get(rand));
+                    if (t != null) {
+                        tuile.setTresor(t);
+                    }
+                    tuiles[l][c] = tuile;
+                    nomTuile.remove(rand);
                 }
             }
         }
-
         grille = new Grille(tuiles);
-
-        return grille;
     }
 
-    /**
-     *
-     * @param a
-     */
+    
     public void jouerTour(Aventurier a) {
         // TODO - implement Controleur.jouerTour
         throw new UnsupportedOperationException();
@@ -126,5 +155,9 @@ public class Controleur {
     public void assecherSpecial(Grille grille) {
         // TODO - implement Controleur.assecherSpecial
         throw new UnsupportedOperationException();
+    }
+    
+    public Grille getGrille(){
+        return this.grille;
     }
 }
