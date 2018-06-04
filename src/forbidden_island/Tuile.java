@@ -24,10 +24,14 @@ public class Tuile {
     	}
         
         public boolean verifTuileD() {
-            return (this != null && getEtat() != inondée);             
+            return getEtat() != inondée;             
 	}
         
-        //Vérifie que la tuile n'est pas null, pas sèche et pas coulée
+        public boolean verifTuileDPlongeur() {
+            return getEtat() != sèche;             
+	}
+        
+        //Vérifie que la tuile n'est pas sèche et pas coulée
 	public boolean verifTuileA() {
             return getEtat() != sèche && getEtat() != coulée;
                     

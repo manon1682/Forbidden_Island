@@ -16,20 +16,20 @@ public abstract class Aventurier {
     private int posLigne;
     private int posColonne;
     private static ArrayList<Tresor> tresorsObtenus;
-    
+
     /* Construsteur*/
-    public Aventurier(Couleur coul, String nm, int l, int c){
+    public Aventurier(Couleur coul, String nm, int l, int c) {
         couleur = coul;
         pseudo = nm;
         posLigne = l;
         posColonne = c;
-        
+
         tresorsObtenus = new ArrayList<>();
         mainAventurier = new ArrayList<>();
     }
 
     public ArrayList<CarteTresor> getMainA() {
-       return mainAventurier;
+        return mainAventurier;
     }
 
     public void removeMainA(CarteTresor nomCarte) {
@@ -38,10 +38,10 @@ public abstract class Aventurier {
 
     public boolean[][] déplacementPossible(Grille grille) {
         boolean[][] g = new boolean[6][6];
-        
+
         initialisation(g);
         getGrillePossibleD(g, grille);
-        
+
         return g;
     }
 
@@ -51,11 +51,11 @@ public abstract class Aventurier {
     }
 
     public boolean[][] assechementPossible(Grille grille) {
-        boolean[][] g = new boolean [6][6];
-        
+        boolean[][] g = new boolean[6][6];
+
         initialisation(g);
         getGrillePossibleA(g, grille);
-        
+
         return g;
     }
 
@@ -74,13 +74,13 @@ public abstract class Aventurier {
     public ArrayList<CarteTresor> mainTresor(Tresor tr) {
         ArrayList<CarteTresor> cartes = getMainA();
         ArrayList<CarteTresor> cartesOK = new ArrayList<>();
-        
-        for (CarteTresor c : cartes){
+
+        for (CarteTresor c : cartes) {
             if (tr.toString() == c.getNom()) {
                 cartesOK.add(c);
             }
         }
-        
+
         return cartesOK;
     }
 
@@ -108,64 +108,78 @@ public abstract class Aventurier {
     public void getGrillePossibleD(boolean[][] g, Grille grille) {
 
         Tuile[][] tuiles = grille.getTuiles();
-        
+
         int l = getL();
         int c = getC();
 
-        if (l-1 >= 0) {
-            Tuile tuile = tuiles[l-1][c];
-            g[l-1][c] = tuile.verifTuileD();
+        if (l - 1 >= 0) {
+            Tuile tuile = tuiles[l - 1][c];
+            if (tuile != null) {
+                g[l - 1][c] = tuile.verifTuileD();
+            }
         }
-        
-        if (c+1 < 6) {
-            Tuile tuile = tuiles[l][c+c];
-            g[l][c+1] = tuile.verifTuileD();
+
+        if (c + 1 < 6) {
+            Tuile tuile = tuiles[l][c + 1];
+            if (tuile != null) {
+                g[l][c + 1] = tuile.verifTuileD();
+            }
         }
-        
-        if (l+1 < 6) {
-            Tuile tuile = tuiles[l+1][c];
-            g[l+1][c] = tuile.verifTuileD();
+
+        if (l + 1 < 6) {
+            Tuile tuile = tuiles[l + 1][c];
+            if (tuile != null) {
+                g[l + 1][c] = tuile.verifTuileD();
+            }
         }
-        
-        if (c-1 >= 0) {
-            Tuile tuile = tuiles[l][c-1];
-            g[l][c-1] = tuile.verifTuileD();
+
+        if (c - 1 >= 0) {
+            Tuile tuile = tuiles[l][c - 1];
+            if (tuile != null) {
+                g[l][c - 1] = tuile.verifTuileD();
+            }
         }
     }
-    
+
     public void getGrillePossibleA(boolean[][] g, Grille grille) {
 
         Tuile[][] tuiles = grille.getTuiles();
-        
+
         int l = getL();
         int c = getC();
 
-        if (l-1 >= 0) {
-            Tuile tuile = tuiles[l-1][c];
-            g[l-1][c] = tuile.verifTuileA();
+        if (l - 1 >= 0) {
+            Tuile tuile = tuiles[l - 1][c];
+            if (tuile != null) {
+                g[l - 1][c] = tuile.verifTuileA();
+            }
         }
-        
-        if (c+1 < 6) {
-            Tuile tuile = tuiles[l][c+c];
-            g[l][c+1] = tuile.verifTuileA();
+
+        if (c + 1 < 6) {
+            Tuile tuile = tuiles[l][c + c];
+            if (tuile != null) {
+                g[l][c + 1] = tuile.verifTuileA();
+            }
         }
-        
-        if (l+1 < 6) {
-            Tuile tuile = tuiles[l+1][c];
-            g[l+1][c] = tuile.verifTuileA();
+
+        if (l + 1 < 6) {
+            Tuile tuile = tuiles[l + 1][c];
+            if (tuile != null) {
+                g[l + 1][c] = tuile.verifTuileA();
+            }
         }
-        
-        if (c-1 >= 0) {
-            Tuile tuile = tuiles[l][c-1];
-            g[l][c-1] = tuile.verifTuileA();    
+
+        if (c - 1 >= 0) {
+            Tuile tuile = tuiles[l][c - 1];
+            if (tuile != null) {
+                g[l][c - 1] = tuile.verifTuileA();
+            }
         }
     }
-    
 
     public void setLigne(int l) {
         posLigne = l;
     }
-
 
     public void setColonne(int c) {
         posColonne = c;
