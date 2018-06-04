@@ -11,8 +11,8 @@ public class Controleur {
 
 	private Grille grille;
 	private Collection<Aventurier> joueurs;
-	Deck_Tresor deck_T;
-	Deck_Innondation deck_I;
+	private Deck_Tresor deck_T;
+	private Deck_Innondation deck_I;
 	private int jaugeInnondation;
 
 	/**

@@ -2,6 +2,7 @@ package forbidden_island;
 
 import Enumeration.EtatTuile;
 import static Enumeration.EtatTuile.coulée;
+import static Enumeration.EtatTuile.inondée;
 import static Enumeration.EtatTuile.sèche;
 import Enumeration.Tresor;
 import Enumeration.NomTuile;
@@ -21,6 +22,10 @@ public class Tuile {
 	public int getColonne() {
                 return colonne;
     	}
+        
+        public boolean verifTuileD() {
+            return (this != null && getEtat() != inondée);             
+	}
         
         //Vérifie que la tuile n'est pas null, pas sèche et pas coulée
 	public boolean verifTuileA() {

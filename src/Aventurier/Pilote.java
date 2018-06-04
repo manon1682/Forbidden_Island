@@ -1,8 +1,13 @@
 package Aventurier;
 
+import Enumeration.Couleur;
 import forbidden_island.Grille;
 
 public class Pilote extends Aventurier {
+
+    public Pilote(Couleur coul, String nm, int l, int c) {
+        super(coul, nm, l, c);
+    }
 
 	/**
 	 * 
