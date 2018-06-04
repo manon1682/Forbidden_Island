@@ -1,6 +1,8 @@
 package forbidden_island;
 
 import Enumeration.EtatTuile;
+import static Enumeration.EtatTuile.coulée;
+import static Enumeration.EtatTuile.sèche;
 import Enumeration.Tresor;
 import Enumeration.NomTuile;
 
@@ -12,23 +14,22 @@ public class Tuile {
 	private int ligne;
 	private int colonne;
 
-	public void getLigne() {
+	public int getLigne() {
 		return ligne;
 	}
 
-	public void getColonne() {
-		// TODO - implement Tuile.getColonne
-                
+	public int getColonne() {
+                return colonne;
     	}
-
+        
+        //Vérifie que la tuile n'est pas null, pas sèche et pas coulée
 	public boolean verifTuileA() {
-		// TODO - implement Tuile.verifTuileA
-		throw new UnsupportedOperationException();
+            return getEtat() != sèche && getEtat() != coulée;
+                    
 	}
 
 	public void asseche() {
-		// TODO - implement Tuile.asseche
-		throw new UnsupportedOperationException();
+		setEtat(sèche);
 	}
 
 	/**
@@ -39,9 +40,8 @@ public class Tuile {
 		this.etat = etat;
 	}
 
-	public void getEtat() {
-		// TODO - implement Tuile.getEtat
-		throw new UnsupportedOperationException();
+	public EtatTuile getEtat() {
+		return this.etat;
 	}
 
 }
