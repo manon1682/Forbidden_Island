@@ -34,7 +34,7 @@ public class Tuile {
         return getEtat() == coulée || getEtat() == inondée;
     }
 
-    //Vérifie que la tuile n'est pas sèche et pas coulée
+    //Vérifie que la tuile n'est pas sèche et pas coulée pour l'asséchement
     public boolean verifTuileA() {
         return getEtat() != sèche && getEtat() != coulée;
 
@@ -46,6 +46,10 @@ public class Tuile {
 
     public int getColonne() {
         return colonne;
+    }
+    
+    public Tresor getTresor() {
+        return tresor;
     }
 
     public void asseche() {

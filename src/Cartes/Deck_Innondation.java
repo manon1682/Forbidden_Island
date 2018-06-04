@@ -14,6 +14,4 @@ public class Deck_Innondation extends Deck {
         return getPioche().pop();
     }
 
-	
-
 }

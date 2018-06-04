@@ -22,5 +22,9 @@ public abstract class Deck {
     public Stack<Carte> getPioche() {
         return pioche;
     }
+    
+    public Stack<Carte> getDefausse() {
+        return defausse;
+    }
 
 }
