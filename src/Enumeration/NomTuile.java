@@ -25,4 +25,9 @@ public enum NomTuile {
     Le_Val_du_Crepuscule,
     La_Tour_du_Guet,
     Le_Jardin_des_Murmures;
+    
+    
+    public String toString() {
+        return name().toLowerCase();
+    }
 }

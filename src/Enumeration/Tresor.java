@@ -5,4 +5,8 @@ public enum Tresor {
 	Statue_du_Zéphir,
 	Cristal_Ardent,
 	Calice_de_Ordre;
+        
+        public String toString() {
+        return name().toLowerCase();
+    }
 }
