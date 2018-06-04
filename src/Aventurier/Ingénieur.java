@@ -9,8 +9,4 @@ public class Ingénieur extends Aventurier {
         super(coul, nm, l, c);
     }
 
-	public void assecherSpeciale(Grille g) {
-		super.assechementPossible(g);
-	}
-
 }

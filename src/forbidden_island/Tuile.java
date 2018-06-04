@@ -25,26 +25,26 @@ public class Tuile {
         this.setColonne(colonne);
     }
 
-    public int getLigne() {
-        return ligne;
-    }
-
-    public int getColonne() {
-        return colonne;
-    }
-
     public boolean verifTuileD() {
         return getEtat() != inondée;
     }
 
     public boolean verifTuileDPlongeur() {
-        return getEtat() != sèche;
+        return getEtat() == coulée || getEtat() == inondée;
     }
 
     //Vérifie que la tuile n'est pas sèche et pas coulée
     public boolean verifTuileA() {
         return getEtat() != sèche && getEtat() != coulée;
 
+    }
+
+    public int getLigne() {
+        return ligne;
+    }
+
+    public int getColonne() {
+        return colonne;
     }
 
     public void asseche() {

@@ -2,7 +2,7 @@ package Cartes;
 
 import Enumeration.CarteUtilisable;
 
-public class CarteTresor {
+public class CarteTresor extends Carte {
 
     private CarteUtilisable nom;
 
