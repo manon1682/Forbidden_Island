@@ -24,7 +24,7 @@ public class Utils {
         INONDEE("Inondée"),
         COULEE("Coulée");
 
-        String libelle ;
+        String libelle;
         
         EtatTuile(String libelle) {
             this.libelle = libelle ;
@@ -46,6 +46,11 @@ public class Utils {
 
         private final String libelle ;
         private final Color couleur ;
+        
+        private Pion() {
+            this.libelle = null;
+            this.couleur = null;
+        }
 
 
         Pion (String libelle, Color couleur) {
