@@ -51,19 +51,19 @@ public class Controleur {
         switch (nomTuile) {
             case "Le Temple de La Lune":
             case "Le Temple du Soleil":
-                t = Tresor.Pierre_Sacré;
+                t = Tresor.PIERRE_SACRE;
                 break;
             case "Le Jardin des Murmures":
             case "Le Jardin des Hurlements":
-                t = Tresor.Statue_du_Zéphir;
+                t = Tresor.STATUE_DU_ZEPHIR;
                 break;
             case "La Caverne du Brasier":
             case "La Caverne des Ombres":
-                t = Tresor.Cristal_Ardent;
+                t = Tresor.CRISTAL_ARDENT;
                 break;
             case "Le Palais des Marees":
             case "Le Palais de Corail":
-                t = Tresor.Calice_de_Ordre;
+                t = Tresor.CALICE_DE_ORDRE;
                 break;
             default:
                 t = null;

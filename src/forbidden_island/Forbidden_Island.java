@@ -15,18 +15,36 @@ public class Forbidden_Island {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /*Controleur c = new Controleur();
+
+//        Controleur c = new Controleur();
+//        Tuile[][] t = c.getGrille().getTuiles();
+//        for (int i = 0; i < 6; i++) {
+//            for (int j = 0; j < 6; j++) {
+//                System.out.print(t[i][j].getNom() + "  ");
+//
+////                if (t[i][j].getTresor() != null) {
+////                    System.out.println("text");
+//////                    t[i][j].getTresor().toString();
+////                }
+//
+//            }
+//            System.out.println("");
+//        }
+
+        Controleur c = new Controleur();
         Tuile[][] t = c.getGrille().getTuiles();
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
-                System.out.print(t[i][j].getNom() +"  ");
-                if(t[i][j].getTresor() != null){
-                    System.out.print(" Tr : ON");
+                System.out.print(t[i][j].getNom() + "  ");
+
+                if (t[i][j].getTresor() != null) {
+                    System.out.print( "/" + t[i][j].getTresor().toString());
                 }
                 
             }
             System.out.println("");
-        }*/
+        }
+
     }
-    
+
 }
