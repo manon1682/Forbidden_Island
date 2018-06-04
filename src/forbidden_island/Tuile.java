@@ -18,12 +18,25 @@ public class Tuile {
     public Tuile() {
     }
 
-    public Tuile(String nom, Tresor tresor, int ligne, int colonne) {
+    public Tuile(String nom, int ligne, int colonne) {
         this.setNom(nom);
         this.setEtat(etat.sèche);
         this.setLigne(ligne);
         this.setColonne(colonne);
-        this.setTresor(tresor);
+    }
+
+    public boolean verifTuileD() {
+        return getEtat() != inondée;
+    }
+
+    public boolean verifTuileDPlongeur() {
+        return getEtat() == coulée || getEtat() == inondée;
+    }
+
+    //Vérifie que la tuile n'est pas sèche et pas coulée
+    public boolean verifTuileA() {
+        return getEtat() != sèche && getEtat() != coulée;
+
     }
 
     public int getLigne() {
@@ -32,20 +45,6 @@ public class Tuile {
 
     public int getColonne() {
         return colonne;
-    }
-
-    public boolean verifTuileD() {
-        return getEtat() != inondée;
-    }
-
-    public boolean verifTuileDPlongeur() {
-        return getEtat() != sèche;
-    }
-
-    //Vérifie que la tuile n'est pas sèche et pas coulée
-    public boolean verifTuileA() {
-        return getEtat() != sèche && getEtat() != coulée;
-
     }
 
     public void asseche() {
@@ -58,6 +57,10 @@ public class Tuile {
 
     public EtatTuile getEtat() {
         return this.etat;
+    }
+    
+    public String getNom(){
+        return this.nom;
     }
 
     public void setNom(String nom) {
@@ -75,5 +78,10 @@ public class Tuile {
     public void setColonne(int colonne) {
         this.colonne = colonne;
     }
+
+    public Tresor getTresor() {
+        return tresor;
+    }
+
 
 }

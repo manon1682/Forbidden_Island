@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vues;
+package Cartes;
 
 /**
  *
- * @author blanquan
+ * @author blancoma
  */
-public class test {
+public abstract class Carte {
     
 }
