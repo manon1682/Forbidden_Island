@@ -32,10 +32,6 @@ public class Tuile {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param etat
-	 */
 	public void setEtat(EtatTuile etat) {
 		this.etat = etat;
 	}

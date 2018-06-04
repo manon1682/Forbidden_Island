@@ -1,11 +1,13 @@
 package Cartes;
 
+import Enumeration.CarteUtilisable;
+
 public class CarteTresor {
 
 	private CarteUtilisable nom;
 
-	public CarteUtilisable getNom() {
-		return nom;
+	public String getNom() {
+		return nom.toString();
 	}
 
 }

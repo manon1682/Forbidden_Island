@@ -1,6 +1,6 @@
 package forbidden_island;
 
-import Cartes.CarteUtilisable;
+import Enumeration.CarteUtilisable;
 import Cartes.Deck_Innondation;
 import Cartes.Deck_Tresor;
 import Aventurier.Aventurier;
