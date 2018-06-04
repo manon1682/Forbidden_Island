@@ -1,10 +1,14 @@
 package Enumeration;
 
 public enum Tresor {
-	Pierre_Sacré,
-	Statue_du_Zéphir,
-	Cristal_Ardent,
-	Calice_de_Ordre;
+    PIERRE_SACRE("Pierre Sacré"),
+    STATUE_DU_ZEPHIR("Statue du Zéphir"),
+    CRISTAL_ARDENT("Cristal Ardent"),
+    CALICE_DE_ORDRE("Calice de Ordre");
+//	Pierre_Sacré,
+//	Statue_du_Zéphir,
+//	Cristal_Ardent,
+//	Calice_de_Ordre;
         
         
     private String label;
@@ -13,6 +17,7 @@ public enum Tresor {
         this.label = label;
     }
         
+        @Override
         public String toString() {
         return this.label;
     }
