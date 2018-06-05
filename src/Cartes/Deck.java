@@ -10,6 +10,8 @@ public abstract class Deck {
     
 
     public Deck(){
+        pioche = new Stack<Carte>();
+        defausse = new Stack<Carte>();
     }
 
     public void setPioche(Stack<Carte> pioche) {

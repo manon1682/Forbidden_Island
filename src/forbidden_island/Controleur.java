@@ -37,8 +37,8 @@ public class Controleur implements Observateur {
     public Controleur() {
         vueA = new VueAventurier("Joueur", "Explorateur", Color.red);
         vueA.addObservateur(this);
-        initDeck();
         initPlateau();
+        initDeck();
         vueA.afficher();
     }
     
