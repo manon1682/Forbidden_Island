@@ -23,7 +23,8 @@ import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import util.Utils.Pion;
 
-public class VueAventurier extends Observe{
+
+public class VueAventurier extends Observe {
 
     private final JPanel panelBoutons;
     private final JPanel panelCentre;
@@ -95,8 +96,7 @@ public class VueAventurier extends Observe{
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message m = new Message();
-                m.type = TypesMessages.DEPLACER;
+                Message m = new Message(TypesMessages.DEPLACER);
                 notifierObservateur(m);
             }
 
@@ -157,7 +157,7 @@ public class VueAventurier extends Observe{
     }
     
     //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}
-    public void afficherTuilePossible(Boolean[][] gBool, Grille gTuile){
+    public void afficherTuilePossible(boolean[][] gBool, Grille gTuile){
         listeChoix = new JComboBox;
         for(int i = 0; i < gBool.length; i++ ){
             for(int j = 0; j < gBool[i].length; i++){
