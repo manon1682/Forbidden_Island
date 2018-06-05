@@ -43,6 +43,7 @@ public class VueAventurier extends Observe {
     private JTextField position;
     private TypesMessages sauvType;
     private Tuile tuileSelect;
+    private JLabel labelvide = new JLabel("");
     //comboBox des choix
     private JComboBox listeChoix;
     //Array List qui stock les possibilités de choix
@@ -76,9 +77,8 @@ public class VueAventurier extends Observe {
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
 
         panelCentre.add(new JLabel("Position", SwingConstants.CENTER));
-        position = new JTextField(30);
-        position.setHorizontalAlignment(CENTER);
-        panelCentre.add(position);
+        
+        panelCentre.add(labelvide);
 
         // =================================================================================
         // SUD : les boutons
@@ -145,6 +145,10 @@ public class VueAventurier extends Observe {
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message(sauvType, a);
                 m.setTuile(tuileSelect);
+                notifierObservateur(m);
+                panelCentre.remove(panelChoixetVal);
+                panelCentre.add(labelvide);
+                window.setVisible(true);
             }
         });
 
@@ -198,7 +202,7 @@ public class VueAventurier extends Observe {
         }
         
         //Affichage de la liste de choix et du bouton valider
-        panelCentre.remove(position);
+        panelCentre.remove(labelvide);
         panelChoixetVal = new JPanel(new GridLayout(1, 2));
         panelChoixetVal.add(listeChoix);
         panelChoixetVal.add(btnValider);
