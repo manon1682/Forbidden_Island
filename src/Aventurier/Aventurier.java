@@ -36,7 +36,7 @@ public abstract class Aventurier {
         mainAventurier.remove(nomCarte);
     }
 
-    public boolean[][] déplacementPossible(Grille grille) {
+    public boolean[][] deplacementPossible(Grille grille) {
         boolean[][] g = new boolean[6][6];
 
         initialisation(g);
@@ -45,7 +45,7 @@ public abstract class Aventurier {
         return g;
     }
 
-    public void déplacer(int l, int c) {
+    public void deplacer(int l, int c) {
         setLigne(l);
         setColonne(c);
     }

@@ -11,7 +11,7 @@ public class Plongeur extends Aventurier {
     }
 
     @Override
-    public boolean[][] déplacementPossible(Grille grille) {
+    public boolean[][] deplacementPossible(Grille grille) {
         boolean[][] gP = new boolean[6][6];
         boolean[][] gE = new boolean[6][6];
         
