@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -106,7 +107,9 @@ public class VueAventurier extends Observe{
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                Message m = new Message();
+                m.type = TypesMessages.ASSECHER;
+                notifierObservateur(m);
             }
 
             });
@@ -158,18 +161,19 @@ public class VueAventurier extends Observe{
     
     //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}
     public void afficherTuilePossible(Boolean[][] gBool, Grille gTuile){
-        listeChoix = new JComboBox;
+        
         for(int i = 0; i < gBool.length; i++ ){
             for(int j = 0; j < gBool[i].length; i++){
                 if(gBool[i][j]){
                     
                    
                     Tuile[][] tuiles = gTuile.getTuiles();
-                    tuiles[i][j].getNom();
+                    choixPoss.add(tuiles[i][j].getNom());
                     
                 }
             }
         }
+        listeChoix = new JComboBox((ComboBoxModel) choixPoss);
     }
 
     public static void main(String[] args) {
