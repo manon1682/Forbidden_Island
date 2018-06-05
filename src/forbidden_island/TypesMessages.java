@@ -10,5 +10,9 @@ package forbidden_island;
  * @author cabezama
  */
 public enum TypesMessages {
-    
+    DEPLACER,
+    ASSECHER,
+    DONNER_CARTE,
+    PRENDRE_TRESOR,
+    UTILISER_CARTE
 }
