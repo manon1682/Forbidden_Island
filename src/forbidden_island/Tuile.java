@@ -83,9 +83,4 @@ public class Tuile {
         this.colonne = colonne;
     }
 
-    public Tresor getTresor() {
-        return tresor;
-    }
-
-
 }

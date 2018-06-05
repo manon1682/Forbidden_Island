@@ -136,11 +136,6 @@ public class Controleur {
         } else return false;
         
     }
-    
-    public void choixJoueurPossible(Aventurier jr) {
-        // TODO - implement Controleur.choixJoueurPossible
-        throw new UnsupportedOperationException();
-    }
 
     public void getEchangePossible(Aventurier a) {
         // TODO - implement Controleur.getEchangePossible
@@ -148,8 +143,7 @@ public class Controleur {
     }
 
     public Deck getDeck_T() {
-        // TODO - implement Controleur.getDeck_T
-        throw new UnsupportedOperationException();
+        return deck_T;
     }
 
     public void assecherSpecial(Grille grille) {
