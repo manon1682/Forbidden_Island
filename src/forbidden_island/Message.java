@@ -12,5 +12,9 @@ package forbidden_island;
 public class Message {
     // Liste des types de messages
     public TypesMessages type;  // type de message
-    
+
+    public TypesMessages getType() {
+        return type;
+    }
+  
 }

@@ -1,12 +1,19 @@
 package view;
 
+import forbidden_island.Grille;
+import forbidden_island.Message;
+import forbidden_island.Observe;
+import forbidden_island.Tuile;
+import forbidden_island.TypesMessages;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,7 +23,7 @@ import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import util.Utils.Pion;
 
-public class VueAventurier {
+public class VueAventurier extends Observe{
 
     private final JPanel panelBoutons;
     private final JPanel panelCentre;
@@ -28,6 +35,12 @@ public class VueAventurier {
     private final JButton btnAutreAction;
     private final JButton btnTerminerTour;
     private JTextField position;
+    
+    //comboBox des choix
+    private JComboBox listeChoix;
+    //Array List qui stock les possibilités de choix
+    private ArrayList<String> choixPoss = new ArrayList<>();
+   
 
     public VueAventurier(String nomJoueur, String nomAventurier, Color couleur) {
 
@@ -82,7 +95,9 @@ public class VueAventurier {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                Message m = new Message();
+                m.type = TypesMessages.DEPLACER;
+                notifierObservateur(m);
             }
 
             });
@@ -139,6 +154,22 @@ public class VueAventurier {
 
     public JButton getBtnTerminerTour() {
         return btnTerminerTour;
+    }
+    
+    //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}
+    public void afficherTuilePossible(Boolean[][] gBool, Grille gTuile){
+        listeChoix = new JComboBox;
+        for(int i = 0; i < gBool.length; i++ ){
+            for(int j = 0; j < gBool[i].length; i++){
+                if(gBool[i][j]){
+                    
+                   
+                    Tuile[][] tuiles = gTuile.getTuiles();
+                    tuiles[i][j].getNom();
+                    
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {
