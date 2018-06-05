@@ -38,6 +38,7 @@ public class Controleur implements Observateur {
         vueA.addObservateur(this);
         initPlateau();
         initDeck();
+        vueA.afficher();
     }
 
     public ArrayList<String> chargerNomString() {
@@ -114,7 +115,6 @@ public class Controleur implements Observateur {
     public void initDeck() {
 
         //CarteTresor Deck deckTresor = new Deck_Tresor();
-
     }
 
     public void jouerTour(Aventurier a) {
@@ -192,52 +192,54 @@ public class Controleur implements Observateur {
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
         TypesMessages type = m.getType();
+        
+        if (m.getJoueur() != null) {
+            joueurCourant = m.getJoueur();
+        }
+        
         switch (type) {
-            
-            case DEPLACER :
+
+            case DEPLACER:
                 if (m.getTuile() == null) {
-                joueurCourant.getGrillePossibleD(g, grille);
-                vueA.afficherTuilePossible(g, getGrille());
-            } else {
-                Tuile tuile = m.getTuile();
-                int l = tuile.getLigne();
-                int c = tuile.getColonne();
-                joueurCourant.deplacer(l, c);
-            }
+                    joueurCourant.getGrillePossibleD(g, grille);
+                    vueA.afficherTuilePossible(g, getGrille());
+                    System.out.println("ok deplacer");
+                } else {
+                    Tuile tuile = m.getTuile();
+                    int l = tuile.getLigne();
+                    int c = tuile.getColonne();
+                    joueurCourant.deplacer(l, c);
+                }
                 break;
-                
-                
-            case ASSECHER :    
-                 if (m.getTuile() == null) {
-                joueurCourant.getGrillePossibleA(g, grille);
-                vueA.afficherTuilePossible(g, getGrille());
-            } else {
-                Tuile tuile = m.getTuile();
-                tuile.asseche();
-            }
-                 break;
-                
-                 
-            case DONNER_CARTE :
+
+            case ASSECHER:
+                if (m.getTuile() == null) {
+                    joueurCourant.getGrillePossibleA(g, grille);
+                    vueA.afficherTuilePossible(g, getGrille());
+                } else {
+                    Tuile tuile = m.getTuile();
+                    tuile.asseche();
+                }
+                break;
+
+            case DONNER_CARTE:
                 if (joueurCourant instanceof Messager) {
-                //vueA.afficherJoueurPossible(joueurs);
-            } else {
-                ArrayList<Aventurier> aventurier = getDonnerCartePossible(joueurCourant);
-                //vueA.afficherJoueurPossible(aventurier);
-            }
+                    //vueA.afficherJoueurPossible(joueurs);
+                } else {
+                    ArrayList<Aventurier> aventurier = getDonnerCartePossible(joueurCourant);
+                    //vueA.afficherJoueurPossible(aventurier);
+                }
                 break;
-                
-                
-            case PRENDRE_TRESOR :
+
+            case PRENDRE_TRESOR:
                 if (getTresor(joueurCourant)) {
-                nbAction = nbAction - 1;
-            }
+                    nbAction = nbAction - 1;
+                }
                 break;
-                
-                
-            case UTILISER_CARTE :
-                
-                break;  
+
+            case UTILISER_CARTE:
+
+                break;
         }
     }
 }

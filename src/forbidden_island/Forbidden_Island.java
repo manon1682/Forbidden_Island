@@ -16,7 +16,7 @@ public class Forbidden_Island {
      */
     public static void main(String[] args) {
 
-//        Controleur c = new Controleur();
+        Controleur c = new Controleur();
 //        Tuile[][] t = c.getGrille().getTuiles();
 //        for (int i = 0; i < 6; i++) {
 //            for (int j = 0; j < 6; j++) {
@@ -31,7 +31,7 @@ public class Forbidden_Island {
 //            System.out.println("");
 //        }
 
-        Controleur c = new Controleur();
+        /*        Controleur c = new Controleur();
         Tuile[][] t = c.getGrille().getTuiles();
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
@@ -45,6 +45,6 @@ public class Forbidden_Island {
             System.out.println("");
         }
 
+    }*/
     }
-
 }

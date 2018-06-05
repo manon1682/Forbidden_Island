@@ -16,11 +16,12 @@ public class Message {
     // Liste des types de messages
     private TypesMessages type;  // type de message
     private Tuile tuile;    // lorsqu'on selectionne une tuile
-    private Aventurier joueur; // si on donne une carte (à quel joueur)
+    private Aventurier joueur; // pour savoir quel joueur joue
     private CarteTresor carte; // si on donne une carte
 
-    public Message(TypesMessages t) {
+    public Message(TypesMessages t, Aventurier a) {
         type = t;
+        joueur = a;
     }
 
     public TypesMessages getType() {

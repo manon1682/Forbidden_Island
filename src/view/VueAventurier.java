@@ -1,5 +1,8 @@
 package view;
 
+import Aventurier.Aventurier;
+import Aventurier.Explorateur;
+import Enumeration.Couleur;
 import forbidden_island.Grille;
 import forbidden_island.Message;
 import forbidden_island.Observe;
@@ -44,6 +47,7 @@ public class VueAventurier extends Observe {
     private JComboBox listeChoix;
     //Array List qui stock les possibilités de choix
     private ArrayList<String> choixPoss = new ArrayList<>();
+    private Aventurier a = new Explorateur(Couleur.ROUGE, "Manon", 2, 5);;
 
     public VueAventurier(String nomJoueur, String nomAventurier, Color couleur) {
 
@@ -86,6 +90,7 @@ public class VueAventurier extends Observe {
         this.btnAssecher = new JButton("Assecher");
         this.btnAutreAction = new JButton("AutreAction");
         this.btnTerminerTour = new JButton("Terminer Tour");
+        this.btnValider = new JButton("Valider");
 
         this.panelBoutons.add(btnBouger);
 
@@ -99,7 +104,7 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.DEPLACER;
-                Message m = new Message(TypesMessages.DEPLACER);
+                Message m = new Message(TypesMessages.DEPLACER, a);
                 notifierObservateur(m);
             }
 
@@ -110,7 +115,7 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.ASSECHER;
-                Message m = new Message(TypesMessages.ASSECHER);
+                Message m = new Message(TypesMessages.ASSECHER, a);
                 notifierObservateur(m);
             }
 
@@ -138,14 +143,11 @@ public class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message m = new Message(sauvType);
+                Message m = new Message(sauvType, a);
                 m.setTuile(tuileSelect);
-                
-                
-                
             }
         });
-        
+
         this.window.setVisible(true);
     }
 
@@ -176,41 +178,34 @@ public class VueAventurier extends Observe {
     //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}
     public void afficherTuilePossible(boolean[][] gBool, Grille gTuile) {
 
-        for (int i = 0; i < gBool.length; i++) {
-            for (int j = 0; j < gBool[i].length; i++) {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
                 if (gBool[i][j]) {
-
                     Tuile[][] tuiles = gTuile.getTuiles();
                     choixPoss.add(tuiles[i][j].getNom());
-
                 }
             }
         }
-        listeChoix = new JComboBox((ComboBoxModel) choixPoss);
+        /////// ATTENTION !!!! listeChoix = new JComboBox(choixPoss);
 
         //Affichage de la liste de choix et du bouton valider
         panelCentre.remove(position);
-        btnValider = new JButton("Valider");
         panelChoixetVal = new JPanel(new GridLayout(1, 2));
         panelChoixetVal.add(listeChoix);
         panelChoixetVal.add(btnValider);
         panelCentre.add(panelChoixetVal);
-        
+
         Tuile[][] tuiles = gTuile.getTuiles();
-        for(int i = 0; i < tuiles.length; i++){
-            for(int j = 0; j < tuiles[i].length; i++){
-                if(listeChoix.getSelectedItem() == tuiles[i][j].getNom() ){
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; i++) {
+                if (listeChoix.getSelectedItem() == tuiles[i][j].getNom()) {
                     tuileSelect = tuiles[i][j];
                 }
             }
         }
     }
-    
-   
 
-    public static void main(String[] args) {
-        // Instanciation de la fenêtre 
-        VueAventurier vueAventurier = new VueAventurier("Manon", "Explorateur", Pion.ROUGE.getCouleur());
-
+     public void afficher() {
+        window.setVisible(true);
     }
 }
