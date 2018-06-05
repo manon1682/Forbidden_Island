@@ -6,7 +6,9 @@ import java.util.Stack;
 public class Deck_Innondation extends Deck {
 
     public Deck_Innondation(Stack<Carte> p, Stack<Carte> d) {
-        super(p, d);
+        super();
+        setPioche(p);
+        setDefausse(d);
     }
 
     @Override

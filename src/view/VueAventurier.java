@@ -174,7 +174,7 @@ public class VueAventurier extends Observe {
     }
 
     //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}
-    public void afficherTuilePossible(Boolean[][] gBool, Grille gTuile) {
+    public void afficherTuilePossible(boolean[][] gBool, Grille gTuile) {
 
         for (int i = 0; i < gBool.length; i++) {
             for (int j = 0; j < gBool[i].length; i++) {
