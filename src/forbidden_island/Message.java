@@ -5,16 +5,53 @@
  */
 package forbidden_island;
 
+import Aventurier.Aventurier;
+import Cartes.CarteTresor;
+
 /**
  *
  * @author cabezama
  */
 public class Message {
     // Liste des types de messages
-    public TypesMessages type;  // type de message
+    private TypesMessages type;  // type de message
+    private Tuile tuile;    // lorsqu'on selectionne une tuile
+    private Aventurier joueur; // si on donne une carte (à quel joueur)
+    private CarteTresor carte; // si on donne une carte
+
+    public Message(TypesMessages t) {
+        type = t;
+    }
 
     public TypesMessages getType() {
         return type;
     }
+
+    public Tuile getTuile() {
+        return tuile;
+    }
+
+    public Aventurier getJoueur() {
+        return joueur;
+    }
+
+    public CarteTresor getCarte() {
+        return carte;
+    }
+
+    public void setTuile(Tuile tuile) {
+        this.tuile = tuile;
+    }
+
+    public void setJoueur(Aventurier joueur) {
+        this.joueur = joueur;
+    }
+
+    public void setCarte(CarteTresor carte) {
+        this.carte = carte;
+    }
+    
+    
+    
   
 }

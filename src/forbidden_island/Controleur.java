@@ -7,6 +7,7 @@ import Aventurier.Aventurier;
 import Cartes.CarteTresor;
 import Cartes.Deck;
 import Enumeration.Tresor;
+import java.awt.Color;
 
 /*Charger fichier tuiles*/
 import java.io.BufferedReader;
@@ -27,9 +28,12 @@ public class Controleur implements Observateur {
     private Deck_Tresor deck_T;
     private Deck_Innondation deck_I;
     private int jaugeInnondation;
+    private Aventurier joueurCourant;
     private VueAventurier vueA;
 
     public Controleur() {
+        vueA = new VueAventurier("Joueur", "Explorateur", Color.red);
+        vueA.addObservateur(this);
         initPlateau();
     }
     
@@ -139,9 +143,22 @@ public class Controleur implements Observateur {
         
     }
 
-    public void getEchangePossible(Aventurier a) {
-        // TODO - implement Controleur.getEchangePossible
-        throw new UnsupportedOperationException();
+    public ArrayList<Aventurier> getDonnerCartePossible(Aventurier a) {
+        int li = a.getL();
+        int co = a.getC();     
+        
+        ArrayList<Aventurier> aventurierOK = new ArrayList<Aventurier>();
+        
+        for (Aventurier j : joueurs) {
+            int l = j.getL();
+            int c = j.getC();
+            
+            if (li == l && co == c) {
+                aventurierOK.add(j);
+            }
+        }
+        
+        return aventurierOK;
     }
 
     public Deck getDeck_T() {
@@ -159,8 +176,18 @@ public class Controleur implements Observateur {
 
     @Override
     public void traiterMessage(Message m) {
+        boolean[][] g = new boolean[6][6];
+        
         if (m.getType() == TypesMessages.DEPLACER) {
-            
+            joueurCourant.getGrillePossibleD(g, grille);
+            vueA.afficherTuilePossible(boolean [][] g, Grille grille);
+        } else if (m.getType() == TypesMessages.ASSECHER) {
+            joueurCourant.getGrillePossibleA(g, grille);
+            vueA.afficherTuilePossibleboolean [][] g, Grille grille);
+        } else if (m.getType() == TypesMessages.DONNER_CARTE) {
+            if (joueurCourant.instanceOf() == )
+            ArrayList<Aventurier> aventurier = getDonnerCartePossible(joueurCourant);
+            vueA.afficherJoueurPossible(aventurier);
         }
     }
 }

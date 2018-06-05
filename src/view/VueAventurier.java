@@ -1,5 +1,6 @@
 package view;
 
+import forbidden_island.Observe;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -16,7 +17,7 @@ import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import util.Utils.Pion;
 
-public class VueAventurier {
+public class VueAventurier extends Observe {
 
     private final JPanel panelBoutons;
     private final JPanel panelCentre;
