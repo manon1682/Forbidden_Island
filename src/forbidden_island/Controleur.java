@@ -5,6 +5,7 @@ import Cartes.Deck_Innondation;
 import Cartes.Deck_Tresor;
 import Aventurier.Aventurier;
 import Aventurier.Messager;
+import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Cartes.Deck;
 import Enumeration.Tresor;
@@ -36,12 +37,12 @@ public class Controleur implements Observateur {
     public Controleur() {
         vueA = new VueAventurier("Joueur", "Explorateur", Color.red);
         vueA.addObservateur(this);
-        initPlateau();
         initDeck();
+        initPlateau();
         vueA.afficher();
     }
-
-    public ArrayList<String> chargerNomString() {
+    
+    public ArrayList<String> chargerNomTuile() {
         File fileNomTuile = new File("src/nomTuile");
         ArrayList<String> nomTuile = new ArrayList<String>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileNomTuile))) {
@@ -85,7 +86,7 @@ public class Controleur implements Observateur {
 
     public void initPlateau() {
         Tuile[][] tuiles = new Tuile[6][6];
-        ArrayList<String> nomTuile = chargerNomString();
+        ArrayList<String> nomTuile = chargerNomTuile();
         Tuile tuile;
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
@@ -111,10 +112,10 @@ public class Controleur implements Observateur {
         }
         grille = new Grille(tuiles);
     }
-
-    public void initDeck() {
-
-        //CarteTresor Deck deckTresor = new Deck_Tresor();
+    
+    public void initDeck(){   
+        deck_T = new Deck_Tresor();
+        deck_I = new Deck_Innondation(chargerNomTuile());
     }
 
     public void jouerTour(Aventurier a) {
