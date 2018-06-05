@@ -4,6 +4,18 @@ import Enumeration.NomTuile;
 
 public class CarteInnondation extends Carte {
 
-	private NomTuile lieu;
+    private String lieu;
+
+    public CarteInnondation(String lieu) {
+        setLieu(lieu);
+    }
+
+    public String getLieu() {
+        return lieu;
+    }
+
+    public void setLieu(String lieu) {
+        this.lieu = lieu;
+    }
 
 }
