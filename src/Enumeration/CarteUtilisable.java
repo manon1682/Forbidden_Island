@@ -16,13 +16,14 @@ public enum CarteUtilisable {
     }
     
     public CarteUtilisable next(CarteUtilisable c){
+  
+        
         
         
         //on recup l'int de c;
         //on marque enum de c +1
         CarteUtilisable[] carte = CarteUtilisable.values();
         int i = 0;
-        
         //compareTO renvoie :
             //-1 si objet inf
             // 0 si objet est le même
@@ -33,10 +34,15 @@ public enum CarteUtilisable {
             //si la carte est supérieur OU la même alors on incrémente
             
         }
-        c = carte[(i == carte.length ? 0:i)]; 
-//soit 0 (hélico) soit i si la carte est pas à la fin
+        c = carte[(i == carte.length ? 0:i)]; //soit 0 (hélico) soit i si la carte est pas à la fin
         return c;
     }
+    
+    public CarteUtilisable getNext() {
+     return this.ordinal() < CarteUtilisable.values().length - 1
+         ? CarteUtilisable.values()[this.ordinal() + 1]
+         : null;
+   }
     
     
     
