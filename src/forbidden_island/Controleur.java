@@ -29,6 +29,7 @@ public class Controleur {
 
     public Controleur(){
         initPlateau();
+        initDeck();
     }
     
     public ArrayList<String> chargerNomString() {
@@ -100,6 +101,15 @@ public class Controleur {
             }
         }
         grille = new Grille(tuiles);
+    }
+    
+    public void initDeck(){
+        
+        CarteTresor
+        
+        Deck deckTresor = new Deck_Tresor();
+        
+        
     }
 
     
