@@ -46,7 +46,7 @@ public class VueAventurier extends Observe {
     //comboBox des choix
     private JComboBox listeChoix;
     //Array List qui stock les possibilités de choix
-    private ArrayList<String> choixPoss = new ArrayList<>();
+    private String[] choixPoss = new String[36];
     private Aventurier a = new Explorateur(Couleur.ROUGE, "Manon", 2, 5);;
 
     public VueAventurier(String nomJoueur, String nomAventurier, Color couleur) {
@@ -178,26 +178,36 @@ public class VueAventurier extends Observe {
     //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}
     public void afficherTuilePossible(boolean[][] gBool, Grille gTuile) {
 
+        int n = 0;
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
                 if (gBool[i][j]) {
                     Tuile[][] tuiles = gTuile.getTuiles();
-                    choixPoss.add(tuiles[i][j].getNom());
+                    choixPoss[n] = (tuiles[i][j].getNom());
+                    n = n+1;
                 }
             }
         }
-        /////// ATTENTION !!!! listeChoix = new JComboBox(choixPoss);
-
+        
+        listeChoix = new JComboBox();
+        
+        for (int i = 0; i < choixPoss.length; i++){
+            if (choixPoss[i] != null){
+                listeChoix.addItem(choixPoss[i]);
+            }
+        }
+        
         //Affichage de la liste de choix et du bouton valider
         panelCentre.remove(position);
         panelChoixetVal = new JPanel(new GridLayout(1, 2));
         panelChoixetVal.add(listeChoix);
         panelChoixetVal.add(btnValider);
         panelCentre.add(panelChoixetVal);
+        window.setVisible(true);
 
         Tuile[][] tuiles = gTuile.getTuiles();
         for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; i++) {
+            for (int j = 0; j < 6; j++) {
                 if (listeChoix.getSelectedItem() == tuiles[i][j].getNom()) {
                     tuileSelect = tuiles[i][j];
                 }

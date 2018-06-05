@@ -204,7 +204,6 @@ public class Controleur implements Observateur {
                 if (m.getTuile() == null) {
                     joueurCourant.getGrillePossibleD(g, grille);
                     vueA.afficherTuilePossible(g, getGrille());
-                    System.out.println("ok deplacer");
                 } else {
                     Tuile tuile = m.getTuile();
                     int l = tuile.getLigne();
