@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -22,7 +23,6 @@ import javax.swing.SwingConstants;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import util.Utils.Pion;
-
 
 public class VueAventurier extends Observe {
 
@@ -35,13 +35,15 @@ public class VueAventurier extends Observe {
     private final JButton btnAssecher;
     private final JButton btnAutreAction;
     private final JButton btnTerminerTour;
+    private JButton btnValider;
+    private JPanel panelChoixetVal;
     private JTextField position;
-    
+    private TypesMessages sauvType;
+    private Tuile tuileSelect;
     //comboBox des choix
     private JComboBox listeChoix;
     //Array List qui stock les possibilités de choix
     private ArrayList<String> choixPoss = new ArrayList<>();
-   
 
     public VueAventurier(String nomJoueur, String nomAventurier, Color couleur) {
 
@@ -96,21 +98,24 @@ public class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                sauvType = TypesMessages.DEPLACER;
                 Message m = new Message(TypesMessages.DEPLACER);
                 notifierObservateur(m);
             }
 
-            });
-        
+        });
+
         btnAssecher.addActionListener(
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                sauvType = TypesMessages.ASSECHER;
+                Message m = new Message(TypesMessages.ASSECHER);
+                notifierObservateur(m);
             }
 
-            });
-        
+        });
+
         btnAutreAction.addActionListener(
                 new ActionListener() {
             @Override
@@ -118,8 +123,8 @@ public class VueAventurier extends Observe {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
-            });
-        
+        });
+
         btnTerminerTour.addActionListener(
                 new ActionListener() {
             @Override
@@ -127,8 +132,20 @@ public class VueAventurier extends Observe {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
 
-            });
+        });
 
+        btnValider.addActionListener(
+                new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message(sauvType);
+                m.setTuile(tuileSelect);
+                
+                
+                
+            }
+        });
+        
         this.window.setVisible(true);
     }
 
@@ -155,22 +172,41 @@ public class VueAventurier extends Observe {
     public JButton getBtnTerminerTour() {
         return btnTerminerTour;
     }
-    
+
     //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}
-    public void afficherTuilePossible(boolean[][] gBool, Grille gTuile){
-        listeChoix = new JComboBox;
-        for(int i = 0; i < gBool.length; i++ ){
-            for(int j = 0; j < gBool[i].length; i++){
-                if(gBool[i][j]){
-                    
-                   
+    public void afficherTuilePossible(Boolean[][] gBool, Grille gTuile) {
+
+        for (int i = 0; i < gBool.length; i++) {
+            for (int j = 0; j < gBool[i].length; i++) {
+                if (gBool[i][j]) {
+
                     Tuile[][] tuiles = gTuile.getTuiles();
-                    tuiles[i][j].getNom();
-                    
+                    choixPoss.add(tuiles[i][j].getNom());
+
+                }
+            }
+        }
+        listeChoix = new JComboBox((ComboBoxModel) choixPoss);
+
+        //Affichage de la liste de choix et du bouton valider
+        panelCentre.remove(position);
+        btnValider = new JButton("Valider");
+        panelChoixetVal = new JPanel(new GridLayout(1, 2));
+        panelChoixetVal.add(listeChoix);
+        panelChoixetVal.add(btnValider);
+        panelCentre.add(panelChoixetVal);
+        
+        Tuile[][] tuiles = gTuile.getTuiles();
+        for(int i = 0; i < tuiles.length; i++){
+            for(int j = 0; j < tuiles[i].length; i++){
+                if(listeChoix.getSelectedItem() == tuiles[i][j].getNom() ){
+                    tuileSelect = tuiles[i][j];
                 }
             }
         }
     }
+    
+   
 
     public static void main(String[] args) {
         // Instanciation de la fenêtre 
