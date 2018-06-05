@@ -18,16 +18,18 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import view.VueAventurier;
 
-public class Controleur {
+public class Controleur implements Observateur {
 
     private Grille grille;
     private Collection<Aventurier> joueurs;
     private Deck_Tresor deck_T;
     private Deck_Innondation deck_I;
     private int jaugeInnondation;
+    private VueAventurier vueA;
 
-    public Controleur(){
+    public Controleur() {
         initPlateau();
     }
     
@@ -153,5 +155,12 @@ public class Controleur {
     
     public Grille getGrille(){
         return this.grille;
+    }
+
+    @Override
+    public void traiterMessage(Message m) {
+        if (m.getType() == TypesMessages.DEPLACER) {
+            
+        }
     }
 }
