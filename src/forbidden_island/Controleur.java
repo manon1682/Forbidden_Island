@@ -36,6 +36,7 @@ public class Controleur implements Observateur {
         vueA = new VueAventurier("Joueur", "Explorateur", Color.red);
         vueA.addObservateur(this);
         initPlateau();
+        initDeck();
     }
     
     public ArrayList<String> chargerNomString() {
@@ -107,6 +108,15 @@ public class Controleur implements Observateur {
             }
         }
         grille = new Grille(tuiles);
+    }
+    
+    public void initDeck(){
+        
+        CarteTresor
+        
+        Deck deckTresor = new Deck_Tresor();
+        
+        
     }
 
     
