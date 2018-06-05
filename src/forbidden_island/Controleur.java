@@ -4,6 +4,7 @@ import Enumeration.CarteUtilisable;
 import Cartes.Deck_Innondation;
 import Cartes.Deck_Tresor;
 import Aventurier.Aventurier;
+import Aventurier.Messager;
 import Cartes.CarteTresor;
 import Cartes.Deck;
 import Enumeration.Tresor;
@@ -180,12 +181,12 @@ public class Controleur implements Observateur {
         
         if (m.getType() == TypesMessages.DEPLACER) {
             joueurCourant.getGrillePossibleD(g, grille);
-            vueA.afficherTuilePossible(boolean [][] g, Grille grille);
+            vueA.afficherTuilePossible(g, getGrille());
         } else if (m.getType() == TypesMessages.ASSECHER) {
             joueurCourant.getGrillePossibleA(g, grille);
-            vueA.afficherTuilePossibleboolean [][] g, Grille grille);
+            vueA.afficherTuilePossible(g, getGrille());
         } else if (m.getType() == TypesMessages.DONNER_CARTE) {
-            if (joueurCourant.instanceOf() == )
+            if (joueurCourant instanceof Messager)
             ArrayList<Aventurier> aventurier = getDonnerCartePossible(joueurCourant);
             vueA.afficherJoueurPossible(aventurier);
         }
