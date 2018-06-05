@@ -112,9 +112,7 @@ public class Controleur implements Observateur {
     
     public void initDeck(){
         
-        CarteTresor
-        
-        Deck deckTresor = new Deck_Tresor();
+        deck_T = new Deck_Tresor();
         
         
     }
