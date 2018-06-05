@@ -32,6 +32,7 @@ public class Controleur implements Observateur {
     private int jaugeInnondation;
     private Aventurier joueurCourant;
     private VueAventurier vueA;
+    private int nbAction;
 
     public Controleur() {
         vueA = new VueAventurier("Joueur", "Explorateur", Color.red);
@@ -118,7 +119,6 @@ public class Controleur implements Observateur {
         
     }
 
-    
     public void jouerTour(Aventurier a) {
         // TODO - implement Controleur.jouerTour
         throw new UnsupportedOperationException();
@@ -128,7 +128,6 @@ public class Controleur implements Observateur {
         getDeck_T().getDefausse().add(carte);
     }
 
-
     public void asseche(Tuile tuile) {
         tuile.asseche();
     }
@@ -136,38 +135,45 @@ public class Controleur implements Observateur {
     public boolean getTresor(Aventurier a) {
         int l = a.getL();
         int c = a.getC();
-        
+
         Tuile[][] tuiles = grille.getTuiles();
-        
+
         Tresor tr = tuiles[l][c].getTresor();
-        ArrayList<CarteTresor> cartesTre = a.mainTresor(tr);
-        
-        if (cartesTre.size() >= 4){
-            for (int i = 0; i < 4; i++){
-                a.removeMainA(cartesTre.get(i));
-                this.addDefausseT(cartesTre.get(i));
+
+        if (!(a.getTresor().contains(tr))) {
+            ArrayList<CarteTresor> cartesTre = a.mainTresor(tr);
+
+            if (cartesTre.size() >= 4) {
+                for (int i = 0; i < 4; i++) {
+                    a.removeMainA(cartesTre.get(i));
+                    this.addDefausseT(cartesTre.get(i));
+                }
+                a.ajoutTresor(tr);
+                return true;
+            } else {
+                return false;
             }
-            a.ajoutTresor(tr);
-            return true;
-        } else return false;
-        
+
+        } else {
+            return false;
+        }
     }
 
     public ArrayList<Aventurier> getDonnerCartePossible(Aventurier a) {
         int li = a.getL();
-        int co = a.getC();     
-        
+        int co = a.getC();
+
         ArrayList<Aventurier> aventurierOK = new ArrayList<Aventurier>();
-        
+
         for (Aventurier j : joueurs) {
             int l = j.getL();
             int c = j.getC();
-            
+
             if (li == l && co == c) {
                 aventurierOK.add(j);
             }
         }
-        
+
         return aventurierOK;
     }
 
@@ -179,25 +185,61 @@ public class Controleur implements Observateur {
         // TODO - implement Controleur.assecherSpecial
         throw new UnsupportedOperationException();
     }
-    
-    public Grille getGrille(){
+
+    public Grille getGrille() {
         return this.grille;
     }
 
     @Override
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
-        
-        if (m.getType() == TypesMessages.DEPLACER) {
-            joueurCourant.getGrillePossibleD(g, grille);
-            vueA.afficherTuilePossible(g, getGrille());
-        } else if (m.getType() == TypesMessages.ASSECHER) {
-            joueurCourant.getGrillePossibleA(g, grille);
-            vueA.afficherTuilePossible(g, getGrille());
-        } else if (m.getType() == TypesMessages.DONNER_CARTE) {
-            if (joueurCourant instanceof Messager)
-            ArrayList<Aventurier> aventurier = getDonnerCartePossible(joueurCourant);
-            vueA.afficherJoueurPossible(aventurier);
+        TypesMessages type = m.getType();
+        switch (type) {
+            
+            case DEPLACER :
+                if (m.getTuile() == null) {
+                joueurCourant.getGrillePossibleD(g, grille);
+                vueA.afficherTuilePossible(g, getGrille());
+            } else {
+                Tuile tuile = m.getTuile();
+                int l = tuile.getLigne();
+                int c = tuile.getColonne();
+                joueurCourant.deplacer(l, c);
+            }
+                break;
+                
+                
+            case ASSECHER :    
+                 if (m.getTuile() == null) {
+                joueurCourant.getGrillePossibleA(g, grille);
+                vueA.afficherTuilePossible(g, getGrille());
+            } else {
+                Tuile tuile = m.getTuile();
+                tuile.asseche();
+            }
+                 break;
+                
+                 
+            case DONNER_CARTE :
+                if (joueurCourant instanceof Messager) {
+                //vueA.afficherJoueurPossible(joueurs);
+            } else {
+                ArrayList<Aventurier> aventurier = getDonnerCartePossible(joueurCourant);
+                //vueA.afficherJoueurPossible(aventurier);
+            }
+                break;
+                
+                
+            case PRENDRE_TRESOR :
+                if (getTresor(joueurCourant)) {
+                nbAction = nbAction - 1;
+            }
+                break;
+                
+                
+            case UTILISER_CARTE :
+                
+                break;  
         }
     }
 }

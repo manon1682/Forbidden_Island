@@ -14,5 +14,6 @@ public enum TypesMessages {
     ASSECHER,
     DONNER_CARTE,
     PRENDRE_TRESOR,
-    UTILISER_CARTE
+    UTILISER_CARTE,
+    TOUR_SUIVANT
 }

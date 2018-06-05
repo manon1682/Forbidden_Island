@@ -11,10 +11,10 @@ public class Explorateur extends Aventurier {
     }
 
     @Override
-    public boolean[][] déplacementPossible(Grille grille) {
+    public boolean[][] deplacementPossible(Grille grille) {
 
         boolean[][] g = new boolean[6][6];
-        g = super.déplacementPossible(grille);
+        g = super.deplacementPossible(grille);
 
         Tuile[][] tuiles = grille.getTuiles();
 

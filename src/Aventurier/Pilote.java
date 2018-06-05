@@ -10,7 +10,7 @@ public class Pilote extends Aventurier {
         super(coul, nm, l, c);
     }
 
-    public boolean[][] déplacementPossibleSpecial(Grille grille) {
+    public boolean[][] deplacementPossibleSpecial(Grille grille) {
         boolean[][] g = new boolean[6][6];
 
         Tuile[][] tuiles = grille.getTuiles();
