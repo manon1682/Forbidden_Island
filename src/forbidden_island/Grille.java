@@ -21,7 +21,7 @@ public class Grille {
             l = (c == 5 ? l++:l);
             c = (c == 5 ? 0:c++);
         }
-        return tuiles[l][c];
+        return (l== 6 || c == 6 ? tuiles[0][0]:tuiles[l][c]);
     }
     
     public void setTuiles(Tuile[][] tuiles) {

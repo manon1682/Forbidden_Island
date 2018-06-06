@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Utils;
 import view.VueAventurier;
+import view.VueInitialisation;
 
 public class Controleur implements Observateur {
 
@@ -37,6 +38,7 @@ public class Controleur implements Observateur {
     private int jaugeInnondation; //débute à 1 et finit 10 > tête de mort
     private Aventurier joueurCourant;
     private VueAventurier vueA;
+    private VueInitialisation vueI;
     private int nbAction;
     private boolean partiePerdue = false;
     
@@ -44,7 +46,19 @@ public class Controleur implements Observateur {
     public Controleur() {
         initPlateau();
         initDeck();
+        vueI = new VueInitialisation();
+        vueI.addObservateur(this);
+        vueI.afficher();
         //vueA.afficher();
+        
+        while(!perdrePartie()){
+            
+            jouerTour(joueurCourant);
+            joueurCourant = joueurs.get((joueurs.indexOf(joueurCourant) < joueurs.size()-1 ? joueurs.indexOf(joueurCourant) + 1 : 0 ));
+        }
+        
+        
+        
     }
 
     public ArrayList<String> chargerNomTuile() {
@@ -393,7 +407,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case NOUVELLE_PARTIE:
                 initJoueur(m.getNbJoueur(), m.getNom());
+                vueI.getWindow().setVisible(false);
                 vueA = new VueAventurier(joueurCourant.getPseudo(),joueurCourant.getRole(), joueurCourant.getCouleur().getCouleur());
+                vueA.addObservateur(this);
                 vueA.afficher();
                 break;
 
