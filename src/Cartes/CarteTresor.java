@@ -15,6 +15,11 @@ public class CarteTresor extends Carte {
     public String getNom() {
         return nom.toString();
     }
+    
+    public CarteUtilisable utilisation() {
+        return nom;
+    }
+    
 
     public void setNom(CarteUtilisable nom) {
         this.nom = nom;
