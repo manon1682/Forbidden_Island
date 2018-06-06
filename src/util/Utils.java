@@ -40,8 +40,8 @@ public class Utils {
         ROUGE("Rouge", new Color(255, 0, 0)),
         VERT("Vert", new Color(0, 195, 0)),
         BLEU("Bleu", new Color(55,194,198)),
-        ORANGE("Orange", new Color(255, 148, 0)),
-        VIOLET("Violet", new Color(204, 94, 255)),
+        BLANC("Blanc", new Color(210, 210, 210)),
+        NOIR("Noir", new Color(50, 50, 50)),
         JAUNE("Jaune", new Color(255, 255, 0)) ;    
 
         private final String libelle ;
@@ -71,8 +71,8 @@ public class Utils {
             if (ROUGE.name().equals(name)) return ROUGE ;
             if (VERT.name().equals(name)) return VERT ;
             if (BLEU.name().equals(name)) return BLEU ;
-            if (ORANGE.name().equals(name)) return ORANGE ;
-            if (VIOLET.name().equals(name)) return VIOLET ;
+            if (NOIR.name().equals(name)) return NOIR ;
+            if (BLANC.name().equals(name)) return BLANC ;
             if (JAUNE.name().equals(name)) return JAUNE ;
             return null ;
         }

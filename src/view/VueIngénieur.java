@@ -15,9 +15,8 @@ import java.awt.Color;
  */
 public class VueIngénieur extends VueAventurier {
     
-    public VueIngénieur(String nomJoueur, String nomAventurier, Color couleur) {
-        super(nomJoueur, nomAventurier, couleur);
-        a = new Ingénieur(Couleur.ROUGE, "Ingénieur", 0, 3);
+    public VueIngénieur(String nomJoueur) {
+        super(nomJoueur, "Ingénieur", Color.RED);
     }
     
 }

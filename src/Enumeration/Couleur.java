@@ -4,8 +4,7 @@ public enum Couleur {
 	ROUGE,
 	VERT,
 	BLEU,
-	ORANGE,
-	VIOLET,
 	JAUNE,
-        NOIR;
+        NOIR,
+        BLANC;
 }

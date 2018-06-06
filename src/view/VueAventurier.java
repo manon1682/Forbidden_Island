@@ -194,6 +194,10 @@ public abstract class VueAventurier extends Observe {
         return btnTerminerTour;
     }
 
+    public void setA(Aventurier a) {
+        this.a = a;
+    }
+
     //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}
     public void afficherTuilePossible(boolean[][] gBool, Grille gTuile) {
 

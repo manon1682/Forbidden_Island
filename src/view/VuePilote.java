@@ -5,7 +5,7 @@
  */
 package view;
 
-import Aventurier.Plongeur;
+import Aventurier.Pilote;
 import Enumeration.Couleur;
 import java.awt.Color;
 
@@ -13,10 +13,10 @@ import java.awt.Color;
  *
  * @author blancoma
  */
-public class VuePlongeur extends VueAventurier {
+public class VuePilote extends VueAventurier {
     
-    public VuePlongeur(String nomJoueur) {
-        super(nomJoueur,"Plongeur", Color.BLACK);
+    public VuePilote(String nomJoueur) {
+        super(nomJoueur, "Pilote", Color.BLUE);
     }
     
 }

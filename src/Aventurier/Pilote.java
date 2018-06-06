@@ -6,8 +6,8 @@ import forbidden_island.Tuile;
 
 public class Pilote extends Aventurier {
 
-    public Pilote(Couleur coul, String nm, int l, int c) {
-        super(coul, nm, l, c);
+    public Pilote(String nm, int l, int c) {
+        super(Couleur.BLEU, nm, l, c);
     }
 
     public boolean[][] deplacementPossibleSpecial(Grille grille) {

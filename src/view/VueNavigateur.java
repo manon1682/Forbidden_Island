@@ -5,18 +5,16 @@
  */
 package view;
 
-import Aventurier.Plongeur;
-import Enumeration.Couleur;
 import java.awt.Color;
 
 /**
  *
  * @author blancoma
  */
-public class VuePlongeur extends VueAventurier {
+public class VueNavigateur extends VueAventurier {
     
-    public VuePlongeur(String nomJoueur) {
-        super(nomJoueur,"Plongeur", Color.BLACK);
+    public VueNavigateur(String nomJoueur) {
+        super(nomJoueur,"Navigateur", Color.WHITE);
     }
     
 }

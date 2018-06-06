@@ -16,9 +16,8 @@ import java.awt.Color;
  */
 public class VueExplorateur extends VueAventurier {
     
-    public VueExplorateur(String nomJoueur, String nomAventurier, Color couleur) {
-        super(nomJoueur, nomAventurier, couleur);
-        a = new Explorateur(Couleur.VERT, "Explorateur", 2, 4);
+    public VueExplorateur(String nomJoueur) {
+        super(nomJoueur, "Explorateur", Color.GREEN);
     }
     
 }

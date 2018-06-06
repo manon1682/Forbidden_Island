@@ -4,7 +4,7 @@ import Enumeration.Couleur;
 
 public class Navigateur extends Aventurier {
 
-    public Navigateur(Couleur coul, String nm, int l, int c) {
-        super(coul, nm, l, c);
+    public Navigateur( String nm, int l, int c) {
+        super(Couleur.JAUNE, nm, l, c);
     }
 }

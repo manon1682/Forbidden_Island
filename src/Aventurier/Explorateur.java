@@ -6,8 +6,8 @@ import forbidden_island.Tuile;
 
 public class Explorateur extends Aventurier {
 
-    public Explorateur(Couleur coul, String nm, int l, int c) {
-        super(coul, nm, l, c);
+    public Explorateur(String nm, int l, int c) {
+        super(Couleur.ROUGE, nm, l, c);
     }
 
     @Override

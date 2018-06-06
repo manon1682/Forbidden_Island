@@ -3,7 +3,9 @@ package forbidden_island;
 import Enumeration.CarteUtilisable;
 import Cartes.Deck_Innondation;
 import Cartes.Deck_Tresor;
-import Aventurier.Aventurier;
+import Aventurier.*;
+import Aventurier.Explorateur;
+import Aventurier.Ingénieur;
 import Aventurier.Messager;
 import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
@@ -23,6 +25,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.VueAventurier;
 import view.VueExplorateur;
+import view.VueIngénieur;
+import view.VueMessager;
+import view.VueNavigateur;
+import view.VuePilote;
+import view.VuePlongeur;
 
 public class Controleur implements Observateur {
 
@@ -32,17 +39,17 @@ public class Controleur implements Observateur {
     private Deck_Innondation deck_I;
     private int jaugeInnondation;
     private Aventurier joueurCourant;
-    private VueAventurier vueA;
+    private Collection<VueAventurier> vueA;
     private int nbAction;
 
     public Controleur() {
-        vueA = new VueExplorateur("Joueur", "Explorateur", Color.red);
-        vueA.addObservateur(this);
+        //vueA = new VueExplorateur("Joueur", "Explorateur", Color.red);
+        //vueA.addObservateur(this);
         initPlateau();
         initDeck();
-        vueA.afficher();
+        //vueA.afficher();
     }
-    
+
     public ArrayList<String> chargerNomTuile() {
         File fileNomTuile = new File("src/nomTuile");
         ArrayList<String> nomTuile = new ArrayList<String>();
@@ -113,10 +120,51 @@ public class Controleur implements Observateur {
         }
         grille = new Grille(tuiles);
     }
-    
-    public void initDeck(){   
+
+    public void initDeck() {
         deck_T = new Deck_Tresor();
         deck_I = new Deck_Innondation(chargerNomTuile());
+    }
+
+    public void initJoueur() {
+        VueExplorateur vueE = new VueExplorateur("Joueur 1");
+        Explorateur exp = new Explorateur("Joueur 1", nbAction, nbAction);
+        vueE.setA(exp);
+
+        VueIngénieur vueI = new VueIngénieur("Joueur 2");
+        Ingénieur in = new Ingénieur("Joueur 2", nbAction, nbAction);
+        vueI.setA(in);
+
+        VuePilote vuePi = new VuePilote("Joueur 3");
+        Pilote pi = new Pilote("Joueur 3", nbAction, nbAction);
+        vuePi.setA(pi);
+
+        VuePlongeur vuePl = new VuePlongeur("Joueur 4");
+        Plongeur pl = new Plongeur("Joueur 4", nbAction, nbAction);
+        vuePl.setA(pl);
+
+        VueMessager vueM = new VueMessager("Joueur 5");
+        Messager me = new Messager("Joueur 5", nbAction, nbAction);
+        vueM.setA(me);
+
+        VueNavigateur vueN = new VueNavigateur("Joueur 6");
+        Navigateur na = new Navigateur("Joueur 6", nbAction, nbAction);
+        vueN.setA(na);
+
+        vueA.add(vueE);
+        vueA.add(vueI);
+        vueA.add(vuePi);
+        vueA.add(vuePl);
+        vueA.add(vueM);
+        vueA.add(vueN);
+        
+        joueurs.add(exp);
+        joueurs.add(in);
+        joueurs.add(pi);
+        joueurs.add(pl);
+        joueurs.add(me);
+        joueurs.add(na);
+                
     }
 
     public void jouerTour(Aventurier a) {
@@ -194,11 +242,11 @@ public class Controleur implements Observateur {
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
         TypesMessages type = m.getType();
-        
+
         if (m.getJoueur() != null) {
             joueurCourant = m.getJoueur();
         }
-        
+
         switch (type) {
 
             case DEPLACER:
@@ -241,9 +289,9 @@ public class Controleur implements Observateur {
             case UTILISER_CARTE:
 
                 break;
-                
-            case TOUR_SUIVANT :
-                
+
+            case TOUR_SUIVANT:
+
                 break;
         }
     }

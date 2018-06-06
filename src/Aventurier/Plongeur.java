@@ -6,8 +6,8 @@ import forbidden_island.Tuile;
 
 public class Plongeur extends Aventurier {
 
-    public Plongeur(Couleur coul, String nm, int l, int c) {
-        super(coul, nm, l, c);
+    public Plongeur(String nm, int l, int c) {
+        super(Couleur.NOIR, nm, l, c);
     }
 
     @Override
