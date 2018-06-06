@@ -121,8 +121,7 @@ public class Controleur implements Observateur {
     }
 
     public void jouerTour(Aventurier a) {
-        vueA = new VueAventurier(a.getPseudo(),"", a.getCouleur());
-        vueA.addObservateur(this);
+        
         
         
         
