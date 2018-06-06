@@ -534,11 +534,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 } else {
                     joueurCourant = joueurs.get(0);
                 }
-
-               /* vueA.setNomJoueur(joueurCourant.getPseudo());
-                vueA.setNomAventurier(joueurCourant.getRole());
-                vueA.setCouleur(joueurCourant.getPion().getCouleur());
-                vueA.setAventurier(joueurCourant); */
                 
                 vueA = new VueAventurier(joueurCourant, grille);
                 vueA.addObservateur(this);
