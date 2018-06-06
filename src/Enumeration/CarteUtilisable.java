@@ -15,6 +15,9 @@ public enum CarteUtilisable {
         return name().toLowerCase();
     }
     
+    
+    //methodes next et getNext n'ont pas été utiles pour le moment, à supprimer à la fin.
+    
     public CarteUtilisable next(CarteUtilisable c){
   
         
