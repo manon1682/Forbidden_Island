@@ -35,7 +35,6 @@ public class Grille {
                 c++;
             }
         }
-        System.out.println("Ligne : " + l + " Colonne : " + c);
         return tuiles[l][c];
 
     }

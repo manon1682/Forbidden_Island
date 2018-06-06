@@ -25,7 +25,7 @@ public class Tuile {
     }
 
     public boolean verifTuileD() {
-        return getEtat() != inondée;
+        return getEtat() != coulée;
     }
 
     public boolean verifTuileDPlongeur() {
