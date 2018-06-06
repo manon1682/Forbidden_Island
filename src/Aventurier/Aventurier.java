@@ -198,12 +198,21 @@ public abstract class Aventurier {
     }
     
     public String getRole(){
-        switch(instantOf){
-            case Ingenieur :
-                break;
+        String role;
+        if(this instanceof Ingénieur){
+            role = "Ingénieur";
+        } else if(this instanceof Messager){
+            role = "Messager";
+        } else if(this instanceof Pilote){
+            role = "Pilote";
+        } else if(this instanceof Navigateur){
+            role = "Navigateur";
+        } else if(this instanceof Plongeur){
+            role = "Plongeur";
+        } else {
+            role = "Explorateur";
         }
-        
-        return "";
+        return role;
     }
 }
 
