@@ -477,7 +477,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case ASSECHER:
                 if (m.getTuile() == null) {
-                    joueurCourant.getGrillePossibleA(g, grille);
+                    g = joueurCourant.assechementPossible(grille);
                     vueA.afficherTuilePossible(g, getGrille());
                 } else {
                     String nom = m.getTuile();
