@@ -276,4 +276,9 @@ public class VueAventurier extends Observe {
         panelAventurier.setBackground(couleur);
         this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
     }
+    
+    public void setAventurier(Aventurier a){
+        this.a = a;
+    }
+    
 }
