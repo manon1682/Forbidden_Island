@@ -27,7 +27,7 @@ import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import util.Utils.Pion;
 
-public abstract class VueAventurier extends Observe {
+public class VueAventurier extends Observe {
 
     private final JPanel panelBoutons;
     private final JPanel panelCentre;

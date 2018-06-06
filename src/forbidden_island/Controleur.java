@@ -34,12 +34,12 @@ import view.VuePlongeur;
 public class Controleur implements Observateur {
 
     private Grille grille;
-    private Collection<Aventurier> joueurs;
+    private ArrayList<Aventurier> joueurs = new ArrayList<Aventurier>();
     private Deck_Tresor deck_T;
     private Deck_Innondation deck_I;
     private int jaugeInnondation;
     private Aventurier joueurCourant;
-    private Collection<VueAventurier> vueA;
+    private VueAventurier vueA;
     private int nbAction;
 
     public Controleur() {
@@ -126,53 +126,66 @@ public class Controleur implements Observateur {
         deck_I = new Deck_Innondation(chargerNomTuile());
     }
 
-    public void initJoueur() {
-        VueExplorateur vueE = new VueExplorateur("Joueur 1");
-        Explorateur exp = new Explorateur("Joueur 1", nbAction, nbAction);
-        vueE.setA(exp);
+    public void initJoueur(int n, ArrayList<String> nom) {
 
-        VueIngénieur vueI = new VueIngénieur("Joueur 2");
-        Ingénieur in = new Ingénieur("Joueur 2", nbAction, nbAction);
-        vueI.setA(in);
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("Explorateur");
+        roles.add("Ingénieur");
+        roles.add("Pilote");
+        roles.add("Plongeur");
+        roles.add("Messager");
+        roles.add("Navigateur");
 
-        VuePilote vuePi = new VuePilote("Joueur 3");
-        Pilote pi = new Pilote("Joueur 3", nbAction, nbAction);
-        vuePi.setA(pi);
+        for (int i = 0; i < n; i++) {
+            int rand = ThreadLocalRandom.current().nextInt(0, roles.size());
+            Tuile t;
 
-        VuePlongeur vuePl = new VuePlongeur("Joueur 4");
-        Plongeur pl = new Plongeur("Joueur 4", nbAction, nbAction);
-        vuePl.setA(pl);
+            switch (roles.get(rand)) {
+                case "Explorateur":
+                    t = grille.getTuileAvecNom("La Porte de Cuivre");
+                    joueurs.add(new Explorateur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
 
-        VueMessager vueM = new VueMessager("Joueur 5");
-        Messager me = new Messager("Joueur 5", nbAction, nbAction);
-        vueM.setA(me);
+                case "Ingénieur":
+                    t = grille.getTuileAvecNom("La Porte de Bronze");
+                    joueurs.add(new Ingénieur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
 
-        VueNavigateur vueN = new VueNavigateur("Joueur 6");
-        Navigateur na = new Navigateur("Joueur 6", nbAction, nbAction);
-        vueN.setA(na);
+                case "Pilote":
+                    t = grille.getTuileAvecNom("Heliport");
+                    joueurs.add(new Pilote(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
 
-        vueA.add(vueE);
-        vueA.add(vueI);
-        vueA.add(vuePi);
-        vueA.add(vuePl);
-        vueA.add(vueM);
-        vueA.add(vueN);
+                case "Messager":
+                    t = grille.getTuileAvecNom("La Porte d’Argent");
+                    joueurs.add(new Messager(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Navigateur":
+                    t = grille.getTuileAvecNom("La Porte d’Or");
+                    joueurs.add(new Navigateur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Plongeur":
+                    t = grille.getTuileAvecNom("La Porte de Fer");
+                    joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+            }
+            roles.remove(rand);
+        }
         
-        joueurs.add(exp);
-        joueurs.add(in);
-        joueurs.add(pi);
-        joueurs.add(pl);
-        joueurs.add(me);
-        joueurs.add(na);
-                
+        joueurCourant = joueurs.get(0);
+
     }
 
     public void jouerTour(Aventurier a) {
-        
-        
-        
-        
-        
+
     }
 
     public void addDefausseT(CarteTresor carte) {
@@ -240,30 +253,31 @@ public class Controleur implements Observateur {
     public Grille getGrille() {
         return this.grille;
     }
-    
+
     // Antoine note : à coder après perdrePartie(); après check pour jaugeInnondation
-    public boolean gagnerPartie(){
+    public boolean gagnerPartie() {
         return false;
     }
-    
-    public boolean perdrePartie(){
-    /*
+
+    public boolean perdrePartie() {
+        /*
         
         
-        */
-        
-        
-    if grille.getTuileAvecNom(nomTuile)
+         */
+
+        if grille.getTuileAvecNom(nomTuile)
         
         
                 
         
         
         
-        return false;        
+        
+            
+            
+            
+            return false;
     }
-    
-    
 
     @Override
     public void traiterMessage(Message m) {
