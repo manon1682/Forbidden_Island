@@ -38,7 +38,9 @@ public class Controleur implements Observateur {
     private Aventurier joueurCourant;
     private VueAventurier vueA;
     private int nbAction;
-
+    private boolean partiePerdue = false;
+    
+    
     public Controleur() {
         initPlateau();
         initDeck();
@@ -265,7 +267,19 @@ public class Controleur implements Observateur {
 
     // Antoine note : à coder après perdrePartie(); après check pour jaugeInnondation
     public boolean gagnerPartie() {
-        return false;
+        /*
+        Une fois que vous avez récupéré les quatre 
+trésors, chacun doit déplacer son pion jusqu’à la tuile « l’héliport ». 
+Ensuite, l’un des joueurs doit défausser une carte Hélicoptère pour 
+que votre équipe décolle de l’Île Interdite et gagne !
+NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
+
+        */
+        //si la liste des tresorsObtenus des aventurier est complète
+        
+        Aventurier.getTresorsObtenus().size() = 3;
+        
+        
     }
 
     public boolean perdrePartie() {
@@ -309,9 +323,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //et qu’il n’y a pas de tuile adjacente où nager ;
         //PLONGEUR & HELICO DIFF 
     
-//        for (int i = 0; i < n; i++) {
-//            
-//        }
+        
+        if (partiePerdue){ //modifié dans la méthode revive
+            return true;
+        }
     
         
 
