@@ -27,7 +27,7 @@ import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import util.Utils.Pion;
 
-public class VueAventurier extends Observe {
+public abstract class VueAventurier extends Observe {
 
     private final JPanel panelBoutons;
     private final JPanel panelCentre;
@@ -48,9 +48,12 @@ public class VueAventurier extends Observe {
     private JComboBox listeChoix;
     //Array List qui stock les possibilités de choix
     private String[] choixPoss = new String[36];
+    protected Aventurier a;
+
     // boolean test premier ou  second clic
     private boolean clic;
-    private Aventurier a = new Explorateur(Couleur.ROUGE, "Manon", 2, 5);
+   // private Aventurier a = new Explorateur(Couleur.ROUGE, "Manon", 2, 5);
+
 
     public VueAventurier(String nomJoueur, String nomAventurier, Color couleur) {
 

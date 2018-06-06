@@ -22,6 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.VueAventurier;
+import view.VueExplorateur;
 
 public class Controleur implements Observateur {
 
@@ -35,7 +36,7 @@ public class Controleur implements Observateur {
     private int nbAction;
 
     public Controleur() {
-        vueA = new VueAventurier("Joueur", "Explorateur", Color.red);
+        vueA = new VueExplorateur("Joueur", "Explorateur", Color.red);
         vueA.addObservateur(this);
         initPlateau();
         initDeck();
@@ -239,6 +240,10 @@ public class Controleur implements Observateur {
 
             case UTILISER_CARTE:
 
+                break;
+                
+            case TOUR_SUIVANT :
+                
                 break;
         }
     }
