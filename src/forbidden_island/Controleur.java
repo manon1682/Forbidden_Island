@@ -41,6 +41,20 @@ public class Controleur implements Observateur {
 
     public Controleur() {
         initPlateau();
+        Tuile[][] ts = grille.getTuiles();
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                if(ts[i][j] != null){
+                    System.out.print("Nom :" + ts[i][j].getNom() + " Etat :" + ts[i][j].getEtat() + "|");
+                } else {
+                    System.out.print("|          X           |");
+                }
+            }
+            System.out.println("");
+        }
+        
+        
+        
         initDeck();
         vueI = new VueInitialisation();
         vueI.addObservateur(this);
