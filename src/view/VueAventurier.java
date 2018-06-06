@@ -245,7 +245,7 @@ public class VueAventurier extends Observe {
 
         listeChoix = new JComboBox();
 
-        for (int i = 0; i < choixPoss.length; i++) {
+        for (int i = 0; i < n; i++) {
             if (choixPoss[i] != null) {
                 listeChoix.addItem(choixPoss[i]);
             }

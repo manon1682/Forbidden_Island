@@ -153,8 +153,8 @@ public class Controleur implements Observateur {
                     Tresor t = assigneTresorTuile(nomTuile.get(rand));
                     if (t != null) {
                         tuile.setTresor(t);
-                        tuile.setEtat(etatTuileDemo(tuile)); //Juste pour la demo
                     }
+                    tuile.setEtat(etatTuileDemo(tuile)); //Juste pour la demo
                     tuiles[l][c] = tuile;
                     nomTuile.remove(rand);
                 }
@@ -472,7 +472,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case ASSECHER:
                 if (m.getTuile() == null) {
-                    joueurCourant.getGrillePossibleA(g, grille);
+                    g = joueurCourant.assechementPossible(grille);
                     vueA.afficherTuilePossible(g, getGrille());
                 } else {
                     String nom = m.getTuile();
