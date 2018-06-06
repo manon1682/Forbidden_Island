@@ -472,7 +472,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case DEPLACER:
                 if (m.getTuile() == null) {
-                    joueurCourant.getGrillePossibleD(g, grille);
+                    g = joueurCourant.deplacementPossible(grille);
                     vueA.afficherTuilePossible(g, getGrille());
                 } else {
                     String nom = m.getTuile();
