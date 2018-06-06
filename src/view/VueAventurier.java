@@ -99,9 +99,16 @@ public class VueAventurier extends Observe {
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.DEPLACER;
                 Message m = new Message(TypesMessages.DEPLACER, a);
+                if (!(btnAssecher.isEnabled())) {
+                    btnAssecher.setEnabled(true);
+                    panelCentre.remove(panelChoixetVal);
+                    panelCentre.add(labelvide);
+                    panelCentre.updateUI();
+                }
                 notifierObservateur(m);
                 btnBouger.setEnabled(false);
-
+                
+                
             }
 
         });
@@ -112,8 +119,17 @@ public class VueAventurier extends Observe {
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.ASSECHER;
                 Message m = new Message(TypesMessages.ASSECHER, a);
+                if (!(btnBouger.isEnabled())) {
+                    btnBouger.setEnabled(true);
+                    panelCentre.remove(panelChoixetVal);
+                    panelCentre.add(labelvide);
+                    panelCentre.updateUI();
+                }
                 notifierObservateur(m);
                 btnAssecher.setEnabled(false);
+                
+                
+                
 
             }
 
@@ -146,13 +162,13 @@ public class VueAventurier extends Observe {
                 Message m = new Message(sauvType, a);
                 m.setTuile(tuileSelect);
                 notifierObservateur(m);
-                
+
                 panelCentre.remove(panelChoixetVal);
                 panelCentre.add(labelvide);
                 panelCentre.updateUI();
-                
+
                 window.setVisible(true);
-                
+
                 btnAssecher.setEnabled(true);
                 btnBouger.setEnabled(true);
             }
@@ -222,8 +238,10 @@ public class VueAventurier extends Observe {
         Tuile[][] tuiles = gTuile.getTuiles();
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
-                if (listeChoix.getSelectedItem() == tuiles[i][j].getNom()) {
-                    tuileSelect = tuiles[i][j];
+                if (gBool[i][j]) {
+                    if (listeChoix.getSelectedItem() == tuiles[i][j].getNom()) {
+                        tuileSelect = tuiles[i][j];
+                    }
                 }
             }
         }
