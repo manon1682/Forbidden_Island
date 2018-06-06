@@ -119,13 +119,16 @@ public class VueAventurier extends Observe {
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.DEPLACER;
                 Message m = new Message(TypesMessages.DEPLACER, a);
+
                 if (!(btnAssecher.isEnabled())) {
                     btnAssecher.setEnabled(true);
                     panelCentre.remove(panelChoixetVal);
                     panelCentre.add(labelvide);
                     panelCentre.updateUI();
                 }
+
                 notifierObservateur(m);
+
                 btnBouger.setEnabled(false);
 
             }
@@ -138,12 +141,14 @@ public class VueAventurier extends Observe {
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.ASSECHER;
                 Message m = new Message(TypesMessages.ASSECHER, a);
+
                 if (!(btnBouger.isEnabled())) {
                     btnBouger.setEnabled(true);
                     panelCentre.remove(panelChoixetVal);
                     panelCentre.add(labelvide);
                     panelCentre.updateUI();
                 }
+
                 notifierObservateur(m);
                 btnAssecher.setEnabled(false);
 
@@ -270,4 +275,24 @@ public class VueAventurier extends Observe {
     public void desafficher() {
         window.setVisible(false);
     }
+
+    public void setNomJoueur(String nom) {
+        window.setTitle(nom);
+    }
+
+    public void setNomAventurier(String nom) {
+        panelAventurier.remove(0);
+        panelAventurier.add(new JLabel(nom, SwingConstants.CENTER));
+    }
+
+    public void setCouleur(Color couleur) {
+        mainPanel.setBorder(BorderFactory.createLineBorder(couleur, 2));
+        panelAventurier.setBackground(couleur);
+        this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+    }
+    
+    public void setAventurier(Aventurier a){
+        this.a = a;
+    }
+    
 }

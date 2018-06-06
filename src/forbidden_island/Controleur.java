@@ -12,7 +12,6 @@ import Cartes.Deck;
 import Enumeration.CarteUtilisable;
 import Enumeration.EtatTuile;
 import Enumeration.Tresor;
-import java.awt.Color;
 
 /*Charger fichier tuiles*/
 import java.io.BufferedReader;
@@ -39,8 +38,7 @@ public class Controleur implements Observateur {
     private VueInitialisation vueI;
     private int nbAction;
     private boolean partiePerdue = false;
-    
-    
+
     public Controleur() {
         initPlateau();
         initDeck();
@@ -48,14 +46,25 @@ public class Controleur implements Observateur {
         vueI.addObservateur(this);
         vueI.afficher();
         
- /*       while(!perdrePartie()){
+        /*      while(!perdrePartie()){
             
             jouerTour(joueurCourant);
-            joueurCourant = joueurs.get((joueurs.indexOf(joueurCourant) < joueurs.size()-1 ? joueurs.indexOf(joueurCourant) + 1 : 0 ));
+            vueA.desafficher();
+                
+                int n = joueurs.indexOf(joueurCourant);
+                if (n < joueurs.size()-1) {
+                    joueurCourant = joueurs.get(n+1);
+                } else {
+                    joueurCourant = joueurs.get(0);
+                }
+                
+                vueA.setNomJoueur(joueurCourant.getPseudo());
+                vueA.setNomAventurier(joueurCourant.getRole());
+                vueA.setCouleur(joueurCourant.getPion().getCouleur());
+                vueA.setAventurier(joueurCourant);
+                vueA.afficher();
+          
         }*/
-        
-        
-        
     }
 
     public ArrayList<String> chargerNomTuile() {
@@ -145,7 +154,7 @@ public class Controleur implements Observateur {
         roles.add("Navigateur");
 
         for (int i = 0; i < n; i++) {
-            
+
             int rand = ThreadLocalRandom.current().nextInt(0, roles.size());
             Tuile t;
 
@@ -188,7 +197,7 @@ public class Controleur implements Observateur {
     }
 
     public void jouerTour(Aventurier a) {
-
+        
     }
 
     public void addDefausseT(CarteTresor carte) {
@@ -256,20 +265,21 @@ public class Controleur implements Observateur {
     public Grille getGrille() {
         return this.grille;
     }
-    
+
     public int niveauInnondation() {
-        
-    if (jaugeInnondation>=1 && jaugeInnondation <3) {
-        return 2;
-    } else if (jaugeInnondation>=3 && jaugeInnondation <6) {
-        return 3;
-    } else if (jaugeInnondation>=6 && jaugeInnondation <8) {
-        return 4;
-    } else if (jaugeInnondation>=8 && jaugeInnondation <10) {
-        return 5;
-    } else
-        return 6; // tête de mort
-    }   
+
+        if (jaugeInnondation >= 1 && jaugeInnondation < 3) {
+            return 2;
+        } else if (jaugeInnondation >= 3 && jaugeInnondation < 6) {
+            return 3;
+        } else if (jaugeInnondation >= 6 && jaugeInnondation < 8) {
+            return 4;
+        } else if (jaugeInnondation >= 8 && jaugeInnondation < 10) {
+            return 5;
+        } else {
+            return 6; // tête de mort
+        }
+    }
 
     // Antoine note : à coder après perdrePartie(); après check pour jaugeInnondation
     public boolean gagnerPartie() {
@@ -280,124 +290,129 @@ Ensuite, l’un des joueurs doit défausser une carte Hélicoptère pour
 que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN ROLE PILOTE
         NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
         contre NB : Ahah, si héliport est innondée alors la partie est déjà terminé (en théorie... cf PerdrePartie();
-        */
+         */
 
-        
         //1.si tous les joueurs sont présent sur la case héliport
         Tuile tuileHelico = grille.getTuileAvecNom("Heliport");
-        
+
         boolean joueursPresentsHeliport = true;
+        while (nbAction != 0) {
+            
+        }
         for (Aventurier j : joueurs) {
-            if ( j.getL() != tuileHelico.getLigne() || j.getC() != tuileHelico.getColonne() ) {
-            joueursPresentsHeliport = false;    
+            if (j.getL() != tuileHelico.getLigne() || j.getC() != tuileHelico.getColonne()) {
+                joueursPresentsHeliport = false;
             } //joueursPresentsHeliport n'est jamais mis à false si tous les joueurs sont présent dans la case.
         }
-        
+
         //2. si la liste des tresorsObtenus des aventurier est complète
-         boolean listeTresorComplete = false;
-        if (Aventurier.getTresorsObtenus().size() == 3){
-          listeTresorComplete = true; 
+        boolean listeTresorComplete = false;
+        if (Aventurier.getTresorsObtenus().size() == 3) {
+            listeTresorComplete = true;
         }
-        
+
         //3. si y'a un role hélico, alors c'est good, sinon check si il y a une carte hélico
         boolean pilotePresent = false;
         for (Aventurier j : joueurs) {
-            if ( j.getRole() == "Pilote" ) {
-            pilotePresent = true;    
+            if (j.getRole() == "Pilote") {
+                pilotePresent = true;
             } //pilotePresent n'est jamais mis à true si parmi tous les joueurs il y a aucun pilote. 
         }
-        
-        boolean carteHelicoPresente = false; 
+
+        boolean carteHelicoPresente = false;
         for (Aventurier j : joueurs) {
             for (CarteTresor cT : j.getMainA()) {
-                if ( cT.utilisation()== CarteUtilisable.hélico){
+                if (cT.utilisation() == CarteUtilisable.hélico) {
                     carteHelicoPresente = true;
                 }
             }
         }
-        
+
         // IF GENERALE
-        if ( joueursPresentsHeliport && listeTresorComplete && (pilotePresent || carteHelicoPresente) ) {
-               return true;
+        if (joueursPresentsHeliport && listeTresorComplete && (pilotePresent || carteHelicoPresente)) {
+            return true;
         } else {
-               return false;
+            return false;
         }
     }
 
-    public boolean inonde(String nomTuile){
+    public boolean inondee(String nomTuile){
         Tuile tuile = grille.getTuileAvecNom(nomTuile);
-        if(tuile.getEtat() != EtatTuile.coulée){
+        if (tuile.getEtat() != EtatTuile.coulée) {
             tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
-            if(tuile.getEtat() == EtatTuile.coulée){
+            if (tuile.getEtat() == EtatTuile.coulée) {
                 coule(tuile);
             }
             return true;
         } else {
             return false;
         }
-        
     }
-    
-    public void coule(Tuile tuile){
+
+    public void coule(Tuile tuile) {
         for (Aventurier joueur : joueurs) {
             if(joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()){
-                
+                partiePerdue = !evasion(joueur);
             }
         }
     }
     
+    public boolean evasion(Aventurier a){
+        int l = 0;
+        int c = 0;
+        
+        boolean[][] gBool = a.deplacementPossible(grille);
+        while(l < 6 && gBool[l][c] != false){
+            if (c == 5) {
+                l++;
+                c = 0;
+            } else {
+                c++;
+            } 
+        }
+        return (l < 6);
+    }
     
     public boolean perdrePartie() {
-        /*
+    /*
         1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
 symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors respectifs ;
         2. Si « l’héliport » sombre ;
         3. Si un joueur est sur une tuile Île qui sombre et qu’il n’y a pas de tuile adjacente où nager ;
         4. Si le Marqueur de niveau atteint la tête de mort.        
-    */
-
+         */
 
         //cas 1
-        
-    if( 
-        grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.inondée 
-     && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Temple du Soleil").getTresor()) == false
-     ||
-        grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.inondée 
-     && Aventurier.TresorsObtenus(grille.getTuileAvecNom("La Caverne des Ombres").getTresor()) == false
-     ||
-        grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.inondée 
-     && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Palais des Marees").getTresor()) == false
-     ||
-        grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.inondée 
-     && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false
-      ){
-        return true;
-       }
-        
+        if (grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.inondée
+                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Temple du Soleil").getTresor()) == false
+                || grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.inondée
+                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("La Caverne des Ombres").getTresor()) == false
+                || grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.inondée
+                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Palais des Marees").getTresor()) == false
+                || grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.inondée
+                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false) {
+            return true;
+        }
+
         //Cas 2
-    if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.inondée ) {
-        return true;
-    }
-    
+        if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.inondée) {
+            return true;
+        }
+
         //cas 3 : 3. Si un joueur est sur une tuile Île qui sombre 
         //et qu’il n’y a pas de tuile adjacente où nager ;
         //PLONGEUR & HELICO DIFF 
-    
-        
+
         if (partiePerdue){ //modifié dans la méthode evasions<coulee<inonde
             return true;
         }
-    
-        
 
-        
         //Cas 4
-        if (niveauInnondation() == 6) {
+        if (niveauInnondation() == 6) { // 6 correspond à la tête de mort
             return true;
         }
 
@@ -422,10 +437,15 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 } else {
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
-                    
+
                     int l = tuile.getLigne();
                     int c = tuile.getColonne();
                     joueurCourant.deplacer(l, c);
+                    nbAction = nbAction - 1;
+                    
+                    if (nbAction == 0) {
+                        
+                    }
                 }
                 break;
 
@@ -437,6 +457,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
                     tuile.asseche();
+                    nbAction = nbAction - 1;
                 }
                 break;
 
@@ -462,13 +483,26 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             case NOUVELLE_PARTIE:
                 initJoueur(m.getNbJoueur(), m.getNom());
                 vueI.desafficher();
-                vueA = new VueAventurier(joueurCourant.getPseudo(),joueurCourant.getRole(), joueurCourant.getCouleur().getCouleur());
+                vueA = new VueAventurier(joueurCourant.getPseudo(), joueurCourant.getRole(), joueurCourant.getPion().getCouleur());
                 vueA.addObservateur(this);
                 vueA.afficher();
                 break;
 
             case TOUR_SUIVANT:
                 vueA.desafficher();
+                
+                int n = joueurs.indexOf(joueurCourant);
+                if (n < joueurs.size()-1) {
+                    joueurCourant = joueurs.get(n+1);
+                } else {
+                    joueurCourant = joueurs.get(0);
+                }
+                
+                vueA.setNomJoueur(joueurCourant.getPseudo());
+                vueA.setNomAventurier(joueurCourant.getRole());
+                vueA.setCouleur(joueurCourant.getPion().getCouleur());
+                vueA.setAventurier(joueurCourant);
+                vueA.afficher();
                 break;
         }
     }
