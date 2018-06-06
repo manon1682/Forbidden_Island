@@ -43,6 +43,15 @@ public class Controleur implements Observateur {
         initPlateau();
         initDeck();
         //vueA.afficher();
+        
+        while(!perdrePartie()){
+            
+            jouerTour(joueurCourant);
+            joueurCourant = joueurs.get((joueurs.indexOf(joueurCourant) < joueurs.size()-1 ? joueurs.indexOf(joueurCourant) + 1 : 0 ));
+        }
+        
+        
+        
     }
 
     public ArrayList<String> chargerNomTuile() {
