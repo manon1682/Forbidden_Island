@@ -1,9 +1,12 @@
 package forbidden_island;
 
+import Enumeration.TypesMessages;
 import Enumeration.CarteUtilisable;
 import Cartes.Deck_Innondation;
 import Cartes.Deck_Tresor;
-import Aventurier.Aventurier;
+import Aventurier.*;
+import Aventurier.Explorateur;
+import Aventurier.Ingénieur;
 import Aventurier.Messager;
 import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
@@ -22,13 +25,13 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import util.Utils;
 import view.VueAventurier;
-import view.VueExplorateur;
 
 public class Controleur implements Observateur {
 
     private Grille grille;
-    private Collection<Aventurier> joueurs;
+    private ArrayList<Aventurier> joueurs = new ArrayList<Aventurier>();
     private Deck_Tresor deck_T;
     private Deck_Innondation deck_I;
     private int jaugeInnondation;
@@ -37,13 +40,11 @@ public class Controleur implements Observateur {
     private int nbAction;
 
     public Controleur() {
-        vueA = new VueExplorateur("Joueur", "Explorateur", Color.red);
-        vueA.addObservateur(this);
         initPlateau();
         initDeck();
-        vueA.afficher();
+        //vueA.afficher();
     }
-    
+
     public ArrayList<String> chargerNomTuile() {
         File fileNomTuile = new File("src/nomTuile");
         ArrayList<String> nomTuile = new ArrayList<String>();
@@ -114,18 +115,72 @@ public class Controleur implements Observateur {
         }
         grille = new Grille(tuiles);
     }
-    
-    public void initDeck(){   
+
+    public void initDeck() {
         deck_T = new Deck_Tresor();
         deck_I = new Deck_Innondation(chargerNomTuile());
     }
 
+    public void initJoueur(int n, ArrayList<String> nom) {
+
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("Explorateur");
+        roles.add("Ingénieur");
+        roles.add("Pilote");
+        roles.add("Plongeur");
+        roles.add("Messager");
+        roles.add("Navigateur");
+
+        for (int i = 0; i < n; i++) {
+            int rand = ThreadLocalRandom.current().nextInt(0, roles.size());
+            Tuile t;
+
+            switch (roles.get(rand)) {
+                case "Explorateur":
+                    t = grille.getTuileAvecNom("La Porte de Cuivre");
+                    joueurs.add(new Explorateur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Ingénieur":
+                    t = grille.getTuileAvecNom("La Porte de Bronze");
+                    joueurs.add(new Ingénieur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Pilote":
+                    t = grille.getTuileAvecNom("Heliport");
+                    joueurs.add(new Pilote(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Messager":
+                    t = grille.getTuileAvecNom("La Porte d’Argent");
+                    joueurs.add(new Messager(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Navigateur":
+                    t = grille.getTuileAvecNom("La Porte d’Or");
+                    joueurs.add(new Navigateur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Plongeur":
+                    t = grille.getTuileAvecNom("La Porte de Fer");
+                    joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+            }
+            roles.remove(rand);
+        }
+
+        joueurCourant = joueurs.get(0);
+
+    }
+
     public void jouerTour(Aventurier a) {
-        
-        
-        
-        
-        
+
     }
 
     public void addDefausseT(CarteTresor carte) {
@@ -193,14 +248,14 @@ public class Controleur implements Observateur {
     public Grille getGrille() {
         return this.grille;
     }
-    
+
     // Antoine note : à coder après perdrePartie(); après check pour jaugeInnondation
-    public boolean gagnerPartie(){
+    public boolean gagnerPartie() {
         return false;
     }
-    
-    public boolean perdrePartie(){
-    /*
+
+    public boolean perdrePartie() {
+        /*
         1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
 symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors respectifs ;
         2. Si « l’héliport » sombre ;
@@ -248,29 +303,22 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         
         //Cas 4
-    if (jaugeInnondation > 9) {
-        return true;
+        if (jaugeInnondation > 9) {
+            return true;
+        }
+
+        return false;
     }
-        
-        
-                
-        
-        
-        
-        return false;        
-    }
-    
-    
 
     @Override
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
         TypesMessages type = m.getType();
-        
+
         if (m.getJoueur() != null) {
             joueurCourant = m.getJoueur();
         }
-        
+
         switch (type) {
 
             case DEPLACER:
@@ -313,9 +361,15 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             case UTILISER_CARTE:
 
                 break;
-                
-            case TOUR_SUIVANT :
-                
+
+            case NOUVELLE_PARTIE:
+                initJoueur(m.getNbJoueur(), m.getNom());
+                vueA = new VueAventurier(joueurCourant.getPseudo(),joueurCourant.getRole(), joueurCourant.getCouleur().getCouleur());
+                vueA.afficher();
+                break;
+
+            case TOUR_SUIVANT:
+
                 break;
         }
     }

@@ -1,10 +1,10 @@
 package Aventurier;
 
-import Enumeration.Couleur;
+import util.Utils.Pion;
 
 public class Messager extends Aventurier {
 
-    public Messager(Couleur coul, String nm, int l, int c) {
-        super(coul, nm, l, c);
+    public Messager(String nm, int l, int c) {
+        super(Pion.BLANC, nm, l, c);
     }
 }

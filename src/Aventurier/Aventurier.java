@@ -2,23 +2,23 @@ package Aventurier;
 
 import Cartes.CarteTresor;
 import Enumeration.CarteUtilisable;
-import Enumeration.Couleur;
 import forbidden_island.Grille;
 import Enumeration.Tresor;
 import forbidden_island.Tuile;
 import java.util.ArrayList;
+import util.Utils.Pion;
 
 public abstract class Aventurier {
 
     private ArrayList<CarteTresor> mainAventurier;
-    private Couleur couleur;
+    private Pion couleur;
     private String pseudo;
     private int posLigne;
     private int posColonne;
     private static ArrayList<Tresor> tresorsObtenus;
 
     /* Construsteur*/
-    public Aventurier(Couleur coul, String nm, int l, int c) {
+    public Aventurier(Pion coul, String nm, int l, int c) {
         couleur = coul;
         pseudo = nm;
         posLigne = l;
@@ -189,11 +189,11 @@ public abstract class Aventurier {
         return pseudo;
     }
 
-    public Couleur getCouleur() {
+    public Pion getCouleur() {
         return couleur;
     }
 
-    public void setCouleur(Couleur couleur) {
+    public void setCouleur(Pion couleur) {
         this.couleur = couleur;
     }
     

@@ -2,12 +2,11 @@ package view;
 
 import Aventurier.Aventurier;
 import Aventurier.Explorateur;
-import Enumeration.Couleur;
 import forbidden_island.Grille;
 import forbidden_island.Message;
 import forbidden_island.Observe;
 import forbidden_island.Tuile;
-import forbidden_island.TypesMessages;
+import Enumeration.TypesMessages;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -27,7 +26,7 @@ import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import util.Utils.Pion;
 
-public abstract class VueAventurier extends Observe {
+public class VueAventurier extends Observe {
 
     private final JPanel panelBoutons;
     private final JPanel panelCentre;
@@ -194,6 +193,10 @@ public abstract class VueAventurier extends Observe {
 
     public JButton getBtnTerminerTour() {
         return btnTerminerTour;
+    }
+
+    public void setA(Aventurier a) {
+        this.a = a;
     }
 
     //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}

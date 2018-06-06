@@ -1,13 +1,13 @@
 package Aventurier;
 
-import Enumeration.Couleur;
 import forbidden_island.Grille;
 import forbidden_island.Tuile;
+import util.Utils.Pion;
 
 public class Pilote extends Aventurier {
 
-    public Pilote(Couleur coul, String nm, int l, int c) {
-        super(coul, nm, l, c);
+    public Pilote(String nm, int l, int c) {
+        super(Pion.BLEU, nm, l, c);
     }
 
     public boolean[][] deplacementPossibleSpecial(Grille grille) {

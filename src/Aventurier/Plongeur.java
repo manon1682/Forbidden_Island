@@ -1,13 +1,13 @@
 package Aventurier;
 
-import Enumeration.Couleur;
 import forbidden_island.Grille;
 import forbidden_island.Tuile;
+import util.Utils.Pion;
 
 public class Plongeur extends Aventurier {
 
-    public Plongeur(Couleur coul, String nm, int l, int c) {
-        super(coul, nm, l, c);
+    public Plongeur(String nm, int l, int c) {
+        super(Pion.NOIR, nm, l, c);
     }
 
     @Override

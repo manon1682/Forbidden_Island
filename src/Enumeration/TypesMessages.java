@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package forbidden_island;
+package Enumeration;
 
 /**
  *
@@ -15,5 +15,6 @@ public enum TypesMessages {
     DONNER_CARTE,
     PRENDRE_TRESOR,
     UTILISER_CARTE,
-    TOUR_SUIVANT
+    TOUR_SUIVANT,
+    NOUVELLE_PARTIE
 }
