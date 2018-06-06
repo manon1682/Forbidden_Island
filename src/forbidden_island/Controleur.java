@@ -115,7 +115,7 @@ public class Controleur implements Observateur {
                         || (l == 5 && ((c == 0) || (c == 1) || (c == 4) || (c == 5)))) //On verifie qu'on est dans les angles
                 {
                     //On est dans un angles donc on met une tuile null
-                    tuiles[l][c] = new Tuile();
+                    tuiles[l][c] = null;
                 } else {
                     int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
                     //On genere un nombre aleatoire compris entre 0 et le nombre de nomtuile qu'il reste
