@@ -281,4 +281,9 @@ public class VueAventurier extends Observe {
         this.a = a;
     }
     
+    public void finirTour() {
+        btnBouger.setEnabled(false);
+        btnAssecher.setEnabled(false);
+        btnAutreAction.setEnabled(false);
+    }
 }

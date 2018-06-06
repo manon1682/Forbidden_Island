@@ -424,10 +424,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         boolean[][] g = new boolean[6][6];
         TypesMessages type = m.getType();
 
-        if (m.getJoueur() != null) {
-            joueurCourant = m.getJoueur();
-        }
-
         switch (type) {
 
             case DEPLACER:
@@ -444,7 +440,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     nbAction = nbAction - 1;
                     
                     if (nbAction == 0) {
-                        
+                        vueA.finirTour();
                     }
                 }
                 break;
