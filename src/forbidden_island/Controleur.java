@@ -200,14 +200,14 @@ public class Controleur implements Observateur {
     }
     
     public boolean perdrePartie(){
-        
-        for (int i = 0; i < 10; i++) {
-            
-        }
+    /*
         
         
+        */
         
-        grille.getTuiles().
+        
+    if grille.getTuileAvecNom(nomTuile)
+        
         
                 
         
