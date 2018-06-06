@@ -11,6 +11,7 @@ import Cartes.CarteTresor;
 import Cartes.Deck;
 import Enumeration.EtatTuile;
 import Enumeration.Tresor;
+import java.awt.Color;
 
 /*Charger fichier tuiles*/
 import java.io.BufferedReader;
@@ -275,29 +276,54 @@ public class Controleur implements Observateur {
         Une fois que vous avez récupéré les quatre 
 trésors, chacun doit déplacer son pion jusqu’à la tuile « l’héliport ». 
 Ensuite, l’un des joueurs doit défausser une carte Hélicoptère pour 
-que votre équipe décolle de l’Île Interdite et gagne !
+que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN ROLE HELICOPTER
 NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
 
         */
         
         //REGROUPER LES CONDITIONS DE CHAQUE IF APRES
-        
 
+        
+        //si tous les joueurs sont présent sur la case héliport
+        Tuile tuileHelico = grille.getTuileAvecNom("Heliport");
+        boolean joueursPresentsHeliport = true;
+        
+        for (int i = 0; i < joueurs.size(); i++) {
+            if ( joueurs.get(i).getL() != tuileHelico.getLigne() || joueurs.get(i).getC() != tuileHelico.getColonne() ) {
+            joueursPresentsHeliport = false;    
+            } //joueursPresentsHeliport n'est jamais mis à false si tous les joueurs sont présent dans la case.
+        }
+        
         //si la liste des tresorsObtenus des aventurier est complète
         
         if (Aventurier.getTresorsObtenus().size() == 3){
             
         }
         
-        //si tous les joueurs sont présent sur la case héliport
-        Tuile tuiHeli = grille.getTuileAvecNom("Heliport");
-        boolean joueursPresentsHeliport = false;
+        //si y'a un role hélico, alors c'est good, sinon check si il y a une carte hélico
         
- /*       for (int i = 0; i < joueurs.size(); i++) {
-            if (joueurs) {
+        boolean pilotePresent = false;
+        for (int i = 0; i < joueurs.size(); i++) {
+            if ( joueurs.get(i).getRole() = "Pilote" ) {
+            pilotePresent = true;    
+            } //pilotePresent n'est jamais mis à true si parmi tous les joueurs il y a aucun pilote.
+        
+        }
+        
+        if (pilotePresent) {
+            return true;
+        } else {
+            
+            //check si au moins un des joueurs a une carte hélico afin de terminer la partie
                 
-            }
-        }*/
+        }
+        
+        
+        
+        
+        
+        
+        
         
         
         return true;
@@ -437,14 +463,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case NOUVELLE_PARTIE:
                 initJoueur(m.getNbJoueur(), m.getNom());
-                vueI.getWindow().setVisible(false);
+                vueI.desafficher();
                 vueA = new VueAventurier(joueurCourant.getPseudo(),joueurCourant.getRole(), joueurCourant.getCouleur().getCouleur());
                 vueA.addObservateur(this);
                 vueA.afficher();
                 break;
 
             case TOUR_SUIVANT:
-
+                vueA.desafficher();
                 break;
         }
     }

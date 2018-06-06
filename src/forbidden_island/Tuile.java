@@ -16,7 +16,6 @@ public class Tuile {
     private int colonne;
 
     public Tuile() {
-        setNom("nulos");
     }
 
     public Tuile(String nom, int ligne, int colonne) {
