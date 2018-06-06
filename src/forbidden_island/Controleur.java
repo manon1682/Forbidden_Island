@@ -336,7 +336,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         }
     }
 
-    public boolean inonde(String nomTuile) {
+    public boolean inondee(String nomTuile){
         Tuile tuile = grille.getTuileAvecNom(nomTuile);
         if (tuile.getEtat() != EtatTuile.coulée) {
             tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
@@ -347,19 +347,34 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         } else {
             return false;
         }
-
     }
 
     public void coule(Tuile tuile) {
         for (Aventurier joueur : joueurs) {
-            if (joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()) {
-
+            if(joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()){
+                partiePerdue = !evasion(joueur);
             }
         }
     }
-
+    
+    public boolean evasion(Aventurier a){
+        int l = 0;
+        int c = 0;
+        
+        boolean[][] gBool = a.deplacementPossible(grille);
+        while(l < 6 && gBool[l][c] != false){
+            if (c == 5) {
+                l++;
+                c = 0;
+            } else {
+                c++;
+            } 
+        }
+        return (l < 6);
+    }
+    
     public boolean perdrePartie() {
-        /*
+    /*
         1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
 symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors respectifs ;
         2. Si « l’héliport » sombre ;
@@ -391,12 +406,13 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //cas 3 : 3. Si un joueur est sur une tuile Île qui sombre 
         //et qu’il n’y a pas de tuile adjacente où nager ;
         //PLONGEUR & HELICO DIFF 
-        if (partiePerdue) { //modifié dans la méthode evasions<coulee<inonde
+
+        if (partiePerdue){ //modifié dans la méthode evasions<coulee<inonde
             return true;
         }
 
         //Cas 4
-        if (niveauInnondation() == 6) {
+        if (niveauInnondation() == 6) { // 6 correspond à la tête de mort
             return true;
         }
 
