@@ -7,6 +7,7 @@ package forbidden_island;
 
 import Aventurier.Aventurier;
 import Cartes.CarteTresor;
+import view.VueAventurier;
 
 /**
  *

@@ -30,12 +30,12 @@ public class Tuile {
     }
 
     public boolean verifTuileDPlongeur() {
-        return getEtat() == coulée || getEtat() == inondée;
+        return (getEtat() == coulée || getEtat() == inondée);
     }
 
     //Vérifie que la tuile n'est pas sèche et pas coulée pour l'asséchement
     public boolean verifTuileA() {
-        return getEtat() != sèche && getEtat() != coulée;
+        return getEtat() == inondée;
 
     }
 
