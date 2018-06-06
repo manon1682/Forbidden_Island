@@ -41,6 +41,7 @@ public class VueAventurier extends Observe {
     private JLabel labelvide = new JLabel("");
     private JLabel labelPos;
     private JLabel labelPosDefaut;
+    private boolean premierClic = true;
     //comboBox des choix
     private JComboBox listeChoix;
     //Array List qui stock les possibilités de choix
@@ -72,8 +73,23 @@ public class VueAventurier extends Observe {
         this.panelCentre.setOpaque(false);
         this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
-
-        labelPosDefaut = new JLabel("Position", SwingConstants.CENTER);
+        
+        
+        //Position de départ
+        if(a.getRole() == "Ingénieur"){
+            labelPosDefaut = new JLabel("La Porte De Bronze", SwingConstants.CENTER);
+        }else if(a.getRole() == "Explorateur"){
+            labelPosDefaut = new JLabel("La Porte De Cuivre", SwingConstants.CENTER);
+        }else if(a.getRole() == "Plongeur"){
+            labelPosDefaut = new JLabel("La Porte De fer", SwingConstants.CENTER);
+        }else if(a.getRole() == "Pilote"){
+            labelPosDefaut = new JLabel("Heliport", SwingConstants.CENTER);
+        }else if(a.getRole() == "Messager"){
+            labelPosDefaut = new JLabel("La Porte D'Argent", SwingConstants.CENTER);
+        }else if(a.getRole() == "Navigateur"){
+            labelPosDefaut = new JLabel("La Porte D'Or", SwingConstants.CENTER);
+        }
+        
         panelCentre.add(labelPosDefaut);
 
         panelCentre.add(labelvide);
@@ -165,27 +181,26 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message(sauvType, a);
-                
-               
-                                      
-                    
-                
-                m.setTuile((String) listeChoix.getSelectedItem());
-                
-                notifierObservateur(m);
 
+                m.setTuile((String) listeChoix.getSelectedItem());
+                notifierObservateur(m);
+                    
+                if (!(btnBouger.isEnabled())) {
+                    panelCentre.remove(labelPosDefaut);
+                    if(!(premierClic)){
+                        panelCentre.remove(labelPos);
+                    }
+                    labelPos = new JLabel((String) listeChoix.getSelectedItem(), SwingConstants.CENTER);
+                    panelCentre.add(labelPos);
+                    premierClic = false;
+                }
                 panelCentre.remove(panelChoixetVal);
-                
-                panelCentre.remove(labelPosDefaut);
-                //panelCentre.remove(labelPos);
-                labelPos = new JLabel((String) listeChoix.getSelectedItem(), SwingConstants.CENTER);
-                panelCentre.add(labelPos);
                 panelCentre.add(labelvide);
                 panelCentre.updateUI();
 
                 btnAssecher.setEnabled(true);
                 btnBouger.setEnabled(true);
-                
+
             }
         });
 
@@ -248,10 +263,9 @@ public class VueAventurier extends Observe {
         panelChoixetVal.add(listeChoix);
         panelChoixetVal.add(btnValider);
         panelCentre.add(panelChoixetVal);
+        
         window.setVisible(true);
 
-        
-        
     }
 
     public void afficher() {
@@ -276,4 +290,9 @@ public class VueAventurier extends Observe {
         panelAventurier.setBackground(couleur);
         this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
     }
+    
+    public void setAventurier(Aventurier a){
+        this.a = a;
+    }
+    
 }
