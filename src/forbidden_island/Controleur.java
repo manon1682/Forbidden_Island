@@ -60,25 +60,6 @@ public class Controleur implements Observateur {
         vueI.addObservateur(this);
         vueI.afficher();
 
-        /*      while(!perdrePartie()){
-            
-            jouerTour(joueurCourant);
-            vueA.desafficher();
-                
-                int n = joueurs.indexOf(joueurCourant);
-                if (n < joueurs.size()-1) {
-                    joueurCourant = joueurs.get(n+1);
-                } else {
-                    joueurCourant = joueurs.get(0);
-                }
-                
-                vueA.setNomJoueur(joueurCourant.getPseudo());
-                vueA.setNomAventurier(joueurCourant.getRole());
-                vueA.setCouleur(joueurCourant.getPion().getCouleur());
-                vueA.setAventurier(joueurCourant);
-                vueA.afficher();
-          
-        }*/
     }
 
     public ArrayList<String> chargerNomTuile() {
