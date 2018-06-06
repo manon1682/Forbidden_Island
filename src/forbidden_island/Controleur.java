@@ -83,6 +83,32 @@ public class Controleur implements Observateur {
         return nomTuile;
     }
 
+    public EtatTuile etatTuileDemo(Tuile tuile){
+        EtatTuile etat;
+        switch(tuile.getNom()){
+            case "Les Dunes de l’Illusion":
+            case "Le Marais Brumeux":
+            case "Le Temple de La Lune":
+            case "Le Rocher Fantome":
+                etat = EtatTuile.coulée; 
+                break;
+            case "La Porte de Bronze":
+            case "Le Lagon Perdu":
+            case "Observatoire":
+            case "La Caverne du Brasier":
+            case "Le Jardin des Murmures":
+                etat = EtatTuile.inondée; 
+                break;
+            default :
+                etat = EtatTuile.sèche;  
+                break;
+            
+        }
+        return etat;
+    }
+    
+    
+    
     public Tresor assigneTresorTuile(String nomTuile) {
         Tresor t;
         switch (nomTuile) {
@@ -133,6 +159,7 @@ public class Controleur implements Observateur {
                     Tresor t = assigneTresorTuile(nomTuile.get(rand));
                     if (t != null) {
                         tuile.setTresor(t);
+                        tuile.setEtat(etatTuileDemo(tuile)); //Juste pour la demo
                     }
                     tuiles[l][c] = tuile;
                     nomTuile.remove(rand);
