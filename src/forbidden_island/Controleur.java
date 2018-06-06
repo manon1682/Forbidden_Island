@@ -3,11 +3,14 @@ package forbidden_island;
 import Enumeration.CarteUtilisable;
 import Cartes.Deck_Innondation;
 import Cartes.Deck_Tresor;
-import Aventurier.Aventurier;
+import Aventurier.*;
+import Aventurier.Explorateur;
+import Aventurier.Ingénieur;
 import Aventurier.Messager;
 import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Cartes.Deck;
+import Enumeration.EtatTuile;
 import Enumeration.Tresor;
 import java.awt.Color;
 
@@ -23,11 +26,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.VueAventurier;
 import view.VueExplorateur;
+import view.VueIngénieur;
+import view.VueMessager;
+import view.VueNavigateur;
+import view.VuePilote;
+import view.VuePlongeur;
 
 public class Controleur implements Observateur {
 
     private Grille grille;
-    private Collection<Aventurier> joueurs;
+    private ArrayList<Aventurier> joueurs = new ArrayList<Aventurier>();
     private Deck_Tresor deck_T;
     private Deck_Innondation deck_I;
     private int jaugeInnondation;
@@ -36,13 +44,13 @@ public class Controleur implements Observateur {
     private int nbAction;
 
     public Controleur() {
-        vueA = new VueExplorateur("Joueur", "Explorateur", Color.red);
-        vueA.addObservateur(this);
+        //vueA = new VueExplorateur("Joueur", "Explorateur", Color.red);
+        //vueA.addObservateur(this);
         initPlateau();
         initDeck();
-        vueA.afficher();
+        //vueA.afficher();
     }
-    
+
     public ArrayList<String> chargerNomTuile() {
         File fileNomTuile = new File("src/nomTuile");
         ArrayList<String> nomTuile = new ArrayList<String>();
@@ -113,15 +121,72 @@ public class Controleur implements Observateur {
         }
         grille = new Grille(tuiles);
     }
-    
-    public void initDeck(){   
+
+    public void initDeck() {
         deck_T = new Deck_Tresor();
         deck_I = new Deck_Innondation(chargerNomTuile());
     }
 
+    public void initJoueur(int n, ArrayList<String> nom) {
+
+        ArrayList<String> roles = new ArrayList<>();
+        roles.add("Explorateur");
+        roles.add("Ingénieur");
+        roles.add("Pilote");
+        roles.add("Plongeur");
+        roles.add("Messager");
+        roles.add("Navigateur");
+
+        for (int i = 0; i < n; i++) {
+            int rand = ThreadLocalRandom.current().nextInt(0, roles.size());
+            Tuile t;
+
+            switch (roles.get(rand)) {
+                case "Explorateur":
+                    t = grille.getTuileAvecNom("La Porte de Cuivre");
+                    joueurs.add(new Explorateur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Ingénieur":
+                    t = grille.getTuileAvecNom("La Porte de Bronze");
+                    joueurs.add(new Ingénieur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Pilote":
+                    t = grille.getTuileAvecNom("Heliport");
+                    joueurs.add(new Pilote(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Messager":
+                    t = grille.getTuileAvecNom("La Porte d’Argent");
+                    joueurs.add(new Messager(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Navigateur":
+                    t = grille.getTuileAvecNom("La Porte d’Or");
+                    joueurs.add(new Navigateur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+
+                case "Plongeur":
+                    t = grille.getTuileAvecNom("La Porte de Fer");
+                    joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
+                    nom.remove(i);
+                    break;
+            }
+            roles.remove(rand);
+        }
+        
+        joueurCourant = joueurs.get(0);
+
+    }
+
     public void jouerTour(Aventurier a) {
-        // TODO - implement Controleur.jouerTour
-        throw new UnsupportedOperationException();
+
     }
 
     public void addDefausseT(CarteTresor carte) {
@@ -190,15 +255,99 @@ public class Controleur implements Observateur {
         return this.grille;
     }
 
+    // Antoine note : à coder après perdrePartie(); après check pour jaugeInnondation
+    public boolean gagnerPartie() {
+        return false;
+    }
+    
+    public boolean perdrePartie(){
+    /*
+        1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
+symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors respectifs ;
+        2. Si « l’héliport » sombre ;
+        3. Si un joueur est sur une tuile Île qui sombre et qu’il n’y a pas de tuile adjacente où nager ;
+        4. Si le Marqueur de niveau atteint la tête de mort.        
+    */
+    
+        //cas 1
+    if( 
+        grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("Le Temple du Soleil").getTresor() != null
+        &&
+        grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("Le Temple de La Lune").getTresor() != null
+     
+     ||
+        grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("La Caverne des Ombres").getTresor() != null
+        &&
+        grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("La Caverne du Brasier").getTresor() != null
+     
+     ||
+        grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("Le Palais de Corail").getTresor() != null
+        &&
+        grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("Le Palais des Marees").getTresor() != null
+     
+     ||
+        grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("Le Jardin des Murmures").getTresor() != null
+        &&
+        grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("Le Jardin des Hurlements").getTresor() != null 
+      ){
+        return true;
+       }
+        
+        //Cas 2
+    if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.inondée ) {
+        return true;
+    }
+    
+    
+        //cas 3 : 3. Si un joueur est sur une tuile Île qui sombre 
+        //et qu’il n’y a pas de tuile adjacente où nager ;
+    
+//        for (int i = 0; i < n; i++) {
+//            
+//        }
+    
+        
+        
+        
+    if (grille.getTuileAvecNom(nomTuile)) {
+            
+    
+    }
+        
+        //Cas 4
+    if (jaugeInnondation > 9) {
+        return true;
+    }
+        
+        
+                
+        
+        
+        
+        
+            
+            
+            
+            return false;
+    }
+
     @Override
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
         TypesMessages type = m.getType();
-        
+
         if (m.getJoueur() != null) {
             joueurCourant = m.getJoueur();
         }
-        
+
         switch (type) {
 
             case DEPLACER:
@@ -241,9 +390,9 @@ public class Controleur implements Observateur {
             case UTILISER_CARTE:
 
                 break;
-                
-            case TOUR_SUIVANT :
-                
+
+            case TOUR_SUIVANT:
+
                 break;
         }
     }

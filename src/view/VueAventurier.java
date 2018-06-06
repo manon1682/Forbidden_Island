@@ -27,7 +27,7 @@ import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import util.Utils.Pion;
 
-public abstract class VueAventurier extends Observe {
+public class VueAventurier extends Observe {
 
     private final JPanel panelBoutons;
     private final JPanel panelCentre;
@@ -194,6 +194,10 @@ public abstract class VueAventurier extends Observe {
 
     public JButton getBtnTerminerTour() {
         return btnTerminerTour;
+    }
+
+    public void setA(Aventurier a) {
+        this.a = a;
     }
 
     //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}

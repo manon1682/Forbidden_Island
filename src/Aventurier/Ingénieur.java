@@ -5,8 +5,8 @@ import forbidden_island.Grille;
 
 public class Ingénieur extends Aventurier {
 
-    public Ingénieur(Couleur coul, String nm, int l, int c) {
-        super(coul, nm, l, c);
+    public Ingénieur(String nm, int l, int c) {
+        super(Couleur.ROUGE, nm, l, c);
     }
 
 }

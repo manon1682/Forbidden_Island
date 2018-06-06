@@ -185,4 +185,34 @@ public abstract class Aventurier {
         posColonne = c;
     }
 
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public Couleur getCouleur() {
+        return couleur;
+    }
+
+    public void setCouleur(Couleur couleur) {
+        this.couleur = couleur;
+    }
+    
+    public String getRole(){
+        String role;
+        if(this instanceof Ingénieur){
+            role = "Ingénieur";
+        } else if(this instanceof Messager){
+            role = "Messager";
+        } else if(this instanceof Pilote){
+            role = "Pilote";
+        } else if(this instanceof Navigateur){
+            role = "Navigateur";
+        } else if(this instanceof Plongeur){
+            role = "Plongeur";
+        } else {
+            role = "Explorateur";
+        }
+        return role;
+    }
 }
+
