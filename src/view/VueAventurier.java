@@ -76,18 +76,28 @@ public class VueAventurier extends Observe {
         
         
         //Position de départ
-        if(a.getRole() == "Ingénieur"){
-            labelPosDefaut = new JLabel("La Porte De Bronze", SwingConstants.CENTER);
-        }else if(a.getRole() == "Explorateur"){
-            labelPosDefaut = new JLabel("La Porte De Cuivre", SwingConstants.CENTER);
-        }else if(a.getRole() == "Plongeur"){
-            labelPosDefaut = new JLabel("La Porte De fer", SwingConstants.CENTER);
-        }else if(a.getRole() == "Pilote"){
-            labelPosDefaut = new JLabel("Heliport", SwingConstants.CENTER);
-        }else if(a.getRole() == "Messager"){
-            labelPosDefaut = new JLabel("La Porte D'Argent", SwingConstants.CENTER);
-        }else if(a.getRole() == "Navigateur"){
-            labelPosDefaut = new JLabel("La Porte D'Or", SwingConstants.CENTER);
+            labelPosDefaut = new JLabel("Position" ,SwingConstants.CENTER);
+        switch (a.getRole()) {
+            case "Ingénieur":
+                labelPosDefaut.setText("La Porte De Bronze");
+                break;
+            case "Explorateur":
+                labelPosDefaut.setText("La Porte De Cuivre");
+                break;
+            case "Plongeur":
+                labelPosDefaut.setText("La Porte De fer");
+                break;
+            case "Pilote":
+                labelPosDefaut.setText("Heliport");
+                break;
+            case "Messager":
+                labelPosDefaut.setText("La Porte D'Argent");
+                break;
+            case "Navigateur":
+                labelPosDefaut.setText("La Porte D'Or");
+                break;
+            default:
+                break;
         }
         
         panelCentre.add(labelPosDefaut);
