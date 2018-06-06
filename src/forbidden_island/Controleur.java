@@ -1,14 +1,12 @@
 package forbidden_island;
 
 import Enumeration.TypesMessages;
-import Enumeration.CarteUtilisable;
 import Cartes.Deck_Innondation;
 import Cartes.Deck_Tresor;
 import Aventurier.*;
 import Aventurier.Explorateur;
 import Aventurier.Ingénieur;
 import Aventurier.Messager;
-import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Cartes.Deck;
 import Enumeration.EtatTuile;
@@ -25,7 +23,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import util.Utils;
 import view.VueAventurier;
 import view.VueInitialisation;
 
@@ -49,13 +46,12 @@ public class Controleur implements Observateur {
         vueI = new VueInitialisation();
         vueI.addObservateur(this);
         vueI.afficher();
-        //vueA.afficher();
         
-        while(!perdrePartie()){
+ /*       while(!perdrePartie()){
             
             jouerTour(joueurCourant);
             joueurCourant = joueurs.get((joueurs.indexOf(joueurCourant) < joueurs.size()-1 ? joueurs.indexOf(joueurCourant) + 1 : 0 ));
-        }
+        }*/
         
         
         
@@ -115,7 +111,7 @@ public class Controleur implements Observateur {
                         || (l == 5 && ((c == 0) || (c == 1) || (c == 4) || (c == 5)))) //On verifie qu'on est dans les angles
                 {
                     //On est dans un angles donc on met une tuile null
-                    tuiles[l][c] = new Tuile();
+                    tuiles[l][c] = null;
                 } else {
                     int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
                     //On genere un nombre aleatoire compris entre 0 et le nombre de nomtuile qu'il reste
@@ -148,6 +144,7 @@ public class Controleur implements Observateur {
         roles.add("Navigateur");
 
         for (int i = 0; i < n; i++) {
+            
             int rand = ThreadLocalRandom.current().nextInt(0, roles.size());
             Tuile t;
 
@@ -155,37 +152,31 @@ public class Controleur implements Observateur {
                 case "Explorateur":
                     t = grille.getTuileAvecNom("La Porte de Cuivre");
                     joueurs.add(new Explorateur(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
 
                 case "Ingénieur":
                     t = grille.getTuileAvecNom("La Porte de Bronze");
                     joueurs.add(new Ingénieur(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
 
                 case "Pilote":
                     t = grille.getTuileAvecNom("Heliport");
                     joueurs.add(new Pilote(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
 
                 case "Messager":
                     t = grille.getTuileAvecNom("La Porte d’Argent");
                     joueurs.add(new Messager(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
 
                 case "Navigateur":
                     t = grille.getTuileAvecNom("La Porte d’Or");
                     joueurs.add(new Navigateur(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
 
                 case "Plongeur":
                     t = grille.getTuileAvecNom("La Porte de Fer");
                     joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
             }
             roles.remove(rand);
@@ -338,6 +329,29 @@ NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
         return true;
     }
 
+    public boolean inonde(String nomTuile){
+        Tuile tuile = grille.getTuileAvecNom(nomTuile);
+        if(tuile.getEtat() != EtatTuile.coulée){
+            tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
+            if(tuile.getEtat() == EtatTuile.coulée){
+                coule(tuile);
+            }
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+    
+    public void coule(Tuile tuile){
+        for (Aventurier joueur : joueurs) {
+            if(joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()){
+                
+            }
+        }
+    }
+    
+    
     public boolean perdrePartie() {
         /*
         1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
@@ -449,14 +463,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case NOUVELLE_PARTIE:
                 initJoueur(m.getNbJoueur(), m.getNom());
-                vueI.getWindow().setVisible(false);
+                vueI.desafficher();
                 vueA = new VueAventurier(joueurCourant.getPseudo(),joueurCourant.getRole(), joueurCourant.getCouleur().getCouleur());
                 vueA.addObservateur(this);
                 vueA.afficher();
                 break;
 
             case TOUR_SUIVANT:
-
+                vueA.desafficher();
                 break;
         }
     }

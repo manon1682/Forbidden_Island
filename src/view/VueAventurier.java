@@ -1,7 +1,6 @@
 package view;
 
 import Aventurier.Aventurier;
-import Aventurier.Explorateur;
 import forbidden_island.Grille;
 import forbidden_island.Message;
 import forbidden_island.Observe;
@@ -12,9 +11,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -22,9 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
-import util.Utils.Pion;
 
 public class VueAventurier extends Observe {
 
@@ -48,11 +43,6 @@ public class VueAventurier extends Observe {
     //Array List qui stock les possibilités de choix
     private String[] choixPoss = new String[36];
     protected Aventurier a;
-
-    // boolean test premier ou  second clic
-    private boolean clic;
-   // private Aventurier a = new Explorateur(Couleur.ROUGE, "Manon", 2, 5);
-
 
     public VueAventurier(String nomJoueur, String nomAventurier, Color couleur) {
 
@@ -81,7 +71,7 @@ public class VueAventurier extends Observe {
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
 
         panelCentre.add(new JLabel("Position", SwingConstants.CENTER));
-        
+
         panelCentre.add(labelvide);
 
         // =================================================================================
@@ -107,13 +97,11 @@ public class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(clic == false){
                 sauvType = TypesMessages.DEPLACER;
                 Message m = new Message(TypesMessages.DEPLACER, a);
                 notifierObservateur(m);
-                clic = true;
-                }
-                
+                btnBouger.setEnabled(false);
+
             }
 
         });
@@ -122,12 +110,11 @@ public class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(clic == false){
                 sauvType = TypesMessages.ASSECHER;
                 Message m = new Message(TypesMessages.ASSECHER, a);
                 notifierObservateur(m);
-                clic = true;
-                }
+                btnAssecher.setEnabled(false);
+
             }
 
         });
@@ -138,7 +125,6 @@ public class VueAventurier extends Observe {
             public void actionPerformed(ActionEvent e) {
                 btnAutreAction.setEnabled(false);
             }
-            
 
         });
 
@@ -160,11 +146,15 @@ public class VueAventurier extends Observe {
                 Message m = new Message(sauvType, a);
                 m.setTuile(tuileSelect);
                 notifierObservateur(m);
+                
                 panelCentre.remove(panelChoixetVal);
                 panelCentre.add(labelvide);
                 panelCentre.updateUI();
+                
                 window.setVisible(true);
-                clic = false;
+                
+                btnAssecher.setEnabled(true);
+                btnBouger.setEnabled(true);
             }
         });
 
@@ -208,19 +198,19 @@ public class VueAventurier extends Observe {
                 if (gBool[i][j]) {
                     Tuile[][] tuiles = gTuile.getTuiles();
                     choixPoss[n] = (tuiles[i][j].getNom());
-                    n = n+1;
+                    n = n + 1;
                 }
             }
         }
-        
+
         listeChoix = new JComboBox();
-        
-        for (int i = 0; i < choixPoss.length; i++){
-            if (choixPoss[i] != null){
+
+        for (int i = 0; i < choixPoss.length; i++) {
+            if (choixPoss[i] != null) {
                 listeChoix.addItem(choixPoss[i]);
             }
         }
-        
+
         //Affichage de la liste de choix et du bouton valider
         panelCentre.remove(labelvide);
         panelChoixetVal = new JPanel(new GridLayout(1, 2));
@@ -239,7 +229,11 @@ public class VueAventurier extends Observe {
         }
     }
 
-     public void afficher() {
+    public void afficher() {
         window.setVisible(true);
+    }
+
+    public void desafficher() {
+        window.setVisible(false);
     }
 }
