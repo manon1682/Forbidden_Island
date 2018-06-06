@@ -189,7 +189,7 @@ public abstract class Aventurier {
         return pseudo;
     }
 
-    public Pion getCouleur() {
+    public Pion getPion() {
         return couleur;
     }
 
