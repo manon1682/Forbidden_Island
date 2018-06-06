@@ -7,12 +7,11 @@ package view;
 
 import Aventurier.Aventurier;
 import Aventurier.Explorateur;
-import Enumeration.Couleur;
 import forbidden_island.Grille;
 import forbidden_island.Message;
 import forbidden_island.Observe;
 import forbidden_island.Tuile;
-import forbidden_island.TypesMessages;
+import Enumeration.TypesMessages;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
