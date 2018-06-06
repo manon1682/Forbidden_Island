@@ -329,7 +329,7 @@ NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
         return true;
     }
 
-    public boolean inonde(String nomTuile){
+    public boolean inondee(String nomTuile){
         Tuile tuile = grille.getTuileAvecNom(nomTuile);
         if(tuile.getEtat() != EtatTuile.coulée){
             tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
@@ -340,17 +340,31 @@ NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
         } else {
             return false;
         }
-        
     }
     
     public void coule(Tuile tuile){
         for (Aventurier joueur : joueurs) {
             if(joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()){
-                
+                partiePerdue = !evasion(joueur);
             }
         }
     }
     
+    public boolean evasion(Aventurier a){
+        int l = 0;
+        int c = 0;
+        
+        boolean[][] gBool = a.deplacementPossible(grille);
+        while(l < 6 && gBool[l][c] != false){
+            if (c == 5) {
+                l++;
+                c = 0;
+            } else {
+                c++;
+            } 
+        }
+        return (l < 6);
+    }
     
     public boolean perdrePartie() {
         /*
