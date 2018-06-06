@@ -289,11 +289,28 @@ que votre équipe décolle de l’Île Interdite et gagne !
 NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
 
         */
+        
+        //REGROUPER LES CONDITIONS DE CHAQUE IF APRES
+        
+
         //si la liste des tresorsObtenus des aventurier est complète
         
-        Aventurier.getTresorsObtenus().size() = 3;
+        if (Aventurier.getTresorsObtenus().size() == 3){
+            
+        }
+        
+        //si tous les joueurs sont présent sur la case héliport
+        Tuile tuiHeli = grille.getTuileAvecNom("Heliport");
+        boolean joueursPresentsHeliport = false;
+        
+        for (int i = 0; i < joueurs.size(); i++) {
+            if (joueurs) {
+                
+            }
+        }
         
         
+        return true;
     }
 
     public boolean perdrePartie() {
