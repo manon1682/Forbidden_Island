@@ -15,10 +15,19 @@ public class Grille {
     }
 
     public Tuile getTuileAvecNom(String nomTuile) {
+        /*
+        écris ce que fais ton code ici
+        whiler
+        
+        
+        */
+        
+        
+        
         int c = 0;
         int l = 0;
         
-        while ((tuiles[l][c] != null ? (c < 6 && l < 6 && tuiles[l][c].getNom().equalsIgnoreCase(nomTuile)) : (c < 6 && l < 6))) {
+        while ((tuiles[l][c] != null ? (c < 6 && l < 6 && !tuiles[l][c].getNom().equalsIgnoreCase(nomTuile)) : (c < 6 && l < 6))) {
             if (c == 5) {
                 l++;
                 c = 0;
@@ -26,6 +35,7 @@ public class Grille {
                 c++;
             }
         }
+        System.out.println("Ligne : " + l + " Colonne : " + c);
         return tuiles[l][c];
 
     }

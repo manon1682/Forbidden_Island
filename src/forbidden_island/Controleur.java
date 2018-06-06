@@ -83,6 +83,32 @@ public class Controleur implements Observateur {
         return nomTuile;
     }
 
+    public EtatTuile etatTuileDemo(Tuile tuile){
+        EtatTuile etat;
+        switch(tuile.getNom()){
+            case "Les Dunes de l’Illusion":
+            case "Le Marais Brumeux":
+            case "Le Temple de La Lune":
+            case "Le Rocher Fantome":
+                etat = EtatTuile.coulée; 
+                break;
+            case "La Porte de Bronze":
+            case "Le Lagon Perdu":
+            case "Observatoire":
+            case "La Caverne du Brasier":
+            case "Le Jardin des Murmures":
+                etat = EtatTuile.inondée; 
+                break;
+            default :
+                etat = EtatTuile.sèche;  
+                break;
+            
+        }
+        return etat;
+    }
+    
+    
+    
     public Tresor assigneTresorTuile(String nomTuile) {
         Tresor t;
         switch (nomTuile) {
@@ -128,11 +154,11 @@ public class Controleur implements Observateur {
                     //int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
                     //On genere un nombre aleatoire compris entre 0 et le nombre de nomtuile qu'il reste
                     
-                    System.out.println(rand);
                     tuile = new Tuile(nomTuile.get(rand), l, c);
                     Tresor t = assigneTresorTuile(nomTuile.get(rand));
                     if (t != null) {
                         tuile.setTresor(t);
+                        tuile.setEtat(etatTuileDemo(tuile)); //Juste pour la demo
                     }
                     tuiles[l][c] = tuile;
                     nomTuile.remove(rand);
@@ -443,7 +469,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.deplacer(l, c);
                     nbAction = nbAction - 1;
 
-                    if (nbAction == 0) {
+                    if (nbAction <= 0) {
                         vueA.finirTour();
                     }
                 }
@@ -459,7 +485,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     tuile.asseche();
                     nbAction = nbAction - 1;
 
-                    if (nbAction == 0) {
+                    if (nbAction <= 0) {
                         vueA.finirTour();
                     }
                 }
@@ -473,7 +499,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //vueA.afficherJoueurPossible(aventurier);
                 }
 
-                if (nbAction == 0) {
+                if (nbAction <= 0) {
                     vueA.finirTour();
                 }
                 break;
@@ -497,7 +523,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 vueI.desafficher();
                 vueA = new VueAventurier(joueurCourant, grille);
                 vueA.addObservateur(this);
-                vueA.setA(joueurCourant);
                 vueA.afficher();
                 break;
 
@@ -510,12 +535,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant = joueurs.get(n + 1);
                 } else {
                     joueurCourant = joueurs.get(0);
-                }                
-
-                vueA.setNomJoueur(joueurCourant.getPseudo());
-                vueA.setNomAventurier(joueurCourant.getRole());
-                vueA.setCouleur(joueurCourant.getPion().getCouleur());
-                vueA.setAventurier(joueurCourant);
+                }
+                
+                vueA = new VueAventurier(joueurCourant, grille);
+                vueA.addObservateur(this);
                 vueA.afficher();
                 break;
         }
