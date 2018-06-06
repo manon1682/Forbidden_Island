@@ -302,21 +302,21 @@ NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
         
         //si y'a un role hélico, alors c'est good, sinon check si il y a une carte hélico
         
-        boolean pilotePresent = false;
-        for (int i = 0; i < joueurs.size(); i++) {
-            if ( joueurs.get(i).getRole() = "Pilote" ) {
-            pilotePresent = true;    
-            } //pilotePresent n'est jamais mis à true si parmi tous les joueurs il y a aucun pilote.
-        
-        }
-        
-        if (pilotePresent) {
-            return true;
-        } else {
-            
-            //check si au moins un des joueurs a une carte hélico afin de terminer la partie
-                
-        }
+//        boolean pilotePresent = false;
+//        for (int i = 0; i < joueurs.size(); i++) {
+//            if ( joueurs.get(i).getRole() = "Pilote" ) {
+//            pilotePresent = true;    
+//            } //pilotePresent n'est jamais mis à true si parmi tous les joueurs il y a aucun pilote.
+//        
+//        }
+//        
+//        if (pilotePresent) {
+//            return true;
+//        } else {
+//            
+//            //check si au moins un des joueurs a une carte hélico afin de terminer la partie
+//                
+//        }
         
         
         
@@ -425,7 +425,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.getGrillePossibleD(g, grille);
                     vueA.afficherTuilePossible(g, getGrille());
                 } else {
-                    Tuile tuile = m.getTuile();
+                    String nom = m.getTuile();
+                    Tuile tuile = grille.getTuileAvecNom(nom);
+                    
                     int l = tuile.getLigne();
                     int c = tuile.getColonne();
                     joueurCourant.deplacer(l, c);
@@ -437,7 +439,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.getGrillePossibleA(g, grille);
                     vueA.afficherTuilePossible(g, getGrille());
                 } else {
-                    Tuile tuile = m.getTuile();
+                    String nom = m.getTuile();
+                    Tuile tuile = grille.getTuileAvecNom(nom);
                     tuile.asseche();
                 }
                 break;
