@@ -214,5 +214,14 @@ public abstract class Aventurier {
         }
         return role;
     }
+
+    public static ArrayList<Tresor> getTresorsObtenus() {
+        return tresorsObtenus;
+    }
+    
+    public static boolean TresorsObtenus(Tresor t){
+        return tresorsObtenus.contains(t);
+        //ça renvoie true si le trésor est présent.
+    }
 }
 
