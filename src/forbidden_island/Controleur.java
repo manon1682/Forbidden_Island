@@ -22,6 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import view.VueAventurier;
+import view.VueExplorateur;
 
 public class Controleur implements Observateur {
 
@@ -35,7 +36,7 @@ public class Controleur implements Observateur {
     private int nbAction;
 
     public Controleur() {
-        vueA = new VueAventurier("Joueur", "Explorateur", Color.red);
+        vueA = new VueExplorateur("Joueur", "Explorateur", Color.red);
         vueA.addObservateur(this);
         initPlateau();
         initDeck();
@@ -119,8 +120,12 @@ public class Controleur implements Observateur {
     }
 
     public void jouerTour(Aventurier a) {
-        // TODO - implement Controleur.jouerTour
-        throw new UnsupportedOperationException();
+        vueA = new VueAventurier(a.getPseudo(),"", a.getCouleur());
+        vueA.addObservateur(this);
+        
+        
+        
+        
     }
 
     public void addDefausseT(CarteTresor carte) {
@@ -263,6 +268,10 @@ public class Controleur implements Observateur {
 
             case UTILISER_CARTE:
 
+                break;
+                
+            case TOUR_SUIVANT :
+                
                 break;
         }
     }

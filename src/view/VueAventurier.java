@@ -27,7 +27,7 @@ import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import util.Utils.Pion;
 
-public class VueAventurier extends Observe {
+public abstract class VueAventurier extends Observe {
 
     private final JPanel panelBoutons;
     private final JPanel panelCentre;
@@ -48,7 +48,12 @@ public class VueAventurier extends Observe {
     private JComboBox listeChoix;
     //Array List qui stock les possibilités de choix
     private String[] choixPoss = new String[36];
-    private Aventurier a = new Explorateur(Couleur.ROUGE, "Manon", 2, 5);;
+    protected Aventurier a;
+
+    // boolean test premier ou  second clic
+    private boolean clic;
+   // private Aventurier a = new Explorateur(Couleur.ROUGE, "Manon", 2, 5);
+
 
     public VueAventurier(String nomJoueur, String nomAventurier, Color couleur) {
 
@@ -103,9 +108,13 @@ public class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(clic == false){
                 sauvType = TypesMessages.DEPLACER;
                 Message m = new Message(TypesMessages.DEPLACER, a);
                 notifierObservateur(m);
+                clic = true;
+                }
+                
             }
 
         });
@@ -114,9 +123,12 @@ public class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(clic == false){
                 sauvType = TypesMessages.ASSECHER;
                 Message m = new Message(TypesMessages.ASSECHER, a);
                 notifierObservateur(m);
+                clic = true;
+                }
             }
 
         });
@@ -125,8 +137,9 @@ public class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                btnAutreAction.setEnabled(false);
             }
+            
 
         });
 
@@ -134,7 +147,9 @@ public class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                sauvType = TypesMessages.TOUR_SUIVANT;
+                Message m = new Message(TypesMessages.TOUR_SUIVANT, a);
+                notifierObservateur(m);
             }
 
         });
@@ -148,7 +163,9 @@ public class VueAventurier extends Observe {
                 notifierObservateur(m);
                 panelCentre.remove(panelChoixetVal);
                 panelCentre.add(labelvide);
+                panelCentre.updateUI();
                 window.setVisible(true);
+                clic = false;
             }
         });
 
