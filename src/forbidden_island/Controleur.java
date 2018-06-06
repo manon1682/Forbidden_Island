@@ -36,7 +36,7 @@ public class Controleur implements Observateur {
     private Aventurier joueurCourant;
     private VueAventurier vueA;
     private VueInitialisation vueI;
-    private int nbAction;
+    private int nbAction = 3;
     private boolean partiePerdue = false;
 
     public Controleur() {
@@ -45,7 +45,7 @@ public class Controleur implements Observateur {
         vueI = new VueInitialisation();
         vueI.addObservateur(this);
         vueI.afficher();
-        
+
         /*      while(!perdrePartie()){
             
             jouerTour(joueurCourant);
@@ -113,6 +113,7 @@ public class Controleur implements Observateur {
         Tuile[][] tuiles = new Tuile[6][6];
         ArrayList<String> nomTuile = chargerNomTuile();
         Tuile tuile;
+        int rand = 0; //Pas permanent juste pour demo
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
                 if ((l == 0 && ((c == 0) || (c == 1) || (c == 4) || (c == 5)))
@@ -123,8 +124,11 @@ public class Controleur implements Observateur {
                     //On est dans un angles donc on met une tuile null
                     tuiles[l][c] = null;
                 } else {
-                    int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
+                    //Ici on modifie pour charger la map comme il faut pour la demo:
+                    //int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
                     //On genere un nombre aleatoire compris entre 0 et le nombre de nomtuile qu'il reste
+                    
+                    System.out.println(rand);
                     tuile = new Tuile(nomTuile.get(rand), l, c);
                     Tresor t = assigneTresorTuile(nomTuile.get(rand));
                     if (t != null) {
@@ -197,7 +201,7 @@ public class Controleur implements Observateur {
     }
 
     public void jouerTour(Aventurier a) {
-        
+
     }
 
     public void addDefausseT(CarteTresor carte) {
@@ -297,7 +301,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
 
         boolean joueursPresentsHeliport = true;
         while (nbAction != 0) {
-            
+
         }
         for (Aventurier j : joueurs) {
             if (j.getL() != tuileHelico.getLigne() || j.getC() != tuileHelico.getColonne()) {
@@ -336,7 +340,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         }
     }
 
-    public boolean inondee(String nomTuile){
+    public boolean inondee(String nomTuile) {
         Tuile tuile = grille.getTuileAvecNom(nomTuile);
         if (tuile.getEtat() != EtatTuile.coulée) {
             tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
@@ -351,30 +355,30 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
 
     public void coule(Tuile tuile) {
         for (Aventurier joueur : joueurs) {
-            if(joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()){
+            if (joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()) {
                 partiePerdue = !evasion(joueur);
             }
         }
     }
-    
-    public boolean evasion(Aventurier a){
+
+    public boolean evasion(Aventurier a) {
         int l = 0;
         int c = 0;
-        
+
         boolean[][] gBool = a.deplacementPossible(grille);
-        while(l < 6 && gBool[l][c] != false){
+        while (l < 6 && gBool[l][c] != false) {
             if (c == 5) {
                 l++;
                 c = 0;
             } else {
                 c++;
-            } 
+            }
         }
         return (l < 6);
     }
-    
+
     public boolean perdrePartie() {
-    /*
+        /*
         1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
 symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors respectifs ;
         2. Si « l’héliport » sombre ;
@@ -406,8 +410,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //cas 3 : 3. Si un joueur est sur une tuile Île qui sombre 
         //et qu’il n’y a pas de tuile adjacente où nager ;
         //PLONGEUR & HELICO DIFF 
-
-        if (partiePerdue){ //modifié dans la méthode evasions<coulee<inonde
+        if (partiePerdue) { //modifié dans la méthode evasions<coulee<inonde
             return true;
         }
 
@@ -424,10 +427,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         boolean[][] g = new boolean[6][6];
         TypesMessages type = m.getType();
 
-        if (m.getJoueur() != null) {
-            joueurCourant = m.getJoueur();
-        }
-
         switch (type) {
 
             case DEPLACER:
@@ -442,9 +441,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     int c = tuile.getColonne();
                     joueurCourant.deplacer(l, c);
                     nbAction = nbAction - 1;
-                    
+
                     if (nbAction == 0) {
-                        
+                        vueA.finirTour();
                     }
                 }
                 break;
@@ -458,6 +457,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     Tuile tuile = grille.getTuileAvecNom(nom);
                     tuile.asseche();
                     nbAction = nbAction - 1;
+
+                    if (nbAction == 0) {
+                        vueA.finirTour();
+                    }
                 }
                 break;
 
@@ -468,11 +471,19 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     ArrayList<Aventurier> aventurier = getDonnerCartePossible(joueurCourant);
                     //vueA.afficherJoueurPossible(aventurier);
                 }
+
+                if (nbAction == 0) {
+                    vueA.finirTour();
+                }
                 break;
 
             case PRENDRE_TRESOR:
                 if (getTresor(joueurCourant)) {
                     nbAction = nbAction - 1;
+                }
+
+                if (nbAction == 0) {
+                    vueA.finirTour();
                 }
                 break;
 
@@ -483,21 +494,23 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             case NOUVELLE_PARTIE:
                 initJoueur(m.getNbJoueur(), m.getNom());
                 vueI.desafficher();
-                vueA = new VueAventurier(joueurCourant.getPseudo(), joueurCourant.getRole(), joueurCourant.getPion().getCouleur());
+                vueA = new VueAventurier(joueurCourant, grille);
                 vueA.addObservateur(this);
+                vueA.setA(joueurCourant);
                 vueA.afficher();
                 break;
 
             case TOUR_SUIVANT:
                 vueA.desafficher();
-                
+
+                nbAction = 3;
                 int n = joueurs.indexOf(joueurCourant);
-                if (n < joueurs.size()-1) {
-                    joueurCourant = joueurs.get(n+1);
+                if (n < joueurs.size() - 1) {
+                    joueurCourant = joueurs.get(n + 1);
                 } else {
                     joueurCourant = joueurs.get(0);
-                }
-                
+                }                
+
                 vueA.setNomJoueur(joueurCourant.getPseudo());
                 vueA.setNomAventurier(joueurCourant.getRole());
                 vueA.setCouleur(joueurCourant.getPion().getCouleur());

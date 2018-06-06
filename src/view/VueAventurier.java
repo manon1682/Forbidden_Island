@@ -48,57 +48,41 @@ public class VueAventurier extends Observe {
     private String[] choixPoss = new String[36];
     protected Aventurier a;
 
-    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur) {
-
+    public VueAventurier(Aventurier aventurier, Grille gTuile) {
+        
+        this.setA(aventurier);
         this.window = new JFrame();
         window.setSize(350, 200);
         //le titre = nom du joueur 
-        window.setTitle(nomJoueur);
+        window.setTitle(a.getPseudo());
         mainPanel = new JPanel(new BorderLayout());
         this.window.add(mainPanel);
 
         mainPanel.setBackground(new Color(230, 230, 230));
-        mainPanel.setBorder(BorderFactory.createLineBorder(couleur, 2));
+        mainPanel.setBorder(BorderFactory.createLineBorder(a.getPion().getCouleur(), 2));
 
         // =================================================================================
         // NORD : le titre = nom de l'aventurier sur la couleurActive du pion
         this.panelAventurier = new JPanel();
-        panelAventurier.setBackground(couleur);
-        panelAventurier.add(new JLabel(nomAventurier, SwingConstants.CENTER));
+        panelAventurier.setBackground(a.getPion().getCouleur());
+        panelAventurier.add(new JLabel(a.getRole(), SwingConstants.CENTER));
         mainPanel.add(panelAventurier, BorderLayout.NORTH);
 
         // =================================================================================
         // CENTRE : 1 ligne pour position courante
         this.panelCentre = new JPanel(new GridLayout(2, 1));
         this.panelCentre.setOpaque(false);
-        this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+        this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, a.getPion().getCouleur()));
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
         
         
         //Position de départ
-            labelPosDefaut = new JLabel("Position" ,SwingConstants.CENTER);
-        switch (a.getRole()) {
-            case "Ingénieur":
-                labelPosDefaut.setText("La Porte De Bronze");
-                break;
-            case "Explorateur":
-                labelPosDefaut.setText("La Porte De Cuivre");
-                break;
-            case "Plongeur":
-                labelPosDefaut.setText("La Porte De fer");
-                break;
-            case "Pilote":
-                labelPosDefaut.setText("Heliport");
-                break;
-            case "Messager":
-                labelPosDefaut.setText("La Porte D'Argent");
-                break;
-            case "Navigateur":
-                labelPosDefaut.setText("La Porte D'Or");
-                break;
-            default:
-                break;
-        }
+        Tuile[][] tuiles = gTuile.getTuiles();
+        labelPosDefaut = new JLabel(tuiles[a.getL()][a.getC()].getNom() ,SwingConstants.CENTER);
+       
+
+    
+
         
         panelCentre.add(labelPosDefaut);
 
@@ -305,4 +289,9 @@ public class VueAventurier extends Observe {
         this.a = a;
     }
     
+    public void finirTour() {
+        btnBouger.setEnabled(false);
+        btnAssecher.setEnabled(false);
+        btnAutreAction.setEnabled(false);
+    }
 }
