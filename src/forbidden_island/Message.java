@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class Message {
     // Liste des types de messages
     private TypesMessages type;  // type de message
-    private Tuile tuile;    // lorsqu'on selectionne une tuile
+    private String tuile;    // lorsqu'on selectionne une tuile
     private Aventurier joueur; // pour savoir quel joueur joue
     private CarteTresor carte; // si on donne une carte
     private ArrayList<String> nom; //Liste de joueur pour nouvelle partie
@@ -32,7 +32,7 @@ public class Message {
         return type;
     }
 
-    public Tuile getTuile() {
+    public String getTuile() {
         return tuile;
     }
 
@@ -52,7 +52,7 @@ public class Message {
         return nbJoueur;
     }
     
-    public void setTuile(Tuile tuile) {
+    public void setTuile(String tuile) {
         this.tuile = tuile;
     }
 
