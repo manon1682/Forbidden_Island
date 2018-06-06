@@ -7,11 +7,11 @@ package view;
 
 import Aventurier.Aventurier;
 import Aventurier.Explorateur;
+import Enumeration.TypesMessages;
 import forbidden_island.Grille;
 import forbidden_island.Message;
 import forbidden_island.Observe;
 import forbidden_island.Tuile;
-import Enumeration.TypesMessages;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -36,52 +36,99 @@ import util.Utils.Pion;
  *
  * @author cabezama
  */
+public class VueInitialisation extends Observe {
 
-public class VueInitialisation {
-    
-    
-        private final JFrame window;
-        private final JPanel mainPanel;        
-        private JPanel panelCentre;
-        private JComboBox choixNbJoueur;
-        private String[] nbjoueurs;
-        private JPanel panelBas;
-        private JButton valider;
-        
-        
-    public VueInitialisation(){
-        this.nbjoueurs = new String[]{"1","2","3","4"};
+    private final JFrame window;
+    private final JPanel mainPanel;
+    private JPanel panelCentre;
+    private JComboBox choixNbJoueur;
+    private String[] nbjoueurs;
+    private JPanel panelBas;
+    private JButton valider;
+    private int nbJ;
+    private ArrayList<JTextField> saisirJ = new ArrayList<>();
+
+    public VueInitialisation() {
+        this.nbjoueurs = new String[]{"2", "3", "4"};
         this.window = new JFrame();
-        window.setSize(350, 200);
-        
+        window.setSize(500, 350);
+
         window.setTitle("Ile Interdite");
         mainPanel = new JPanel(new BorderLayout());
         this.window.add(mainPanel);
 
-        mainPanel.setBackground(new Color(230, 230, 230));  
-        
+        mainPanel.setBackground(new Color(230, 230, 230));
+
         // NORD
         mainPanel.add(BorderLayout.NORTH, new JLabel("Ile Interdite"));
-        
+
         //Panel Centre
-        panelCentre = new JPanel (new GridLayout(1,2));
+        panelCentre = new JPanel(new GridLayout(5, 2));
         panelCentre.add(new JLabel("Nombre de Joueur : "));
         choixNbJoueur = new JComboBox(nbjoueurs);
         panelCentre.add(choixNbJoueur);
+
+        panelCentre.add(new JLabel());
+        panelCentre.add(new JLabel());
+
+        panelCentre.add(new JLabel());
+        panelCentre.add(new JLabel());
+
+        panelCentre.add(new JLabel());
+        panelCentre.add(new JLabel());
+
+        panelCentre.add(new JLabel());
+        panelCentre.add(new JLabel());
+
         mainPanel.add(BorderLayout.CENTER, panelCentre);
-        
+
         //Panel bas
         mainPanel.add(BorderLayout.SOUTH, valider = new JButton("Valider"));
-        
-        
-    }
-    
-    public static void main(String[] args) {
-        VueInitialisation ihm = new VueInitialisation();
-            ihm.window.setVisible(true);
-    }
-    
-}
-    
-    
 
+        valider.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (choixNbJoueur.isEnabled()) {
+                    nbJ = choixNbJoueur.getSelectedIndex() + 2;
+
+                    for (int i = 0; i < nbJ; i++) {
+                        saisirJ.add(new JTextField());
+                        
+                        panelCentre.remove(3);
+                        panelCentre.remove(2);
+                        panelCentre.add(new JLabel("Nom joueur " + (i + 1)));
+                        panelCentre.add(saisirJ.get(i));
+
+                    }
+                    choixNbJoueur.setEnabled(false);
+                    window.setVisible(true);
+                } else {
+                    ArrayList<String> nom = new ArrayList<>();
+
+                    for (int i = 0; i < nbJ; i++) {
+                        String nm = saisirJ.get(i).getText();
+                        nom.add(nm);
+                    }
+
+                    Message m = new Message(TypesMessages.NOUVELLE_PARTIE, null);
+                    m.setNbJoueur(nbJ);
+                    m.setNom(nom);
+                    notifierObservateur(m);
+                }
+
+            }
+        });
+
+        window.setVisible(true);
+    }
+
+     public void afficher() {
+        window.setVisible(true);
+    }
+
+    public JFrame getWindow() {
+        return window;
+    }
+
+}

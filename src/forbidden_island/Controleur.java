@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Utils;
 import view.VueAventurier;
+import view.VueInitialisation;
 
 public class Controleur implements Observateur {
 
@@ -34,14 +35,20 @@ public class Controleur implements Observateur {
     private ArrayList<Aventurier> joueurs = new ArrayList<Aventurier>();
     private Deck_Tresor deck_T;
     private Deck_Innondation deck_I;
-    private int jaugeInnondation;
+    private int jaugeInnondation; //débute à 1 et finit 10 > tête de mort
     private Aventurier joueurCourant;
     private VueAventurier vueA;
+    private VueInitialisation vueI;
     private int nbAction;
-
+    private boolean partiePerdue = false;
+    
+    
     public Controleur() {
         initPlateau();
         initDeck();
+        vueI = new VueInitialisation();
+        vueI.addObservateur(this);
+        vueI.afficher();
         //vueA.afficher();
         
         while(!perdrePartie()){
@@ -257,10 +264,53 @@ public class Controleur implements Observateur {
     public Grille getGrille() {
         return this.grille;
     }
+    
+    public int niveauInnondation() {
+        
+    if (jaugeInnondation>=1 && jaugeInnondation <3) {
+        return 2;
+    } else if (jaugeInnondation>=3 && jaugeInnondation <6) {
+        return 3;
+    } else if (jaugeInnondation>=6 && jaugeInnondation <8) {
+        return 4;
+    } else if (jaugeInnondation>=8 && jaugeInnondation <10) {
+        return 5;
+    } else
+        return 6; // tête de mort
+    }   
 
     // Antoine note : à coder après perdrePartie(); après check pour jaugeInnondation
     public boolean gagnerPartie() {
-        return false;
+        /*
+        Une fois que vous avez récupéré les quatre 
+trésors, chacun doit déplacer son pion jusqu’à la tuile « l’héliport ». 
+Ensuite, l’un des joueurs doit défausser une carte Hélicoptère pour 
+que votre équipe décolle de l’Île Interdite et gagne !
+NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
+
+        */
+        
+        //REGROUPER LES CONDITIONS DE CHAQUE IF APRES
+        
+
+        //si la liste des tresorsObtenus des aventurier est complète
+        
+        if (Aventurier.getTresorsObtenus().size() == 3){
+            
+        }
+        
+        //si tous les joueurs sont présent sur la case héliport
+        Tuile tuiHeli = grille.getTuileAvecNom("Heliport");
+        boolean joueursPresentsHeliport = false;
+        
+        for (int i = 0; i < joueurs.size(); i++) {
+            if (joueurs) {
+                
+            }
+        }
+        
+        
+        return true;
     }
 
     public boolean inonde(String nomTuile){
@@ -327,15 +377,16 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //et qu’il n’y a pas de tuile adjacente où nager ;
         //PLONGEUR & HELICO DIFF 
     
-//        for (int i = 0; i < n; i++) {
-//            
-//        }
+        
+        if (partiePerdue){ //modifié dans la méthode revive
+            return true;
+        }
     
         
 
         
         //Cas 4
-        if (jaugeInnondation > 9) {
+        if (niveauInnondation() == 6) {
             return true;
         }
 
@@ -396,7 +447,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case NOUVELLE_PARTIE:
                 initJoueur(m.getNbJoueur(), m.getNom());
+                vueI.getWindow().setVisible(false);
                 vueA = new VueAventurier(joueurCourant.getPseudo(),joueurCourant.getRole(), joueurCourant.getCouleur().getCouleur());
+                vueA.addObservateur(this);
                 vueA.afficher();
                 break;
 
