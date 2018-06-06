@@ -119,8 +119,12 @@ public class Controleur implements Observateur {
     }
 
     public void jouerTour(Aventurier a) {
-        // TODO - implement Controleur.jouerTour
-        throw new UnsupportedOperationException();
+        vueA = new VueAventurier(a.getPseudo(),"", a.getCouleur());
+        vueA.addObservateur(this);
+        
+        
+        
+        
     }
 
     public void addDefausseT(CarteTresor carte) {

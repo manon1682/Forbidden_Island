@@ -185,4 +185,25 @@ public abstract class Aventurier {
         posColonne = c;
     }
 
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public Couleur getCouleur() {
+        return couleur;
+    }
+
+    public void setCouleur(Couleur couleur) {
+        this.couleur = couleur;
+    }
+    
+    public String getRole(){
+        switch(instantOf){
+            case Ingenieur :
+                break;
+        }
+        
+        return "";
+    }
 }
+
