@@ -8,7 +8,7 @@ import util.Utils.Pion;
 public class Explorateur extends Aventurier {
 
     public Explorateur(String nm, int l, int c) {
-        super(Pion.ROUGE, nm, l, c);
+        super(Pion.VERT, nm, l, c);
     }
 
     @Override

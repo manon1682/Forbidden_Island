@@ -5,7 +5,6 @@ import static Enumeration.EtatTuile.coulée;
 import static Enumeration.EtatTuile.inondée;
 import static Enumeration.EtatTuile.sèche;
 import Enumeration.Tresor;
-import Enumeration.NomTuile;
 
 public class Tuile {
 

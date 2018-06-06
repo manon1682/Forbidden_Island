@@ -77,19 +77,12 @@ public class VueAventurier extends Observe {
         
         
         //Position de départ
-        if(a.getRole() == "Ingénieur"){
-            labelPosDefaut = new JLabel("La Porte De Bronze", SwingConstants.CENTER);
-        }else if(a.getRole() == "Explorateur"){
-            labelPosDefaut = new JLabel("La Porte De Cuivre", SwingConstants.CENTER);
-        }else if(a.getRole() == "Plongeur"){
-            labelPosDefaut = new JLabel("La Porte De fer", SwingConstants.CENTER);
-        }else if(a.getRole() == "Pilote"){
-            labelPosDefaut = new JLabel("Heliport", SwingConstants.CENTER);
-        }else if(a.getRole() == "Messager"){
-            labelPosDefaut = new JLabel("La Porte D'Argent", SwingConstants.CENTER);
-        }else if(a.getRole() == "Navigateur"){
-            labelPosDefaut = new JLabel("La Porte D'Or", SwingConstants.CENTER);
-        }
+        Tuile[][] tuiles = gTuile.getTuiles();
+        labelPosDefaut = new JLabel(tuiles[a.getL()][a.getC()].getNom() ,SwingConstants.CENTER);
+       
+
+    
+
         
         panelCentre.add(labelPosDefaut);
 
@@ -296,4 +289,9 @@ public class VueAventurier extends Observe {
         this.a = a;
     }
     
+    public void finirTour() {
+        btnBouger.setEnabled(false);
+        btnAssecher.setEnabled(false);
+        btnAutreAction.setEnabled(false);
+    }
 }
