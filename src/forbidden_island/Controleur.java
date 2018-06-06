@@ -270,43 +270,47 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         2. Si « l’héliport » sombre ;
         3. Si un joueur est sur une tuile Île qui sombre et qu’il n’y a pas de tuile adjacente où nager ;
         4. Si le Marqueur de niveau atteint la tête de mort.        
-         */
+    */
+
 
         //cas 1
-        if (grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("Le Temple du Soleil").getTresor() != null
-                && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("Le Temple de La Lune").getTresor() != null
-
-                || grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("La Caverne des Ombres").getTresor() != null
-                && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("La Caverne du Brasier").getTresor() != null
-
-                || grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("Le Palais de Corail").getTresor() != null
-                && grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("Le Palais des Marees").getTresor() != null
-
-                || grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("Le Jardin des Murmures").getTresor() != null
-                && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("Le Jardin des Hurlements").getTresor() != null) {
-            return true;
-        }
-
+        
+    if( 
+        grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.inondée 
+     && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Temple du Soleil").getTresor()) == false
+     ||
+        grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.inondée 
+     && Aventurier.TresorsObtenus(grille.getTuileAvecNom("La Caverne des Ombres").getTresor()) == false
+     ||
+        grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.inondée 
+     && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Palais des Marees").getTresor()) == false
+     ||
+        grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.inondée 
+     && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.inondée 
+     && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false
+      ){
+        return true;
+       }
+        
         //Cas 2
-        if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.inondée) {
-            return true;
-        }
-
+    if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.inondée ) {
+        return true;
+    }
+    
         //cas 3 : 3. Si un joueur est sur une tuile Île qui sombre 
         //et qu’il n’y a pas de tuile adjacente où nager ;
+        //PLONGEUR & HELICO DIFF 
+    
 //        for (int i = 0; i < n; i++) {
 //            
 //        }
-        ////////ATTENTION J'AI MIS EN COMMENTAIRE  if (grille.getTuileAvecNom(nomTuile)) {
-        // }
+    
+        
+
+        
         //Cas 4
         if (jaugeInnondation > 9) {
             return true;
