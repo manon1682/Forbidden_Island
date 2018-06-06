@@ -88,7 +88,7 @@ public class VueAventurier extends Observe {
             labelPosDefaut = new JLabel("La Porte D'Argent", SwingConstants.CENTER);
         }else if(a.getRole() == "Navigateur"){
             labelPosDefaut = new JLabel("La Porte D'Or", SwingConstants.CENTER);
-        }
+        } 
         
         panelCentre.add(labelPosDefaut);
 
