@@ -15,11 +15,10 @@ public class Grille {
     }
 
     public Tuile getTuileAvecNom(String nomTuile) {
-        /* int c = 0;
+        int c = 0;
         int l = 0;
         
-        while (c < 6 && l < 6 && tuiles[l][c].getNom() != nomTuile) {
-
+        while ((tuiles[l][c] != null ? (c < 6 && l < 6 && tuiles[l][c].getNom().equalsIgnoreCase(nomTuile)) : (c < 6 && l < 6))) {
             if (c == 5) {
                 l++;
                 c = 0;
@@ -27,21 +26,7 @@ public class Grille {
                 c++;
             }
         }
-        return tuiles[l][c]; */
-
-        Tuile tuile = new Tuile();
-
-        for (int l = 0; l < 6; l++) {
-            for (int c = 0; c < 6; c++) {
-                if (tuiles[l][c].getNom().equalsIgnoreCase(nomTuile)) {
-                    tuile.setColonne(c);
-                    tuile.setLigne(l);
-                    tuile.setNom(tuiles[l][c].getNom());
-                }
-            }
-        }
-
-        return tuile;
+        return tuiles[l][c];
 
     }
 

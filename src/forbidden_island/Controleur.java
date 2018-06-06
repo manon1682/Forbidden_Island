@@ -293,11 +293,11 @@ NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
         Tuile tuiHeli = grille.getTuileAvecNom("Heliport");
         boolean joueursPresentsHeliport = false;
         
-        for (int i = 0; i < joueurs.size(); i++) {
+ /*       for (int i = 0; i < joueurs.size(); i++) {
             if (joueurs) {
                 
             }
-        }
+        }*/
         
         
         return true;

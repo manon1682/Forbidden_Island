@@ -227,8 +227,10 @@ public class VueAventurier extends Observe {
         Tuile[][] tuiles = gTuile.getTuiles();
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
-                if (listeChoix.getSelectedItem() == tuiles[i][j].getNom()) {
-                    tuileSelect = tuiles[i][j];
+                if(gBool[i][j]){
+                    if (listeChoix.getSelectedItem() == tuiles[i][j].getNom()) {
+                        tuileSelect = tuiles[i][j];
+                    }
                 }
             }
         }
