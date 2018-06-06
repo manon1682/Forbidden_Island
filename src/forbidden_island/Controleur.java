@@ -34,7 +34,7 @@ public class Controleur implements Observateur {
     private ArrayList<Aventurier> joueurs = new ArrayList<Aventurier>();
     private Deck_Tresor deck_T;
     private Deck_Innondation deck_I;
-    private int jaugeInnondation;
+    private int jaugeInnondation; //débute à 1 et finit 10 > tête de mort
     private Aventurier joueurCourant;
     private VueAventurier vueA;
     private int nbAction;
@@ -248,6 +248,20 @@ public class Controleur implements Observateur {
     public Grille getGrille() {
         return this.grille;
     }
+    
+    public int niveauInnondation() {
+        
+    if (jaugeInnondation>=1 && jaugeInnondation <3) {
+        return 2;
+    } else if (jaugeInnondation>=3 && jaugeInnondation <6) {
+        return 3;
+    } else if (jaugeInnondation>=6 && jaugeInnondation <8) {
+        return 4;
+    } else if (jaugeInnondation>=8 && jaugeInnondation <10) {
+        return 5;
+    } else
+        return 6; // tête de mort
+    }   
 
     // Antoine note : à coder après perdrePartie(); après check pour jaugeInnondation
     public boolean gagnerPartie() {
@@ -303,7 +317,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         
         //Cas 4
-        if (jaugeInnondation > 9) {
+        if (niveauInnondation() == 6) {
             return true;
         }
 
