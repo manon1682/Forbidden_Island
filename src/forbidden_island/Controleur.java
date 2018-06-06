@@ -11,6 +11,7 @@ import Cartes.CarteTresor;
 import Cartes.Deck;
 import Enumeration.EtatTuile;
 import Enumeration.Tresor;
+import java.awt.Color;
 
 /*Charger fichier tuiles*/
 import java.io.BufferedReader;
@@ -437,14 +438,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case NOUVELLE_PARTIE:
                 initJoueur(m.getNbJoueur(), m.getNom());
-                vueI.getWindow().setVisible(false);
+                vueI.desafficher();
                 vueA = new VueAventurier(joueurCourant.getPseudo(),joueurCourant.getRole(), joueurCourant.getCouleur().getCouleur());
                 vueA.addObservateur(this);
                 vueA.afficher();
                 break;
 
             case TOUR_SUIVANT:
-
+                vueA.desafficher();
                 break;
         }
     }

@@ -82,8 +82,8 @@ public class VueInitialisation extends Observe {
                     nbJ = choixNbJoueur.getSelectedIndex() + 2;
 
                     for (int i = 0; i < nbJ; i++) {
-                        saisirJ.add(new JTextField("Joueur " + (i+1)));
-                        
+                        saisirJ.add(new JTextField("Joueur " + (i + 1)));
+
                         panelCentre.remove(3);
                         panelCentre.remove(2);
                         panelCentre.add(new JLabel("Nom joueur " + (i + 1)));
@@ -111,12 +111,12 @@ public class VueInitialisation extends Observe {
         window.setVisible(true);
     }
 
-     public void afficher() {
+    public void afficher() {
         window.setVisible(true);
     }
 
-    public JFrame getWindow() {
-        return window;
+    public void desafficher() {
+        window.setVisible(false);
     }
 
 }
