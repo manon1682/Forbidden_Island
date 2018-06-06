@@ -18,22 +18,22 @@ import javax.swing.JOptionPane;
  */
 public class Utils {
  
-    public static enum EtatTuile {
-        ASSECHEE("Asséchée"), 
-        INONDEE("Inondée"),
-        COULEE("Coulée");
-
-        String libelle;
-        
-        EtatTuile(String libelle) {
-            this.libelle = libelle ;
-        }
-
-        @Override
-        public String toString() {
-            return this.libelle ;
-        }
-    }
+//    public static enum EtatTuile {
+//        ASSECHEE("Asséchée"), 
+//        INONDEE("Inondée"),
+//        COULEE("Coulée");
+//
+//        String libelle;
+//        
+//        EtatTuile(String libelle) {
+//            this.libelle = libelle ;
+//        }
+//
+//        @Override
+//        public String toString() {
+//            return this.libelle ;
+//        }
+//    }
 
     public static enum Pion {
         ROUGE("Rouge", new Color(255, 0, 0)),
