@@ -348,14 +348,13 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
     
     
     public boolean perdrePartie() {
-        /*
+    /*
         1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
 symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors respectifs ;
         2. Si « l’héliport » sombre ;
         3. Si un joueur est sur une tuile Île qui sombre et qu’il n’y a pas de tuile adjacente où nager ;
         4. Si le Marqueur de niveau atteint la tête de mort.        
     */
-
 
         //cas 1
         
@@ -387,17 +386,13 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //cas 3 : 3. Si un joueur est sur une tuile Île qui sombre 
         //et qu’il n’y a pas de tuile adjacente où nager ;
         //PLONGEUR & HELICO DIFF 
-    
-        
+
         if (partiePerdue){ //modifié dans la méthode evasions<coulee<inonde
             return true;
         }
-    
-        
 
-        
         //Cas 4
-        if (niveauInnondation() == 6) {
+        if (niveauInnondation() == 6) { // 6 correspond à la tête de mort
             return true;
         }
 
