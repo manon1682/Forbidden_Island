@@ -227,7 +227,7 @@ public class Controleur implements Observateur {
     }
 
     public void jouerTour(Aventurier a) {
-
+            //code présent dans traiterMessage
     }
 
     public void addDefausseT(CarteTresor carte) {
@@ -239,6 +239,8 @@ public class Controleur implements Observateur {
     }
 
     public boolean getTresor(Aventurier a) {
+        /*"Est ce que tu peux prendre le trésor ?*/
+        
         int l = a.getL();
         int c = a.getC();
 
@@ -288,8 +290,7 @@ public class Controleur implements Observateur {
     }
 
     public void assecherSpecial(Grille grille) {
-        // TODO - implement Controleur.assecherSpecial
-        throw new UnsupportedOperationException();
+        //methode pour le navigateur
     }
 
     public Grille getGrille() {
@@ -297,6 +298,7 @@ public class Controleur implements Observateur {
     }
 
     public int niveauInnondation() {
+        //renvoie le niveau d'innondation en fonction de la jauge d'innondation
 
         if (jaugeInnondation >= 1 && jaugeInnondation < 3) {
             return 2;
@@ -412,23 +414,23 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
          */
 
         //cas 1
-        if (grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.inondée
+        if (grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.coulée
+                && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.coulée
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Temple du Soleil").getTresor()) == false
-                || grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.inondée
+                || grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.coulée
+                && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.coulée
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("La Caverne des Ombres").getTresor()) == false
-                || grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.inondée
+                || grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.coulée
+                && grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.coulée
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Palais des Marees").getTresor()) == false
-                || grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.inondée
-                && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.inondée
+                || grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.coulée
+                && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.coulée
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false) {
             return true;
         }
 
         //Cas 2
-        if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.inondée) {
+        if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.coulée) {
             return true;
         }
 
@@ -533,14 +535,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant = joueurs.get(n + 1);
                 } else {
                     joueurCourant = joueurs.get(0);
-                }                
-
-               /* vueA.setNomJoueur(joueurCourant.getPseudo());
-                vueA.setNomAventurier(joueurCourant.getRole());
-                vueA.setCouleur(joueurCourant.getPion().getCouleur());
-                vueA.setAventurier(joueurCourant); */
+                }
                 
                 vueA = new VueAventurier(joueurCourant, grille);
+                vueA.addObservateur(this);
                 vueA.afficher();
                 break;
         }

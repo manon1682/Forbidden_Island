@@ -269,25 +269,6 @@ public class VueAventurier extends Observe {
     public void desafficher() {
         window.setVisible(false);
     }
-
-    public void setNomJoueur(String nom) {
-        window.setTitle(nom);
-    }
-
-    public void setNomAventurier(String nom) {
-        panelAventurier.remove(0);
-        panelAventurier.add(new JLabel(nom, SwingConstants.CENTER));
-    }
-
-    public void setCouleur(Color couleur) {
-        mainPanel.setBorder(BorderFactory.createLineBorder(couleur, 2));
-        panelAventurier.setBackground(couleur);
-        this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
-    }
-    
-    public void setAventurier(Aventurier a){
-        this.a = a;
-    }
     
     public void finirTour() {
         btnBouger.setEnabled(false);
