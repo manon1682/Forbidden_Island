@@ -263,6 +263,29 @@ public class Controleur implements Observateur {
         return false;
     }
 
+    public boolean inonde(String nomTuile){
+        Tuile tuile = grille.getTuileAvecNom(nomTuile);
+        if(tuile.getEtat() != EtatTuile.coulée){
+            tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
+            if(tuile.getEtat() == EtatTuile.coulée){
+                coule(tuile);
+            }
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+    
+    public void coule(Tuile tuile){
+        for (Aventurier joueur : joueurs) {
+            if(joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()){
+                
+            }
+        }
+    }
+    
+    
     public boolean perdrePartie() {
         /*
         1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
