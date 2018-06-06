@@ -1,9 +1,6 @@
 package forbidden_island;
 
 import Enumeration.EtatTuile;
-import static Enumeration.EtatTuile.coulée;
-import static Enumeration.EtatTuile.inondée;
-import static Enumeration.EtatTuile.sèche;
 import Enumeration.Tresor;
 
 public class Tuile {
@@ -19,22 +16,22 @@ public class Tuile {
 
     public Tuile(String nom, int ligne, int colonne) {
         this.setNom(nom);
-        this.setEtat(etat.sèche);
+        this.setEtat(EtatTuile.sèche);
         this.setLigne(ligne);
         this.setColonne(colonne);
     }
 
     public boolean verifTuileD() {
-        return getEtat() != coulée;
+        return getEtat() != EtatTuile.coulée;
     }
 
     public boolean verifTuileDPlongeur() {
-        return (getEtat() == coulée || getEtat() == inondée);
+        return getEtat() != EtatTuile.sèche;
     }
 
     //Vérifie que la tuile n'est pas sèche et pas coulée pour l'asséchement
     public boolean verifTuileA() {
-        return getEtat() == inondée;
+        return getEtat() == EtatTuile.inondée;
 
     }
 
@@ -51,7 +48,7 @@ public class Tuile {
     }
 
     public void asseche() {
-        setEtat(sèche);
+        setEtat(EtatTuile.sèche);
     }
 
     public void setEtat(EtatTuile etat) {
