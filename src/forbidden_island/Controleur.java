@@ -188,6 +188,30 @@ public class Controleur implements Observateur {
     public Grille getGrille() {
         return this.grille;
     }
+    
+    // Antoine note : à coder après perdrePartie(); après check pour jaugeInnondation
+    public boolean gagnerPartie(){
+        return false;
+    }
+    
+    public boolean perdrePartie(){
+        
+        for (int i = 0; i < 10; i++) {
+            
+        }
+        
+        
+        
+        grille.getTuiles().
+        
+                
+        
+        
+        
+        return false;        
+    }
+    
+    
 
     @Override
     public void traiterMessage(Message m) {
