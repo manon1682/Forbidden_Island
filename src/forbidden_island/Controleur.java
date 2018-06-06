@@ -9,6 +9,7 @@ import Aventurier.Ingénieur;
 import Aventurier.Messager;
 import Cartes.CarteTresor;
 import Cartes.Deck;
+import Enumeration.CarteUtilisable;
 import Enumeration.EtatTuile;
 import Enumeration.Tresor;
 import java.awt.Color;
@@ -276,57 +277,51 @@ public class Controleur implements Observateur {
         Une fois que vous avez récupéré les quatre 
 trésors, chacun doit déplacer son pion jusqu’à la tuile « l’héliport ». 
 Ensuite, l’un des joueurs doit défausser une carte Hélicoptère pour 
-que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN ROLE HELICOPTER
-NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
-
+que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN ROLE PILOTE
+        NB : vous pouvez gagner même si la tuile « l’héliport » est inondée.
+        contre NB : Ahah, si héliport est innondée alors la partie est déjà terminé (en théorie... cf PerdrePartie();
         */
-        
-        //REGROUPER LES CONDITIONS DE CHAQUE IF APRES
 
         
-        //si tous les joueurs sont présent sur la case héliport
+        //1.si tous les joueurs sont présent sur la case héliport
         Tuile tuileHelico = grille.getTuileAvecNom("Heliport");
-        boolean joueursPresentsHeliport = true;
         
-        for (int i = 0; i < joueurs.size(); i++) {
-            if ( joueurs.get(i).getL() != tuileHelico.getLigne() || joueurs.get(i).getC() != tuileHelico.getColonne() ) {
+        boolean joueursPresentsHeliport = true;
+        for (Aventurier j : joueurs) {
+            if ( j.getL() != tuileHelico.getLigne() || j.getC() != tuileHelico.getColonne() ) {
             joueursPresentsHeliport = false;    
             } //joueursPresentsHeliport n'est jamais mis à false si tous les joueurs sont présent dans la case.
         }
         
-        //si la liste des tresorsObtenus des aventurier est complète
-        
+        //2. si la liste des tresorsObtenus des aventurier est complète
+         boolean listeTresorComplete = false;
         if (Aventurier.getTresorsObtenus().size() == 3){
-            
+          listeTresorComplete = true; 
         }
         
-        //si y'a un role hélico, alors c'est good, sinon check si il y a une carte hélico
+        //3. si y'a un role hélico, alors c'est good, sinon check si il y a une carte hélico
+        boolean pilotePresent = false;
+        for (Aventurier j : joueurs) {
+            if ( j.getRole() == "Pilote" ) {
+            pilotePresent = true;    
+            } //pilotePresent n'est jamais mis à true si parmi tous les joueurs il y a aucun pilote. 
+        }
         
-//        boolean pilotePresent = false;
-//        for (int i = 0; i < joueurs.size(); i++) {
-//            if ( joueurs.get(i).getRole() = "Pilote" ) {
-//            pilotePresent = true;    
-//            } //pilotePresent n'est jamais mis à true si parmi tous les joueurs il y a aucun pilote.
-//        
-//        }
-//        
-//        if (pilotePresent) {
-//            return true;
-//        } else {
-//            
-//            //check si au moins un des joueurs a une carte hélico afin de terminer la partie
-//                
-//        }
+        boolean carteHelicoPresente = false; 
+        for (Aventurier j : joueurs) {
+            for (CarteTresor cT : j.getMainA()) {
+                if ( cT.utilisation()== CarteUtilisable.hélico){
+                    carteHelicoPresente = true;
+                }
+            }
+        }
         
-        
-        
-        
-        
-        
-        
-        
-        
-        return true;
+        // IF GENERALE
+        if ( joueursPresentsHeliport && listeTresorComplete && (pilotePresent || carteHelicoPresente) ) {
+               return true;
+        } else {
+               return false;
+        }
     }
 
     public boolean inonde(String nomTuile){
@@ -394,7 +389,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //PLONGEUR & HELICO DIFF 
     
         
-        if (partiePerdue){ //modifié dans la méthode revive
+        if (partiePerdue){ //modifié dans la méthode evasions<coulee<inonde
             return true;
         }
     
