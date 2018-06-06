@@ -147,7 +147,9 @@ public abstract class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                sauvType = TypesMessages.TOUR_SUIVANT;
+                Message m = new Message(TypesMessages.TOUR_SUIVANT, a);
+                notifierObservateur(m);
             }
 
         });

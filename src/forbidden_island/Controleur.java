@@ -168,8 +168,11 @@ public class Controleur implements Observateur {
     }
 
     public void jouerTour(Aventurier a) {
-        // TODO - implement Controleur.jouerTour
-        throw new UnsupportedOperationException();
+        
+        
+        
+        
+        
     }
 
     public void addDefausseT(CarteTresor carte) {
@@ -237,6 +240,30 @@ public class Controleur implements Observateur {
     public Grille getGrille() {
         return this.grille;
     }
+    
+    // Antoine note : à coder après perdrePartie(); après check pour jaugeInnondation
+    public boolean gagnerPartie(){
+        return false;
+    }
+    
+    public boolean perdrePartie(){
+    /*
+        
+        
+        */
+        
+        
+    if grille.getTuileAvecNom(nomTuile)
+        
+        
+                
+        
+        
+        
+        return false;        
+    }
+    
+    
 
     @Override
     public void traiterMessage(Message m) {
