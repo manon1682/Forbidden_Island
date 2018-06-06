@@ -267,7 +267,6 @@ public class Controleur implements Observateur {
         }
     }
 
-    // Antoine note : à coder après perdrePartie(); après check pour jaugeInnondation
     public boolean gagnerPartie() {
         /*
         Une fois que vous avez récupéré les quatre 
