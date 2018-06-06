@@ -41,39 +41,56 @@ public class VueAventurier extends Observe {
     private JLabel labelvide = new JLabel("");
     private JLabel labelPos;
     private JLabel labelPosDefaut;
+    private boolean premierClic = true;
     //comboBox des choix
     private JComboBox listeChoix;
     //Array List qui stock les possibilités de choix
     private String[] choixPoss = new String[36];
     protected Aventurier a;
 
-    public VueAventurier(String nomJoueur, String nomAventurier, Color couleur) {
-
+    public VueAventurier(Aventurier aventurier, Grille gTuile) {
+        
+        this.setA(aventurier);
         this.window = new JFrame();
         window.setSize(350, 200);
         //le titre = nom du joueur 
-        window.setTitle(nomJoueur);
+        window.setTitle(a.getPseudo());
         mainPanel = new JPanel(new BorderLayout());
         this.window.add(mainPanel);
 
         mainPanel.setBackground(new Color(230, 230, 230));
-        mainPanel.setBorder(BorderFactory.createLineBorder(couleur, 2));
+        mainPanel.setBorder(BorderFactory.createLineBorder(a.getPion().getCouleur(), 2));
 
         // =================================================================================
         // NORD : le titre = nom de l'aventurier sur la couleurActive du pion
         this.panelAventurier = new JPanel();
-        panelAventurier.setBackground(couleur);
-        panelAventurier.add(new JLabel(nomAventurier, SwingConstants.CENTER));
+        panelAventurier.setBackground(a.getPion().getCouleur());
+        panelAventurier.add(new JLabel(a.getRole(), SwingConstants.CENTER));
         mainPanel.add(panelAventurier, BorderLayout.NORTH);
 
         // =================================================================================
         // CENTRE : 1 ligne pour position courante
         this.panelCentre = new JPanel(new GridLayout(2, 1));
         this.panelCentre.setOpaque(false);
-        this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+        this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, a.getPion().getCouleur()));
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
-
-        labelPosDefaut = new JLabel("Position", SwingConstants.CENTER);
+        
+        
+        //Position de départ
+        if(a.getRole() == "Ingénieur"){
+            labelPosDefaut = new JLabel("La Porte De Bronze", SwingConstants.CENTER);
+        }else if(a.getRole() == "Explorateur"){
+            labelPosDefaut = new JLabel("La Porte De Cuivre", SwingConstants.CENTER);
+        }else if(a.getRole() == "Plongeur"){
+            labelPosDefaut = new JLabel("La Porte De fer", SwingConstants.CENTER);
+        }else if(a.getRole() == "Pilote"){
+            labelPosDefaut = new JLabel("Heliport", SwingConstants.CENTER);
+        }else if(a.getRole() == "Messager"){
+            labelPosDefaut = new JLabel("La Porte D'Argent", SwingConstants.CENTER);
+        }else if(a.getRole() == "Navigateur"){
+            labelPosDefaut = new JLabel("La Porte D'Or", SwingConstants.CENTER);
+        } 
+        
         panelCentre.add(labelPosDefaut);
 
         panelCentre.add(labelvide);
@@ -165,27 +182,26 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message(sauvType, a);
-                
-               
-                                      
-                    
-                
-                m.setTuile((String) listeChoix.getSelectedItem());
-                
-                notifierObservateur(m);
 
+                m.setTuile((String) listeChoix.getSelectedItem());
+                notifierObservateur(m);
+                    
+                if (!(btnBouger.isEnabled())) {
+                    panelCentre.remove(labelPosDefaut);
+                    if(!(premierClic)){
+                        panelCentre.remove(labelPos);
+                    }
+                    labelPos = new JLabel((String) listeChoix.getSelectedItem(), SwingConstants.CENTER);
+                    panelCentre.add(labelPos);
+                    premierClic = false;
+                }
                 panelCentre.remove(panelChoixetVal);
-                
-                panelCentre.remove(labelPosDefaut);
-                //panelCentre.remove(labelPos);
-                labelPos = new JLabel((String) listeChoix.getSelectedItem(), SwingConstants.CENTER);
-                panelCentre.add(labelPos);
                 panelCentre.add(labelvide);
                 panelCentre.updateUI();
 
                 btnAssecher.setEnabled(true);
                 btnBouger.setEnabled(true);
-                
+
             }
         });
 
@@ -248,10 +264,9 @@ public class VueAventurier extends Observe {
         panelChoixetVal.add(listeChoix);
         panelChoixetVal.add(btnValider);
         panelCentre.add(panelChoixetVal);
+        
         window.setVisible(true);
 
-        
-        
     }
 
     public void afficher() {
@@ -275,5 +290,15 @@ public class VueAventurier extends Observe {
         mainPanel.setBorder(BorderFactory.createLineBorder(couleur, 2));
         panelAventurier.setBackground(couleur);
         this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+    }
+    
+    public void setAventurier(Aventurier a){
+        this.a = a;
+    }
+    
+    public void finirTour() {
+        btnBouger.setEnabled(false);
+        btnAssecher.setEnabled(false);
+        btnAutreAction.setEnabled(false);
     }
 }

@@ -38,7 +38,7 @@ public class VueInitialisation extends Observe {
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
 
     public VueInitialisation() {
-        this.nbjoueurs = new String[]{"2", "3", "4"};
+        this.nbjoueurs = new String[]{"2", "3", "4", "5", "6"};
         this.window = new JFrame();
         window.setSize(500, 350);
 
@@ -52,7 +52,7 @@ public class VueInitialisation extends Observe {
         mainPanel.add(BorderLayout.NORTH, new JLabel("Ile Interdite"));
 
         //Panel Centre
-        panelCentre = new JPanel(new GridLayout(5, 2));
+        panelCentre = new JPanel(new GridLayout(7, 2));
         panelCentre.add(new JLabel("Nombre de Joueur : "));
         choixNbJoueur = new JComboBox(nbjoueurs);
         panelCentre.add(choixNbJoueur);
@@ -66,6 +66,12 @@ public class VueInitialisation extends Observe {
         panelCentre.add(new JLabel());
         panelCentre.add(new JLabel());
 
+        panelCentre.add(new JLabel());
+        panelCentre.add(new JLabel());
+        
+        panelCentre.add(new JLabel());
+        panelCentre.add(new JLabel());
+        
         panelCentre.add(new JLabel());
         panelCentre.add(new JLabel());
 
