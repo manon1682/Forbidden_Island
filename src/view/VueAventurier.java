@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -38,6 +39,8 @@ public class VueAventurier extends Observe {
     private TypesMessages sauvType;
     private Tuile tuileSelect;
     private JLabel labelvide = new JLabel("");
+    private JLabel labelPos;
+    private JLabel labelPosDefaut;
     //comboBox des choix
     private JComboBox listeChoix;
     //Array List qui stock les possibilités de choix
@@ -70,7 +73,8 @@ public class VueAventurier extends Observe {
         this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
 
-        panelCentre.add(new JLabel("Position", SwingConstants.CENTER));
+        labelPosDefaut = new JLabel("Position", SwingConstants.CENTER);
+        panelCentre.add(labelPosDefaut);
 
         panelCentre.add(labelvide);
 
@@ -110,6 +114,7 @@ public class VueAventurier extends Observe {
                 notifierObservateur(m);
 
                 btnBouger.setEnabled(false);
+
             }
 
         });
@@ -130,6 +135,7 @@ public class VueAventurier extends Observe {
 
                 notifierObservateur(m);
                 btnAssecher.setEnabled(false);
+
             }
 
         });
@@ -159,17 +165,27 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message(sauvType, a);
-                m.setTuile(tuileSelect);
+                
+               
+                                      
+                    
+                
+                m.setTuile((String) listeChoix.getSelectedItem());
+                
                 notifierObservateur(m);
 
                 panelCentre.remove(panelChoixetVal);
+                
+                panelCentre.remove(labelPosDefaut);
+                //panelCentre.remove(labelPos);
+                labelPos = new JLabel((String) listeChoix.getSelectedItem(), SwingConstants.CENTER);
+                panelCentre.add(labelPos);
                 panelCentre.add(labelvide);
                 panelCentre.updateUI();
 
-                window.setVisible(true);
-
                 btnAssecher.setEnabled(true);
                 btnBouger.setEnabled(true);
+                
             }
         });
 
@@ -234,16 +250,8 @@ public class VueAventurier extends Observe {
         panelCentre.add(panelChoixetVal);
         window.setVisible(true);
 
-        Tuile[][] tuiles = gTuile.getTuiles();
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
-                if (gBool[i][j]) {
-                    if (listeChoix.getSelectedItem() == tuiles[i][j].getNom()) {
-                        tuileSelect = tuiles[i][j];
-                    }
-                }
-            }
-        }
+        
+        
     }
 
     public void afficher() {
