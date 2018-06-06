@@ -113,6 +113,7 @@ public class Controleur implements Observateur {
         Tuile[][] tuiles = new Tuile[6][6];
         ArrayList<String> nomTuile = chargerNomTuile();
         Tuile tuile;
+        int rand = 0; //Pas permanent juste pour demo
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
                 if ((l == 0 && ((c == 0) || (c == 1) || (c == 4) || (c == 5)))
@@ -123,8 +124,11 @@ public class Controleur implements Observateur {
                     //On est dans un angles donc on met une tuile null
                     tuiles[l][c] = null;
                 } else {
-                    int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
+                    //Ici on modifie pour charger la map comme il faut pour la demo:
+                    //int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
                     //On genere un nombre aleatoire compris entre 0 et le nombre de nomtuile qu'il reste
+                    
+                    System.out.println(rand);
                     tuile = new Tuile(nomTuile.get(rand), l, c);
                     Tresor t = assigneTresorTuile(nomTuile.get(rand));
                     if (t != null) {
@@ -483,8 +487,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             case NOUVELLE_PARTIE:
                 initJoueur(m.getNbJoueur(), m.getNom());
                 vueI.desafficher();
-                vueA = new VueAventurier(joueurCourant.getPseudo(), joueurCourant.getRole(), joueurCourant.getPion().getCouleur());
+                vueA = new VueAventurier(joueurCourant, grille);
                 vueA.addObservateur(this);
+                vueA.setA(joueurCourant);
                 vueA.afficher();
                 break;
 
