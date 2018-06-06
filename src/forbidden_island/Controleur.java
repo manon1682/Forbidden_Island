@@ -1,19 +1,16 @@
 package forbidden_island;
 
 import Enumeration.TypesMessages;
-import Enumeration.CarteUtilisable;
 import Cartes.Deck_Innondation;
 import Cartes.Deck_Tresor;
 import Aventurier.*;
 import Aventurier.Explorateur;
 import Aventurier.Ingénieur;
 import Aventurier.Messager;
-import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Cartes.Deck;
 import Enumeration.EtatTuile;
 import Enumeration.Tresor;
-import java.awt.Color;
 
 /*Charger fichier tuiles*/
 import java.io.BufferedReader;
@@ -25,7 +22,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import util.Utils;
 import view.VueAventurier;
 import view.VueInitialisation;
 
@@ -47,13 +43,12 @@ public class Controleur implements Observateur {
         vueI = new VueInitialisation();
         vueI.addObservateur(this);
         vueI.afficher();
-        //vueA.afficher();
         
-        while(!perdrePartie()){
+ /*       while(!perdrePartie()){
             
             jouerTour(joueurCourant);
             joueurCourant = joueurs.get((joueurs.indexOf(joueurCourant) < joueurs.size()-1 ? joueurs.indexOf(joueurCourant) + 1 : 0 ));
-        }
+        }*/
         
         
         
@@ -146,6 +141,7 @@ public class Controleur implements Observateur {
         roles.add("Navigateur");
 
         for (int i = 0; i < n; i++) {
+            
             int rand = ThreadLocalRandom.current().nextInt(0, roles.size());
             Tuile t;
 
@@ -153,37 +149,31 @@ public class Controleur implements Observateur {
                 case "Explorateur":
                     t = grille.getTuileAvecNom("La Porte de Cuivre");
                     joueurs.add(new Explorateur(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
 
                 case "Ingénieur":
                     t = grille.getTuileAvecNom("La Porte de Bronze");
                     joueurs.add(new Ingénieur(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
 
                 case "Pilote":
                     t = grille.getTuileAvecNom("Heliport");
                     joueurs.add(new Pilote(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
 
                 case "Messager":
                     t = grille.getTuileAvecNom("La Porte d’Argent");
                     joueurs.add(new Messager(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
 
                 case "Navigateur":
                     t = grille.getTuileAvecNom("La Porte d’Or");
                     joueurs.add(new Navigateur(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
 
                 case "Plongeur":
                     t = grille.getTuileAvecNom("La Porte de Fer");
                     joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
-                    nom.remove(i);
                     break;
             }
             roles.remove(rand);

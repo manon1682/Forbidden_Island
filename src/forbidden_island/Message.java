@@ -9,7 +9,6 @@ import Enumeration.TypesMessages;
 import Aventurier.Aventurier;
 import Cartes.CarteTresor;
 import java.util.ArrayList;
-import view.VueAventurier;
 
 /**
  *

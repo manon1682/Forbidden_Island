@@ -5,32 +5,21 @@
  */
 package view;
 
-import Aventurier.Aventurier;
-import Aventurier.Explorateur;
 import Enumeration.TypesMessages;
-import forbidden_island.Grille;
 import forbidden_island.Message;
 import forbidden_island.Observe;
-import forbidden_island.Tuile;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
-import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import static javax.swing.SwingConstants.CENTER;
-import javax.swing.border.MatteBorder;
-import util.Utils.Pion;
 
 /**
  *
@@ -93,7 +82,7 @@ public class VueInitialisation extends Observe {
                     nbJ = choixNbJoueur.getSelectedIndex() + 2;
 
                     for (int i = 0; i < nbJ; i++) {
-                        saisirJ.add(new JTextField());
+                        saisirJ.add(new JTextField("Joueur " + (i+1)));
                         
                         panelCentre.remove(3);
                         panelCentre.remove(2);
@@ -106,9 +95,8 @@ public class VueInitialisation extends Observe {
                 } else {
                     ArrayList<String> nom = new ArrayList<>();
 
-                    for (int i = 0; i < nbJ; i++) {
-                        String nm = saisirJ.get(i).getText();
-                        nom.add(nm);
+                    for (JTextField saisi : saisirJ) {
+                        nom.add(saisi.getText());
                     }
 
                     Message m = new Message(TypesMessages.NOUVELLE_PARTIE, null);

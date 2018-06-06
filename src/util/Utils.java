@@ -8,7 +8,6 @@ package util;
 import Aventurier.Aventurier;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import javax.swing.JOptionPane;
 //import model.aventuriers.Aventurier;
@@ -40,8 +39,8 @@ public class Utils {
         ROUGE("Rouge", new Color(255, 0, 0)),
         VERT("Vert", new Color(0, 195, 0)),
         BLEU("Bleu", new Color(55,194,198)),
-        BLANC("Blanc", new Color(210, 210, 210)),
-        NOIR("Noir", new Color(50, 50, 50)),
+        BLANC("Blanc", new Color(255, 255, 255)),
+        NOIR("Noir", new Color(150, 150, 150)),
         JAUNE("Jaune", new Color(255, 255, 0)) ;    
 
         private final String libelle ;
