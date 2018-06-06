@@ -1,5 +1,6 @@
 package forbidden_island;
 
+import Enumeration.TypesMessages;
 import Enumeration.CarteUtilisable;
 import Cartes.Deck_Innondation;
 import Cartes.Deck_Tresor;
@@ -24,13 +25,8 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import util.Utils;
 import view.VueAventurier;
-import view.VueExplorateur;
-import view.VueIngénieur;
-import view.VueMessager;
-import view.VueNavigateur;
-import view.VuePilote;
-import view.VuePlongeur;
 
 public class Controleur implements Observateur {
 
@@ -44,8 +40,6 @@ public class Controleur implements Observateur {
     private int nbAction;
 
     public Controleur() {
-        //vueA = new VueExplorateur("Joueur", "Explorateur", Color.red);
-        //vueA.addObservateur(this);
         initPlateau();
         initDeck();
         //vueA.afficher();
@@ -180,7 +174,7 @@ public class Controleur implements Observateur {
             }
             roles.remove(rand);
         }
-        
+
         joueurCourant = joueurs.get(0);
 
     }
@@ -259,84 +253,57 @@ public class Controleur implements Observateur {
     public boolean gagnerPartie() {
         return false;
     }
-    
-    public boolean perdrePartie(){
-    /*
+
+    public boolean perdrePartie() {
+        /*
         1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
 symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors respectifs ;
         2. Si « l’héliport » sombre ;
         3. Si un joueur est sur une tuile Île qui sombre et qu’il n’y a pas de tuile adjacente où nager ;
         4. Si le Marqueur de niveau atteint la tête de mort.        
-    */
-    
+         */
+
         //cas 1
-    if( 
-        grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("Le Temple du Soleil").getTresor() != null
-        &&
-        grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("Le Temple de La Lune").getTresor() != null
-     
-     ||
-        grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("La Caverne des Ombres").getTresor() != null
-        &&
-        grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("La Caverne du Brasier").getTresor() != null
-     
-     ||
-        grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("Le Palais de Corail").getTresor() != null
-        &&
-        grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("Le Palais des Marees").getTresor() != null
-     
-     ||
-        grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("Le Jardin des Murmures").getTresor() != null
-        &&
-        grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.inondée 
-     && grille.getTuileAvecNom("Le Jardin des Hurlements").getTresor() != null 
-      ){
-        return true;
-       }
-        
+        if (grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("Le Temple du Soleil").getTresor() != null
+                && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("Le Temple de La Lune").getTresor() != null
+
+                || grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("La Caverne des Ombres").getTresor() != null
+                && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("La Caverne du Brasier").getTresor() != null
+
+                || grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("Le Palais de Corail").getTresor() != null
+                && grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("Le Palais des Marees").getTresor() != null
+
+                || grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("Le Jardin des Murmures").getTresor() != null
+                && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.inondée
+                && grille.getTuileAvecNom("Le Jardin des Hurlements").getTresor() != null) {
+            return true;
+        }
+
         //Cas 2
-    if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.inondée ) {
-        return true;
-    }
-    
-    
+        if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.inondée) {
+            return true;
+        }
+
         //cas 3 : 3. Si un joueur est sur une tuile Île qui sombre 
         //et qu’il n’y a pas de tuile adjacente où nager ;
-    
 //        for (int i = 0; i < n; i++) {
 //            
 //        }
-    
-        
-        
-        
-    if (grille.getTuileAvecNom(nomTuile)) {
-            
-    
-    }
-        
+        ////////ATTENTION J'AI MIS EN COMMENTAIRE  if (grille.getTuileAvecNom(nomTuile)) {
+        // }
         //Cas 4
-    if (jaugeInnondation > 9) {
-        return true;
-    }
-        
-        
-                
-        
-        
-        
-        
-            
-            
-            
-            return false;
+        if (jaugeInnondation > 9) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -389,6 +356,12 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case UTILISER_CARTE:
 
+                break;
+
+            case NOUVELLE_PARTIE:
+                initJoueur(m.getNbJoueur(), m.getNom());
+                vueA = new VueAventurier(joueurCourant.getPseudo(),joueurCourant.getRole(), joueurCourant.getCouleur().getCouleur());
+                vueA.afficher();
                 break;
 
             case TOUR_SUIVANT:

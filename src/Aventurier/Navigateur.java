@@ -1,10 +1,10 @@
 package Aventurier;
 
-import Enumeration.Couleur;
+import util.Utils.Pion;
 
 public class Navigateur extends Aventurier {
 
     public Navigateur( String nm, int l, int c) {
-        super(Couleur.JAUNE, nm, l, c);
+        super(Pion.JAUNE, nm, l, c);
     }
 }

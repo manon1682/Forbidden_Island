@@ -1,13 +1,14 @@
 package Aventurier;
 
-import Enumeration.Couleur;
 import forbidden_island.Grille;
 import forbidden_island.Tuile;
+import util.Utils;
+import util.Utils.Pion;
 
 public class Explorateur extends Aventurier {
 
     public Explorateur(String nm, int l, int c) {
-        super(Couleur.ROUGE, nm, l, c);
+        super(Pion.ROUGE, nm, l, c);
     }
 
     @Override
