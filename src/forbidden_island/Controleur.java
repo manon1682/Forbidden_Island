@@ -284,10 +284,6 @@ public class Controleur implements Observateur {
         return deck_T;
     }
 
-    public void assecherSpecial(Grille grille) {
-        //methode pour le navigateur
-    }
-
     public Grille getGrille() {
         return this.grille;
     }
