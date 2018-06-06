@@ -128,7 +128,6 @@ public class Controleur implements Observateur {
                     //int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
                     //On genere un nombre aleatoire compris entre 0 et le nombre de nomtuile qu'il reste
                     
-                    System.out.println(rand);
                     tuile = new Tuile(nomTuile.get(rand), l, c);
                     Tresor t = assigneTresorTuile(nomTuile.get(rand));
                     if (t != null) {
@@ -442,7 +441,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.deplacer(l, c);
                     nbAction = nbAction - 1;
 
-                    if (nbAction == 0) {
+                    if (nbAction <= 0) {
                         vueA.finirTour();
                     }
                 }
@@ -458,7 +457,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     tuile.asseche();
                     nbAction = nbAction - 1;
 
-                    if (nbAction == 0) {
+                    if (nbAction <= 0) {
                         vueA.finirTour();
                     }
                 }
@@ -472,7 +471,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //vueA.afficherJoueurPossible(aventurier);
                 }
 
-                if (nbAction == 0) {
+                if (nbAction <= 0) {
                     vueA.finirTour();
                 }
                 break;
