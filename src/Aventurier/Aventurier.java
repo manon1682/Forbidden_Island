@@ -151,28 +151,28 @@ public abstract class Aventurier {
         if (l-1 >= 0) {
             Tuile tuile = tuiles[l-1][c];
             if (tuile != null) {
-                g[l - 1][c] = tuile.verifTuileA();
+                g[l-1][c] = tuile.verifTuileA();
             }
         }
 
         if (c+1 < 6) {
             Tuile tuile = tuiles[l][c+1];
             if (tuile != null) {
-                g[l][c + 1] = tuile.verifTuileA();
+                g[l][c+1] = tuile.verifTuileA();
             }
         }
 
-        if (l + 1 < 6) {
-            Tuile tuile = tuiles[l + 1][c];
+        if (l+1 < 6) {
+            Tuile tuile = tuiles[l+1][c];
             if (tuile != null) {
-                g[l + 1][c] = tuile.verifTuileA();
+                g[l+1][c] = tuile.verifTuileA();
             }
         }
 
-        if (c - 1 >= 0) {
-            Tuile tuile = tuiles[l][c - 1];
+        if (c-1 >= 0) {
+            Tuile tuile = tuiles[l][c-1];
             if (tuile != null) {
-                g[l][c - 1] = tuile.verifTuileA();
+                g[l][c-1] = tuile.verifTuileA();
             }
         }
     }
