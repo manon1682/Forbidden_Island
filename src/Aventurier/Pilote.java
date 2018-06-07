@@ -26,6 +26,7 @@ public class Pilote extends Aventurier {
                 }
             }
         }
+        g[getL()][getC()] = false;
 
         return g;
     }
