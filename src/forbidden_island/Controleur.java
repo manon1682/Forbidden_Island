@@ -226,7 +226,7 @@ public class Controleur implements Observateur {
     }
 
     public void addDefausseT(CarteTresor carte) {
-        getDeck_T().getDefausse().add(carte);
+        getDeck_T().defausser(carte);
     }
 
     public void asseche(Tuile tuile) {
@@ -371,7 +371,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         }
     }
 
-    public void coule(Tuile tuile) {
+    public void coule(Tuile tuile) {    //Si une tuile coule on vérifie que ça ne tue pas un aventurier si sa en tue un la partie est perdu
         for (Aventurier joueur : joueurs) {
             if (joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()) {
                 partiePerdue = !evasion(joueur);
@@ -379,8 +379,8 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         }
     }
 
-    public boolean evasion(Aventurier a) {
-        int l = 0;
+    public boolean evasion(Aventurier a) { //Vérifie qu'un aventurier coincer sur une tuile qui coule peut s'échaper
+        int l = 0;                        
         int c = 0;
 
         boolean[][] gBool = a.deplacementPossible(grille);
@@ -392,10 +392,10 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
                 c++;
             }
         }
-        return (l < 6);
+        return (l < 6)||(a.getRole() == "Pilote");
     }
 
-    public Aventurier joueurSuivant(){
+    public Aventurier joueurSuivant(){ //Plutot clair comme méthode !
         int n = joueurs.indexOf(joueurCourant);
         if (n < joueurs.size() - 1) {
                 return joueurs.get(n + 1);
@@ -531,15 +531,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case TOUR_SUIVANT:
                 vueA.desafficher();
-
+                // Ici on verifira que la partie n'est ni perdu ni gagner pour continuer
                 nbAction = 3;
-                joueurCourant = joueurSuivant();
-                /*int n = joueurs.indexOf(joueurCourant);
-                if (n < joueurs.size() - 1) {
-                    joueurCourant = joueurs.get(n + 1);
-                } else {
-                    joueurCourant = joueurs.get(0);
-                }*/
+                joueurCourant = joueurSuivant(); 
                 
                 vueA = new VueAventurier(joueurCourant, grille);
                 vueA.addObservateur(this);
