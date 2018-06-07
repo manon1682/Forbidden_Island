@@ -1,6 +1,7 @@
 package view;
 
 import Aventurier.Aventurier;
+import Aventurier.Pilote;
 import forbidden_island.Grille;
 import forbidden_island.Message;
 import forbidden_island.Observe;
@@ -49,11 +50,11 @@ public class VueAventurier extends Observe {
     protected Aventurier a;
 
     public VueAventurier(Aventurier aventurier, Grille gTuile) {
-        
+
         this.setA(aventurier);
         this.window = new JFrame();
         window.setSize(350, 200);
-        //le titre = nom du joueur 
+        //le titre = nom du joueur
         window.setTitle(a.getPseudo());
         mainPanel = new JPanel(new BorderLayout());
         this.window.add(mainPanel);
@@ -74,16 +75,11 @@ public class VueAventurier extends Observe {
         this.panelCentre.setOpaque(false);
         this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, a.getPion().getCouleur()));
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
-        
-        
+
         //Position de départ
         Tuile[][] tuiles = gTuile.getTuiles();
-        labelPosDefaut = new JLabel(tuiles[a.getL()][a.getC()].getNom() ,SwingConstants.CENTER);
-       
+        labelPosDefaut = new JLabel(tuiles[a.getL()][a.getC()].getNom(), SwingConstants.CENTER);
 
-    
-
-        
         panelCentre.add(labelPosDefaut);
 
         panelCentre.add(labelvide);
@@ -96,7 +92,7 @@ public class VueAventurier extends Observe {
 
         this.btnBouger = new JButton("Bouger");
         this.btnAssecher = new JButton("Assecher");
-        this.btnAutreAction = new JButton("AutreAction");
+        this.btnAutreAction = new JButton("Action Spéciale");
         this.btnTerminerTour = new JButton("Terminer Tour");
         this.btnValider = new JButton("Valider");
 
@@ -105,6 +101,12 @@ public class VueAventurier extends Observe {
         this.panelBoutons.add(btnAssecher);
         this.panelBoutons.add(btnAutreAction);
         this.panelBoutons.add(btnTerminerTour);
+
+        if (a.getRole() != "Plongeur" && a.getRole() != "Explorateur") {
+            btnAutreAction.setEnabled(true);
+        } else {
+            btnAutreAction.setEnabled(false);
+        }
 
         //Action performed
         btnBouger.addActionListener(
@@ -119,10 +121,14 @@ public class VueAventurier extends Observe {
                     panelCentre.remove(panelChoixetVal);
                     panelCentre.add(labelvide);
                     panelCentre.updateUI();
+                } else if (!(btnAutreAction.isEnabled())) {
+                    btnAutreAction.setEnabled(true);
+                    panelCentre.remove(panelChoixetVal);
+                    panelCentre.add(labelvide);
+                    panelCentre.updateUI();
                 }
 
                 notifierObservateur(m);
-
                 btnBouger.setEnabled(false);
 
             }
@@ -141,6 +147,11 @@ public class VueAventurier extends Observe {
                     panelCentre.remove(panelChoixetVal);
                     panelCentre.add(labelvide);
                     panelCentre.updateUI();
+                } else if (!(btnAutreAction.isEnabled())) {
+                    btnAutreAction.setEnabled(true);
+                    panelCentre.remove(panelChoixetVal);
+                    panelCentre.add(labelvide);
+                    panelCentre.updateUI();
                 }
 
                 notifierObservateur(m);
@@ -154,6 +165,29 @@ public class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Message m = new Message(TypesMessages.SPECIALE, a);
+                if (a.getRole() == "Pilote") {
+                    sauvType = TypesMessages.DEPLACER;
+                } else if (a.getRole() == "Messager") {
+                    sauvType = TypesMessages.DONNER_CARTE;
+                } else if (a.getRole() == "Navigateur") {
+                    sauvType = TypesMessages.DEPLACER;
+                } else {
+                    sauvType = TypesMessages.ASSECHER;
+                }
+                if (!(btnBouger.isEnabled())) {
+                    btnBouger.setEnabled(true);
+                    panelCentre.remove(panelChoixetVal);
+                    panelCentre.add(labelvide);
+                    panelCentre.updateUI();
+                } else if (!(btnAssecher.isEnabled())) {
+                    btnAssecher.setEnabled(true);
+                    panelCentre.remove(panelChoixetVal);
+                    panelCentre.add(labelvide);
+                    panelCentre.updateUI();
+                }
+
+                notifierObservateur(m);
                 btnAutreAction.setEnabled(false);
             }
 
@@ -178,10 +212,10 @@ public class VueAventurier extends Observe {
 
                 m.setTuile((String) listeChoix.getSelectedItem());
                 notifierObservateur(m);
-                    
+
                 if (!(btnBouger.isEnabled())) {
                     panelCentre.remove(labelPosDefaut);
-                    if(!(premierClic)){
+                    if (!(premierClic)) {
                         panelCentre.remove(labelPos);
                     }
                     labelPos = new JLabel((String) listeChoix.getSelectedItem(), SwingConstants.CENTER);
@@ -194,6 +228,16 @@ public class VueAventurier extends Observe {
 
                 btnAssecher.setEnabled(true);
                 btnBouger.setEnabled(true);
+                btnAutreAction.setEnabled(true);
+
+                if (a.getRole() == "Pilote") {
+                    Pilote pilote = (Pilote) a;
+                    if (pilote.capaciteUtilisee() || a.getRole() == "Explorateur" || a.getRole() == "Plongeur") {
+                        btnAutreAction.setEnabled(true);
+                    }
+                }
+
+                notifierObservateur(m);
 
             }
         });
@@ -257,7 +301,7 @@ public class VueAventurier extends Observe {
         panelChoixetVal.add(listeChoix);
         panelChoixetVal.add(btnValider);
         panelCentre.add(panelChoixetVal);
-        
+
         window.setVisible(true);
 
     }
@@ -269,7 +313,7 @@ public class VueAventurier extends Observe {
     public void desafficher() {
         window.setVisible(false);
     }
-    
+
     public void finirTour() {
         btnBouger.setEnabled(false);
         btnAssecher.setEnabled(false);

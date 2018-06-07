@@ -16,5 +16,6 @@ public enum TypesMessages {
     PRENDRE_TRESOR,
     UTILISER_CARTE,
     TOUR_SUIVANT,
-    NOUVELLE_PARTIE
+    NOUVELLE_PARTIE,
+    SPECIALE
 }
