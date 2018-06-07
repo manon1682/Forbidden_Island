@@ -47,7 +47,6 @@ public class VueAventurier extends Observe {
     //Array List qui stock les possibilités de choix
     private String[] choixPoss = new String[36];
     protected Aventurier a;
-    private boolean fT = false;
     
     public VueAventurier(Aventurier aventurier, Grille gTuile) {
         
@@ -166,7 +165,6 @@ public class VueAventurier extends Observe {
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.TOUR_SUIVANT;
                 Message m = new Message(TypesMessages.TOUR_SUIVANT, a);
-                fT = false;
                 notifierObservateur(m);
             }
 
@@ -179,7 +177,6 @@ public class VueAventurier extends Observe {
                 Message m = new Message(sauvType, a);
 
                 m.setTuile((String) listeChoix.getSelectedItem());
-                notifierObservateur(m);
                     
                 if (!(btnBouger.isEnabled())) {
                     panelCentre.remove(labelPosDefaut);
@@ -194,10 +191,12 @@ public class VueAventurier extends Observe {
                 panelCentre.add(labelvide);
                 panelCentre.updateUI();
                 
-                if(!fT){ //CA fonctionne cest sa qui compte !
+
                     btnAssecher.setEnabled(true);
                     btnBouger.setEnabled(true);
-                }
+                    
+                    notifierObservateur(m);
+                    
             }
         });
 
@@ -274,7 +273,6 @@ public class VueAventurier extends Observe {
     }
     
     public void finirTour() {
-        fT = true;
         btnBouger.setEnabled(false);
         btnAssecher.setEnabled(false);
         btnAutreAction.setEnabled(false);
