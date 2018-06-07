@@ -11,7 +11,7 @@ public abstract class Aventurier {
 
     private ArrayList<CarteTresor> mainAventurier;
     private Pion couleur;
-    private String pseudo;
+    private final String pseudo;
     private int posLigne;
     private int posColonne;
     private static ArrayList<Tresor> tresorsObtenus;
