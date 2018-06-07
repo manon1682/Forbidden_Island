@@ -395,6 +395,18 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         return (l < 6);
     }
 
+    public Aventurier joueurSuivant(){
+        int n = joueurs.indexOf(joueurCourant);
+        if (n < joueurs.size() - 1) {
+                return joueurs.get(n + 1);
+        } else {
+                return joueurs.get(0);
+        }
+    }
+    
+    
+    
+    
     public boolean perdrePartie() {
         /*
         1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
@@ -521,12 +533,13 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 vueA.desafficher();
 
                 nbAction = 3;
-                int n = joueurs.indexOf(joueurCourant);
+                joueurCourant = joueurSuivant();
+                /*int n = joueurs.indexOf(joueurCourant);
                 if (n < joueurs.size() - 1) {
                     joueurCourant = joueurs.get(n + 1);
                 } else {
                     joueurCourant = joueurs.get(0);
-                }
+                }*/
                 
                 vueA = new VueAventurier(joueurCourant, grille);
                 vueA.addObservateur(this);
