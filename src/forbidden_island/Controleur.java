@@ -27,7 +27,7 @@ import view.VueAventurier;
 import view.VueInitialisation;
 
 public class Controleur implements Observateur {
-    
+
     private Grille grille;
     private ArrayList<Aventurier> joueurs = new ArrayList<Aventurier>();
     private Deck_Tresor deck_T;
@@ -38,11 +38,11 @@ public class Controleur implements Observateur {
     private VueInitialisation vueI;
     private int nbAction = 3;
     private boolean partiePerdue = false;
-    
+
     public Controleur() {
         initPlateau();
         initDeck();
-        
+
 //        //Pour vérifier que la grille est charger correctement et correspond a celle de la demo
 //        Tuile[][] ts = grille.getTuiles();
 //        for (int i = 0; i < 6; i++) {
@@ -55,15 +55,12 @@ public class Controleur implements Observateur {
 //            }
 //            System.out.println("");
 //        }
-        
-        
-        
         vueI = new VueInitialisation();
         vueI.addObservateur(this);
         vueI.afficher();
-        
+
     }
-    
+
     public ArrayList<String> chargerNomTuile() {
         File fileNomTuile = new File("src/nomTuile");
         ArrayList<String> nomTuile = new ArrayList<String>();
@@ -79,7 +76,7 @@ public class Controleur implements Observateur {
         }
         return nomTuile;
     }
-    
+
     public EtatTuile etatTuileDemo(Tuile tuile) {
         EtatTuile etat;
         switch (tuile.getNom()) {
@@ -87,23 +84,23 @@ public class Controleur implements Observateur {
             case "Le Marais Brumeux":
             case "Le Temple de La Lune":
             case "Le Rocher Fantome":
-                etat = EtatTuile.coulée;                
+                etat = EtatTuile.coulée;
                 break;
             case "La Porte de Bronze":
             case "Le Lagon Perdu":
             case "Observatoire":
             case "La Caverne du Brasier":
             case "Le Jardin des Murmures":
-                etat = EtatTuile.inondée;                
+                etat = EtatTuile.inondée;
                 break;
             default:
-                etat = EtatTuile.sèche;                
+                etat = EtatTuile.sèche;
                 break;
-            
+
         }
         return etat;
     }
-    
+
     public Tresor assigneTresorTuile(String nomTuile) {
         Tresor t;
         switch (nomTuile) {
@@ -129,7 +126,7 @@ public class Controleur implements Observateur {
         }
         return t;
     }
-    
+
     public void initPlateau() {
         Tuile[][] tuiles = new Tuile[6][6];
         ArrayList<String> nomTuile = chargerNomTuile();
@@ -148,7 +145,7 @@ public class Controleur implements Observateur {
                     //Ici on modifie pour charger la map comme il faut pour la demo:
                     //int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
                     //On genere un nombre aleatoire compris entre 0 et le nombre de nomtuile qu'il reste
-                    
+
                     tuile = new Tuile(nomTuile.get(rand), l, c);
                     Tresor t = assigneTresorTuile(nomTuile.get(rand));
                     if (t != null) {
@@ -162,14 +159,14 @@ public class Controleur implements Observateur {
         }
         grille = new Grille(tuiles);
     }
-    
+
     public void initDeck() {
         deck_T = new Deck_Tresor();
         deck_I = new Deck_Innondation(chargerNomTuile());
     }
-    
+
     public void initJoueur(int n, ArrayList<String> nom) {
-        
+
         ArrayList<String> roles = new ArrayList<>();
         roles.add("Explorateur");
         roles.add("Ingénieur");
@@ -177,38 +174,38 @@ public class Controleur implements Observateur {
         roles.add("Plongeur");
         roles.add("Messager");
         roles.add("Navigateur");
-        
+
         for (int i = 0; i < n; i++) {
-            
+
             int rand = ThreadLocalRandom.current().nextInt(0, roles.size());
             Tuile t;
-            
+
             switch (roles.get(rand)) {
                 case "Explorateur":
                     t = grille.getTuileAvecNom("La Porte de Cuivre");
                     joueurs.add(new Explorateur(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
-                
+
                 case "Ingénieur":
                     t = grille.getTuileAvecNom("La Porte de Bronze");
                     joueurs.add(new Ingénieur(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
-                
+
                 case "Pilote":
                     t = grille.getTuileAvecNom("Heliport");
                     joueurs.add(new Pilote(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
-                
+
                 case "Messager":
                     t = grille.getTuileAvecNom("La Porte d’Argent");
                     joueurs.add(new Messager(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
-                
+
                 case "Navigateur":
                     t = grille.getTuileAvecNom("La Porte d’Or");
                     joueurs.add(new Navigateur(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
-                
+
                 case "Plongeur":
                     t = grille.getTuileAvecNom("La Porte de Fer");
                     joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
@@ -217,36 +214,36 @@ public class Controleur implements Observateur {
             joueurs.get(i).ajouterCartesMain(deck_T.piocher());
             roles.remove(rand);
         }
-        
+
         joueurCourant = joueurs.get(0);
-        
+
     }
-    
+
     public void jouerTour(Aventurier a) {
         //code présent dans traiterMessage
     }
-    
+
     public void addDefausseT(CarteTresor carte) {
         getDeck_T().defausser(carte);
     }
-    
+
     public void asseche(Tuile tuile) {
         tuile.asseche();
     }
-    
+
     public boolean getTresor(Aventurier a) {
         /*"Est ce que tu peux prendre le trésor ?*/
-        
+
         int l = a.getL();
         int c = a.getC();
-        
+
         Tuile[][] tuiles = grille.getTuiles();
-        
+
         Tresor tr = tuiles[l][c].getTresor();
-        
+
         if (!(a.getTresor().contains(tr))) {
             ArrayList<CarteTresor> cartesTre = a.mainTresor(tr);
-            
+
             if (cartesTre.size() >= 4) {
                 for (int i = 0; i < 4; i++) {
                     a.removeMainA(cartesTre.get(i));
@@ -257,38 +254,38 @@ public class Controleur implements Observateur {
             } else {
                 return false;
             }
-            
+
         } else {
             return false;
         }
     }
-    
+
     public ArrayList<Aventurier> getDonnerCartePossible(Aventurier a) {
         int li = a.getL();
         int co = a.getC();
-        
+
         ArrayList<Aventurier> aventurierOK = new ArrayList<Aventurier>();
-        
+
         for (Aventurier j : joueurs) {
             int l = j.getL();
             int c = j.getC();
-            
+
             if (li == l && co == c) {
                 aventurierOK.add(j);
             }
         }
-        
+
         return aventurierOK;
     }
-    
+
     public Deck getDeck_T() {
         return deck_T;
     }
-    
+
     public Grille getGrille() {
         return this.grille;
     }
-    
+
     public int niveauInnondation() {
         //renvoie le niveau d'innondation en fonction de la jauge d'innondation
 
@@ -304,7 +301,7 @@ public class Controleur implements Observateur {
             return 6; // tête de mort
         }
     }
-    
+
     public boolean gagnerPartie() {
         /*
         Une fois que vous avez récupéré les quatre 
@@ -317,10 +314,10 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
 
         //1.si tous les joueurs sont présent sur la case héliport
         Tuile tuileHelico = grille.getTuileAvecNom("Heliport");
-        
+
         boolean joueursPresentsHeliport = true;
         while (nbAction != 0) {
-            
+
         }
         for (Aventurier j : joueurs) {
             if (j.getL() != tuileHelico.getLigne() || j.getC() != tuileHelico.getColonne()) {
@@ -341,7 +338,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
                 pilotePresent = true;
             } //pilotePresent n'est jamais mis à true si parmi tous les joueurs il y a aucun pilote. 
         }
-        
+
         boolean carteHelicoPresente = false;
         for (Aventurier j : joueurs) {
             for (CarteTresor cT : j.getMainA()) {
@@ -358,7 +355,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
             return false;
         }
     }
-    
+
     public boolean inondee(String nomTuile) {
         Tuile tuile = grille.getTuileAvecNom(nomTuile);
         if (tuile.getEtat() != EtatTuile.coulée) {
@@ -371,7 +368,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
             return false;
         }
     }
-    
+
     public void coule(Tuile tuile) {    //Si une tuile coule on vérifie que ça ne tue pas un aventurier si sa en tue un la partie est perdu
         for (Aventurier joueur : joueurs) {
             if (joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()) {
@@ -379,11 +376,11 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
             }
         }
     }
-    
+
     public boolean evasion(Aventurier a) { //Vérifie qu'un aventurier coincer sur une tuile qui coule peut s'échaper
-        int l = 0;        
+        int l = 0;
         int c = 0;
-        
+
         boolean[][] gBool = a.deplacementPossible(grille);
         while (l < 6 && gBool[l][c] != false) {
             if (c == 5) {
@@ -395,7 +392,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         }
         return (l < 6) || (a.getRole() == "Pilote");
     }
-    
+
     public Aventurier joueurSuivant() { //Plutot clair comme méthode !
         int n = joueurs.indexOf(joueurCourant);
         if (n < joueurs.size() - 1) {
@@ -404,7 +401,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
             return joueurs.get(0);
         }
     }
-    
+
     public boolean perdrePartie() {
         /*
         1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
@@ -446,17 +443,33 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         if (niveauInnondation() == 6) { // 6 correspond à la tête de mort
             return true;
         }
-        
+
         return false;
     }
-    
+
+    public void majIngenieur() {
+        if (joueurCourant.getRole() == "Ingénieur") {
+            Ingénieur ingenieur = (Ingénieur) joueurCourant;
+            if (!(ingenieur.doubleAssechementPossible(grille))) {
+                ingenieur.setCapaciteUtilisee(-1);
+                joueurCourant = ingenieur;
+                vueA.getBtnAutreAction().setEnabled(false);
+            } else {
+                ingenieur.setCapaciteUtilisee(0);
+                joueurCourant = ingenieur;
+                vueA.getBtnAutreAction().setEnabled(true);
+            }
+        }
+
+    }
+
     @Override
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
         TypesMessages type = m.getType();
-        
+
         switch (type) {
-            
+
             case DEPLACER:
                 if (m.getTuile() == null) {
                     g = joueurCourant.deplacementPossible(grille);
@@ -464,10 +477,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 } else {
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
-                    
+
                     int l = tuile.getLigne();
                     int c = tuile.getColonne();
-                                         
+
                     if (joueurCourant.getRole() == "Pilote") {
                         Pilote pilote = (Pilote) joueurCourant;
                         g = joueurCourant.deplacementPossible(grille);
@@ -477,16 +490,18 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                             vueA.getBtnAutreAction().setVisible(false);
                         }
                     }
-                    
+
                     joueurCourant.deplacer(l, c);
                     nbAction = nbAction - 1;
-                   
+
                     if (nbAction == 0) {
                         vueA.finirTour();
                     }
+                    majIngenieur();
                 }
+
                 break;
-            
+
             case ASSECHER:
                 if (m.getTuile() == null) {
                     g = joueurCourant.assechementPossible(grille);
@@ -495,46 +510,50 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
                     tuile.asseche();
-                    
+
                     if (joueurCourant.getRole() == "Ingénieur") {
                         Ingénieur ingenieur = (Ingénieur) joueurCourant;
                         if (ingenieur.capaciteUtilisee() > 0 && ingenieur.capaciteUtilisee() < 2) {
-                            nbAction = nbAction +1;
+                            nbAction = nbAction + 1;
                             vueA.assechementIngenieur();
-                            ingenieur.setCapaciteUtilisee(ingenieur.capaciteUtilisee() +1);
+                            ingenieur.setCapaciteUtilisee(ingenieur.capaciteUtilisee() + 1);
                             joueurCourant = ingenieur;
                         } else {
-                            ingenieur.setCapaciteUtilisee(0);
-                            vueA.getBtnBouger().setEnabled(true);
+                            if (ingenieur.capaciteUtilisee() == 2) {
+                                ingenieur.setCapaciteUtilisee(0);
+                                vueA.getBtnBouger().setEnabled(true);
+                            }
+                            majIngenieur();
                         }
                     }
-                    
+
                     nbAction = nbAction - 1;
-                    
+
                     if (nbAction == 0) {
                         vueA.finirTour();
                     }
+
                 }
                 break;
-            
+
             case SPECIALE:
                 if (joueurCourant.getRole() == "Pilote") {
                     Pilote pilote = (Pilote) joueurCourant;
                     g = pilote.deplacementPossibleSpecial(grille);
                     vueA.afficherTuilePossible(g, getGrille());
                 } else if (joueurCourant.getRole() == "Navigateur") {
-                    
+
                 } else if (joueurCourant.getRole() == "Messager") {
-                    
+
                 } else if (joueurCourant.getRole() == "Ingénieur") {
                     Ingénieur ingenieur = (Ingénieur) joueurCourant;
                     ingenieur.setCapaciteUtilisee(1);
                     joueurCourant = ingenieur;
                     vueA.assechementIngenieur();
-                }                
-                
+                }
+
                 break;
-            
+
             case DONNER_CARTE:
                 /* if (joueurCourant instanceof Messager) {
                     //vueA.afficherJoueurPossible(joueurs);
@@ -542,56 +561,58 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     ArrayList<Aventurier> aventurier = getDonnerCartePossible(joueurCourant);
                     //vueA.afficherJoueurPossible(aventurier);
                 } */
-                
+
                 if (nbAction == 0) {
                     vueA.finirTour();
                 }
                 break;
-            
+
             case PRENDRE_TRESOR:
                 if (getTresor(joueurCourant)) {
                     nbAction = nbAction - 1;
                 }
-                
-                if (nbAction == 0) {                    
+
+                if (nbAction == 0) {
                     vueA.finirTour();
                 }
                 break;
-            
+
             case UTILISER_CARTE:
-                
+
                 break;
-            
+
             case NOUVELLE_PARTIE:
                 initJoueur(m.getNbJoueur(), m.getNom());
                 vueI.desafficher();
                 vueA = new VueAventurier(joueurCourant, grille);
+                majIngenieur();
                 vueA.addObservateur(this);
                 vueA.afficher();
                 break;
-            
+
             case TOUR_SUIVANT:
                 vueA.desafficher();
                 // Ici on verifira que la partie n'est ni perdu ni gagner pour continuer
                 nbAction = 3;
-                
+
                 if (joueurCourant.getRole() == "Pilote") {
                     Pilote pilote = (Pilote) joueurCourant;
                     pilote.setCapaciteUtilisee(false);
                     joueurCourant = pilote;
                 }
-                
+
                 int n = joueurs.indexOf(joueurCourant);
                 if (n < joueurs.size() - 1) {
                     joueurCourant = joueurs.get(n + 1);
                 } else {
                     joueurCourant = joueurs.get(0);
                 }
-                
+                majIngenieur();
                 vueA = new VueAventurier(joueurCourant, grille);
                 vueA.addObservateur(this);
                 vueA.afficher();
                 break;
         }
     }
+
 }
