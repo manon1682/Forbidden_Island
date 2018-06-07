@@ -487,17 +487,18 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         if (!(g[l][c])) {
                             pilote.setCapaciteUtilisee(true);
                             joueurCourant = pilote;
-                            vueA.getBtnAutreAction().setVisible(false);
+                            vueA.getBtnAutreAction().setEnabled(false);
                         }
                     }
 
                     joueurCourant.deplacer(l, c);
                     nbAction = nbAction - 1;
-
+                    
+                    majIngenieur();
+                    
                     if (nbAction == 0) {
                         vueA.finirTour();
                     }
-                    majIngenieur();
                 }
 
                 break;
