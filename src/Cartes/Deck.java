@@ -22,8 +22,12 @@ public abstract class Deck {
         this.defausse = defausse;
     }
 
-    public void seMelanger(Stack stack) {
-        Collections.shuffle(stack);
+    public void melangerPioche() {
+        Collections.shuffle(pioche);
+    }
+    
+    public void melangerDefausse(){
+        Collections.shuffle(defausse);
     }
 
     public abstract Carte pioche();

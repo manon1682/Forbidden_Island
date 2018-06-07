@@ -19,10 +19,7 @@ public enum CarteUtilisable {
     //methodes next et getNext n'ont pas été utiles pour le moment, à supprimer à la fin.
     
     public CarteUtilisable next(CarteUtilisable c){
-  
-        
-        
-        
+
         //on recup l'int de c;
         //on marque enum de c +1
         CarteUtilisable[] carte = CarteUtilisable.values();

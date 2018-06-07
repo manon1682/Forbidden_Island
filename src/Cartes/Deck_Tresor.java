@@ -10,22 +10,16 @@ public class Deck_Tresor extends Deck {
 
     public Deck_Tresor() {
         super.setPioche(initPioche());
+        melangerPioche();
         super.setDefausse(new Stack<Carte>());
-
         //defausse = 0
     }
-    
-    
-
-
-    
     
     public Stack<Carte> initPioche(){
        
         Stack<Carte> cartesPioche = new Stack<Carte>();
         
         CarteUtilisable laCarte;
-        
         //28 Cartes >
         //  3 montées des eaux
         //  2 sac de sable
@@ -52,7 +46,6 @@ public class Deck_Tresor extends Deck {
             }
             laCarte.getNext();
         }
-        super.seMelanger(cartesPioche);
         return cartesPioche;
     }
     
