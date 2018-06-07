@@ -473,8 +473,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     int c = tuile.getColonne();
                     joueurCourant.deplacer(l, c);
                     nbAction = nbAction - 1;
+                    System.out.println("Yep nbAction = " + nbAction);
 
                     if (nbAction == 0) {
+                        System.out.println("Dans la condition ! = " + nbAction);
                         vueA.finirTour();
                     }
                 }
@@ -489,8 +491,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     Tuile tuile = grille.getTuileAvecNom(nom);
                     tuile.asseche();
                     nbAction = nbAction - 1;
-
+                    System.out.println("Yep nbAction = " + nbAction);
                     if (nbAction == 0) {
+                        System.out.println("Dans la condition ! = " + nbAction);
                         vueA.finirTour();
                     }
                 }
@@ -514,7 +517,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     nbAction = nbAction - 1;
                 }
 
-                if (nbAction == 0) {
+                if (nbAction == 0) { 
                     vueA.finirTour();
                 }
                 break;
