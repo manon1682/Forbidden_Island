@@ -1,7 +1,6 @@
 package Aventurier;
 
 import Cartes.CarteTresor;
-import Enumeration.CarteUtilisable;
 import forbidden_island.Grille;
 import Enumeration.Tresor;
 import forbidden_island.Tuile;
@@ -12,7 +11,7 @@ public abstract class Aventurier {
 
     private ArrayList<CarteTresor> mainAventurier;
     private Pion couleur;
-    private String pseudo;
+    private final String pseudo;
     private int posLigne;
     private int posColonne;
     private static ArrayList<Tresor> tresorsObtenus;

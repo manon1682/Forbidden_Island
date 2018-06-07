@@ -2,7 +2,6 @@ package Aventurier;
 
 import forbidden_island.Grille;
 import forbidden_island.Tuile;
-import util.Utils;
 import util.Utils.Pion;
 
 public class Explorateur extends Aventurier {

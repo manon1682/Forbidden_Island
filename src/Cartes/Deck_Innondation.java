@@ -1,6 +1,5 @@
 package Cartes;
 
-import Cartes.Deck;
 import java.util.ArrayList;
 import java.util.Stack;
 
