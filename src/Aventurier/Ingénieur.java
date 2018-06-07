@@ -5,18 +5,18 @@ import util.Utils.Pion;
 
 public class Ingénieur extends Aventurier {
     
-    private boolean capaciteUtilisee ;
+    private int capaciteUtilisee;
 
     public Ingénieur(String nm, int l, int c) {
         super(Pion.ROUGE, nm, l, c);
-        capaciteUtilisee = false;
+        capaciteUtilisee = 0;
     }
     
-     public void setCapaciteUtilisee(boolean capaciteUtilisee) {
+     public void setCapaciteUtilisee(int capaciteUtilisee) {
         this.capaciteUtilisee = capaciteUtilisee;
     }
 
-     public boolean capaciteUtilisee() {
+     public int capaciteUtilisee() {
         return capaciteUtilisee;
     }
 

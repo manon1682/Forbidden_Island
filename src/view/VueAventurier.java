@@ -134,9 +134,9 @@ public class VueAventurier extends Observe {
                 sauvType = TypesMessages.ASSECHER;
                 Message m = new Message(TypesMessages.ASSECHER, a);
 
-                if (a.getRole() == "Ingenieur") {
+                if (a.getRole() == "Ingénieur") {
                     Ingénieur ingenieur = (Ingénieur) a;
-                    btnBouger.setEnabled(!(ingenieur.capaciteUtilisee()));
+                    btnBouger.setEnabled(!(ingenieur.capaciteUtilisee() > 0));
                 } else if (!(btnBouger.isEnabled())) {
                     btnBouger.setEnabled(true);
                     panelCentre.remove(panelChoixetVal);
@@ -146,9 +146,8 @@ public class VueAventurier extends Observe {
 
                 btnAutreActionActive();
 
-                notifierObservateur(m);
                 btnAssecher.setEnabled(false);
-
+                notifierObservateur(m);
             }
 
         });
@@ -234,6 +233,10 @@ public class VueAventurier extends Observe {
         return btnAutreAction;
     }
 
+    public JButton getBtnBouger() {
+        return btnBouger;
+    }
+
     public boolean btnAutreActionActive() {
         if (a.getRole() != "Plongeur" && a.getRole() != "Explorateur") {
             if (a.getRole() == "Pilote") {
@@ -242,7 +245,9 @@ public class VueAventurier extends Observe {
             } else {
                 return true;
             }
-        } else return false;
+        } else {
+            return false;
+        }
 
     }
 

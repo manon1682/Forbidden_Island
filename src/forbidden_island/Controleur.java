@@ -498,11 +498,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     
                     if (joueurCourant.getRole() == "Ingénieur") {
                         Ingénieur ingenieur = (Ingénieur) joueurCourant;
-                        if (ingenieur.capaciteUtilisee()) {
+                        if (ingenieur.capaciteUtilisee() > 0 && ingenieur.capaciteUtilisee() < 2) {
                             nbAction = nbAction +1;
-                            ingenieur.setCapaciteUtilisee(false);
-                            joueurCourant = ingenieur;
                             vueA.assechementIngenieur();
+                            ingenieur.setCapaciteUtilisee(ingenieur.capaciteUtilisee() +1);
+                            joueurCourant = ingenieur;
+                        } else {
+                            ingenieur.setCapaciteUtilisee(0);
+                            vueA.getBtnBouger().setEnabled(true);
                         }
                     }
                     
@@ -525,7 +528,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     
                 } else if (joueurCourant.getRole() == "Ingénieur") {
                     Ingénieur ingenieur = (Ingénieur) joueurCourant;
-                    ingenieur.setCapaciteUtilisee(true);
+                    ingenieur.setCapaciteUtilisee(1);
                     joueurCourant = ingenieur;
                     vueA.assechementIngenieur();
                 }                
