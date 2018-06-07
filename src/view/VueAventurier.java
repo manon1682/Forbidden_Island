@@ -230,7 +230,7 @@ public class VueAventurier extends Observe {
     }
 
     public boolean btnAutreActionActive() {
-        if (a.getRole() != "Plongeur" && a.getRole() != "Explorateur") {
+        if (a.getRole() != "Plongeur" && a.getRole() != "Explorateur" && a.getRole() != "Ingénieur") {
             return true;
         } else if (a.getRole() == "Pilote") {
             Pilote pilote = (Pilote) a;
