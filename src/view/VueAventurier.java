@@ -1,6 +1,7 @@
 package view;
 
 import Aventurier.Aventurier;
+import Aventurier.Ingénieur;
 import Aventurier.Pilote;
 import forbidden_island.Grille;
 import forbidden_island.Message;
@@ -133,12 +134,16 @@ public class VueAventurier extends Observe {
                 sauvType = TypesMessages.ASSECHER;
                 Message m = new Message(TypesMessages.ASSECHER, a);
 
-                if (!(btnBouger.isEnabled())) {
+                if (a.getRole() == "Ingenieur") {
+                    Ingénieur ingenieur = (Ingénieur) a;
+                    btnBouger.setEnabled(!(ingenieur.capaciteUtilisee()));
+                } else if (!(btnBouger.isEnabled())) {
                     btnBouger.setEnabled(true);
                     panelCentre.remove(panelChoixetVal);
                     panelCentre.add(labelvide);
                     panelCentre.updateUI();
                 }
+
                 btnAutreActionActive();
 
                 notifierObservateur(m);
@@ -231,14 +236,19 @@ public class VueAventurier extends Observe {
 
     public boolean btnAutreActionActive() {
         if (a.getRole() != "Plongeur" && a.getRole() != "Explorateur") {
-            return true;
-        } else if (a.getRole() == "Pilote") {
-            Pilote pilote = (Pilote) a;
-            return (!(pilote.capaciteUtilisee()));
-        } else {
-            return false;
-        }
+            if (a.getRole() == "Pilote") {
+                Pilote pilote = (Pilote) a;
+                return (!(pilote.capaciteUtilisee()));
+            } else {
+                return true;
+            }
+        } else return false;
 
+    }
+
+    public void assechementIngenieur() {
+        btnAutreAction.setEnabled(false);
+        btnBouger.setEnabled(false);
     }
 
     //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}
