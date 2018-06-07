@@ -5,9 +5,12 @@ import forbidden_island.Tuile;
 import util.Utils.Pion;
 
 public class Pilote extends Aventurier {
+    
+    private boolean capaciteUtilisee ;
 
     public Pilote(String nm, int l, int c) {
         super(Pion.BLEU, nm, l, c);
+        capaciteUtilisee = false;
     }
 
     public boolean[][] deplacementPossibleSpecial(Grille grille) {
@@ -25,6 +28,14 @@ public class Pilote extends Aventurier {
         }
 
         return g;
+    }
+
+    public void setCapaciteUtilisee(boolean capaciteUtilisee) {
+        this.capaciteUtilisee = capaciteUtilisee;
+    }
+
+     public boolean capaciteUtilisee() {
+        return capaciteUtilisee;
     }
 
 }

@@ -474,7 +474,16 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     int c = tuile.getColonne();
                     joueurCourant.deplacer(l, c);
                     nbAction = nbAction - 1;
-                    System.out.println("Yep nbAction = " + nbAction);
+                    
+                    if(joueurCourant.getRole() == "Pilote") {
+                        Pilote pilote = (Pilote) joueurCourant;
+                        g = joueurCourant.deplacementPossible(grille);
+                        if (!(g[l][c])) {
+                            pilote.setCapaciteUtilisee(true);
+                            joueurCourant = pilote;
+                            System.out.println(nbAction);
+                        }
+                    }
 
                     if (nbAction == 0) {
                         System.out.println("Dans la condition ! = " + nbAction);
@@ -499,14 +508,30 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     }
                 }
                 break;
+                
+            case SPECIALE :
+                if (joueurCourant.getRole() == "Pilote") {
+                    Pilote pilote = (Pilote) joueurCourant;
+                    g = pilote.deplacementPossibleSpecial(grille);
+                    vueA.afficherTuilePossible(g, getGrille());
+                } else if (joueurCourant.getRole() == "Navigateur") {
+                    
+                } else if (joueurCourant.getRole() == "Messager") {
+                    
+                }  else if (joueurCourant.getRole() == "Ingénieur") {
+                    
+                }            
+                
+                
+                break;
 
             case DONNER_CARTE:
-                if (joueurCourant instanceof Messager) {
+               /* if (joueurCourant instanceof Messager) {
                     //vueA.afficherJoueurPossible(joueurs);
                 } else {
                     ArrayList<Aventurier> aventurier = getDonnerCartePossible(joueurCourant);
                     //vueA.afficherJoueurPossible(aventurier);
-                }
+                } */
 
                 if (nbAction == 0) {
                     vueA.finirTour();
@@ -539,7 +564,19 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 vueA.desafficher();
                 // Ici on verifira que la partie n'est ni perdu ni gagner pour continuer
                 nbAction = 3;
-                joueurCourant = joueurSuivant(); 
+                
+                if (joueurCourant.getRole() == "Pilote") {
+                    Pilote pilote = (Pilote) joueurCourant;
+                    pilote.setCapaciteUtilisee(false);
+                    joueurCourant = pilote;
+                }
+                
+                int n = joueurs.indexOf(joueurCourant);
+                if (n < joueurs.size() - 1) {
+                    joueurCourant = joueurs.get(n + 1);
+                } else {
+                    joueurCourant = joueurs.get(0);
+                }
                 
                 vueA = new VueAventurier(joueurCourant, grille);
                 vueA.addObservateur(this);
