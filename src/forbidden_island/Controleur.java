@@ -495,6 +495,17 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
                     tuile.asseche();
+                    
+                    if (joueurCourant.getRole() == "Ingénieur") {
+                        Ingénieur ingenieur = (Ingénieur) joueurCourant;
+                        if (ingenieur.capaciteUtilisee()) {
+                            nbAction = nbAction +1;
+                            ingenieur.setCapaciteUtilisee(false);
+                            joueurCourant = ingenieur;
+                            vueA.assechementIngenieur();
+                        }
+                    }
+                    
                     nbAction = nbAction - 1;
                     
                     if (nbAction == 0) {
@@ -513,7 +524,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 } else if (joueurCourant.getRole() == "Messager") {
                     
                 } else if (joueurCourant.getRole() == "Ingénieur") {
-                    
+                    Ingénieur ingenieur = (Ingénieur) joueurCourant;
+                    ingenieur.setCapaciteUtilisee(true);
+                    joueurCourant = ingenieur;
+                    vueA.assechementIngenieur();
                 }                
                 
                 break;
