@@ -222,6 +222,10 @@ public abstract class Aventurier {
         }
         return role;
     }
+    
+    public boolean estRole(String role){
+        return this.getRole().equalsIgnoreCase(role);
+    }
 
     public static ArrayList<Tresor> getTresorsObtenus() {
         return tresorsObtenus;
