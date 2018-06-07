@@ -16,7 +16,7 @@ public class Ingénieur extends Aventurier {
         this.capaciteUtilisee = capaciteUtilisee;
     }
 
-     public int capaciteUtilisee() {
+     public int getCapaciteUtilisee() {
         return capaciteUtilisee;
     }
      

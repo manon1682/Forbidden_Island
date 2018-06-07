@@ -1,7 +1,6 @@
 package Aventurier;
 
 import Cartes.CarteTresor;
-import Enumeration.CarteUtilisable;
 import forbidden_island.Grille;
 import Enumeration.Tresor;
 import forbidden_island.Tuile;
@@ -179,6 +178,11 @@ public abstract class Aventurier {
                 g[l][c-1] = tuile.verifTuileA();
             }
         }
+        
+       Tuile tuile = tuiles[l][c];
+       if (tuile != null) {
+           g[l][c] = tuile.verifTuileA();
+       }
     }
 
     public void setLigne(int l) {

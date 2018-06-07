@@ -513,13 +513,13 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                     if (joueurCourant.getRole() == "Ingénieur") {
                         Ingénieur ingenieur = (Ingénieur) joueurCourant;
-                        if (ingenieur.capaciteUtilisee() > 0 && ingenieur.capaciteUtilisee() < 2) {
+                        if (ingenieur.getCapaciteUtilisee() > 0 && ingenieur.getCapaciteUtilisee() < 2) {
                             nbAction = nbAction + 1;
                             vueA.assechementIngenieur();
-                            ingenieur.setCapaciteUtilisee(ingenieur.capaciteUtilisee() + 1);
+                            ingenieur.setCapaciteUtilisee(ingenieur.getCapaciteUtilisee() + 1);
                             joueurCourant = ingenieur;
                         } else {
-                            if (ingenieur.capaciteUtilisee() == 2) {
+                            if (ingenieur.getCapaciteUtilisee() == 2) {
                                 ingenieur.setCapaciteUtilisee(0);
                                 vueA.getBtnBouger().setEnabled(true);
                             }
