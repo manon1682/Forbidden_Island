@@ -474,7 +474,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.deplacer(l, c);
                     nbAction = nbAction - 1;
 
-                    if (nbAction <= 0) {
+                    if (nbAction == 0) {
                         vueA.finirTour();
                     }
                 }
@@ -490,7 +490,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     tuile.asseche();
                     nbAction = nbAction - 1;
 
-                    if (nbAction <= 0) {
+                    if (nbAction == 0) {
                         vueA.finirTour();
                     }
                 }
@@ -504,7 +504,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //vueA.afficherJoueurPossible(aventurier);
                 }
 
-                if (nbAction <= 0) {
+                if (nbAction == 0) {
                     vueA.finirTour();
                 }
                 break;
