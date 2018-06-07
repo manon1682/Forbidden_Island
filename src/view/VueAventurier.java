@@ -42,16 +42,15 @@ public class VueAventurier extends Observe {
     private JLabel labelvide = new JLabel("");
     private JLabel labelPos;
     private JLabel labelPosDefaut;
-    private boolean premierClic = true;
     //comboBox des choix
     private JComboBox listeChoix;
     //Array List qui stock les possibilités de choix
     private String[] choixPoss = new String[36];
     protected Aventurier a;
-    
+
     public VueAventurier(Aventurier aventurier, Grille gTuile) {
 
-        this.setA(aventurier);
+        a = aventurier;
         this.window = new JFrame();
         window.setSize(350, 200);
         //le titre = nom du joueur
@@ -78,9 +77,9 @@ public class VueAventurier extends Observe {
 
         //Position de départ
         Tuile[][] tuiles = gTuile.getTuiles();
-        labelPosDefaut = new JLabel(tuiles[a.getL()][a.getC()].getNom(), SwingConstants.CENTER);
+        labelPos = new JLabel(tuiles[a.getL()][a.getC()].getNom(), SwingConstants.CENTER);
 
-        panelCentre.add(labelPosDefaut);
+        panelCentre.add(labelPos);
 
         panelCentre.add(labelvide);
 
@@ -102,11 +101,7 @@ public class VueAventurier extends Observe {
         this.panelBoutons.add(btnAutreAction);
         this.panelBoutons.add(btnTerminerTour);
 
-        if (a.getRole() != "Plongeur" && a.getRole() != "Explorateur") {
-            btnAutreAction.setEnabled(true);
-        } else {
-            btnAutreAction.setEnabled(false);
-        }
+        btnAutreAction.setEnabled(btnAutreActionActive());
 
         //Action performed
         btnBouger.addActionListener(
@@ -121,12 +116,8 @@ public class VueAventurier extends Observe {
                     panelCentre.remove(panelChoixetVal);
                     panelCentre.add(labelvide);
                     panelCentre.updateUI();
-                } else if (!(btnAutreAction.isEnabled())) {
-                    btnAutreAction.setEnabled(true);
-                    panelCentre.remove(panelChoixetVal);
-                    panelCentre.add(labelvide);
-                    panelCentre.updateUI();
                 }
+                btnAutreActionActive();
 
                 notifierObservateur(m);
                 btnBouger.setEnabled(false);
@@ -147,12 +138,8 @@ public class VueAventurier extends Observe {
                     panelCentre.remove(panelChoixetVal);
                     panelCentre.add(labelvide);
                     panelCentre.updateUI();
-                } else if (!(btnAutreAction.isEnabled())) {
-                    btnAutreAction.setEnabled(true);
-                    panelCentre.remove(panelChoixetVal);
-                    panelCentre.add(labelvide);
-                    panelCentre.updateUI();
                 }
+                btnAutreActionActive();
 
                 notifierObservateur(m);
                 btnAssecher.setEnabled(false);
@@ -166,6 +153,7 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message(TypesMessages.SPECIALE, a);
+
                 if (a.getRole() == "Pilote") {
                     sauvType = TypesMessages.DEPLACER;
                 } else if (a.getRole() == "Messager") {
@@ -175,6 +163,7 @@ public class VueAventurier extends Observe {
                 } else {
                     sauvType = TypesMessages.ASSECHER;
                 }
+
                 if (!(btnBouger.isEnabled())) {
                     btnBouger.setEnabled(true);
                     panelCentre.remove(panelChoixetVal);
@@ -211,31 +200,22 @@ public class VueAventurier extends Observe {
                 Message m = new Message(sauvType, a);
 
                 m.setTuile((String) listeChoix.getSelectedItem());
-                    
-                if (!(btnBouger.isEnabled())) {
-                    panelCentre.remove(labelPosDefaut);
-                    if (!(premierClic)) {
-                        panelCentre.remove(labelPos);
-                    }
+
+                if (a.getRole() == "Pilote" && !(btnAutreAction.isEnabled())
+                        || !(btnBouger.isEnabled())) {
+
+                    panelCentre.remove(labelPos);
                     labelPos = new JLabel((String) listeChoix.getSelectedItem(), SwingConstants.CENTER);
                     panelCentre.add(labelPos);
-                    premierClic = false;
+
                 }
                 panelCentre.remove(panelChoixetVal);
                 panelCentre.add(labelvide);
                 panelCentre.updateUI();
-                
 
                 btnAssecher.setEnabled(true);
                 btnBouger.setEnabled(true);
-                btnAutreAction.setEnabled(true);
-
-                if (a.getRole() == "Pilote") {
-                    Pilote pilote = (Pilote) a;
-                    if (pilote.capaciteUtilisee() || a.getRole() == "Explorateur" || a.getRole() == "Plongeur") {
-                        btnAutreAction.setEnabled(true);
-                    }
-                }
+                btnAutreAction.setEnabled(btnAutreActionActive());
 
                 notifierObservateur(m);
 
@@ -245,32 +225,20 @@ public class VueAventurier extends Observe {
         this.window.setVisible(true);
     }
 
-    public void setPosition(String pos) {
-        this.position.setText(pos);
-    }
-
     public JButton getBtnAutreAction() {
         return btnAutreAction;
     }
 
-    public String getPosition() {
-        return position.getText();
-    }
+    public boolean btnAutreActionActive() {
+        if (a.getRole() != "Plongeur" && a.getRole() != "Explorateur") {
+            return true;
+        } else if (a.getRole() == "Pilote") {
+            Pilote pilote = (Pilote) a;
+            return (!(pilote.capaciteUtilisee()));
+        } else {
+            return false;
+        }
 
-    public JButton getBtnBouger() {
-        return btnBouger;
-    }
-
-    public JButton getBtnAssecher() {
-        return btnAssecher;
-    }
-
-    public JButton getBtnTerminerTour() {
-        return btnTerminerTour;
-    }
-
-    public void setA(Aventurier a) {
-        this.a = a;
     }
 
     //{Grille de boolean pour tuiles de déplacement possible + grille des tuiles} => {affiche les déplacements possible}
@@ -287,21 +255,26 @@ public class VueAventurier extends Observe {
             }
         }
 
-        listeChoix = new JComboBox();
-
-        for (int i = 0; i < n; i++) {
-            if (choixPoss[i] != null) {
-                listeChoix.addItem(choixPoss[i]);
-            }
-        }
-
-        //Affichage de la liste de choix et du bouton valider
         panelCentre.remove(labelvide);
         panelChoixetVal = new JPanel(new GridLayout(1, 2));
-        panelChoixetVal.add(listeChoix);
-        panelChoixetVal.add(btnValider);
-        panelCentre.add(panelChoixetVal);
 
+        if (n == 0) {
+            panelChoixetVal.add(new JLabel("Action ", SwingConstants.RIGHT));
+            panelChoixetVal.add(new JLabel("impossible", SwingConstants.LEFT));
+        } else {
+            listeChoix = new JComboBox();
+
+            for (int i = 0; i < n; i++) {
+                if (choixPoss[i] != null) {
+                    listeChoix.addItem(choixPoss[i]);
+                }
+            }
+            //Affichage de la liste de choix et du bouton valider
+            panelChoixetVal.add(listeChoix);
+            panelChoixetVal.add(btnValider);
+        }
+
+        panelCentre.add(panelChoixetVal);
         window.setVisible(true);
 
     }
