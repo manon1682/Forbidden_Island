@@ -28,6 +28,10 @@ public abstract class Deck {
 
     public abstract Carte pioche();
     
+    public void defausser(Carte carte){
+        this.defausse.push(carte);
+    }
+    
     public Stack<Carte> getPioche() {
         return pioche;
     }

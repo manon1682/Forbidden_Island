@@ -41,7 +41,9 @@ public class Controleur implements Observateur {
 
     public Controleur() {
         initPlateau();
+        initDeck();
         Tuile[][] ts = grille.getTuiles();
+        //Pour vérifier que la grille est charger correctement et correspond a celle de la demo
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
                 if(ts[i][j] != null){
@@ -55,30 +57,10 @@ public class Controleur implements Observateur {
         
         
         
-        initDeck();
         vueI = new VueInitialisation();
         vueI.addObservateur(this);
         vueI.afficher();
 
-        /*      while(!perdrePartie()){
-            
-            jouerTour(joueurCourant);
-            vueA.desafficher();
-                
-                int n = joueurs.indexOf(joueurCourant);
-                if (n < joueurs.size()-1) {
-                    joueurCourant = joueurs.get(n+1);
-                } else {
-                    joueurCourant = joueurs.get(0);
-                }
-                
-                vueA.setNomJoueur(joueurCourant.getPseudo());
-                vueA.setNomAventurier(joueurCourant.getRole());
-                vueA.setCouleur(joueurCourant.getPion().getCouleur());
-                vueA.setAventurier(joueurCourant);
-                vueA.afficher();
-          
-        }*/
     }
 
     public ArrayList<String> chargerNomTuile() {
@@ -233,6 +215,7 @@ public class Controleur implements Observateur {
                     joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
             }
+            joueurs.get(i).ajouterCartesMain(deck_T.piocher());
             roles.remove(rand);
         }
 
@@ -245,7 +228,7 @@ public class Controleur implements Observateur {
     }
 
     public void addDefausseT(CarteTresor carte) {
-        getDeck_T().getDefausse().add(carte);
+        getDeck_T().defausser(carte);
     }
 
     public void asseche(Tuile tuile) {
@@ -301,10 +284,6 @@ public class Controleur implements Observateur {
 
     public Deck getDeck_T() {
         return deck_T;
-    }
-
-    public void assecherSpecial(Grille grille) {
-        //methode pour le navigateur
     }
 
     public Grille getGrille() {
@@ -394,7 +373,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         }
     }
 
-    public void coule(Tuile tuile) {
+    public void coule(Tuile tuile) {    //Si une tuile coule on vérifie que ça ne tue pas un aventurier si sa en tue un la partie est perdu
         for (Aventurier joueur : joueurs) {
             if (joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()) {
                 partiePerdue = !evasion(joueur);
@@ -402,8 +381,8 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         }
     }
 
-    public boolean evasion(Aventurier a) {
-        int l = 0;
+    public boolean evasion(Aventurier a) { //Vérifie qu'un aventurier coincer sur une tuile qui coule peut s'échaper
+        int l = 0;                        
         int c = 0;
 
         boolean[][] gBool = a.deplacementPossible(grille);
@@ -415,9 +394,21 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
                 c++;
             }
         }
-        return (l < 6);
+        return (l < 6)||(a.getRole() == "Pilote");
     }
 
+    public Aventurier joueurSuivant(){ //Plutot clair comme méthode !
+        int n = joueurs.indexOf(joueurCourant);
+        if (n < joueurs.size() - 1) {
+                return joueurs.get(n + 1);
+        } else {
+                return joueurs.get(0);
+        }
+    }
+    
+    
+    
+    
     public boolean perdrePartie() {
         /*
         1. Si les 2 tuiles « Temple », « Caverne », « Palais» ou « Jardin » (sur lesquelles sont placés les 
@@ -493,7 +484,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         }
                     }
 
-                    if (nbAction <= 0) {
+                    if (nbAction == 0) {
+                        System.out.println("Dans la condition ! = " + nbAction);
                         vueA.finirTour();
                     }
                 }
@@ -508,8 +500,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     Tuile tuile = grille.getTuileAvecNom(nom);
                     tuile.asseche();
                     nbAction = nbAction - 1;
-
-                    if (nbAction <= 0) {
+                    System.out.println("Yep nbAction = " + nbAction);
+                    if (nbAction == 0) {
+                        System.out.println("Dans la condition ! = " + nbAction);
                         vueA.finirTour();
                     }
                 }
@@ -539,7 +532,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //vueA.afficherJoueurPossible(aventurier);
                 } */
 
-                if (nbAction <= 0) {
+                if (nbAction == 0) {
                     vueA.finirTour();
                 }
                 break;
@@ -549,7 +542,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     nbAction = nbAction - 1;
                 }
 
-                if (nbAction == 0) {
+                if (nbAction == 0) { 
                     vueA.finirTour();
                 }
                 break;
@@ -568,7 +561,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case TOUR_SUIVANT:
                 vueA.desafficher();
-
+                // Ici on verifira que la partie n'est ni perdu ni gagner pour continuer
                 nbAction = 3;
                 
                 if (joueurCourant.getRole() == "Pilote") {

@@ -48,7 +48,7 @@ public class VueAventurier extends Observe {
     //Array List qui stock les possibilités de choix
     private String[] choixPoss = new String[36];
     protected Aventurier a;
-
+    
     public VueAventurier(Aventurier aventurier, Grille gTuile) {
 
         this.setA(aventurier);
@@ -211,8 +211,7 @@ public class VueAventurier extends Observe {
                 Message m = new Message(sauvType, a);
 
                 m.setTuile((String) listeChoix.getSelectedItem());
-                notifierObservateur(m);
-
+                    
                 if (!(btnBouger.isEnabled())) {
                     panelCentre.remove(labelPosDefaut);
                     if (!(premierClic)) {
@@ -225,6 +224,7 @@ public class VueAventurier extends Observe {
                 panelCentre.remove(panelChoixetVal);
                 panelCentre.add(labelvide);
                 panelCentre.updateUI();
+                
 
                 btnAssecher.setEnabled(true);
                 btnBouger.setEnabled(true);
