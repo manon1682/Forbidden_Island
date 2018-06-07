@@ -60,6 +60,12 @@ public class Deck_Tresor extends Deck {
     public Carte pioche() {
         return getPioche().pop();
     }
-
+    
+    public ArrayList<CarteTresor> piocher(){
+        ArrayList<CarteTresor> cartePiocher = new ArrayList<CarteTresor>();
+        cartePiocher.add((CarteTresor)this.pioche());
+        cartePiocher.add((CarteTresor)this.pioche());
+        return cartePiocher;
+    }
 
 }

@@ -41,7 +41,9 @@ public class Controleur implements Observateur {
 
     public Controleur() {
         initPlateau();
+        initDeck();
         Tuile[][] ts = grille.getTuiles();
+        //Pour vérifier que la grille est charger correctement et correspond a celle de la demo
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 6; j++) {
                 if(ts[i][j] != null){
@@ -55,7 +57,6 @@ public class Controleur implements Observateur {
         
         
         
-        initDeck();
         vueI = new VueInitialisation();
         vueI.addObservateur(this);
         vueI.afficher();
@@ -214,6 +215,7 @@ public class Controleur implements Observateur {
                     joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
             }
+            joueurs.get(i).ajouterCartesMain(deck_T.piocher());
             roles.remove(rand);
         }
 

@@ -96,6 +96,10 @@ public abstract class Aventurier {
     public void addMain(CarteTresor nomCarte) {
         mainAventurier.add(nomCarte);
     }
+    
+    public void ajouterCartesMain(ArrayList<CarteTresor> cartes){
+        mainAventurier.addAll(cartes);
+    }
 
     public void initialisation(boolean[][] g) {
         for (int l = 0; l < 6; l++) {
