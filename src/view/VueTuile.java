@@ -29,9 +29,6 @@ public class VueTuile extends JPanel{
     public VueTuile(){
         initImage();
         repaint();
-        
-        
-        
     }
     
     public void initImage(){
