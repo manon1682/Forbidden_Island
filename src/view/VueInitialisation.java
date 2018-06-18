@@ -32,13 +32,15 @@ public class VueInitialisation extends Observe {
     private JPanel panelCentre;
     private JComboBox choixNbJoueur;
     private String[] nbjoueurs;
+    private JPanel panelHaut;
     private JPanel panelBas;
     private JButton valider;
+    private JButton manuel;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
 
     public VueInitialisation() {
-        this.nbjoueurs = new String[]{"2", "3", "4", "5", "6"};
+        this.nbjoueurs = new String[]{"2", "3", "4"};
         this.window = new JFrame();
         window.setSize(500, 350);
 
@@ -48,14 +50,26 @@ public class VueInitialisation extends Observe {
 
         mainPanel.setBackground(new Color(230, 230, 230));
 
-        // NORD
-        mainPanel.add(BorderLayout.NORTH, new JLabel("Ile Interdite"));
+        // Panel Haut
+        panelHaut = new JPanel(new GridLayout(4,2));
+        panelHaut.add(new JLabel("Ile Interdite"));
+        manuel = new JButton("Manuel");
+        panelHaut.add(manuel);
+        
+        panelHaut.add(new JLabel());
+        panelHaut.add(new JLabel());
+        
+        panelHaut.add(new JLabel("Nombre de Joueur : "));
+        choixNbJoueur = new JComboBox(nbjoueurs);
+        panelHaut.add(choixNbJoueur);
+        
+        panelHaut.add(new JLabel());
+        
+        mainPanel.add(panelHaut ,BorderLayout.NORTH);
 
         //Panel Centre
-        panelCentre = new JPanel(new GridLayout(7, 2));
-        panelCentre.add(new JLabel("Nombre de Joueur : "));
-        choixNbJoueur = new JComboBox(nbjoueurs);
-        panelCentre.add(choixNbJoueur);
+        panelCentre = new JPanel(new GridLayout(4, 2));
+        
 
         panelCentre.add(new JLabel());
         panelCentre.add(new JLabel());
@@ -69,11 +83,8 @@ public class VueInitialisation extends Observe {
         panelCentre.add(new JLabel());
         panelCentre.add(new JLabel());
         
-        panelCentre.add(new JLabel());
-        panelCentre.add(new JLabel());
         
-        panelCentre.add(new JLabel());
-        panelCentre.add(new JLabel());
+       
 
         mainPanel.add(BorderLayout.CENTER, panelCentre);
 
@@ -84,21 +95,33 @@ public class VueInitialisation extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                
                 if (choixNbJoueur.isEnabled()) {
                     nbJ = choixNbJoueur.getSelectedIndex() + 2;
+                        panelCentre.remove(7);
+                        panelCentre.remove(6);
+                        panelCentre.remove(5);
+                        panelCentre.remove(4);
+                        panelCentre.remove(3);
+                        panelCentre.remove(2);
+                        panelCentre.remove(1);
+                        panelCentre.remove(0);
 
                     for (int i = 0; i < nbJ; i++) {
                         saisirJ.add(new JTextField("Joueur " + (i + 1)));
-
-                        panelCentre.remove(3);
-                        panelCentre.remove(2);
+                        
                         panelCentre.add(new JLabel("Nom joueur " + (i + 1)));
                         panelCentre.add(saisirJ.get(i));
 
                     }
+                    for (int i = 0; i < 4 - nbJ; i++){
+                        panelCentre.add(new JLabel());
+                        panelCentre.add(new JLabel());
+                    }
                     choixNbJoueur.setEnabled(false);
                     window.setVisible(true);
                 } else {
+                    
                     ArrayList<String> nom = new ArrayList<>();
 
                     for (JTextField saisi : saisirJ) {
