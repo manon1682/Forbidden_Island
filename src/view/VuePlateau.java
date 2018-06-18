@@ -29,7 +29,7 @@ public class VuePlateau extends JPanel {
         this.setLayout(new GridLayout(6, 6));
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
-            this.add(tuiles[l][c]);
+                this.add(tuiles[l][c]);
             }
         }
 
