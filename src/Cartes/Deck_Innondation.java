@@ -10,15 +10,9 @@ public class Deck_Innondation extends Deck {
         setPioche(nomTuile);
     }
 
-    @Override
-    public Carte pioche() {
-        return getPioche().pop();
-    }
-
     private void setPioche(ArrayList<String> nomTuiles) {
         for (String nomTuile : nomTuiles) { //remember francis <3
             super.getPioche().add(new CarteInnondation(nomTuile));
         }
     }
-
 }

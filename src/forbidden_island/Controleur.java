@@ -7,6 +7,7 @@ import Aventurier.*;
 import Aventurier.Explorateur;
 import Aventurier.Ingénieur;
 import Aventurier.Messager;
+import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Cartes.Deck;
 import Enumeration.CarteUtilisable;
@@ -23,6 +24,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import view.IHMJeu;
 import view.VueAventurier;
 import view.VueInitialisation;
 
@@ -35,30 +37,16 @@ public class Controleur implements Observateur {
     private int jaugeInnondation; //débute à 1 et finit 10 > tête de mort
     private Aventurier joueurCourant;
     private VueAventurier vueA;
-    private VueInitialisation vueI;
+    private IHMJeu vueIHMJeu;
     private int nbAction = 3;
     private boolean partiePerdue = false;
 
     public Controleur() {
         initPlateau();
         initDeck();
-
-//        //Pour vérifier que la grille est charger correctement et correspond a celle de la demo
-//        Tuile[][] ts = grille.getTuiles();
-//        for (int i = 0; i < 6; i++) {
-//            for (int j = 0; j < 6; j++) {
-//                if(ts[i][j] != null){
-//                    System.out.print("Nom :" + ts[i][j].getNom() + " Etat :" + ts[i][j].getEtat() + "|");
-//                } else {
-//                    System.out.print("|          X           |");
-//                }
-//            }
-//            System.out.println("");
-//        }
-        vueI = new VueInitialisation(); 
-       // vueI.addObservateur(this);
-        vueI.afficher();
-
+        vueIHMJeu = new IHMJeu();
+        vueIHMJeu.addObservateur(this);
+        vueIHMJeu.afficher();
     }
 
     public ArrayList<String> chargerNomTuile() {
@@ -77,7 +65,7 @@ public class Controleur implements Observateur {
         return nomTuile;
     }
 
-    public EtatTuile etatTuileDemo(Tuile tuile) {
+   /* public EtatTuile etatTuileDemo(Tuile tuile) {
         EtatTuile etat;
         switch (tuile.getNom()) {
             case "Les Dunes de l’Illusion":
@@ -99,7 +87,7 @@ public class Controleur implements Observateur {
 
         }
         return etat;
-    }
+    }*/
 
     public Tresor assigneTresorTuile(String nomTuile) {
         Tresor t;
@@ -131,7 +119,7 @@ public class Controleur implements Observateur {
         Tuile[][] tuiles = new Tuile[6][6];
         ArrayList<String> nomTuile = chargerNomTuile();
         Tuile tuile;
-        int rand = 0; //Pas permanent juste pour demo
+        
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
                 if ((l == 0 && ((c == 0) || (c == 1) || (c == 4) || (c == 5)))
@@ -143,15 +131,13 @@ public class Controleur implements Observateur {
                     tuiles[l][c] = null;
                 } else {
                     //Ici on modifie pour charger la map comme il faut pour la demo:
-                    //int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
+                    int rand = ThreadLocalRandom.current().nextInt(0, nomTuile.size());
                     //On genere un nombre aleatoire compris entre 0 et le nombre de nomtuile qu'il reste
-
                     tuile = new Tuile(nomTuile.get(rand), l, c);
                     Tresor t = assigneTresorTuile(nomTuile.get(rand));
                     if (t != null) {
                         tuile.setTresor(t);
                     }
-                    tuile.setEtat(etatTuileDemo(tuile)); //Juste pour la demo
                     tuiles[l][c] = tuile;
                     nomTuile.remove(rand);
                 }
@@ -217,10 +203,6 @@ public class Controleur implements Observateur {
 
         joueurCourant = joueurs.get(0);
 
-    }
-
-    public void jouerTour(Aventurier a) {
-        //code présent dans traiterMessage
     }
 
     public void addDefausseT(CarteTresor carte) {
@@ -369,7 +351,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         return (l < 6) || (a.getRole() == "Pilote");
     }
 
-    public Aventurier joueurSuivant() { //Plutot clair comme méthode !
+    public Aventurier joueurSuivant() {
         int n = joueurs.indexOf(joueurCourant);
         if (n < joueurs.size() - 1) {
             return joueurs.get(n + 1);
@@ -548,6 +530,69 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //Pour le bouton "Action spéciale"
     }
 
+    public ArrayList<CarteInnondation> tirageCarteInnondation() {
+        ArrayList<CarteInnondation> cartes = new ArrayList<>();
+
+        //Pioche autant de carte que la jauge l'indique
+        for (int i = 0; i < niveauInnondation(); i++) {
+            CarteInnondation carte = (CarteInnondation) deck_I.pioche();
+
+            while (!(inondee(carte.getLieu()))) {
+                carte = (CarteInnondation) deck_I.pioche();
+            }
+
+            cartes.add(carte);
+        }
+        return cartes;
+    }
+
+    public void tirageCarte() {
+        //TIRAGE DES CARTES TRESORS
+        //Le joueur pioche 2 cartes Trésors
+        ArrayList<CarteTresor> cartesTresors = new ArrayList<>();
+        cartesTresors = deck_T.piocher();
+
+        //On ajoute les cartes à la main du joueur
+        joueurCourant.getMainA().addAll(cartesTresors);
+        //On affiche les cartes piochées
+//        vueA.afficherCartePioche(cartesTresors);
+
+        //PREND EN COMPTE LA MONTEE DES EAUX
+        //On regarde le nombre de carte montée des eaux que le joueur a pioché
+        for (CarteTresor carte : cartesTresors) {
+            if (carte.getNom().equals(CarteUtilisable.montée_eau)) {
+                //Monte la jauge d'un cran
+                jaugeInnondation = jaugeInnondation + 1;
+            }
+        }
+
+        //Si le tas de défausse n'est pas vide
+        if (!(deck_I.getDefausse().isEmpty())) {
+            deck_I.melangerDefausse();
+            deck_I.getPioche().addAll(deck_I.getDefausse());
+
+            //Tire les carte inondations
+            ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
+            //Ajoute ces cartes à la défausse
+            deck_I.getDefausse().addAll(cartesInnondation);
+            //Pour repeindre la plateau avec les nouvelles cartes inondées
+            vueA.afficher();
+            //On affiche les cartes piochées
+//            vueA.afficherCartePioche(cartesInnondation);
+        }
+
+        //TIRAGE DES CARTES INONDATIONS
+        //Tire les carte inondations
+        ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
+        //Ajoute ces cartes à la défausse
+        deck_I.getDefausse().addAll(cartesInnondation);
+        //Pour repeindre la plateau avec les nouvelles cartes inondées
+        vueA.afficher();
+        //On affiche les cartes piochées
+//        vueA.afficherCartePioche(cartesInnondation);
+
+    }
+
     @Override
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
@@ -570,7 +615,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.deplacer(l, c);
                 }
 
-                break; 
+                break;
 
             case ASSECHER:
                 // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Assécher"
@@ -627,7 +672,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                             ingenieur.setCapaciteUtilisee(2);
                             vueA.assechementIngenieur();
                         } else if (ingenieur.getCapaciteUtilisee() == 2) {
-                            //Si sa capacité utilisée = 2, le joueur en est à son 2eme asséchement
+                            //Si sa capacité utilisée = 2, le joueur en est à son 2ème asséchement
                             //On met à jour sa capacité spéciale
                             ingenieur.setCapaciteUtilisee(0);
                             actionPossible();
@@ -656,7 +701,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case UTILISER_CARTE:
                 g = new boolean[6][6];
-                
+
                 // helico = true si la carte hélico est choisi
                 // helico = false s'il s'agit d'une autre, donc du sac de sable
                 boolean helico = m.getCarte().getNom().equals(CarteUtilisable.hélico);
@@ -673,18 +718,18 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         }
                     }
                 }
-                
+
                 //Si c'est la carte hélico qui est choisie, le joueur ne peut pas se déplacer sur sa propre case
-                if (helico){
+                if (helico) {
                     g[joueurCourant.getL()][joueurCourant.getC()] = false;
                 }
-                
+
                 vueA.afficherTuilePossible(g, grille);
                 break;
 
             case NOUVELLE_PARTIE:
                 initJoueur(m.getNbJoueur(), m.getNom());
-                vueI.desafficher();
+                vueIHMJeu.desafficher();
                 vueA = new VueAventurier(joueurCourant, grille);
 
                 actionPossible();
@@ -704,19 +749,15 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     ((Pilote) joueurCourant).setCapaciteUtilisee(false);
                 }
 
-                // Ici on verifie que la partie n'est ni perdu ni gagner pour continuer
+                tirageCarte();
+
+                // Ici on vérifie que la partie n'est ni perdu ni gagner pour continuer
                 if (partiePerdue) {
 //                    vueA.perdu();
                 } else if (gagnerPartie()) {
 //                    vueA.gagner();
                 } else {
-                    //Le joueur courant est le joueur suivant
-                    int n = joueurs.indexOf(joueurCourant);
-                    if (n < joueurs.size() - 1) {
-                        joueurCourant = joueurs.get(n + 1);
-                    } else {
-                        joueurCourant = joueurs.get(0);
-                    }
+                    joueurCourant = joueurSuivant();
                     actionPossible();
 
                     //On initialise le nombre d'actions selon si c'est un navigateur ou non
