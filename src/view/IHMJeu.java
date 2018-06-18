@@ -18,11 +18,9 @@ public class IHMJeu extends Observe {
 
     //composants fenêtre
     private final JFrame window;
-    protected Aventurier a;
 
-    public IHMJeu(Aventurier aventurier, Grille gTuile) {
+    public IHMJeu() {
 
-        a = aventurier;
         this.window = new JFrame();
         
 
@@ -34,14 +32,16 @@ public class IHMJeu extends Observe {
         getFenetre().setVisible(true);
     }
     
-    public JFrame getFenetre() {
-        return window;
-    }
+  
 
-    }
 
     public void desafficher() {
-        window.setVisible(false);
+        getFenetre().setVisible(false);
+    }
+    
+    // Getter
+      public JFrame getFenetre() {
+        return window;
     }
 
 }
