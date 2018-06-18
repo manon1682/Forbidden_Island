@@ -568,18 +568,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     int c = tuile.getColonne();
 
                     joueurCourant.deplacer(l, c);
-
-                    //On décrémente le nombre d'action
-                    nbAction = nbAction - 1;
-
-                    //Si le joueur n'a plus d'action on fini son tour
-                    actionPossible();
-                    if (nbAction == 0) {
-                        vueA.finirTour();
-                    } else {
-                        //Sinon on affiche les actions possibles
-                        actionPossible();
-                    }
                 }
 
                 break;
@@ -594,18 +582,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //Sinon on asséche la tuile choisie
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
+
                     tuile.asseche();
-
-                    nbAction = nbAction - 1;
-
-                    //Si le joueur n'a plus d'action on fini son tour
-                    if (nbAction == 0) {
-                        vueA.finirTour();
-                    } else {
-                        //Sinon on affiche les actions possibles
-                        actionPossible();
-                    }
-
                 }
                 break;
 
@@ -639,6 +617,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         String nom = m.getTuile();
                         Tuile tuile = grille.getTuileAvecNom(nom);
                         tuile.asseche();
+
                         Ingénieur ingenieur = (Ingénieur) joueurCourant;
 
                         //Si sa capacité utilisée = 1, le joueur en est à son 1er asséchement
@@ -657,31 +636,22 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     }
                 }
 
-                //On décrémente le nombre d'action
-                nbAction = nbAction - 1;
-                
                 break;
 
             case DONNER_CARTE:
-                /* if (joueurCourant instanceof Messager) {
-                    //vueA.afficherJoueurPossible(joueurs);
+                // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Donner carte"
+                if (m.getJoueur() == null) {
+                    ArrayList<Aventurier> recepteurPossible = aventuriersPourDonnerCarte(joueurCourant);
+                    vueA.afficherJoueursPossible();
                 } else {
-                    ArrayList<Aventurier> aventurier = getDonnerCartePossible(joueurCourant);
-                    //vueA.afficherJoueurPossible(aventurier);
-                } */
-
-                if (nbAction == 0) {
-                    vueA.finirTour();
+                    //Sinon on donne la carte au joueur choisi
+                    joueurCourant.donnerCarte(m.getJoueur(), m.getCarte());
                 }
+
                 break;
 
             case PRENDRE_TRESOR:
                 prendreTresor(joueurCourant);
-                nbAction = nbAction - 1;
-
-                if (nbAction == 0) {
-                    vueA.finirTour();
-                }
                 break;
 
             case UTILISER_CARTE:
@@ -695,8 +665,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 actionPossible();
 
-                vueA.addObservateur(
-                        this);
+                vueA.addObservateur(this);
                 actionPossible();
 
                 vueA.afficher();
@@ -739,6 +708,20 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
         }
+
+        if (type != TypesMessages.NOUVELLE_PARTIE && type != TypesMessages.TOUR_SUIVANT) {
+            //On décrémente le nombre d'action
+            nbAction = nbAction - 1;
+
+            //Si le joueur n'a plus d'action on fini son tour
+            if (nbAction == 0) {
+                vueA.finirTour();
+            } else {
+                //Sinon on affiche les actions possibles
+                actionPossible();
+            }
+        }
+
     }
 
 }
