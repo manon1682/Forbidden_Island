@@ -21,7 +21,7 @@ import javax.swing.JPanel;
  */
 public class VuePlateau extends JPanel {
 
-    private JPanel[][] tuiles;
+    private VueTuile[][] tuiles;
 
     public VuePlateau(Grille grille) {
         tuiles = new VueTuile[6][6];
@@ -32,16 +32,13 @@ public class VuePlateau extends JPanel {
                 this.add(tuiles[l][c]);
             }
         }
-
     }
 
     @Override
     public void paintComponents(Graphics g) {
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
-                if (tuiles[l][c] != null) {
-                    tuiles[l][c].repaint();
-                }
+                tuiles[l][c].repaint();
             }
         }
         this.repaint();
@@ -52,12 +49,11 @@ public class VuePlateau extends JPanel {
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
                 if (grille.getTuiles()[l][c] != null && grille.getTuiles()[l][c].getEtat() != EtatTuile.coulée) {
-                    ((VueTuile) tuiles[l][c]).setNomTuile(ts[l][c].getNom());
                     ((VueTuile) tuiles[l][c]).setEtat(ts[l][c].getEtat());
+                    int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width)/6)-20;
+                    ((VueTuile) tuiles[l][c]).setDim(new Dimension(size,size));
                 } else {
-                    JPanel pan = new JPanel();
-                    pan.setBackground(Color.blue);
-                    tuiles[l][c] = pan;
+                    tuiles[l][c] = new VueTuile("Ocean", EtatTuile.coulée, new Dimension(100, 100));
                 }
             }
         }
@@ -68,11 +64,9 @@ public class VuePlateau extends JPanel {
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
                 if (grille.getTuiles()[l][c] != null) {
-                    tuiles[l][c] = new VueTuile(ts[l][c].getNom(), ts[l][c].getEtat(), new Dimension(50, 50));
+                    tuiles[l][c] = new VueTuile(ts[l][c].getNom(), ts[l][c].getEtat(), new Dimension(100, 100));
                 } else {
-                    JPanel pan = new JPanel();
-                    pan.setBackground(Color.blue);
-                    tuiles[l][c] = pan;
+                    tuiles[l][c] = new VueTuile("Ocean", EtatTuile.coulée, new Dimension(100, 100));
                 }
             }
         }

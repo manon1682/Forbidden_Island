@@ -24,9 +24,11 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import view.IHMJeu;
 import view.VueAventurier;
 import view.VueInitialisation;
+import view.VuePlateau;
 
 public class Controleur implements Observateur {
 
@@ -44,9 +46,14 @@ public class Controleur implements Observateur {
     public Controleur() {
         initPlateau();
         initDeck();
-        vueIHMJeu = new IHMJeu();
+        JFrame window = new JFrame();
+        window.add(new VuePlateau(grille));
+        window.setSize(620, 620);
+        window.setVisible(true);
+        
+        /*vueIHMJeu = new IHMJeu();
         vueIHMJeu.addObservateur(this);
-        vueIHMJeu.afficher();
+        vueIHMJeu.afficher();*/
     }
 
     public ArrayList<String> chargerNomTuile() {
