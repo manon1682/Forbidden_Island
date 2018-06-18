@@ -462,7 +462,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         }
 
     }
-
+    
     @Override
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
