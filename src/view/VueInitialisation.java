@@ -46,7 +46,9 @@ public class VueInitialisation extends Observe {
         window.setSize(500, 350);
 
         window.setTitle("Ile Interdite");
-        mainPanel = new JPanel(new BorderLayout(), new ImageIcon("images/backgroung/image_init.jpg");
+        JLabel image = new JLabel( new ImageIcon( "images/backgroung/image_init.jpg"));
+        mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(image);
         this.window.add(mainPanel);
 
         mainPanel.setBackground(new Color(230, 230, 230));
