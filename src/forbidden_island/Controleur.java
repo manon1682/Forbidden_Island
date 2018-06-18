@@ -241,7 +241,7 @@ public class Controleur implements Observateur {
 
         Tresor tr = tuiles[l][c].getTresor();
 
-        if (tr != null && !(a.getTresor().contains(tr))) {
+        if (!(a.getTresor().contains(tr))) {
             ArrayList<CarteTresor> cartesTre = a.mainTresor(tr);
 
             if (cartesTre.size() >= 4) {
@@ -252,12 +252,10 @@ public class Controleur implements Observateur {
                 a.ajoutTresor(tr);
                 return true;
             } else {
-                //Le joueur n'a pas assez de carte Trésor pour prendre le trésor
                 return false;
             }
 
         } else {
-            //Le joueur ne se trouve pas sur une tuile avec un trésor ou a déjà ce trésor
             return false;
         }
     }
@@ -392,7 +390,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
                 c++;
             }
         }
-        return (l < 6) || (a.estRole("Pilote"));
+        return (l < 6) || (a.getRole() == "Pilote");
     }
 
     public Aventurier joueurSuivant() { //Plutot clair comme méthode !
@@ -450,7 +448,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
     }
 
     public void majIngenieur() {
-        if (joueurCourant.estRole("Ingénieur")) {
+        if (joueurCourant.getRole() == "Ingénieur") {
             Ingénieur ingenieur = (Ingénieur) joueurCourant;
             if (!(ingenieur.doubleAssechementPossible(grille))) {
                 ingenieur.setCapaciteUtilisee(-1);
@@ -464,7 +462,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         }
 
     }
-
+    
     @Override
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
@@ -473,20 +471,17 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         switch (type) {
 
             case DEPLACER:
-                // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Déplacer"
                 if (m.getTuile() == null) {
                     g = joueurCourant.deplacementPossible(grille);
-                    // On affiche sur l'IHM sur le tuiles possibles
                     vueA.afficherTuilePossible(g, getGrille());
                 } else {
-                    //Sinon on déplace le joueur sur la tuile choisie
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
 
                     int l = tuile.getLigne();
                     int c = tuile.getColonne();
 
-                    if (joueurCourant.estRole("Pilote")) {
+                    if (joueurCourant.getRole() == "Pilote") {
                         Pilote pilote = (Pilote) joueurCourant;
                         g = joueurCourant.deplacementPossible(grille);
                         if (!(g[l][c])) {
@@ -498,9 +493,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                     joueurCourant.deplacer(l, c);
                     nbAction = nbAction - 1;
-
+                    
                     majIngenieur();
-
+                    
                     if (nbAction == 0) {
                         vueA.finirTour();
                     }
@@ -517,7 +512,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     Tuile tuile = grille.getTuileAvecNom(nom);
                     tuile.asseche();
 
-                    if (joueurCourant.estRole("Ingénieur")) {
+                    if (joueurCourant.getRole() == "Ingénieur") {
                         Ingénieur ingenieur = (Ingénieur) joueurCourant;
                         if (ingenieur.getCapaciteUtilisee() > 0 && ingenieur.getCapaciteUtilisee() < 2) {
                             nbAction = nbAction + 1;
@@ -543,25 +538,15 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case SPECIALE:
-                if (joueurCourant.estRole("Pilote")) {
-                    if (m.getTuile() == null) {
-                        g = ((Pilote) joueurCourant).deplacementPossibleSpecial(grille);
-                        vueA.afficherTuilePossible(g, getGrille());
-                    } else {
-                        String nom = m.getTuile();
-                        Tuile tuile = grille.getTuileAvecNom(nom);
+                if (joueurCourant.getRole() == "Pilote") {
+                    Pilote pilote = (Pilote) joueurCourant;
+                    g = pilote.deplacementPossibleSpecial(grille);
+                    vueA.afficherTuilePossible(g, getGrille());
+                } else if (joueurCourant.getRole() == "Navigateur") {
 
-                        int l = tuile.getLigne();
-                        int c = tuile.getColonne();
-                        
-                        joueurCourant.deplacer(l, c);
-                        ((Pilote) joueurCourant).setCapaciteUtilisee(true);
-                    }
-                } else if (joueurCourant.estRole("Navigateur")) {
+                } else if (joueurCourant.getRole() == "Messager") {
 
-                } else if (joueurCourant.estRole("Messager")) {
-
-                } else if (joueurCourant.estRole("Ingénieur")) {
+                } else if (joueurCourant.getRole() == "Ingénieur") {
                     Ingénieur ingenieur = (Ingénieur) joueurCourant;
                     ingenieur.setCapaciteUtilisee(1);
                     joueurCourant = ingenieur;
@@ -598,7 +583,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case NOUVELLE_PARTIE:
-                initJoueur(m.getNom().size(), m.getNom());
+                initJoueur(m.getNbJoueur(), m.getNom());
                 vueI.desafficher();
                 vueA = new VueAventurier(joueurCourant, grille);
                 majIngenieur();
@@ -611,8 +596,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 // Ici on verifira que la partie n'est ni perdu ni gagner pour continuer
                 nbAction = 3;
 
-                if (joueurCourant.estRole("Pilote")) {
-                    // (Pilote) joueurCourant;
+                if (joueurCourant.getRole() == "Pilote") {
                     Pilote pilote = (Pilote) joueurCourant;
                     pilote.setCapaciteUtilisee(false);
                     joueurCourant = pilote;
