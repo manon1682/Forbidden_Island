@@ -52,9 +52,20 @@ public class VueInitialisation extends JPanel{
     private Image image ;
 
     public VueInitialisation() {
-        super();
-        this.nbjoueurs = new String[]{"2", "3", "4"};       
-        this.window = new JFrame();
+        this.nbjoueurs = new String[]{"2", "3", "4"};
+        this.window = new JFrame() {
+            @Override
+            public void paintComponents(Graphics g) {
+                try {
+                    Image img = ImageIO.read(new FileInputStream("images/background/image_init.jpg"));
+                    g.drawImage(img, 0, 0, null);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        window.add(this);
         window.setSize(500, 350);
 
         window.setTitle("Ile Interdite");
