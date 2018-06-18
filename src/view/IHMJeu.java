@@ -8,7 +8,9 @@ package view;
 import Aventurier.Aventurier;
 import forbidden_island.Grille;
 import forbidden_island.Observe;
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -18,11 +20,43 @@ public class IHMJeu extends Observe {
 
     //composants fenêtre
     private final JFrame window;
+    
+    
+//    private VueNiveau vNiveau;
+//    private VueIninialisation vIni;
+//    private VueAventurier vAven;
+//    private VuePlateau vPlat;
+//    private VueMessageBox vMB;
+    
+//    private VueAction vActionAven;
+//        private vueMain vMainAven;
+    
 
     public IHMJeu() {
+        
 
-        this.window = new JFrame();
+        
+        this.window = new JFrame();        
+        getFenetre().setLayout(new BorderLayout());
         this.afficher();
+        
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        
+        JPanel panelCenter1 = new JPanel();
+        JPanel panelSud1 = new JPanel(new BorderLayout());
+        
+        panelSud1.add(vueMainAven,BorderLayout.CENTER);
+        panelSud1.add(vueActionAven, BorderLayout.EAST);
+        
+        mainPanel.add(vue)
+        
+        
+                
+                
+                
+        window.add(mainPanel);
+        
+        
         
 
     }
