@@ -37,6 +37,14 @@ public class VueTuile extends JPanel{
         initImage();
     }
     
+    public VueTuile(String nom, EtatTuile etat){
+        int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
+        setDim(new Dimension(size, size));
+        setNomTuile(nom);
+        setEtat(etat);
+        initImage();
+    }
+    
     public void initImage(){
         if(getNomFichierTuile(nomTuile) != null){
             try {
@@ -50,7 +58,8 @@ public class VueTuile extends JPanel{
     
     @Override
     public void paint(Graphics g){
-        
+        int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
+        setDim(new Dimension(size, size));
         if(etat == EtatTuile.sèche){
             g.drawImage(tuileNormale, 0, 0, dim.width, dim.height, null);
         } else if(etat == EtatTuile.inondée){
