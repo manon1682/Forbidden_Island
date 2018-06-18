@@ -22,6 +22,7 @@ public class IHMJeu extends Observe {
     public IHMJeu() {
 
         this.window = new JFrame();
+        this.afficher();
         
 
     }
