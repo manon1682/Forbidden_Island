@@ -231,36 +231,33 @@ public class Controleur implements Observateur {
         tuile.asseche();
     }
 
-    public boolean getTresor(Aventurier a) {
-        /*"Est ce que tu peux prendre le trésor ?*/
-
+    public void prendreTresor(Aventurier a) {
         int l = a.getL();
         int c = a.getC();
 
         Tuile[][] tuiles = grille.getTuiles();
 
+        //On récupère le trésor étant sur la tuile
         Tresor tr = tuiles[l][c].getTresor();
+        
+        //On récupère les 4 cartes Trésor (ou plus) correspondant au trésor de la tuile
+        
+        ArrayList<CarteTresor> cartesTre = a.mainTresor(tr);
+         
+        //On supprime ces 4 cartes de la main du joueur et on l'ajoute à la défausse du jeu
+        
+            for (int i = 0; i < 4; i++) {
+                a.removeMainA(cartesTre.get(i));
+                this.addDefausseT(cartesTre.get(i));
+               }
+            //On ajoute le trésor au joueur
+            a.ajoutTresor(tr);
 
-        if (!(a.getTresor().contains(tr))) {
-            ArrayList<CarteTresor> cartesTre = a.mainTresor(tr);
-
-            if (cartesTre.size() >= 4) {
-                for (int i = 0; i < 4; i++) {
-                    a.removeMainA(cartesTre.get(i));
-                    this.addDefausseT(cartesTre.get(i));
-                }
-                a.ajoutTresor(tr);
-                return true;
-            } else {
-                return false;
-            }
-
-        } else {
-            return false;
         }
-    }
 
-    public ArrayList<Aventurier> getDonnerCartePossible(Aventurier a) {
+    
+
+    public ArrayList<Aventurier> aventuriersPourDonnerCarte(Aventurier a) {
         int li = a.getL();
         int co = a.getC();
 
@@ -270,7 +267,7 @@ public class Controleur implements Observateur {
             int l = j.getL();
             int c = j.getC();
 
-            if (li == l && co == c) {
+            if (li == l && co == c && !(j.equals(joueurCourant))) {
                 aventurierOK.add(j);
             }
         }
@@ -334,7 +331,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         //3. si y'a un role hélico, alors c'est good, sinon check si il y a une carte hélico
         boolean pilotePresent = false;
         for (Aventurier j : joueurs) {
-            if (j.getRole() == "Pilote") {
+            if (j.estRole("Pilote")) {
                 pilotePresent = true;
             } //pilotePresent n'est jamais mis à true si parmi tous les joueurs il y a aucun pilote. 
         }
@@ -447,22 +444,96 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         return false;
     }
 
-    public void majIngenieur() {
-        if (joueurCourant.getRole() == "Ingénieur") {
+    public boolean deplacementPossible() {
+        boolean[][] gPossible = joueurCourant.deplacementPossible(grille);
+        boolean[][] gInitiale = new boolean[6][6];
+        joueurCourant.initialisation(gInitiale);
+
+        if (gPossible.equals(gInitiale)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean assechementPossible() {
+        boolean[][] gPossible = joueurCourant.assechementPossible(grille);
+        boolean[][] gInitiale = new boolean[6][6];
+        joueurCourant.initialisation(gInitiale);
+
+        if (gPossible.equals(gInitiale)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean prendreTresorPossible() {
+        int l = joueurCourant.getL();
+        int c = joueurCourant.getC();
+
+        Tuile[][] tuiles = grille.getTuiles();
+
+        //On récupère le trésor étant sur la tuile
+        Tresor tr = tuiles[l][c].getTresor();
+
+        // S'il y a bien un trésor sur la tuile && les joueurse ne possède pas déjà ce trésor
+        if (tr != null && !(joueurCourant.getTresor().contains(tr))) {
+            //On récupère les cartes Trésor correspondant au trésor de la tuile
+            ArrayList<CarteTresor> cartesTre = joueurCourant.mainTresor(tr);
+            //Si le joueur possède plus de 4 cartes de ce trésor il peut le récuper
+            if (cartesTre.size() >= 4) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public boolean donnerCartePossible() {
+
+    }
+
+    public boolean utiliserCartePossible() {
+
+    }
+
+    public boolean actionSpecialePossible() {
+
+    }
+
+    public void actionPossible() {
+
+        //Pour le bouton "Déplacer"
+        vueA.getBtnBouger().setEnabled(deplacementPossible()); // fois le nombre de bouton --> à compléter
+
+        //Pour le bouton "Assécher"
+        //Pour le bouton "Prendre trésor"
+        //Pour le bouton "Donner carte"
+        // Pour le bouton "Utiliser carte"
+        //Pour le bouton "Action spéciale"
+        //Si le joueur est un ingénieur
+        if (joueurCourant.estRole("Ingénieur")) {
             Ingénieur ingenieur = (Ingénieur) joueurCourant;
+            //Si le double asséchement est impossible
             if (!(ingenieur.doubleAssechementPossible(grille))) {
+                //On met à jour sa capacité spéciale
                 ingenieur.setCapaciteUtilisee(-1);
-                joueurCourant = ingenieur;
+                //Le bouton action spéciale n'est pas affiché
                 vueA.getBtnAutreAction().setEnabled(false);
             } else {
+                //On met à jour sa capacité spéciale
                 ingenieur.setCapaciteUtilisee(0);
-                joueurCourant = ingenieur;
+                //Sinon on affiche le bouton action spéciale
                 vueA.getBtnAutreAction().setEnabled(true);
             }
+            joueurCourant = ingenieur;
         }
 
     }
-    
+
     @Override
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
@@ -473,6 +544,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             case DEPLACER:
                 if (m.getTuile() == null) {
                     g = joueurCourant.deplacementPossible(grille);
+                    // On affiche l'IHM avec les tuiles possibles
                     vueA.afficherTuilePossible(g, getGrille());
                 } else {
                     String nom = m.getTuile();
@@ -492,26 +564,36 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     }
 
                     joueurCourant.deplacer(l, c);
+
+                    //On décrémente le nombre d'action
                     nbAction = nbAction - 1;
-                    
+
+                    //Si le joueur n'a plus d'action on fini son tour
                     majIngenieur();
-                    
                     if (nbAction == 0) {
                         vueA.finirTour();
+                    } else {
+                        //Sinon on affiche les actions possibles
+                        actionPossible();
                     }
                 }
 
                 break;
 
             case ASSECHER:
+                // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Assécher"
                 if (m.getTuile() == null) {
                     g = joueurCourant.assechementPossible(grille);
+                    // On affiche l'IHM avec les tuiles possibles
                     vueA.afficherTuilePossible(g, getGrille());
                 } else {
+                    //Sinon on asséche la tuile choisie
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
                     tuile.asseche();
 
+                     << << << < HEAD
+ == == == =
                     if (joueurCourant.getRole() == "Ingénieur") {
                         Ingénieur ingenieur = (Ingénieur) joueurCourant;
                         if (ingenieur.getCapaciteUtilisee() > 0 && ingenieur.getCapaciteUtilisee() < 2) {
@@ -527,35 +609,95 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                             majIngenieur();
                         }
                     }
-
+                     >>> >>> > origin / master
                     nbAction = nbAction - 1;
 
+                    //Si le joueur n'a plus d'action on fini son tour
                     if (nbAction == 0) {
                         vueA.finirTour();
+                    } else {
+                        //Sinon on affiche les actions possibles
+                        actionPossible();
                     }
 
                 }
                 break;
 
             case SPECIALE:
-                if (joueurCourant.getRole() == "Pilote") {
-                    Pilote pilote = (Pilote) joueurCourant;
-                    g = pilote.deplacementPossibleSpecial(grille);
-                    vueA.afficherTuilePossible(g, getGrille());
-                } else if (joueurCourant.getRole() == "Navigateur") {
+                 << << << < HEAD
+                
+                if (joueurCourant.estRole("Pilote")) {
+                    // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Action spéciale"
+                    if (m.getTuile() == null) {
+                        g = ((Pilote) joueurCourant).deplacementPossibleSpecial(grille);
+                        vueA.afficherTuilePossible(g, getGrille());
+                    } else {
+                        //Sinon on déplace le pilote et on met à jour sa capacité utilisée
+                        String nom = m.getTuile();
+                        Tuile tuile = grille.getTuileAvecNom(nom);
+                         == == == =
+                        if (joueurCourant.getRole() == "Pilote") {
+                            Pilote pilote = (Pilote) joueurCourant;
+                            g = pilote.deplacementPossibleSpecial(grille);
+                            vueA.afficherTuilePossible(g, getGrille());
+                        } else if (joueurCourant.getRole() == "Navigateur") {
+                             >>> >>> > origin / master
+                                    << << << < HEAD
+                        
+                            int l = tuile.getLigne();
+                            int c = tuile.getColonne();
 
-                } else if (joueurCourant.getRole() == "Messager") {
+                            joueurCourant.deplacer(l, c);
+                            ((Pilote) joueurCourant).setCapaciteUtilisee(true);
+                        }
+                    }else if (joueurCourant.estRole("Messager")) {
 
-                } else if (joueurCourant.getRole() == "Ingénieur") {
-                    Ingénieur ingenieur = (Ingénieur) joueurCourant;
-                    ingenieur.setCapaciteUtilisee(1);
-                    joueurCourant = ingenieur;
-                    vueA.assechementIngenieur();
-                }
+                            } else if (joueurCourant.estRole("Ingénieur")) {
+                                if (m.getTuile() == null) {
+                                    // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Action spéciale"
+                                    // On met à jour sa capacité utilisée
+                                    ((Ingénieur) joueurCourant).setCapaciteUtilisee(1);
+                                    vueA.assechementIngenieur();
+                                } else {
+                                    Ingénieur ingenieur = (Ingénieur) joueurCourant;
 
-                break;
+                                    //Si sa capacité utilisée = 1, le joueur en est à son 1er asséchement
+                                    if (ingenieur.getCapaciteUtilisee() == 1) {
+                                        //On incrémente son nombre d'action pour qu'une fois décrémenté cela n'est pas d'incidence
+                                        nbAction = nbAction + 1;
+                                        vueA.assechementIngenieur();
+                                        ingenieur.setCapaciteUtilisee(2);
+                                    } else {
+                                        //Si sa capacité utilisée = 2, le joueur en est à son 2eme asséchement
+                                        if (ingenieur.getCapaciteUtilisee() == 2) {
+                                            //On met à jour sa capacité spéciale
+                                            ingenieur.setCapaciteUtilisee(0);
+                                        }
+                                    }
 
-            case DONNER_CARTE:
+                                    joueurCourant = ingenieur;
+                                }
+                                 == == == =
+                            } else if (joueurCourant.getRole() == "Messager") {
+
+                            } else if (joueurCourant.getRole() == "Ingénieur") {
+                                Ingénieur ingenieur = (Ingénieur) joueurCourant;
+                                ingenieur.setCapaciteUtilisee(1);
+                                joueurCourant = ingenieur;
+                                vueA.assechementIngenieur();
+                                 >>> >>> > origin / master
+                            }
+
+                    //On décrémente le nombre d'action
+                    nbAction = nbAction - 1;
+
+                    break;
+
+                
+        
+    
+
+case DONNER_CARTE:
                 /* if (joueurCourant instanceof Messager) {
                     //vueA.afficherJoueurPossible(joueurs);
                 } else {
@@ -569,9 +711,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case PRENDRE_TRESOR:
-                if (getTresor(joueurCourant)) {
-                    nbAction = nbAction - 1;
-                }
+                prendreTresor(joueurCourant);
+                nbAction = nbAction - 1;
 
                 if (nbAction == 0) {
                     vueA.finirTour();
@@ -586,33 +727,47 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 initJoueur(m.getNbJoueur(), m.getNom());
                 vueI.desafficher();
                 vueA = new VueAventurier(joueurCourant, grille);
-                majIngenieur();
+                actionPossible();
                 vueA.addObservateur(this);
+                actionPossible();
                 vueA.afficher();
                 break;
 
             case TOUR_SUIVANT:
+                //On désaffiche la vue
                 vueA.desafficher();
-                // Ici on verifira que la partie n'est ni perdu ni gagner pour continuer
-                nbAction = 3;
 
-                if (joueurCourant.getRole() == "Pilote") {
-                    Pilote pilote = (Pilote) joueurCourant;
-                    pilote.setCapaciteUtilisee(false);
-                    joueurCourant = pilote;
+                //Si le joueur était un pilote, on met à jour sa capacité spéciale
+                if (joueurCourant.estRole("Pilote")) {
+                    ((Pilote) joueurCourant).setCapaciteUtilisee(false);
                 }
 
-                int n = joueurs.indexOf(joueurCourant);
-                if (n < joueurs.size() - 1) {
-                    joueurCourant = joueurs.get(n + 1);
+                // Ici on verifie que la partie n'est ni perdu ni gagner pour continuer
+                if (partiePerdue) {
+                    vueA.perdu();
+                } else if (gagnerPartie()) {
+                    vueA.gagner();
                 } else {
-                    joueurCourant = joueurs.get(0);
+                    //Le joueur courant est le joueur suivant
+                    int n = joueurs.indexOf(joueurCourant);
+                    if (n < joueurs.size() - 1) {
+                        joueurCourant = joueurs.get(n + 1);
+                    } else {
+                        joueurCourant = joueurs.get(0);
+                    }
+                    actionPossible();
+
+                    //On initialise le nombre d'actions selon si c'est un navigateur ou non
+                    nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
+
+                    //On créer une nouvelle vue Aventurier
+                    vueA = new VueAventurier(joueurCourant, grille);
+                    vueA.addObservateur(this);
+                    vueA.afficher();
+
                 }
-                majIngenieur();
-                vueA = new VueAventurier(joueurCourant, grille);
-                vueA.addObservateur(this);
-                vueA.afficher();
                 break;
+
         }
     }
 

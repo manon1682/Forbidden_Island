@@ -132,7 +132,6 @@ public class VueInitialisation extends Observe {
                     }
 
                     Message m = new Message(TypesMessages.NOUVELLE_PARTIE, null);
-                    m.setNbJoueur(nbJ);
                     m.setNom(nom);
                     notifierObservateur(m);
                 }
