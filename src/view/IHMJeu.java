@@ -24,9 +24,9 @@ public class IHMJeu extends Observe {
 //        private VueIninialisation vIni;
     
     private VueNiveau vNiveau;
-    private VueAventurier vAven;
     private VuePlateau vPlat;
-    private VueMessageBox vMB;
+    private vueAventurier2 vAven;
+    private VueMessageBox vText;
     
     private VueActionAventurier vActionAven;
     private VueMainAventurier vMainAven;
@@ -34,7 +34,15 @@ public class IHMJeu extends Observe {
 
     public IHMJeu() {
         
-
+        //initialisation variable
+        vNiveau = new VueNiveau();
+        vPlat = new VuePlateau();
+        vAven = new vueAventurier2();
+        vText = new VueMessageBox();
+        vActionAven = new VueActionAventurier();
+        vMainAven = new VueMainAventurier();
+        
+        
         
         this.window = new JFrame();        
         getFenetre().setLayout(new BorderLayout());
@@ -42,14 +50,30 @@ public class IHMJeu extends Observe {
         
         JPanel mainPanel = new JPanel(new BorderLayout());
         
+        //Création 2 panels dans Panel Principale > "1" pour le "haut/centre", "2" pour le sud
         JPanel panelCenter1 = new JPanel();
-        JPanel panelSud1 = new JPanel(new BorderLayout());
+        JPanel panelSud2 = new JPanel(new BorderLayout());
         
-        panelSud1.add(vueMainAven,BorderLayout.CENTER);
-        panelSud1.add(vueActionAven, BorderLayout.EAST);
+        //Création 2 panels dans Panel Sud, "2_1" pour le "centre/gauche", "2_2" pour l'est
+        JPanel panelCenter2_1 = new JPanel();
+        JPanel panelEst2_2 = new JPanel();
+        //
+        panelCenter2_1 = vue;
+        panelEst2_2 = vueActionAven;
         
-        mainPanel.add(vue)
-   
+        //Ajout 2 panel au Panel Sud
+        panelSud2.add(panelCenter2_1,BorderLayout.CENTER);
+        panelSud2.add(panelEst2_2, BorderLayout.EAST);
+        
+        
+        //Ajout panel au Panel Principale
+        mainPanel.add(panelCenter1, BorderLayout.CENTER);
+        mainPanel.add(panelSud2, BorderLayout.SOUTH);
+        
+        
+                
+                
+                
         window.add(mainPanel);
         
         

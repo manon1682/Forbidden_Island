@@ -5,12 +5,10 @@
  */
 package view;
 
-import javax.swing.JPanel;
-
 /**
  *
  * @author blanquan
  */
-public class VueMainAventurier extends JPanel{
+public class vueAventurier2 {
     
 }
