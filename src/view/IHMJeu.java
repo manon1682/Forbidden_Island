@@ -37,7 +37,7 @@ public class IHMJeu extends Observe {
 
         //initialisation variable
         vNiveau = new VueNiveau();
-        vPlat = new VuePlateau(grille);
+        vPlat = new VuePlateau();
         vAven = new VueCoequipierAventurier(aventurier);
         vText = new VueMessageBox();
         vActionAven = new VueActionAventurier(aventurier);
