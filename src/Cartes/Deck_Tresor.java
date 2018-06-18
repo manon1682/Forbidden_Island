@@ -49,11 +49,6 @@ public class Deck_Tresor extends Deck {
         return cartesPioche;
     }
     
-    @Override
-    public Carte pioche() {
-        return getPioche().pop();
-    }
-    
     public ArrayList<CarteTresor> piocher(){
         ArrayList<CarteTresor> cartePiocher = new ArrayList<CarteTresor>();
         cartePiocher.add((CarteTresor)this.pioche());

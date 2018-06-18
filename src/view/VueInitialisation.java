@@ -51,7 +51,6 @@ public class VueInitialisation extends Observe {
 
     public VueInitialisation() {
         this.nbjoueurs = new String[]{"2", "3", "4"};
-        System.out.println("Le fashisme");
         this.window = new JFrame() {
             @Override
             public void paintComponents(Graphics g) {
