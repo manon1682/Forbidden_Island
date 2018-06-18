@@ -21,15 +21,15 @@ public class IHMJeu extends Observe {
     //composants fenêtre
     private final JFrame window;
     
+//        private VueIninialisation vIni;
     
-//    private VueNiveau vNiveau;
-//    private VueIninialisation vIni;
-//    private VueAventurier vAven;
-//    private VuePlateau vPlat;
-//    private VueMessageBox vMB;
+    private vueNiveau vNiveau;
+    private VueAventurier vAven;
+    private VuePlateau vPlat;
+    private vueMessageBox vMB;
     
-//    private VueAction vActionAven;
-//        private vueMain vMainAven;
+    private VueActionAventurier vActionAven;
+    private VueMainAventurier vMainAven;
     
 
     public IHMJeu() {
