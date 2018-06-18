@@ -66,6 +66,7 @@ public class VueInitialisation extends JPanel{
                 }
             }
         };
+        window.add(this);
         window.setSize(500, 350);
 
         window.setTitle("Ile Interdite");
