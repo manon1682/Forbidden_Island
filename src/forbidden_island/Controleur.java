@@ -7,6 +7,7 @@ import Aventurier.*;
 import Aventurier.Explorateur;
 import Aventurier.Ingénieur;
 import Aventurier.Messager;
+import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Cartes.Deck;
 import Enumeration.CarteUtilisable;
@@ -42,20 +43,6 @@ public class Controleur implements Observateur {
     public Controleur() {
         initPlateau();
         initDeck();
-
-//        //Pour vérifier que la grille est charger correctement et correspond a celle de la demo
-//        Tuile[][] ts = grille.getTuiles();
-//        for (int i = 0; i < 6; i++) {
-//            for (int j = 0; j < 6; j++) {
-//                if(ts[i][j] != null){
-//                    System.out.print("Nom :" + ts[i][j].getNom() + " Etat :" + ts[i][j].getEtat() + "|");
-//                } else {
-//                    System.out.print("|          X           |");
-//                }
-//            }
-//            System.out.println("");
-//        }
-        System.out.println("MA GROSS QUEUE POILU");
         vueI = new VueInitialisation();
         vueI.addObservateur(this);
         vueI.afficher();
@@ -220,10 +207,6 @@ public class Controleur implements Observateur {
 
     }
 
-    public void jouerTour(Aventurier a) {
-        //code présent dans traiterMessage
-    }
-
     public void addDefausseT(CarteTresor carte) {
         getDeck_T().defausser(carte);
     }
@@ -370,7 +353,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         return (l < 6) || (a.getRole() == "Pilote");
     }
 
-    public Aventurier joueurSuivant() { //Plutot clair comme méthode !
+    public Aventurier joueurSuivant() {
         int n = joueurs.indexOf(joueurCourant);
         if (n < joueurs.size() - 1) {
             return joueurs.get(n + 1);
@@ -549,6 +532,11 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //Pour le bouton "Action spéciale"
     }
 
+    public void tirageCarteTresor() {
+        ArrayList<CarteTresor> carteTresors = new ArrayList<>();
+        carteTresors = deck_T.piocher();
+    }
+
     @Override
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
@@ -571,7 +559,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.deplacer(l, c);
                 }
 
-                break;
+                break; 
 
             case ASSECHER:
                 // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Assécher"
@@ -628,7 +616,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                             ingenieur.setCapaciteUtilisee(2);
                             vueA.assechementIngenieur();
                         } else if (ingenieur.getCapaciteUtilisee() == 2) {
-                            //Si sa capacité utilisée = 2, le joueur en est à son 2eme asséchement
+                            //Si sa capacité utilisée = 2, le joueur en est à son 2ème asséchement
                             //On met à jour sa capacité spéciale
                             ingenieur.setCapaciteUtilisee(0);
                             actionPossible();
@@ -657,7 +645,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case UTILISER_CARTE:
                 g = new boolean[6][6];
-                
+
                 // helico = true si la carte hélico est choisi
                 // helico = false s'il s'agit d'une autre, donc du sac de sable
                 boolean helico = m.getCarte().getNom().equals(CarteUtilisable.hélico);
@@ -674,12 +662,12 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         }
                     }
                 }
-                
+
                 //Si c'est la carte hélico qui est choisie, le joueur ne peut pas se déplacer sur sa propre case
-                if (helico){
+                if (helico) {
                     g[joueurCourant.getL()][joueurCourant.getC()] = false;
                 }
-                
+
                 vueA.afficherTuilePossible(g, grille);
                 break;
 
@@ -705,6 +693,51 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     ((Pilote) joueurCourant).setCapaciteUtilisee(false);
                 }
 
+                //PIOCHE CARTE PEUT CREER UNE NOUVELLE METHODE
+                //Le joueur pioche 2 cartes Trésors
+                ArrayList<CarteTresor> cartesTresors = new ArrayList<>();
+                cartesTresors = deck_T.piocher();
+
+                //On ajoute les cartes à la main du joueur
+                joueurCourant.getMainA().addAll(cartesTresors);
+                //On affiche les cartes piochées
+                vueA.afficherCartePioche(cartesTresors);
+
+                //On regarde le nombre de carte montée des eaux que le joueur a pioché
+                for (CarteTresor carte : cartesTresors) {
+                    if (carte.getNom().equals(CarteUtilisable.montée_eau)) {
+                        jaugeInnondation = jaugeInnondation + 1;
+                    }
+                }
+
+                //Si le tas de défausse n'est pas vide
+                if (!(deck_I.getDefausse().isEmpty())) {
+                    deck_I.melangerDefausse();
+                    deck_I.getPioche().addAll(deck_I.getDefausse());
+
+                    ArrayList<CarteInnondation> cartes = new ArrayList<>();
+                    for (int i = 0; i < niveauInnondation(); i++) {
+                        CarteInnondation carte = (CarteInnondation) deck_I.pioche();
+
+                        while (!(inondee(carte.getLieu()))) {
+                            carte = (CarteInnondation) deck_I.pioche();
+                        }
+
+                        cartes.add(carte);
+                    }
+                    vueA.afficherCartePioche(cartes);
+                }
+
+                //Le joueur pioche autant de carte que la jauge l'indique
+                ArrayList<CarteInnondation> cartesInnondation = new ArrayList<>();
+                for (int i = 0; i < niveauInnondation(); i++) {
+                    cartesInnondation.add((CarteInnondation) deck_I.pioche());
+                }
+
+                //On affiche les cartes piochées
+                vueA.afficherCartePioche(cartesInnondation);
+
+                //FIN DE LA METHODE POTENTIELLE
                 // Ici on verifie que la partie n'est ni perdu ni gagner pour continuer
                 if (partiePerdue) {
 //                    vueA.perdu();

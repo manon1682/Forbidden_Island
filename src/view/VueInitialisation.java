@@ -34,10 +34,10 @@ import javax.swing.JTextField;
  *
  * @author cabezama
  */
-public class VueInitialisation extends Observe {
+public class VueInitialisation extends JPanel{
 
     private final JFrame window;
-    private final JPanel mainPanel;
+    //private final JPanel mainPanel;
     private JPanel panelCentre;
     private JComboBox choixNbJoueur;
     private String[] nbjoueurs;
@@ -47,18 +47,43 @@ public class VueInitialisation extends Observe {
     private JButton manuel;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
-    private Graphics g;
+    private IHMJeu ihm;
+
+    
+    private Image image ;
 
     public VueInitialisation() {
-        this.nbjoueurs = new String[]{"2", "3", "4"};       
-        this.window = new JFrame();
+        this.nbjoueurs = new String[]{"2", "3", "4"};
+        this.window = new JFrame() {
+            @Override
+            public void paintComponents(Graphics g) {
+                try {
+                    Image img = ImageIO.read(new FileInputStream("images/background/image_init.jpg"));
+                    g.drawImage(img, 0, 0, null);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
         window.setSize(500, 350);
 
         window.setTitle("Ile Interdite");
        
-        mainPanel = new JPanel(new BorderLayout());
-        this.window.add(mainPanel);
-      
+        
+        
+        
+        try {
+            this.image = ImageIO.read(new FileInputStream("images/background/image_init.jpg"));
+            
+        } catch (IOException ex) {
+            System.err.println("Erreur de lecture de image_init.jpg");
+        }
+        this.setLayout(new BorderLayout());
+      //  mainPanel = new JPanel(new BorderLayout());
+        this.window.add(this);
+        
+        
 
         // Panel Haut
         panelHaut = new JPanel(new GridLayout(4, 2));
@@ -75,7 +100,7 @@ public class VueInitialisation extends Observe {
 
         panelHaut.add(new JLabel());
 
-        mainPanel.add(panelHaut, BorderLayout.NORTH);
+        this.add(panelHaut, BorderLayout.NORTH);
 
         //Panel Centre
         panelCentre = new JPanel(new GridLayout(4, 2));
@@ -93,10 +118,10 @@ public class VueInitialisation extends Observe {
         panelCentre.add(new JLabel());
         
 
-        mainPanel.add(BorderLayout.CENTER, panelCentre);
+        this.add(BorderLayout.CENTER, panelCentre);
 
         //Panel bas
-        mainPanel.add(BorderLayout.SOUTH, valider = new JButton("Valider"));
+        this.add(BorderLayout.SOUTH, valider = new JButton("Valider"));
 
         valider.addActionListener(new ActionListener() {
             @Override
@@ -132,7 +157,7 @@ public class VueInitialisation extends Observe {
 
                     Message m = new Message(TypesMessages.NOUVELLE_PARTIE, null);
                     m.setNom(nom);
-                    notifierObservateur(m);
+                    ihm.notifierObservateur(m);
                 }
 
             }
@@ -140,6 +165,17 @@ public class VueInitialisation extends Observe {
 
         window.setVisible(true);
     }
+    
+//    @Override
+//    /**
+//     * paintComponent permet de gérer l'affichage / la mise à jour des
+//     * images, à condition que le paintComponent de chaque objet soit appelé
+//     * avec le même contexte graphique (Graphics)
+//     */
+//    public void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//        g.drawImage(image, 0, 0, 500, 350, null, this);
+//    }
 
     public void afficher() {
         window.setVisible(true);

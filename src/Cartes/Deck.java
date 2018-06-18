@@ -30,7 +30,9 @@ public abstract class Deck {
         Collections.shuffle(defausse);
     }
 
-    public abstract Carte pioche();
+    public Carte pioche(){
+        return getPioche().pop();
+    }
     
     public void defausser(Carte carte){
         this.defausse.push(carte);
