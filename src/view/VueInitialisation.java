@@ -50,34 +50,18 @@ public class VueInitialisation extends Observe {
     private Graphics g;
 
     public VueInitialisation() {
-        this.nbjoueurs = new String[]{"2", "3", "4"};
-        System.out.println("Le fashisme");
-        this.window = new JFrame() {
-            @Override
-            public void paintComponents(Graphics g) {
-                try {
-                    Image img = ImageIO.read(new FileInputStream("images/background/image_init.jpg"));
-                    g.drawImage(img, 0, 0, null);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
+        this.nbjoueurs = new String[]{"2", "3", "4"};       
+        this.window = new JFrame();
         window.setSize(500, 350);
 
         window.setTitle("Ile Interdite");
-
-        JLabel image = new JLabel(new ImageIcon("image_init.jpg"));
+       
         mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(image, BorderLayout.EAST);
-        mainPanel.setBackground(new Color(0,0,0));
         this.window.add(mainPanel);
-        System.out.println("BITE");
+      
 
         // Panel Haut
         panelHaut = new JPanel(new GridLayout(4, 2));
-        panelHaut.setBackground(new Color(0,0,0));
         panelHaut.add(new JLabel("Ile Interdite"));
         manuel = new JButton("Manuel");
         panelHaut.add(manuel);
@@ -108,7 +92,6 @@ public class VueInitialisation extends Observe {
         panelCentre.add(new JLabel());
         panelCentre.add(new JLabel());
         
-        panelCentre.setBackground(new Color(0,0,0));
 
         mainPanel.add(BorderLayout.CENTER, panelCentre);
 
@@ -158,19 +141,7 @@ public class VueInitialisation extends Observe {
         window.setVisible(true);
     }
 
-    public void paint(Graphics g) {
-        try {
-            Image img = ImageIO.read(new FileInputStream("images/background/image_init.jpg"));
-            g.drawImage(img, 0, 0, null);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     public void afficher() {
-        window.repaint();
         window.setVisible(true);
     }
 
