@@ -5,11 +5,13 @@
  */
 package view;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author cdlk
  */
-public class VuePlateau  {
+public class VuePlateau extends JPanel{
     
     public VuePlateau(){
         
