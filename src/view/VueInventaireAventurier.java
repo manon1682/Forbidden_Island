@@ -90,8 +90,7 @@ public class VueInventaireAventurier extends JPanel {
                 grilleInventaire.add(containerCarte5);
             } else if (i == 5) {
                 containerCarte6.add(carte6);
-//                containerCarte6.add(nbcarte6)
-                containerCarte6.add(new JLabel("testGkho"));
+                containerCarte6.add(nbcarte6)
                 grilleInventaire.add(containerCarte6);
             } else {
                 grilleInventaire.add(new JLabel("")); //inutile ici

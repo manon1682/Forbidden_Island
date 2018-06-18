@@ -37,14 +37,14 @@ public class IHMJeu extends Observe {
         //initialisation variable
         vNiveau = new VueNiveau();
         vPlat = new VuePlateau();
-        vAven = new VueCoequipierAventurier();
+        vAven = new VueCoequipierAventurier(avTest);
         vText = new VueMessageBox();
         vActionAven = new VueActionAventurier(avTest);
         vMainAven = new VueInventaireAventurier(avTest);
         //fin initialisation
 
         this.window = new JFrame();
-        getFenetre().setLayout(new BorderLayout());
+        window.setLayout(new BorderLayout());
         this.afficher();
 
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -73,18 +73,22 @@ public class IHMJeu extends Observe {
     }
 
     public void afficher() {
-        getFenetre().setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        getFenetre().setSize(1400, 800);
-        getFenetre().setVisible(true);
+        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        window.setSize(1400, 800);
+        window.setVisible(true);
     }
 
     public void desafficher() {
-        getFenetre().setVisible(false);
+        window.setVisible(false);
     }
 
     // Getter
-    public JFrame getFenetre() {
-        return window;
+
+    public VueMessageBox getvText() {
+        return vText;
     }
+    
+    
+    
 
 }
