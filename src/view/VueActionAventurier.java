@@ -45,8 +45,8 @@ public class VueActionAventurier extends JPanel {
         nbActionInt = new JLabel("3"); //valeur de base
 
         a = aventurier;
-
         //fin initialisation
+        
         for (int i = 0; i < 6; i++) {
 
             if (i == 0) {

@@ -40,7 +40,7 @@ public class IHMJeu extends Observe {
         vAven = new VueCoequipierAventurier();
         vText = new VueMessageBox();
         vActionAven = new VueActionAventurier(avTest);
-        vMainAven = new VueInventaireAventurier();
+        vMainAven = new VueInventaireAventurier(avTest);
         //fin initialisation
 
         this.window = new JFrame();
