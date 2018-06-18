@@ -11,6 +11,7 @@ import Aventurier.Pilote;
 import Enumeration.TypesMessages;
 import forbidden_island.Message;
 import forbidden_island.Observe;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,13 +29,10 @@ public class VueActionAventurier extends JPanel {
     private JLabel nbActionText, nbActionInt;
     private TypesMessages sauvType;
     protected Aventurier a;
-    
+
     private IHMJeu ihm;
-    
 
     public VueActionAventurier(Aventurier aventurier) {
-
-        JPanel grilleAction = new JPanel(new GridLayout(2, 3));
 
         //initialisation
         btnDeplacer = new JButton("Déplacer");
@@ -46,7 +44,12 @@ public class VueActionAventurier extends JPanel {
 
         a = aventurier;
         //fin initialisation
+
+        //test pour couleur :
+        this.setBackground(Color.CYAN);
         
+        JPanel grilleAction = new JPanel(new GridLayout(2, 3));
+
         for (int i = 0; i < 6; i++) {
 
             if (i == 0) {
@@ -79,14 +82,13 @@ public class VueActionAventurier extends JPanel {
                 //à coder
                 // methode btnActionSpeciale peut être très utile !
                 // voir code VueAventurier
-                
 //              notifierObservateur(m);
                 btnDeplacer.setEnabled(false);
 
             }
 
         });
-        
+
         btnAssecher.addActionListener(
                 new ActionListener() {
             @Override
@@ -96,15 +98,13 @@ public class VueActionAventurier extends JPanel {
 
                 //à coder
                 // voir code VueAventurier
-                
-                
                 ihm.notifierObservateur(m);
                 btnDeplacer.setEnabled(false);
 
             }
 
         });
-        
+
         btnActionSpeciale.addActionListener(
                 new ActionListener() {
             @Override
@@ -113,29 +113,27 @@ public class VueActionAventurier extends JPanel {
                 sauvType = TypesMessages.SPECIALE;
 
                 // code en fct de VueAventurier
-                
                 ihm.notifierObservateur(m);
 
             }
 
         });
-        
+
         btnTerminerTour.addActionListener(
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.TOUR_SUIVANT;
                 Message m = new Message(TypesMessages.TOUR_SUIVANT, a);
-                
+
                 //à coder lol
                 ihm.notifierObservateur(m);
             }
 
         });
-        
-    }    
-    
-    
+
+    }
+
     public boolean btnActionSpecialeActive() {
         if (a.getRole() != "Pilote" && a.getRole() != "Ingénieur") {
             return false;
