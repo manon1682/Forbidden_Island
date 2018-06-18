@@ -20,44 +20,50 @@ public class IHMJeu extends Observe {
 
     //composants fenêtre
     private final JFrame window;
-    
-    
-//    private VueNiveau vNiveau;
-//    private VueIninialisation vIni;
-//    private VueAventurier vAven;
-//    private VuePlateau vPlat;
-//    private VueMessageBox vMB;
-    
-//    private VueAction vActionAven;
-//        private vueMain vMainAven;
-    
+
+//        private VueIninialisation vIni;
+    private VueNiveau vNiveau;
+    private VuePlateau vPlat;
+    private vueAventurier2 vAven;
+    private VueMessageBox vText;
+
+    private VueActionAventurier vActionAven;
+    private VueMainAventurier vMainAven;
 
     public IHMJeu() {
-        
 
-        
-        this.window = new JFrame();        
+        //initialisation variable
+        vNiveau = new VueNiveau();
+        vPlat = new VuePlateau();
+        vAven = new vueAventurier2();
+        vText = new VueMessageBox();
+        vActionAven = new VueActionAventurier();
+        vMainAven = new VueMainAventurier();
+
+        this.window = new JFrame();
         getFenetre().setLayout(new BorderLayout());
         this.afficher();
-        
+
         JPanel mainPanel = new JPanel(new BorderLayout());
-        
-        JPanel panelCenter1 = new JPanel();
-        JPanel panelSud1 = new JPanel(new BorderLayout());
-        
-        panelSud1.add(vueMainAven,BorderLayout.CENTER);
-        panelSud1.add(vueActionAven, BorderLayout.EAST);
-        
-        mainPanel.add(vue)
-        
-        
-                
-                
-                
+
+        //Création 2 panels dans Panel Principale > "1" pour le "haut/centre", "2" pour le sud
+        JPanel panelCentre1 = new JPanel();
+        JPanel panelSud2 = new JPanel(new BorderLayout());
+
+        //Ajout 3 panel au Panel Centre1 >
+        panelCentre1.add(vNiveau, BorderLayout.WEST);
+        panelCentre1.add(vPlat, BorderLayout.CENTER);
+        panelCentre1.add(vAven, BorderLayout.EAST);
+
+        //Ajout 2 panel au Panel Sud2 > vueMainAven centre / gauche | vueActionAven > à droite
+        panelSud2.add(vMainAven, BorderLayout.CENTER);
+        panelSud2.add(vActionAven, BorderLayout.EAST);
+
+        //Ajout panel au Panel Principale
+        mainPanel.add(panelCentre1, BorderLayout.CENTER);
+        mainPanel.add(panelSud2, BorderLayout.SOUTH);
+
         window.add(mainPanel);
-        
-        
-        
 
     }
 
@@ -66,16 +72,13 @@ public class IHMJeu extends Observe {
         getFenetre().setSize(1400, 800);
         getFenetre().setVisible(true);
     }
-    
-  
-
 
     public void desafficher() {
         getFenetre().setVisible(false);
     }
-    
+
     // Getter
-      public JFrame getFenetre() {
+    public JFrame getFenetre() {
         return window;
     }
 

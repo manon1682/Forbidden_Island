@@ -89,7 +89,7 @@ public abstract class Aventurier {
 
     public void donnerCarte(Aventurier j, CarteTresor carte) {
         j.addMain(carte);
-        removeMainA(carte);
+        this.removeMainA(carte);
     }
 
     public void addMain(CarteTresor nomCarte) {
