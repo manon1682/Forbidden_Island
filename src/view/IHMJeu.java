@@ -75,8 +75,7 @@ public class IHMJeu extends Observe {
                 
                 
         window.add(mainPanel);
-        
-        
+        afficher();
         
 
     }

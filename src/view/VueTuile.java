@@ -8,6 +8,7 @@ package view;
 import Enumeration.EtatTuile;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,15 +34,15 @@ public class VueTuile extends JPanel{
     
     public void initImage(){
         try {
-            tuileNormale = ImageIO.read(getClass().getResourceAsStream("../../images/tuiles/Heliport.png"));
+            tuileNormale = ImageIO.read((new FileInputStream("images/tuiles/Heliport.png")));
         } catch (IOException ex) {
-            Logger.getLogger(VueTuile.class.getName()).log(Level.SEVERE, null, ex);
+            ex.fillInStackTrace();
         }
     }
     
     @Override
     public void paint(Graphics g){
-        g.drawImage(tuileNormale, 100, 100, tuileNormale.getWidth(), tuileNormale.getHeight(), null);
+        g.drawImage(tuileNormale, 50, 50, tuileNormale.getWidth(), tuileNormale.getHeight(), null);
     }
     
     
