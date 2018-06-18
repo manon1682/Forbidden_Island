@@ -55,8 +55,8 @@ public class Controleur implements Observateur {
 //            }
 //            System.out.println("");
 //        }
-        vueI = new VueInitialisation();
-        vueI.addObservateur(this);
+        vueI = new VueInitialisation(); 
+       // vueI.addObservateur(this);
         vueI.afficher();
 
     }
@@ -568,21 +568,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     int c = tuile.getColonne();
 
                     joueurCourant.deplacer(l, c);
-
-                    //On décrémente le nombre d'action
-                    nbAction = nbAction - 1;
-
-                    //Si le joueur n'a plus d'action on fini son tour
-                    actionPossible();
-                    if (nbAction == 0) {
-                        vueA.finirTour();
-                    } else {
-                        //Sinon on affiche les actions possibles
-                        actionPossible();
-                    }
                 }
 
-                break;
+                break; 
 
             case ASSECHER:
                 // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Assécher"
@@ -594,18 +582,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //Sinon on asséche la tuile choisie
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
+
                     tuile.asseche();
-
-                    nbAction = nbAction - 1;
-
-                    //Si le joueur n'a plus d'action on fini son tour
-                    if (nbAction == 0) {
-                        vueA.finirTour();
-                    } else {
-                        //Sinon on affiche les actions possibles
-                        actionPossible();
-                    }
-
                 }
                 break;
 
@@ -639,6 +617,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         String nom = m.getTuile();
                         Tuile tuile = grille.getTuileAvecNom(nom);
                         tuile.asseche();
+
                         Ingénieur ingenieur = (Ingénieur) joueurCourant;
 
                         //Si sa capacité utilisée = 1, le joueur en est à son 1er asséchement
@@ -657,35 +636,50 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     }
                 }
 
-                //On décrémente le nombre d'action
-                nbAction = nbAction - 1;
-                
                 break;
 
             case DONNER_CARTE:
-                /* if (joueurCourant instanceof Messager) {
-                    //vueA.afficherJoueurPossible(joueurs);
+                // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Donner carte"
+                if (m.getJoueur() == null) {
+                    ArrayList<Aventurier> recepteurPossible = aventuriersPourDonnerCarte(joueurCourant);
+                    //vueA.afficherJoueursPossible();
                 } else {
-                    ArrayList<Aventurier> aventurier = getDonnerCartePossible(joueurCourant);
-                    //vueA.afficherJoueurPossible(aventurier);
-                } */
-
-                if (nbAction == 0) {
-                    vueA.finirTour();
+                    //Sinon on donne la carte au joueur choisi
+                    joueurCourant.donnerCarte(m.getJoueur(), m.getCarte());
                 }
+
                 break;
 
             case PRENDRE_TRESOR:
                 prendreTresor(joueurCourant);
-                nbAction = nbAction - 1;
-
-                if (nbAction == 0) {
-                    vueA.finirTour();
-                }
                 break;
 
             case UTILISER_CARTE:
+                g = new boolean[6][6];
+                
+                // helico = true si la carte hélico est choisi
+                // helico = false s'il s'agit d'une autre, donc du sac de sable
+                boolean helico = m.getCarte().getNom().equals(CarteUtilisable.hélico);
 
+                Tuile[][] tuiles = grille.getTuiles();
+
+                for (int l = 0; l < 6; l++) {
+                    for (int c = 0; c < 6; c++) {
+                        Tuile tuile = tuiles[l][c];
+                        if (tuile != null) {
+                            //Si la carte choisie est l'hélico on vérifie s'il est possible de se DEPLACER sur la tuile (verifTuileD())
+                            //Sinon on a choisi le sac de sable et on vérifie s'il est possible d'ASSECHER la tuile (verifTuileA())
+                            g[l][c] = (helico ? tuile.verifTuileD() : tuile.verifTuileA());
+                        }
+                    }
+                }
+                
+                //Si c'est la carte hélico qui est choisie, le joueur ne peut pas se déplacer sur sa propre case
+                if (helico){
+                    g[joueurCourant.getL()][joueurCourant.getC()] = false;
+                }
+                
+                vueA.afficherTuilePossible(g, grille);
                 break;
 
             case NOUVELLE_PARTIE:
@@ -695,8 +689,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 actionPossible();
 
-                vueA.addObservateur(
-                        this);
+                vueA.addObservateur(this);
                 actionPossible();
 
                 vueA.afficher();
@@ -713,9 +706,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 // Ici on verifie que la partie n'est ni perdu ni gagner pour continuer
                 if (partiePerdue) {
-                    vueA.perdu();
+//                    vueA.perdu();
                 } else if (gagnerPartie()) {
-                    vueA.gagner();
+//                    vueA.gagner();
                 } else {
                     //Le joueur courant est le joueur suivant
                     int n = joueurs.indexOf(joueurCourant);
@@ -739,6 +732,20 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
         }
+
+        if (type != TypesMessages.NOUVELLE_PARTIE && type != TypesMessages.TOUR_SUIVANT && type != TypesMessages.UTILISER_CARTE) {
+            //On décrémente le nombre d'action
+            nbAction = nbAction - 1;
+
+            //Si le joueur n'a plus d'action on fini son tour
+            if (nbAction == 0) {
+                vueA.finirTour();
+            } else {
+                //Sinon on affiche les actions possibles
+                actionPossible();
+            }
+        }
+
     }
 
 }
