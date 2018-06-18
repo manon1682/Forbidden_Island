@@ -11,8 +11,6 @@ import javax.swing.JPanel;
  *
  * @author blanquan
  */
-public class VueMainAventurier extends JPanel{
-    
-    
+public class VueCoequipierAventurier extends JPanel{
     
 }
