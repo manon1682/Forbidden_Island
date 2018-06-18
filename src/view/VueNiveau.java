@@ -5,10 +5,12 @@
  */
 package view;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author blanquan
  */
-public class VueNiveau {
+public class VueNiveau extends JPanel {
     
 }

@@ -9,7 +9,7 @@ package view;
  *
  * @author cdlk
  */
-public class VuePlateau {
+public class VuePlateau  {
     
     public VuePlateau(){
         
