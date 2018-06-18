@@ -13,4 +13,6 @@ import javax.swing.JPanel;
  */
 public class VueMainAventurier extends JPanel{
     
+    
+    
 }

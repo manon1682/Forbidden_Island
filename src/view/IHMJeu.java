@@ -10,6 +10,7 @@ import forbidden_island.Grille;
 import forbidden_island.Observe;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -26,9 +27,10 @@ public class IHMJeu extends Observe {
     private VuePlateau vPlat;
     private vueAventurier2 vAven;
     private VueMessageBox vText;
-
     private VueActionAventurier vActionAven;
     private VueMainAventurier vMainAven;
+    
+    private Aventurier avTest;
 
     public IHMJeu() {
 
@@ -37,8 +39,9 @@ public class IHMJeu extends Observe {
         vPlat = new VuePlateau();
         vAven = new vueAventurier2();
         vText = new VueMessageBox();
-        vActionAven = new VueActionAventurier();
+        vActionAven = new VueActionAventurier(avTest);
         vMainAven = new VueMainAventurier();
+        //fin initialisation
 
         this.window = new JFrame();
         getFenetre().setLayout(new BorderLayout());
@@ -58,12 +61,14 @@ public class IHMJeu extends Observe {
         //Ajout 2 panel au Panel Sud2 > vueMainAven centre / gauche | vueActionAven > à droite
         panelSud2.add(vMainAven, BorderLayout.CENTER);
         panelSud2.add(vActionAven, BorderLayout.EAST);
+        
 
         //Ajout panel au Panel Principale
         mainPanel.add(panelCentre1, BorderLayout.CENTER);
         mainPanel.add(panelSud2, BorderLayout.SOUTH);
 
         window.add(mainPanel);
+        
 
     }
 
