@@ -178,6 +178,11 @@ public abstract class Aventurier {
                 g[l][c-1] = tuile.verifTuileA();
             }
         }
+        
+       Tuile tuile = tuiles[l][c];
+       if (tuile != null) {
+           g[l][c] = tuile.verifTuileA();
+       }
     }
 
     public void setLigne(int l) {
@@ -216,6 +221,10 @@ public abstract class Aventurier {
             role = "Explorateur";
         }
         return role;
+    }
+    
+    public boolean estRole(String role){
+        return this.getRole().equalsIgnoreCase(role);
     }
 
     public static ArrayList<Tresor> getTresorsObtenus() {

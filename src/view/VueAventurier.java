@@ -140,7 +140,7 @@ public class VueAventurier extends Observe {
                     panelCentre.updateUI();
                     if (a.getRole() == "Ingénieur") {
                         Ingénieur ingenieur = (Ingénieur) a;
-                        btnBouger.setEnabled(!(ingenieur.capaciteUtilisee() >= 0));
+                        btnBouger.setEnabled(!(ingenieur.getCapaciteUtilisee() >= 0));
                     }
                 }
 
@@ -244,7 +244,7 @@ public class VueAventurier extends Observe {
                 return (!(pilote.capaciteUtilisee()));
             } else if (a.getRole() == "Ingénieur") {
                 Ingénieur ingenieur = (Ingénieur) a;
-                return ingenieur.capaciteUtilisee() >= 0;
+                return ingenieur.getCapaciteUtilisee() >= 0;
             } else {
                 return true;
             }
@@ -299,6 +299,7 @@ public class VueAventurier extends Observe {
 
     public void afficher() {
         window.setVisible(true);
+        
     }
 
     public void desafficher() {
@@ -309,5 +310,6 @@ public class VueAventurier extends Observe {
         btnBouger.setEnabled(false);
         btnAssecher.setEnabled(false);
         btnAutreAction.setEnabled(false);
+        
     }
 }
