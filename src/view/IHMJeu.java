@@ -23,10 +23,10 @@ public class IHMJeu extends Observe {
     
 //        private VueIninialisation vIni;
     
-    private vueNiveau vNiveau;
+    private VueNiveau vNiveau;
     private VueAventurier vAven;
     private VuePlateau vPlat;
-    private vueMessageBox vMB;
+    private VueMessageBox vMB;
     
     private VueActionAventurier vActionAven;
     private VueMainAventurier vMainAven;

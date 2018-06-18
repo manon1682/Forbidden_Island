@@ -9,6 +9,6 @@ package view;
  *
  * @author blanquan
  */
-public class vueNiveau {
+public class VueMessageBox {
     
 }
