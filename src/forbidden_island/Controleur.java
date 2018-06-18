@@ -559,7 +559,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.deplacer(l, c);
                 }
 
-                break;
+                break; 
 
             case ASSECHER:
                 // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Assécher"
@@ -631,7 +631,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Donner carte"
                 if (m.getJoueur() == null) {
                     ArrayList<Aventurier> recepteurPossible = aventuriersPourDonnerCarte(joueurCourant);
-                    vueA.afficherJoueursPossible();
+                    //vueA.afficherJoueursPossible();
                 } else {
                     //Sinon on donne la carte au joueur choisi
                     joueurCourant.donnerCarte(m.getJoueur(), m.getCarte());
@@ -740,9 +740,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //FIN DE LA METHODE POTENTIELLE
                 // Ici on verifie que la partie n'est ni perdu ni gagner pour continuer
                 if (partiePerdue) {
-                    vueA.perdu();
+//                    vueA.perdu();
                 } else if (gagnerPartie()) {
-                    vueA.gagner();
+//                    vueA.gagner();
                 } else {
                     //Le joueur courant est le joueur suivant
                     int n = joueurs.indexOf(joueurCourant);
