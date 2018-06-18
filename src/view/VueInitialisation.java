@@ -10,10 +10,18 @@ import forbidden_island.Message;
 import forbidden_island.Observe;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -39,40 +47,54 @@ public class VueInitialisation extends Observe {
     private JButton manuel;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
+    private Graphics g;
 
     public VueInitialisation() {
         this.nbjoueurs = new String[]{"2", "3", "4"};
-        this.window = new JFrame();
+        System.out.println("Le fashisme");
+        this.window = new JFrame() {
+            @Override
+            public void paintComponents(Graphics g) {
+                try {
+                    Image img = ImageIO.read(new FileInputStream("images/background/image_init.jpg"));
+                    g.drawImage(img, 0, 0, null);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
         window.setSize(500, 350);
 
         window.setTitle("Ile Interdite");
-        JLabel image = new JLabel( new ImageIcon( "images/backgroung/image_init.jpg"));
-        mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(image);
-        this.window.add(mainPanel);
 
-        mainPanel.setBackground(new Color(230, 230, 230));
+        JLabel image = new JLabel(new ImageIcon("image_init.jpg"));
+        mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(image, BorderLayout.EAST);
+        mainPanel.setBackground(new Color(0,0,0));
+        this.window.add(mainPanel);
+        System.out.println("BITE");
 
         // Panel Haut
-        panelHaut = new JPanel(new GridLayout(4,2));
+        panelHaut = new JPanel(new GridLayout(4, 2));
+        panelHaut.setBackground(new Color(0,0,0));
         panelHaut.add(new JLabel("Ile Interdite"));
         manuel = new JButton("Manuel");
         panelHaut.add(manuel);
-        
+
         panelHaut.add(new JLabel());
         panelHaut.add(new JLabel());
-        
+
         panelHaut.add(new JLabel("Nombre de Joueur : "));
         choixNbJoueur = new JComboBox(nbjoueurs);
         panelHaut.add(choixNbJoueur);
-        
+
         panelHaut.add(new JLabel());
-        
-        mainPanel.add(panelHaut ,BorderLayout.NORTH);
+
+        mainPanel.add(panelHaut, BorderLayout.NORTH);
 
         //Panel Centre
         panelCentre = new JPanel(new GridLayout(4, 2));
-        
 
         panelCentre.add(new JLabel());
         panelCentre.add(new JLabel());
@@ -86,8 +108,7 @@ public class VueInitialisation extends Observe {
         panelCentre.add(new JLabel());
         panelCentre.add(new JLabel());
         
-        
-       
+        panelCentre.setBackground(new Color(0,0,0));
 
         mainPanel.add(BorderLayout.CENTER, panelCentre);
 
@@ -98,33 +119,28 @@ public class VueInitialisation extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                
                 if (choixNbJoueur.isEnabled()) {
                     nbJ = choixNbJoueur.getSelectedIndex() + 2;
-                        panelCentre.remove(7);
-                        panelCentre.remove(6);
-                        panelCentre.remove(5);
-                        panelCentre.remove(4);
-                        panelCentre.remove(3);
-                        panelCentre.remove(2);
-                        panelCentre.remove(1);
+
+                    for (int i = 0; i < 7; i++) {
                         panelCentre.remove(0);
+                    }
 
                     for (int i = 0; i < nbJ; i++) {
                         saisirJ.add(new JTextField("Joueur " + (i + 1)));
-                        
+
                         panelCentre.add(new JLabel("Nom joueur " + (i + 1)));
                         panelCentre.add(saisirJ.get(i));
 
                     }
-                    for (int i = 0; i < 4 - nbJ; i++){
+                    for (int i = 0; i < 4 - nbJ; i++) {
                         panelCentre.add(new JLabel());
                         panelCentre.add(new JLabel());
                     }
                     choixNbJoueur.setEnabled(false);
                     window.setVisible(true);
                 } else {
-                    
+
                     ArrayList<String> nom = new ArrayList<>();
 
                     for (JTextField saisi : saisirJ) {
@@ -142,7 +158,19 @@ public class VueInitialisation extends Observe {
         window.setVisible(true);
     }
 
+    public void paint(Graphics g) {
+        try {
+            Image img = ImageIO.read(new FileInputStream("images/background/image_init.jpg"));
+            g.drawImage(img, 0, 0, null);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void afficher() {
+        window.repaint();
         window.setVisible(true);
     }
 
