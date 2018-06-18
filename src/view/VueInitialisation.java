@@ -9,7 +9,6 @@ import Enumeration.TypesMessages;
 import forbidden_island.Message;
 import forbidden_island.Observe;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -66,6 +65,7 @@ public class VueInitialisation extends JPanel{
                 }
             }
         };
+        window.add(this);
         window.setSize(500, 350);
 
         window.setTitle("Ile Interdite");
@@ -74,13 +74,13 @@ public class VueInitialisation extends JPanel{
         
         
         try {
-            this.image = ImageIO.read(new FileInputStream("images/background/image_init.jpg"));
+            this.image = ImageIO.read(new FileInputStream("images/background/image_init_size.png"));
             
         } catch (IOException ex) {
             System.err.println("Erreur de lecture de image_init.jpg");
         }
         this.setLayout(new BorderLayout());
-      //  mainPanel = new JPanel(new BorderLayout());
+        this.setOpaque(false);
         this.window.add(this);
         
         
@@ -104,24 +104,16 @@ public class VueInitialisation extends JPanel{
 
         //Panel Centre
         panelCentre = new JPanel(new GridLayout(4, 2));
-
-        panelCentre.add(new JLabel());
-        panelCentre.add(new JLabel());
-
-        panelCentre.add(new JLabel());
-        panelCentre.add(new JLabel());
-
-        panelCentre.add(new JLabel());
-        panelCentre.add(new JLabel());
-
-        panelCentre.add(new JLabel());
-        panelCentre.add(new JLabel());
         
+        for(int i = 0; i < 8; i++){
+           panelCentre.add(new JLabel()); 
+        }
 
         this.add(BorderLayout.CENTER, panelCentre);
 
         //Panel bas
-        this.add(BorderLayout.SOUTH, valider = new JButton("Valider"));
+        valider = new JButton("Valider");        
+        this.add(BorderLayout.SOUTH, valider);
 
         valider.addActionListener(new ActionListener() {
             @Override
@@ -130,7 +122,7 @@ public class VueInitialisation extends JPanel{
                 if (choixNbJoueur.isEnabled()) {
                     nbJ = choixNbJoueur.getSelectedIndex() + 2;
 
-                    for (int i = 0; i < 7; i++) {
+                    for (int i = 0; i < 8; i++) {
                         panelCentre.remove(0);
                     }
 
@@ -162,20 +154,21 @@ public class VueInitialisation extends JPanel{
 
             }
         });
-
+       
         window.setVisible(true);
     }
     
-//    @Override
-//    /**
-//     * paintComponent permet de gérer l'affichage / la mise à jour des
-//     * images, à condition que le paintComponent de chaque objet soit appelé
-//     * avec le même contexte graphique (Graphics)
-//     */
-//    public void paintComponent(Graphics g) {
-//        super.paintComponent(g);
-//        g.drawImage(image, 0, 0, 500, 350, null, this);
-//    }
+    @Override
+    /**
+     * paintComponent permet de gérer l'affichage / la mise à jour des
+     * images, à condition que le paintComponent de chaque objet soit appelé
+     * avec le même contexte graphique (Graphics)
+     */
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, 500, 350, null, this);
+        this.repaint();
+    }
 
     public void afficher() {
         window.setVisible(true);

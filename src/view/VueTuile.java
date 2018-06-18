@@ -26,7 +26,6 @@ public class VueTuile extends JPanel{
     private String nomTuile;
     private Dimension dim;
     
-    
     private BufferedImage tuileNormale;
     private BufferedImage tuileInondee;
     
@@ -48,12 +47,13 @@ public class VueTuile extends JPanel{
     
     @Override
     public void paint(Graphics g){
-        if(){
-            g.drawImage(tuileNormale, 50, 50, tuileNormale.getWidth(), tuileNormale.getHeight(), null);
+        
+        if(etat == EtatTuile.sèche){
+            g.drawImage(tuileNormale, 0, 0, dim.width, dim.height, null);
         } else {
-            g.drawImage(tuileNormale, WIDTH, WIDTH, null)
+            g.drawImage(tuileInondee, 0, 0, dim.width, dim.height, null);
         }
-        g.drawImage(tuileNormale, 50, 50, tuileNormale.getWidth(), tuileNormale.getHeight(), null);
+        
     }
     
     public String getNomFichierTuile(String nomTuile){
