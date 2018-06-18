@@ -706,9 +706,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 // Ici on verifie que la partie n'est ni perdu ni gagner pour continuer
                 if (partiePerdue) {
-                    //vueA.perdu();
+//                    vueA.perdu();
                 } else if (gagnerPartie()) {
-                    //vueA.gagner();
+//                    vueA.gagner();
                 } else {
                     //Le joueur courant est le joueur suivant
                     int n = joueurs.indexOf(joueurCourant);

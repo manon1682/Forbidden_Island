@@ -6,13 +6,15 @@
 package forbidden_island;
 
 import view.IHMJeu;
+import view.VueAventurier;
 
 /**
  *
  * @author blanquan
  */
 public class TestIHM {
-
+    
+    
     public TestIHM(){
         new IHMJeu();
     }
@@ -23,6 +25,7 @@ public class TestIHM {
      */
     public static void main(String[] args) {
         new TestIHM();
+        
     }
     
 }

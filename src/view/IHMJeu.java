@@ -10,6 +10,7 @@ import forbidden_island.Grille;
 import forbidden_island.Observe;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -24,21 +25,23 @@ public class IHMJeu extends Observe {
 //        private VueIninialisation vIni;
     private VueNiveau vNiveau;
     private VuePlateau vPlat;
-    private vueAventurier2 vAven;
+    private VueCoequipierAventurier vAven;
     private VueMessageBox vText;
-
     private VueActionAventurier vActionAven;
-    private VueMainAventurier vMainAven;
+    private VueInventaireAventurier vMainAven;
+    
+    private Aventurier avTest;
 
     public IHMJeu() {
 
         //initialisation variable
         vNiveau = new VueNiveau();
         vPlat = new VuePlateau();
-        vAven = new vueAventurier2();
+        vAven = new VueCoequipierAventurier();
         vText = new VueMessageBox();
-        vActionAven = new VueActionAventurier();
-        vMainAven = new VueMainAventurier();
+        vActionAven = new VueActionAventurier(avTest);
+        vMainAven = new VueInventaireAventurier(avTest);
+        //fin initialisation
 
         this.window = new JFrame();
         getFenetre().setLayout(new BorderLayout());
@@ -58,12 +61,14 @@ public class IHMJeu extends Observe {
         //Ajout 2 panel au Panel Sud2 > vueMainAven centre / gauche | vueActionAven > à droite
         panelSud2.add(vMainAven, BorderLayout.CENTER);
         panelSud2.add(vActionAven, BorderLayout.EAST);
+        
 
         //Ajout panel au Panel Principale
         mainPanel.add(panelCentre1, BorderLayout.CENTER);
         mainPanel.add(panelSud2, BorderLayout.SOUTH);
 
         window.add(mainPanel);
+        
 
     }
 
