@@ -55,9 +55,8 @@ public class Controleur implements Observateur {
 //            }
 //            System.out.println("");
 //        }
-        System.out.println("MA GROSS QUEUE POILU");
-        vueI = new VueInitialisation();
-        vueI.addObservateur(this);
+        vueI = new VueInitialisation(); 
+       // vueI.addObservateur(this);
         vueI.afficher();
 
     }
@@ -571,7 +570,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.deplacer(l, c);
                 }
 
-                break;
+                break; 
 
             case ASSECHER:
                 // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Assécher"
