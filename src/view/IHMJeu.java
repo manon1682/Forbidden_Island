@@ -52,7 +52,7 @@ public class IHMJeu extends Observe {
 
         //Ajout 3 panel au Panel Centre1 >
         panelCentre1.add(vNiveau, BorderLayout.WEST);
-        panelCentre1.add(vPlateau, BorderLayout.CENTER);
+        panelCentre1.add(vPlat, BorderLayout.CENTER);
         panelCentre1.add(vAven, BorderLayout.EAST);
 
         //Ajout 2 panel au Panel Sud2 > vueMainAven centre / gauche | vueActionAven > à droite
