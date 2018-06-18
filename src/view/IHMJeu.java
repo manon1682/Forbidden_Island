@@ -30,17 +30,18 @@ public class IHMJeu extends Observe {
     private VueActionAventurier vActionAven;
     private VueInventaireAventurier vMainAven;
     
-    private Aventurier avTest;
+    private Aventurier aventurier;
+    private Grille grille;
 
     public IHMJeu() {
 
         //initialisation variable
         vNiveau = new VueNiveau();
-        vPlat = new VuePlateau();
-        vAven = new VueCoequipierAventurier(avTest);
+        vPlat = new VuePlateau(grille);
+        vAven = new VueCoequipierAventurier(aventurier);
         vText = new VueMessageBox();
-        vActionAven = new VueActionAventurier(avTest);
-        vMainAven = new VueInventaireAventurier(avTest);
+        vActionAven = new VueActionAventurier(aventurier);
+        vMainAven = new VueInventaireAventurier(aventurier);
         //fin initialisation
 
         this.window = new JFrame();

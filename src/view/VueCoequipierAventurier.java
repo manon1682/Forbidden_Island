@@ -250,6 +250,11 @@ public class VueCoequipierAventurier extends JPanel {
             
         }
         
+        grilleCoequipier.add(J1grilleInventaire);
+        grilleCoequipier.add(J1grilleInventaire);
+        grilleCoequipier.add(J1grilleInventaire);
+
+        
         //Case 5 de la grilleCoequipier (MessageBox)
         grilleCoequipier.add(ihm.getvText());
 
