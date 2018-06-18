@@ -27,8 +27,10 @@ public class VueActionAventurier extends JPanel {
     private JButton btnDeplacer, btnAssecher, btnActionSpeciale, btnTerminerTour;
     private JLabel nbActionText, nbActionInt;
     private TypesMessages sauvType;
-
     protected Aventurier a;
+    
+    private IHMJeu ihm;
+    
 
     public VueActionAventurier(Aventurier aventurier) {
 
@@ -95,7 +97,8 @@ public class VueActionAventurier extends JPanel {
                 //à coder
                 // voir code VueAventurier
                 
-//              notifierObservateur(m);
+                
+                ihm.notifierObservateur(m);
                 btnDeplacer.setEnabled(false);
 
             }
@@ -110,6 +113,8 @@ public class VueActionAventurier extends JPanel {
                 sauvType = TypesMessages.SPECIALE;
 
                 // code en fct de VueAventurier
+                
+                ihm.notifierObservateur(m);
 
             }
 
@@ -123,12 +128,14 @@ public class VueActionAventurier extends JPanel {
                 Message m = new Message(TypesMessages.TOUR_SUIVANT, a);
                 
                 //à coder lol
+                ihm.notifierObservateur(m);
             }
 
         });
         
-    }
-
+    }    
+    
+    
     public boolean btnActionSpecialeActive() {
         if (a.getRole() != "Pilote" && a.getRole() != "Ingénieur") {
             return false;
