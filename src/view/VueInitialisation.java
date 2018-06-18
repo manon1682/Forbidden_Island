@@ -14,6 +14,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -45,7 +46,7 @@ public class VueInitialisation extends Observe {
         window.setSize(500, 350);
 
         window.setTitle("Ile Interdite");
-        mainPanel = new JPanel(new BorderLayout());
+        mainPanel = new JPanel(new BorderLayout(), new ImageIcon("images/backgroung/image_init.jpg");
         this.window.add(mainPanel);
 
         mainPanel.setBackground(new Color(230, 230, 230));
