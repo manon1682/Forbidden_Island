@@ -55,6 +55,7 @@ public class Controleur implements Observateur {
 //            }
 //            System.out.println("");
 //        }
+        System.out.println("MA GROSS QUEUE POILU");
         vueI = new VueInitialisation();
         vueI.addObservateur(this);
         vueI.afficher();
