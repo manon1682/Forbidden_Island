@@ -45,16 +45,16 @@ public class IHMJeu extends Observe {
         JPanel panelCenter1 = new JPanel();
         JPanel panelSud1 = new JPanel(new BorderLayout());
         
-        panelSud1.add(vueMainAven,BorderLayout.CENTER);
+        /*panelSud1.add(vueMainAven,BorderLayout.CENTER);
         panelSud1.add(vueActionAven, BorderLayout.EAST);
         
-        mainPanel.add(vue)
+        mainPanel.add(vue)*/
         
         
                 
                 
-                
-        window.add(mainPanel);
+        window.add(new VueTuile());      
+        //window.add(mainPanel);
         
         
         
