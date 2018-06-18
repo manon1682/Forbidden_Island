@@ -655,7 +655,31 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case UTILISER_CARTE:
+                g = new boolean[6][6];
+                
+                // helico = true si la carte hélico est choisi
+                // helico = false s'il s'agit d'une autre, donc du sac de sable
+                boolean helico = m.getCarte().getNom().equals(CarteUtilisable.hélico);
 
+                Tuile[][] tuiles = grille.getTuiles();
+
+                for (int l = 0; l < 6; l++) {
+                    for (int c = 0; c < 6; c++) {
+                        Tuile tuile = tuiles[l][c];
+                        if (tuile != null) {
+                            //Si la carte choisie est l'hélico on vérifie s'il est possible de se DEPLACER sur la tuile (verifTuileD())
+                            //Sinon on a choisi le sac de sable et on vérifie s'il est possible d'ASSECHER la tuile (verifTuileA())
+                            g[l][c] = (helico ? tuile.verifTuileD() : tuile.verifTuileA());
+                        }
+                    }
+                }
+                
+                //Si c'est la carte hélico qui est choisie, le joueur ne peut pas se déplacer sur sa propre case
+                if (helico){
+                    g[joueurCourant.getL()][joueurCourant.getC()] = false;
+                }
+                
+                vueA.afficherTuilePossible(g, grille);
                 break;
 
             case NOUVELLE_PARTIE:
@@ -709,7 +733,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         }
 
-        if (type != TypesMessages.NOUVELLE_PARTIE && type != TypesMessages.TOUR_SUIVANT) {
+        if (type != TypesMessages.NOUVELLE_PARTIE && type != TypesMessages.TOUR_SUIVANT && type != TypesMessages.UTILISER_CARTE) {
             //On décrémente le nombre d'action
             nbAction = nbAction - 1;
 
