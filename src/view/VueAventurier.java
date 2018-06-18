@@ -157,8 +157,9 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message(TypesMessages.SPECIALE, a);
+                sauvType = TypesMessages.SPECIALE;
 
-                if (a.getRole() == "Pilote") {
+                /*if (a.getRole() == "Pilote") {
                     sauvType = TypesMessages.DEPLACER;
                 } else if (a.getRole() == "Messager") {
                     sauvType = TypesMessages.DONNER_CARTE;
@@ -166,7 +167,7 @@ public class VueAventurier extends Observe {
                     sauvType = TypesMessages.DEPLACER;
                 } else {
                     sauvType = TypesMessages.ASSECHER;
-                }
+                }*/
 
                 if (!(btnBouger.isEnabled())) {
                     btnBouger.setEnabled(true);
