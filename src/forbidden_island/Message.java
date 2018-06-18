@@ -18,9 +18,10 @@ public class Message {
     // Liste des types de messages
     private TypesMessages type;  // type de message
     private String tuile;    // lorsqu'on selectionne une tuile
-    private Aventurier joueur; // pour savoir à quel joueur on donne la carte
+    private Aventurier joueur; // pour savoir quel joueur joue
     private CarteTresor carte; // si on donne une carte
     private ArrayList<String> nom; //Liste de joueur pour nouvelle partie
+    private int nbJoueur; //Nombre de joueurs pour nouvelle partie
 
     public Message(TypesMessages t, Aventurier a) {
         type = t;
@@ -46,6 +47,10 @@ public class Message {
     public ArrayList<String> getNom() {
         return nom;
     }
+
+    public int getNbJoueur() {
+        return nbJoueur;
+    }
     
     public void setTuile(String tuile) {
         this.tuile = tuile;
@@ -61,6 +66,10 @@ public class Message {
 
     public void setNom(ArrayList<String> nom) {
         this.nom = nom;
+    }
+
+    public void setNbJoueur(int nbJoueur) {
+        this.nbJoueur = nbJoueur;
     }
     
 }

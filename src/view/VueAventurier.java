@@ -116,8 +116,14 @@ public class VueAventurier extends Observe {
                     panelCentre.remove(panelChoixetVal);
                     panelCentre.add(labelvide);
                     panelCentre.updateUI();
+                } else if (btnAutreActionActive() && !(btnAutreAction.isEnabled())) {
+                    btnAutreAction.setEnabled(btnAutreActionActive());
+                    panelCentre.remove(panelChoixetVal);
+                    panelCentre.add(labelvide);
+                    panelCentre.updateUI();
                 }
-                btnAutreActionActive();
+
+                btnAutreAction.setEnabled(btnAutreActionActive());
 
                 notifierObservateur(m);
                 btnBouger.setEnabled(false);
@@ -134,17 +140,24 @@ public class VueAventurier extends Observe {
                 Message m = new Message(TypesMessages.ASSECHER, a);
 
                 if (!(btnBouger.isEnabled())) {
-                    btnBouger.setEnabled(true);
                     panelCentre.remove(panelChoixetVal);
                     panelCentre.add(labelvide);
                     panelCentre.updateUI();
                     if (a.getRole() == "Ingénieur") {
                         Ingénieur ingenieur = (Ingénieur) a;
                         btnBouger.setEnabled(!(ingenieur.getCapaciteUtilisee() >= 0));
+                    } else {
+                        btnBouger.setEnabled(true);
+                        btnAutreAction.setEnabled(btnAutreActionActive());
                     }
+                } else if (btnAutreActionActive() && !(btnAutreAction.isEnabled())) {
+                    panelCentre.remove(panelChoixetVal);
+                    panelCentre.add(labelvide);
+                    panelCentre.updateUI();
+                    btnAutreAction.setEnabled(btnAutreActionActive());
                 }
 
-                btnAutreActionActive();
+                //btnAutreAction.setEnabled(btnAutreActionActive());
 
                 btnAssecher.setEnabled(false);
                 notifierObservateur(m);
@@ -239,18 +252,16 @@ public class VueAventurier extends Observe {
     }
 
     public boolean btnAutreActionActive() {
-        if (a.getRole() != "Plongeur" && a.getRole() != "Explorateur") {
-            if (a.getRole() == "Pilote") {
-                Pilote pilote = (Pilote) a;
-                return (!(pilote.capaciteUtilisee()));
-            } else if (a.getRole() == "Ingénieur") {
-                Ingénieur ingenieur = (Ingénieur) a;
-                return ingenieur.getCapaciteUtilisee() >= 0;
-            } else {
-                return true;
-            }
-        } else {
+        if (a.getRole() != "Pilote" && a.getRole() != "Ingénieur") {
             return false;
+        } else if (a.getRole() == "Pilote") {
+            Pilote pilote = (Pilote) a;
+            return (!(pilote.capaciteUtilisee()));
+        } else if (a.getRole() == "Ingénieur") {
+            Ingénieur ingenieur = (Ingénieur) a;
+            return ingenieur.getCapaciteUtilisee() >= 0;
+        } else {
+            return true;
         }
 
     }
@@ -300,7 +311,7 @@ public class VueAventurier extends Observe {
 
     public void afficher() {
         window.setVisible(true);
-        
+
     }
 
     public void desafficher() {
@@ -311,6 +322,6 @@ public class VueAventurier extends Observe {
         btnBouger.setEnabled(false);
         btnAssecher.setEnabled(false);
         btnAutreAction.setEnabled(false);
-        
+
     }
 }
