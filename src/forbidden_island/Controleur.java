@@ -692,7 +692,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                     joueurCourant.deplacer(l, c);
                     actionPossible();
-                    vueIHMJeu.afficher(grille, joueurs, joueurCourant, jaugeInnondation);
+                    vueIHMJeu.getvPlat().majTuiles(joueurs);
                 }
 
                 break;
@@ -710,7 +710,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                     tuile.asseche();
                     actionPossible();
-                    vueIHMJeu.afficher(grille, joueurs, joueurCourant, jaugeInnondation);
+                    vueIHMJeu.getvPlat().majTuiles(grille);
                 }
                 break;
 
