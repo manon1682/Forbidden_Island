@@ -700,7 +700,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case UTILISER_CARTE:
-                g = new boolean[6][6];
 
                 // helico = true si la carte hélico est choisi
                 // helico = false s'il s'agit d'une autre, donc du sac de sable
