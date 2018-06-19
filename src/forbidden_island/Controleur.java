@@ -198,8 +198,17 @@ public class Controleur implements Observateur {
                     joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
             }
+            ArrayList<CarteTresor> main = deck_T.piocher();
+            for (CarteTresor carte : main) {
+                if (carte.getNom().equals(CarteUtilisable.MONTEE_EAU.toString())){
+                    deck_T.getPioche().add(carte);
+                    deck_T.melangerPioche();
+                    main.remove(carte);
+                    main.add((CarteTresor)deck_T.pioche());
+                }
+            }
             
-            joueurs.get(i).ajouterCartesMain(deck_T.piocher());
+            joueurs.get(i).ajouterCartesMain(main);
             roles.remove(rand);
         }
 
