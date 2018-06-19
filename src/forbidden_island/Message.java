@@ -8,6 +8,7 @@ package forbidden_island;
 import Enumeration.TypesMessages;
 import Aventurier.Aventurier;
 import Cartes.CarteTresor;
+import Enumeration.TypesNiveaux;
 import java.util.ArrayList;
 
 /**
@@ -15,13 +16,19 @@ import java.util.ArrayList;
  * @author cabezama
  */
 public class Message {
-    // Liste des types de messages
-    private TypesMessages type;  // type de message
-    private String tuile;    // lorsqu'on selectionne une tuile
-    private Aventurier joueur; // pour savoir quel joueur joue
-    private CarteTresor carte; // si on donne une carte
-    private ArrayList<String> nom; //Liste de joueur pour nouvelle partie
-    private int nbJoueur; //Nombre de joueurs pour nouvelle partie
+
+    private TypesMessages type;
+    
+    //Pour les déplacement et assèchement
+    private String tuile;
+    
+    //Pour donner une carte
+    private Aventurier joueur; // Le joueur destinataire
+    private CarteTresor carte;
+
+    //Pour commencer une partie
+    private TypesNiveaux niveau; 
+    private ArrayList<String> nom; 
 
     public Message(TypesMessages t) {
         type = t;
@@ -47,10 +54,6 @@ public class Message {
         return nom;
     }
 
-    public int getNbJoueur() {
-        return nbJoueur;
-    }
-    
     public void setTuile(String tuile) {
         this.tuile = tuile;
     }
@@ -67,8 +70,18 @@ public class Message {
         this.nom = nom;
     }
 
-    public void setNbJoueur(int nbJoueur) {
-        this.nbJoueur = nbJoueur;
+    public TypesNiveaux getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(TypesNiveaux niveau) {
+        this.niveau = niveau;
     }
     
+  
+    
+    
+
+    
+
 }

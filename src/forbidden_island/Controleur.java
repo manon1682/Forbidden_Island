@@ -7,12 +7,14 @@ import Aventurier.*;
 import Aventurier.Explorateur;
 import Aventurier.Ingénieur;
 import Aventurier.Messager;
+import Cartes.Carte;
 import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Cartes.Deck;
 import Enumeration.CarteUtilisable;
 import Enumeration.EtatTuile;
 import Enumeration.Tresor;
+import Enumeration.TypesNiveaux;
 
 /*Charger fichier tuiles*/
 import java.io.BufferedReader;
@@ -46,7 +48,7 @@ public class Controleur implements Observateur {
     public Controleur() {
         initPlateau();
         initDeck();
-        vueIHMJeu = new IHMJeu(grille, joueurs, joueurCourant, jaugeInnondation);
+        vueIHMJeu = new IHMJeu();
         vueIHMJeu.addObservateur(this);
     }
 
@@ -197,14 +199,37 @@ public class Controleur implements Observateur {
                     joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
             }
-            joueurs.get(i).ajouterCartesMain(deck_T.piocher());
+            
+            ArrayList<CarteTresor> main = new ArrayList<>();
+            
+            for (int j = 0; j < 2; j++) {
+                //On pioche une carte
+                CarteTresor carte = (CarteTresor) deck_T.pioche();
+                //Tant que le joueur pioche une carte montée des eaux
+                while (carte.getNom().equals(CarteUtilisable.MONTEE_EAU.toString())){
+                    //On remet cette carte dans la pioche
+                    deck_T.getPioche().add(carte);
+                    //On mélange la pioche
+                    deck_T.melangerPioche();
+                    //On pioche une nouvelle carte
+                    carte = (CarteTresor) deck_T.pioche();
+                }
+                //On ajoute la carte piochée à la main
+                main.add(carte);
+            }
+            
+            //On lui ajoute une main sans "montée des eaux"
+            joueurs.get(i).ajouterCartesMain(main);
             roles.remove(rand);
         }
 
+        //On initialise le joueur courant au 1er joueur
         joueurCourant = joueurs.get(0);
 
     }
-
+    public void initJauge(TypesNiveaux type){
+        //A FAIRE
+    }
     public void addDefausseT(CarteTresor carte) {
         getDeck_T().defausser(carte);
     }
@@ -776,15 +801,17 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case NOUVELLE_PARTIE:
                 //On initialise les joueurs
-                initJoueur(m.getNbJoueur(), m.getNom());
+                initJoueur(m.getNom().size(), m.getNom());
+                //On initialise le niveau du jeu
+                initJauge(m.getNiveau());
                 //On désaffiche la fenêtre d'initialisation
                 vueIHMJeu.desafficherIni();
 
                 //On affiche la fenêtre de jeu
-                vueIHMJeu.afficher();
+                vueIHMJeu.afficher(grille, joueurs, joueurCourant, jaugeInnondation);
                 
                 //On affiche les actions possibles
-                actionPossible();   
+                actionPossible();
                 break;
 
             case TOUR_SUIVANT:
@@ -813,8 +840,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //On créer une nouvelle vue Aventurier
                     vueIHMJeu.miseAJour(joueurCourant);
                     vueIHMJeu.addObservateur(this);
-                    vueIHMJeu.afficher();
-
                 }
 
                 break;
