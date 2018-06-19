@@ -121,7 +121,7 @@ public class VueActionAventurier extends JPanel {
                 Message m = new Message(TypesMessages.TOUR_SUIVANT);
                 ihm.notifierObservateur(m);
                 
-                btnActionSpeciale.setEnabled(false);
+                btnTerminerTour.setEnabled(false);
             }
         });
     }
