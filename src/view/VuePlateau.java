@@ -65,7 +65,7 @@ public class VuePlateau extends JPanel {
             }
         }
         for(Aventurier j : joueurs){
-            tuiles[j.getL()][j.getL()].getJoueur().add(j.getPion());
+            tuiles[j.getL()][j.getC()].getJoueur().add(j.getPion());
        }
     }
     

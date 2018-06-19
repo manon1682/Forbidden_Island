@@ -11,6 +11,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -70,18 +71,22 @@ public class VueTuile extends JPanel{
         setDim(new Dimension(size, size));
         if(etat == EtatTuile.sèche){
             g.drawImage(tuileNormale, 0, 0, dim.width, dim.height, null);
+            afficherPion(g);
         } else if(etat == EtatTuile.inondée){
             g.drawImage(tuileInondee, 0, 0, dim.width, dim.height, null);
+            afficherPion(g);
         } else {
             g.setColor(Color.blue);
             g.fillRect(0, 0, dim.width, dim.height);
         }
         if(isCadre()){
-            BasicStroke nStrock = new BasicStroke(4.0f); //Augmente epaissuer du contour de la tuile
-            g.setColor(Color.yellow);
-            g.drawRect(0, 0, dim.width, dim.height);
+            BasicStroke nStrock = new BasicStroke(2.5f); //Augmente epaissuer du contour de la tuile
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(nStrock);
+            g2.setColor(Color.yellow);
+            g2.drawRect(0, 0, dim.width, dim.height);
         }
-        afficherPion(g);
+        
         
     }
     
