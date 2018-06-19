@@ -32,12 +32,13 @@ public class IHMJeu extends Observe {
     
     private Aventurier aventurier;
     private Grille grille;
+    private int jaugeInnondation;
 
     public IHMJeu(Grille grille, ArrayList<Aventurier> joueurs, Aventurier joueurCourant) {
 
         //initialisation variable
         setGrille(grille);
-        vNiveau = new VueNiveau();
+        vNiveau = new VueNiveau(jaugeInnondation);
         vPlat = new VuePlateau(grille);
         vAven = new VueCoequipierAventurier(aventurier);
         vActionAven = new VueActionAventurier(aventurier);
