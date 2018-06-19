@@ -47,7 +47,6 @@ public class IHMJeu extends Observe {
         window.setLayout(new BorderLayout());
         window.pack();
         window.setVisible(false);
-
     }
 
     public void afficherInitiale(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge) {
