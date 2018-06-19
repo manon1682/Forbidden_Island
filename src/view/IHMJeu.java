@@ -52,7 +52,7 @@ public class IHMJeu extends Observe {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         //Création 2 panels dans Panel Principale > "1" pour le "haut/centre", "2" pour le sud
-        JPanel panelCentre1 = new JPanel();
+        JPanel panelCentre1 = new JPanel(new BorderLayout());
         JPanel panelSud2 = new JPanel(new BorderLayout());
 
         //Ajout 3 panel au Panel Centre1 >
