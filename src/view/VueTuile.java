@@ -86,8 +86,6 @@ public class VueTuile extends JPanel{
             g2.setColor(Color.yellow);
             g2.drawRect(0, 0, dim.width, dim.height);
         }
-        
-        
     }
     
     public void afficherPion(Graphics g){
