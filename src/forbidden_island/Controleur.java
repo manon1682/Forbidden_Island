@@ -228,7 +228,15 @@ public class Controleur implements Observateur {
 
     }
     public void initJauge(TypesNiveaux type){
-        //A FAIRE
+        if (type == TypesNiveaux.NOVICE){
+            jaugeInnondation = 1;
+        } else if (type == TypesNiveaux.NORMAL) {
+            jaugeInnondation = 2;
+        } else if (type == TypesNiveaux.ELITE){
+            jaugeInnondation = 3;
+        } else {
+            jaugeInnondation = 4;
+        }
     }
     public void addDefausseT(CarteTresor carte) {
         getDeck_T().defausser(carte);

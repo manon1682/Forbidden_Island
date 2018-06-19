@@ -253,7 +253,6 @@ public class VueInitialisation extends JPanel {
                     }else{
                         m.setNiveau(TypesNiveaux.LEGENDAIRE);
                     }
-
                  
                     ihm.notifierObservateur(m);
                 }
