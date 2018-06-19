@@ -155,7 +155,7 @@ public class VueInitialisation extends JPanel {
                         nom.add(saisi.getText());
                     }
 
-                    Message m = new Message(TypesMessages.NOUVELLE_PARTIE, null);
+                    Message m = new Message(TypesMessages.NOUVELLE_PARTIE);
                     m.setNom(nom);
                     m.setNbJoueur(nbJ);
                     ihm.notifierObservateur(m);
