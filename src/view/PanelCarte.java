@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -24,23 +25,26 @@ public class PanelCarte extends JPanel {
     private Dimension dim;
     private CarteUtilisable carte;
     private int nb;
+    private JButton donner;
+    private JButton utiliser;
 
     public PanelCarte(int n, CarteUtilisable c) {
 
         carte = c;
         nb = n;
-        /*setLayout(new BorderLayout());
-
-        JPanel panelhaut = new JPanel(new BorderLayout());
-        JLabel nombre = new JLabel("x " + n);
-        panelhaut.add(nombre, BorderLayout.EAST);
-        add(panelhaut, BorderLayout.NORTH);*/
+        donner = new JButton("Donner");
+        utiliser = new JButton("Utiliser");
+        
+        donner.setVisible(false);
+        utiliser.setVisible(false);
     }
 
     @Override
     public void paint(Graphics g) {
         int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width)) - 2;
         setDim(new Dimension(size, size));
+        
+        
 
         if (nb != 0) {
             g.drawImage(carte.getImage(), 0, 0, dim.width, dim.height, null);
@@ -53,4 +57,14 @@ public class PanelCarte extends JPanel {
     public void setDim(Dimension dim) {
         this.dim = dim;
     }
+
+    public JButton getDonner() {
+        return donner;
+    }
+
+    public JButton getUtiliser() {
+        return utiliser;
+    }
+    
+    
 }

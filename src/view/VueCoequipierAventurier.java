@@ -29,49 +29,6 @@ public class VueCoequipierAventurier extends JPanel {
     private JLabel tresorPierreSacre;   // "
     //créer 4 images supplémentaires si on peut pas modif transparance sur les images
 
-    //Case 2 de la grilleCoequipier
-    private JLabel J1carte1; // à modif une fois qu'on a image
-    private JLabel J2carte1; // à modif une fois qu'on a image
-    private JLabel J3carte1; // à modif une fois qu'on a image
-    private JLabel J1nbcarte1; //Joueur 1 nombres de cartes
-    private JLabel J2nbcarte1; //Joueur 2 nombres de cartes
-    private JLabel J3nbcarte1; //Joueur 3 nombres de cartes
-
-    private JLabel J1carte2;// à modif une fois qu'on a image
-    private JLabel J2carte2;// à modif une fois qu'on a image
-    private JLabel J3carte2;// à modif une fois qu'on a image
-    private JLabel J1nbcarte2;
-    private JLabel J2nbcarte2;
-    private JLabel J3nbcarte2;
-
-    private JLabel J1carte3;// à modif une fois qu'on a image
-    private JLabel J2carte3;// à modif une fois qu'on a image
-    private JLabel J3carte3;// à modif une fois qu'on a image
-    private JLabel J1nbcarte3;
-    private JLabel J2nbcarte3;
-    private JLabel J3nbcarte3;
-
-    private JLabel J1carte4;// à modif une fois qu'on a image
-    private JLabel J2carte4;// à modif une fois qu'on a image
-    private JLabel J3carte4;// à modif une fois qu'on a image
-    private JLabel J1nbcarte4;
-    private JLabel J2nbcarte4;
-    private JLabel J3nbcarte4;
-
-    private JLabel J1carte5;// à modif une fois qu'on a image
-    private JLabel J2carte5;// à modif une fois qu'on a image
-    private JLabel J3carte5;// à modif une fois qu'on a image
-    private JLabel J1nbcarte5;
-    private JLabel J2nbcarte5;
-    private JLabel J3nbcarte5;
-
-    private JLabel J1carte6;// à modif une fois qu'on a image
-    private JLabel J2carte6;// à modif une fois qu'on a image
-    private JLabel J3carte6;// à modif une fois qu'on a image
-    private JLabel J1nbcarte6;
-    private JLabel J2nbcarte6;
-    private JLabel J3nbcarte6;
-
     //nouvelle case
     private VuePanel_InventaireCoequipier vInv1;
     private VuePanel_InventaireCoequipier vInv2;
@@ -130,14 +87,19 @@ public class VueCoequipierAventurier extends JPanel {
         grilleCoequipier.add(containerCase1);
 
         //nouvelle case 2 à 4
-        grilleCoequipier.add(vInv1);
+        for (Aventurier joueur : joueurs) {
+            if (!(joueur.equals(a))) {
+                VueInventaireAventurier vInv = new VueInventaireAventurier(joueur);
+                grilleCoequipier.add(vInv);
+            }
+        }
+        /*grilleCoequipier.add(vInv1);
         grilleCoequipier.add(vInv2);
-        grilleCoequipier.add(vInv3);
-
+        grilleCoequipier.add(vInv3);*/
 
         //Case 5 de la grilleCoequipier (MessageBox)
         grilleCoequipier.add(vText);
-        
+
         //Ajout des éléments à la fenêtre principale;
         this.add(grilleCoequipier);
 

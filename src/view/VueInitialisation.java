@@ -80,7 +80,7 @@ public class VueInitialisation extends JPanel {
 
         this.nbjoueurs = new String[]{"2", "3", "4"};
         this.window = new JFrame();
-        window.setResizable(false);
+        window.setResizable(true);
         window.setSize(width, height);
         window.setLocationRelativeTo(null);
 
@@ -262,7 +262,7 @@ public class VueInitialisation extends JPanel {
                     } else {
                         m.setNiveau(TypesNiveaux.LEGENDAIRE);
                     }
-
+                 
                     ihm.notifierObservateur(m);
                 }
 

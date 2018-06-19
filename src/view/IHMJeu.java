@@ -55,13 +55,15 @@ public class IHMJeu extends Observe {
         //initialisation variable
         setGrille(g);
         setAventurier(a);
+        this.joueurs = joueurs;
         jaugeInnondation = jauge;
         vNiveau = new VueNiveau(jaugeInnondation);
         vPlat = new VuePlateau(grille, this.joueurs, this); 
+        vPlat.majTuiles(joueurs);
         vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
         vActionAven = new VueActionAventurier(joueurCourant, this);
         vMainAven = new VueInventaireAventurier(joueurCourant, this);
-        this.joueurCourant = joueurCourant;
+        joueurCourant = a;
         //Fin de l'initialisation
         
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -77,8 +79,7 @@ public class IHMJeu extends Observe {
 
         //Ajout 2 panel au Panel Sud2 > vueMainAven centre / gauche | vueActionAven > à droite
         panelSud2.add(vMainAven, BorderLayout.CENTER);
-        panelSud2.add(vActionAven, BorderLayout.EAST);
-        
+        panelSud2.add(vActionAven, BorderLayout.EAST);        
 
         //Ajout panel au Panel Principale
         mainPanel.add(panelCentre1, BorderLayout.CENTER);
@@ -97,6 +98,7 @@ public class IHMJeu extends Observe {
     
     public void afficherTuilePossible(boolean[][] grille){
         vPlat.afficherPossible(grille);
+        vPlat.repaint();
     }
     
 
