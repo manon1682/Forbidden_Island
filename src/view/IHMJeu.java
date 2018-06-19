@@ -123,5 +123,10 @@ public class IHMJeu extends Observe {
         return vActionAven;
     }
     
+    public void assechementIngenieur(){
+        
+    }
+    
+    
 
 }
