@@ -21,10 +21,12 @@ import javax.swing.JPanel;
  */
 public class IHMJeu extends Observe {
 
-    //composants fenêtre
+    //Composants fenêtre
     private final JFrame window;
     private JPanel panelCentre1;
     private JPanel panelSud2;
+
+    //Vues qu'elle possède
     private VueInitialisation vIni;
     private VueNiveau vNiveau;
     private VuePlateau vPlat;
@@ -32,6 +34,7 @@ public class IHMJeu extends Observe {
     private VueActionAventurier vActionAven;
     private VueInventaireAventurier vMainAven;
 
+    //Variables
     private ArrayList<Aventurier> joueurs;
     private Aventurier joueurCourant;
     private Grille grille;
@@ -50,7 +53,7 @@ public class IHMJeu extends Observe {
         window.setVisible(false);
     }
 
-    public void afficherInitiale(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge) {
+    public void afficherInitiale(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge, int nbAction) {
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1400, 800);
 
@@ -63,7 +66,7 @@ public class IHMJeu extends Observe {
         vPlat = new VuePlateau(grille, this.joueurs, this);
         vPlat.majTuiles(joueurs);
         vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
-        vActionAven = new VueActionAventurier(joueurCourant, this);
+        vActionAven = new VueActionAventurier(this, nbAction);
         vMainAven = new VueInventaireAventurier(joueurCourant, this);
         //Fin de l'initialisation
 
@@ -90,15 +93,16 @@ public class IHMJeu extends Observe {
         window.setVisible(true);
     }
 
-    public void afficher(Grille g, Aventurier a, int jauge) {
+    public void afficher(Grille g, Aventurier a, int jauge, int nbAction) {
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1400, 800);
-        
+
         //On enlève les panels liés à au joueur prédécent
         panelCentre1.remove(vNiveau);
         panelCentre1.remove(vAven);
         panelSud2.remove(vMainAven);
-        
+        panelSud2.remove(vActionAven);
+
         //Mis à jour des variables
         setGrille(g);
         setAventurier(a);
@@ -107,6 +111,7 @@ public class IHMJeu extends Observe {
         vNiveau = new VueNiveau(jaugeInnondation);
         vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
         vMainAven = new VueInventaireAventurier(joueurCourant, this);
+        vActionAven = new VueActionAventurier(this, nbAction);
         vPlat.majTuiles(joueurs);
         //Fin de l'initialisation
 
@@ -114,7 +119,8 @@ public class IHMJeu extends Observe {
         panelCentre1.add(vNiveau, BorderLayout.WEST);
         panelCentre1.add(vAven, BorderLayout.EAST);
         panelSud2.add(vMainAven, BorderLayout.CENTER);
-     
+        panelSud2.add(vActionAven, BorderLayout.EAST);
+
         window.setVisible(true);
     }
 
@@ -129,6 +135,12 @@ public class IHMJeu extends Observe {
     public void afficherTuilePossible(boolean[][] grille) {
         vPlat.afficherPossible(grille);
         vPlat.repaint();
+    }
+
+    public void miseAJourNbAction(int nbAction) {
+        panelSud2.remove(vActionAven);
+        vActionAven = new VueActionAventurier(this, nbAction);
+        panelSud2.add(vActionAven, BorderLayout.EAST);
     }
 
     // Getter

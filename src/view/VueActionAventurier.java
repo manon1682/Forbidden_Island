@@ -28,12 +28,10 @@ public class VueActionAventurier extends JPanel {
     private JButton btnDeplacer, btnAssecher, btnActionSpeciale, btnTerminerTour;
     private JLabel nbActionText, nbActionInt;
     private TypesMessages sauvType;
-    protected Aventurier a;
 
     private IHMJeu ihm;
 
-    public VueActionAventurier(Aventurier aventurier, IHMJeu ihmJ) {
-        //Donner en entrée l'IHM !!!
+    public VueActionAventurier(IHMJeu ihmJ, int nbAction) {
 
         //initialisation
         ihm = ihmJ;
@@ -42,9 +40,7 @@ public class VueActionAventurier extends JPanel {
         btnActionSpeciale = new JButton("Action Spécial");
         btnTerminerTour = new JButton("Terminer Tour");
         nbActionText = new JLabel("Nombre action dispo : ");
-        nbActionInt = new JLabel("3"); //valeur de base
-
-        a = aventurier;
+        nbActionInt = new JLabel(Integer.toString(nbAction));
         //fin initialisation
 
         //test pour couleur :

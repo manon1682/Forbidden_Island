@@ -850,11 +850,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On désaffiche la fenêtre d'initialisation
                 vueIHMJeu.desafficherIni();
 
+                //On initialise le nombre d'actions selon si c'est un navigateur ou non
+                nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
+
                 //On affiche la fenêtre de jeu
-                vueIHMJeu.afficherInitiale(grille, joueurs, joueurCourant, jaugeInnondation);
+                vueIHMJeu.afficherInitiale(grille, joueurs, joueurCourant, jaugeInnondation, nbAction);
 
                 //On affiche les actions possibles
-                //actionPossible();
+                actionPossible();
                 break;
 
             case TOUR_SUIVANT:
@@ -880,8 +883,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                     //On créer une nouvelle vue Aventurier
                     //vueIHMJeu.miseAJour(joueurCourant);
-                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation);
-                    //actionPossible();
+                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+                    actionPossible();
                 }
 
                 break;
@@ -898,6 +901,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 && m.getTuile() != null) {
             //On décrémente le nombre d'action
             nbAction = nbAction - 1;
+            
+            vueIHMJeu.miseAJourNbAction(nbAction);
 
             //Si le joueur n'a plus d'action on fini son tour
             if (nbAction == 0) {
