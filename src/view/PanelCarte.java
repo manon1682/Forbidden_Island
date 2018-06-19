@@ -5,7 +5,12 @@
  */
 package view;
 
+import Enumeration.CarteUtilisable;
+import Enumeration.EtatTuile;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,15 +20,33 @@ import javax.swing.JPanel;
  */
 public class PanelCarte extends JPanel {
 
-    public PanelCarte(int n) {
+    private Dimension dim;
+    private CarteUtilisable carte;
 
+    public PanelCarte(int n, CarteUtilisable c) {
+
+        carte = c;
         setLayout(new BorderLayout());
         
-        JPanel panelhaut = new JPanel(new BorderLayout());
-        JLabel nombre = new JLabel("x " + n);
-        panelhaut.add(nombre, BorderLayout.EAST);
-        add(panelhaut, BorderLayout.NORTH);
-        // + ajouter l'image mais wallah je sais pas comment on fait
+        if (n != 0) {
+            JPanel panelhaut = new JPanel(new BorderLayout());
+            JLabel nombre = new JLabel("x " + n);
+            panelhaut.add(nombre, BorderLayout.EAST);
+            add(panelhaut, BorderLayout.NORTH);
+        } else {
+            add(new JLabel());
+        }
     }
 
+    @Override
+    public void paint(Graphics g) {
+        int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width)) - 2;
+        setDim(new Dimension(size, size));
+        g.drawImage(carte.getImage(), 0, 0, dim.width, dim.height, null);
+
+    }
+
+    public void setDim(Dimension dim) {
+        this.dim = dim;
+    }
 }
