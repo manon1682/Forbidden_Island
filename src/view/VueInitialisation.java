@@ -10,12 +10,10 @@ import Enumeration.TypesNiveaux;
 import forbidden_island.Message;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -38,7 +36,12 @@ import javax.swing.SwingConstants;
  */
 public class VueInitialisation extends JPanel {
 
+    // Variable Fenêtre
     private final JFrame window;
+    private int height;
+    private int width;
+    
+    
     private JPanel panelCentre;
     private JComboBox choixNbJoueur;
     private String[] nbjoueurs;
@@ -60,8 +63,7 @@ public class VueInitialisation extends JPanel {
     private JRadioButton bouton;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
-    private int height;
-    private int width;
+    
 
     private Image image;
 
@@ -177,10 +179,10 @@ public class VueInitialisation extends JPanel {
         // **** Fin PanelHaut ****
         
         // **** Panel Centre ****
-        panelCentre = new JPanel(new GridLayout(4, 2));
+        panelCentre = new JPanel(new GridLayout(18, 3));
         panelCentre.setOpaque(false);
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 54; i++) {
             panelCentre.add(new JLabel());
         }
 
@@ -212,23 +214,27 @@ public class VueInitialisation extends JPanel {
                     
                     nbJ = choixNbJoueur.getSelectedIndex() + 2;
 
-                    for (int i = 0; i < 8; i++) {
+                    for (int i = 0; i < 54; i++) {
                         panelCentre.remove(0);
                     }
 
                     for (int i = 0; i < nbJ; i++) {
                         saisirJ.add(new JTextField("Joueur " + (i + 1)));
-
+                        
                         labNomJ = new JLabel("Nom Joueur " + (i+1) + " : ", SwingConstants.RIGHT);
                         labNomJ.setForeground(Color.white);
                         labNomJ.setFont(new Font("Arial", Font.PLAIN, 20));
+                        panelCentre.add(new JLabel());
+                        panelCentre.add(new JLabel());
+                        panelCentre.add(new JLabel());
                         panelCentre.add(labNomJ);
                         panelCentre.add(saisirJ.get(i));
+                        panelCentre.add(new JLabel());
 
                     }
-                    for (int i = 0; i < 4 - nbJ; i++) {
+                    for (int i = 0; i < 54 - 6*nbJ; i++) {
                         panelCentre.add(new JLabel());
-                        panelCentre.add(new JLabel());
+                        
                     }
                     choixNbJoueur.setEnabled(false);
                     window.setVisible(true);
