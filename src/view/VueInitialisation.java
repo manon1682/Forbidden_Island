@@ -46,33 +46,16 @@ public class VueInitialisation extends JPanel{
     private JButton manuel;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
-    private IHMJeu ihm;
 
     
     private Image image ;
 
-    public VueInitialisation() {
+    public VueInitialisation(IHMJeu ihm) {
         this.nbjoueurs = new String[]{"2", "3", "4"};
-        this.window = new JFrame() {
-            @Override
-            public void paintComponents(Graphics g) {
-                try {
-                    Image img = ImageIO.read(new FileInputStream("images/background/image_init.jpg"));
-                    g.drawImage(img, 0, 0, null);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        window.add(this);
+        this.window = new JFrame();
         window.setSize(500, 350);
 
         window.setTitle("Ile Interdite");
-       
-        
-        
-        
         try {
             this.image = ImageIO.read(new FileInputStream("images/background/image_init_size.png"));
             
@@ -87,10 +70,11 @@ public class VueInitialisation extends JPanel{
 
         // Panel Haut
         panelHaut = new JPanel(new GridLayout(4, 2));
+        panelHaut.setOpaque(false);
         panelHaut.add(new JLabel("Ile Interdite"));
         manuel = new JButton("Manuel");
         panelHaut.add(manuel);
-
+        
         panelHaut.add(new JLabel());
         panelHaut.add(new JLabel());
 
@@ -104,6 +88,7 @@ public class VueInitialisation extends JPanel{
 
         //Panel Centre
         panelCentre = new JPanel(new GridLayout(4, 2));
+        panelCentre.setOpaque(false);
         
         for(int i = 0; i < 8; i++){
            panelCentre.add(new JLabel()); 
@@ -147,8 +132,9 @@ public class VueInitialisation extends JPanel{
                         nom.add(saisi.getText());
                     }
 
-                    Message m = new Message(TypesMessages.NOUVELLE_PARTIE, null);
+                    Message m = new Message(TypesMessages.NOUVELLE_PARTIE);
                     m.setNom(nom);
+                    m.setNbJoueur(nbJ);
                     ihm.notifierObservateur(m);
                 }
 
@@ -156,6 +142,7 @@ public class VueInitialisation extends JPanel{
         });
        
         window.setVisible(true);
+        this.repaint();
     }
     
     @Override
@@ -165,9 +152,9 @@ public class VueInitialisation extends JPanel{
      * avec le même contexte graphique (Graphics)
      */
     public void paintComponent(Graphics g) {
+
         super.paintComponent(g);
         g.drawImage(image, 0, 0, 500, 350, null, this);
-        this.repaint();
     }
 
     public void afficher() {

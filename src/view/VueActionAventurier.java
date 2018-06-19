@@ -47,7 +47,7 @@ public class VueActionAventurier extends JPanel {
 
         //test pour couleur :
         this.setBackground(Color.CYAN);
-        
+
         JPanel grilleAction = new JPanel(new GridLayout(2, 3));
 
         for (int i = 0; i < 6; i++) {
@@ -69,7 +69,7 @@ public class VueActionAventurier extends JPanel {
             }
 
         }
-//
+
         this.add(grilleAction);
 
         btnDeplacer.addActionListener(
@@ -77,14 +77,10 @@ public class VueActionAventurier extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.DEPLACER;
-                Message m = new Message(TypesMessages.DEPLACER, a);
-
-                //à coder
-                // methode btnActionSpeciale peut être très utile !
-                // voir code VueAventurier
-//              notifierObservateur(m);
+                Message m = new Message(TypesMessages.DEPLACER);
+                ihm.notifierObservateur(m);
+                
                 btnDeplacer.setEnabled(false);
-
             }
 
         });
@@ -94,13 +90,10 @@ public class VueActionAventurier extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.ASSECHER;
-                Message m = new Message(TypesMessages.ASSECHER, a);
-
-                //à coder
-                // voir code VueAventurier
+                Message m = new Message(TypesMessages.ASSECHER);
                 ihm.notifierObservateur(m);
+                
                 btnDeplacer.setEnabled(false);
-
             }
 
         });
@@ -109,12 +102,11 @@ public class VueActionAventurier extends JPanel {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message m = new Message(TypesMessages.SPECIALE, a);
+                Message m = new Message(TypesMessages.SPECIALE);
                 sauvType = TypesMessages.SPECIALE;
-
-                // code en fct de VueAventurier
                 ihm.notifierObservateur(m);
-
+                
+                btnActionSpeciale.setEnabled(false);
             }
 
         });
@@ -124,27 +116,23 @@ public class VueActionAventurier extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.TOUR_SUIVANT;
-                Message m = new Message(TypesMessages.TOUR_SUIVANT, a);
-
-                //à coder lol
+                Message m = new Message(TypesMessages.TOUR_SUIVANT);
                 ihm.notifierObservateur(m);
+                
+                btnActionSpeciale.setEnabled(false);
             }
         });
     }
 
-    public boolean btnActionSpecialeActive() {
-        if (a.getRole() != "Pilote" && a.getRole() != "Ingénieur") {
-            return false;
-        } else if (a.getRole() == "Pilote") {
-            Pilote pilote = (Pilote) a;
-            return (!(pilote.capaciteUtilisee()));
-        } else if (a.getRole() == "Ingénieur") {
-            Ingénieur ingenieur = (Ingénieur) a;
-            return ingenieur.getCapaciteUtilisee() >= 0;
-        } else {
-            return true;
-        }
-
+    public JButton getBtnAssecher() {
+        return btnAssecher;
     }
 
+    public JButton getBtnDeplacer() {
+        return btnDeplacer;
+    }
+
+    public JButton getBtnActionSpeciale() {
+        return btnActionSpeciale;
+    }
 }
