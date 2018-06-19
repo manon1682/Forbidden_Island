@@ -7,7 +7,6 @@ package view;
 
 import Enumeration.TypesMessages;
 import forbidden_island.Message;
-import forbidden_island.Observe;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,19 +17,17 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
@@ -46,11 +43,18 @@ public class VueInitialisation extends JPanel {
     private String[] nbjoueurs;
     private JPanel panelHaut;
     private JPanel panelHautTitre;
-    private JPanel panelHautChoix;
+    private JPanel panelHautCentre;
+    private JPanel panHauCent1;
+    private JPanel panHauCent2;
+    private JPanel panHauCent3;
     private JPanel panelBas;
     private JButton valider;
     private JButton manuel;
     private JLabel labTitre;
+    private JLabel labNiv;
+    private ButtonGroup groupeNiv;
+    private JRadioButton [] boutNiv;
+    private JRadioButton bouton;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
 
@@ -92,35 +96,63 @@ public class VueInitialisation extends JPanel {
         panelHautTitre.add(labTitre);
         panelHaut.add(panelHautTitre, BorderLayout.NORTH);
         
-        panelHautChoix = new JPanel(new GridLayout(4, 4));
-        panelHautChoix.setOpaque(false);
+        panelHautCentre = new JPanel(new GridLayout(5, 1));
+        panelHautCentre.setOpaque(false);
         //Ligne 1 Saut de ligne
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
+        panelHautCentre.add(new JLabel());
+      
+        //Ligne 2 Sélection du niveau
+        panHauCent1 = new JPanel(new GridLayout(1, 5));
+        panHauCent1.setOpaque(false);
+        labNiv= new JLabel("Niveau");
+        labNiv.setForeground(Color.white);
+        panHauCent1.add(labNiv);
         
-        //Ligne 2 Bouton Manuel
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
-        manuel = new JButton("Manuel");
-        panelHautChoix.add(manuel);
-        panelHautChoix.add(new JLabel());
+        groupeNiv = new ButtonGroup();
         
-        //Ligne 3 Nombre Joueur  
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel("Nombre de Joueur : "));
+        boutNiv = new JRadioButton[4];
+        
+        bouton = new JRadioButton("Novice");
+        boutNiv[0] = bouton;
+        groupeNiv.add(bouton);
+        
+        bouton = new JRadioButton("Normal");
+        boutNiv[1] = bouton;
+        groupeNiv.add(bouton);
+        
+        bouton = new JRadioButton("Elite");
+        boutNiv[2] = bouton;
+        groupeNiv.add(bouton);
+        
+        bouton = new JRadioButton("Légendaire");
+        boutNiv[3] = bouton;
+        groupeNiv.add(bouton);
+        
+        boutNiv[1].setSelected(true);
+        
+        panHauCent1.add(boutNiv[0]);
+        panHauCent1.add(boutNiv[1]);
+        panHauCent1.add(boutNiv[2]);
+        panHauCent1.add(boutNiv[3]);
+        panelHautCentre.add(panHauCent1);
+        
+        //Ligne 3 Choix Role Aléatoire/Choisis
+        
+        //Ligne 4 Nombre Joueur  
+        panelHautCentre.add(new JLabel());
+        panelHautCentre.add(new JLabel("Nombre de Joueur : "));
         choixNbJoueur = new JComboBox(nbjoueurs);
-        panelHautChoix.add(choixNbJoueur);
-        panelHautChoix.add(new JLabel());
+        panelHautCentre.add(choixNbJoueur);
+        panelHautCentre.add(new JLabel());
         
-        //Ligne 4 Saut de Ligne
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
+        
+        //Ligne 5 Saut de Ligne
+        panelHautCentre.add(new JLabel());
+        panelHautCentre.add(new JLabel());
+        panelHautCentre.add(new JLabel());
+        panelHautCentre.add(new JLabel());
 
-        panelHaut.add(panelHautChoix, BorderLayout.CENTER);
+        panelHaut.add(panelHautCentre, BorderLayout.CENTER);
         
         this.add(panelHaut, BorderLayout.NORTH);
 
