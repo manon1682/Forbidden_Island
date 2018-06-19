@@ -10,7 +10,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.Clock;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -50,7 +54,11 @@ public class VueCoequipierAventurier extends JPanel {
         a = aventurier;
         joueurs = js;
         //Case 1 de la grilleCoequipier
-        btnFermerJeu = new JButton("Fermer Jeu");
+        btnFermerJeu = new JButton();
+        ImageIcon logoFermer = new ImageIcon("images/icones/iconClose.png");
+        JLabel logoF = new JLabel();
+        logoF.setIcon(logoFermer);
+        btnFermerJeu.setIcon(logoFermer);
         tresorCristalArdent = new JLabel("tresorCA");
         tresorStatueZephir = new JLabel("tresorSZ");
         tresorCaliceOrdre = new JLabel("tresorCO");
@@ -102,6 +110,16 @@ public class VueCoequipierAventurier extends JPanel {
 
         //Ajout des éléments à la fenêtre principale;
         this.add(grilleCoequipier);
+        
+        //Fermeture du jeu
+       btnFermerJeu.addActionListener(
+        new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);                
+            }
+        });
+       
 
     }
 

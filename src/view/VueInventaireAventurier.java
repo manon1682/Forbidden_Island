@@ -125,4 +125,5 @@ public class VueInventaireAventurier extends JPanel {
             
         }
     }
+    
 }

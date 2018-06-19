@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -51,8 +52,8 @@ public class VueInitialisation extends JPanel {
     private JPanel panHauCent1;
     private JPanel panHauCent2;
     private JPanel panelBas;
-    private JButton valider;
-    private JButton manuel;
+    private JButton btnValider;
+    private JButton btnManuel;
     private JLabel labTitre;
 
     private JLabel labNbJ;
@@ -100,12 +101,16 @@ public class VueInitialisation extends JPanel {
         panelHaut.setOpaque(false);
 
         //PanelHautTitre
-        labTitre = new JLabel("Ile Interdite");
-        labTitre.setForeground(Color.white);
-        labTitre.setFont(new Font("Serif", Font.ROMAN_BASELINE, 100));
+//        labTitre = new JLabel("Ile Interdite");
+//        labTitre.setForeground(Color.white);
+//        labTitre.setFont(new Font("Serif", Font.ROMAN_BASELINE, 100));
         panelHautTitre = new JPanel();
         panelHautTitre.setOpaque(false);
-        panelHautTitre.add(labTitre);
+        
+        ImageIcon logoTitre = new ImageIcon("images/logo/ile-interdite-logo.png");
+        JLabel logoT = new JLabel();
+        logoT.setIcon(logoTitre);
+        panelHautTitre.add(logoT);
         panelHaut.add(panelHautTitre, BorderLayout.NORTH);
 
         //PanelHautCentre
@@ -197,19 +202,43 @@ public class VueInitialisation extends JPanel {
 
         // **** Fin PanelCentre ****
         // **** Panel bas ****
-        valider = new JButton("Valider");
-        manuel = new JButton("Manuel");
-        panelBas = new JPanel(new GridLayout(1, 3));
+        
+        //Valider Aspect
+        btnValider = new JButton();
+        ImageIcon logoValider = new ImageIcon("images/icones/iconChecked.png");
+        JLabel logoVal = new JLabel();
+        logoVal.setIcon(logoValider);
+        btnValider.setIcon(logoValider);
+ 
+        
+        //Manuel Aspect
+        btnManuel = new JButton();
+        ImageIcon logoManuel = new ImageIcon("images/icones/iconBook.png");
+        JLabel logoMan = new JLabel();
+        logoMan.setIcon(logoManuel);
+        btnManuel.setIcon(logoManuel);        
+        panelBas = new JPanel(new GridLayout(2, 9));
         panelBas.setOpaque(false);
-
-        panelBas.add(manuel);
+        
         panelBas.add(new JLabel());
-        panelBas.add(valider);
+        panelBas.add(btnManuel);
+        panelBas.add(new JLabel());
+        panelBas.add(new JLabel());
+        panelBas.add(new JLabel());
+        panelBas.add(new JLabel());
+        panelBas.add(new JLabel());
+        panelBas.add(btnValider);
+        panelBas.add(new JLabel());
+        
+        for(int i = 0; i< 9; i++){
+            panelBas.add(new JLabel());
+        }
+
 
         this.add(BorderLayout.SOUTH, panelBas);
 
         // **** Fin PanelBas ****
-        valider.addActionListener(new ActionListener() {
+        btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -270,7 +299,7 @@ public class VueInitialisation extends JPanel {
         });
 
         //ActionListener du Manuel
-        manuel.addActionListener(
+        btnManuel.addActionListener(
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

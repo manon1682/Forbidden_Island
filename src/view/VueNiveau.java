@@ -14,13 +14,17 @@ import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -31,6 +35,7 @@ import javax.swing.JPanel;
 public class VueNiveau extends JPanel {
 
     private int jaugeInnondation;
+    private JButton btnManuel;
 
     public VueNiveau(int jaugeInn) {
 
@@ -82,7 +87,29 @@ public class VueNiveau extends JPanel {
         }
 
         mainPanelNiveau.add(grilleStickJauge, BorderLayout.WEST);
+        
+        // Bouton manuel
+        btnManuel = new JButton();
+        ImageIcon logoManuel = new ImageIcon("images/icones/iconBook.png");
+        JLabel logoMan = new JLabel();
+        logoMan.setIcon(logoManuel);
+        btnManuel.setIcon(logoManuel);
+        btnManuel.setBackground(Color.gray);
+        btnManuel.setBorderPainted(false); 
+        btnManuel.setOpaque(false);
 
+        mainPanelNiveau.add(btnManuel, BorderLayout.SOUTH);
+        
+        //Action du bouton manuel
+        btnManuel.addActionListener(
+            new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                VueManuel vMan = new VueManuel();
+                vMan.afficher();
+            }
+        });
+        
         this.add(mainPanelNiveau);
     }
 

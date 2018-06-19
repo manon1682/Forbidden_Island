@@ -64,7 +64,6 @@ public class IHMJeu extends Observe {
         vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
         vActionAven = new VueActionAventurier(joueurCourant, this);
         vMainAven = new VueInventaireAventurier(joueurCourant, this);
-        joueurCourant = a;
         //Fin de l'initialisation
 
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -90,42 +89,42 @@ public class IHMJeu extends Observe {
         window.setVisible(true);
     }
 
-    public void afficher(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge) {
+    public void afficher(Grille g, Aventurier a, int jauge) {
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1400, 800);
 
         //initialisation variable
         setGrille(g);
         setAventurier(a);
-        this.joueurs = joueurs;
         jaugeInnondation = jauge;
         vNiveau = new VueNiveau(jaugeInnondation);
         vPlat.majTuiles(joueurs);
         vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
         vMainAven = new VueInventaireAventurier(joueurCourant, this);
-        joueurCourant = a;
         //Fin de l'initialisation
 
-     //   JPanel mainPanel = new JPanel(new BorderLayout());
+     /*   JPanel mainPanel = new JPanel(new BorderLayout());
 
-      /*  //Création 2 panels dans Panel Principale > "1" pour le "haut/centre", "2" pour le sud
+        //Création 2 panels dans Panel Principale > "1" pour le "haut/centre", "2" pour le sud
         JPanel panelCentre1 = new JPanel(new BorderLayout());
         JPanel panelSud2 = new JPanel(new BorderLayout());
 
         //Ajout 3 panel au Panel Centre1 >
         panelCentre1.add(vNiveau, BorderLayout.WEST);
         panelCentre1.add(vPlat, BorderLayout.CENTER);
+        
         panelCentre1.add(vAven, BorderLayout.EAST);
 
         //Ajout 2 panel au Panel Sud2 > vueMainAven centre / gauche | vueActionAven > à droite
         panelSud2.add(vMainAven, BorderLayout.CENTER);
+        
         panelSud2.add(vActionAven, BorderLayout.EAST);
 
         //Ajout panel au Panel Principale
         mainPanel.add(panelCentre1, BorderLayout.CENTER);
         mainPanel.add(panelSud2, BorderLayout.SOUTH);
 
-        window.add(mainPanel);*/
+        window.add(mainPanel); */
         window.setVisible(true);
     }
 
