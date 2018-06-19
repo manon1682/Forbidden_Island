@@ -9,6 +9,7 @@ import Aventurier.Aventurier;
 import forbidden_island.Grille;
 import forbidden_island.Observe;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,21 +27,19 @@ public class IHMJeu extends Observe {
     private VueNiveau vNiveau;
     private VuePlateau vPlat;
     private VueCoequipierAventurier vAven;
-    private VueMessageBox vText;
     private VueActionAventurier vActionAven;
     private VueInventaireAventurier vMainAven;
     
     private Aventurier aventurier;
     private Grille grille;
 
-    public IHMJeu(Grille grille) {
+    public IHMJeu(Grille grille, ArrayList<Aventurier> joueurs, Aventurier joueurCourant) {
 
         //initialisation variable
         setGrille(grille);
         vNiveau = new VueNiveau();
         vPlat = new VuePlateau(grille);
         vAven = new VueCoequipierAventurier(aventurier);
-        vText = new VueMessageBox();
         vActionAven = new VueActionAventurier(aventurier);
         vMainAven = new VueInventaireAventurier(aventurier);
         //fin initialisation
@@ -94,9 +93,7 @@ public class IHMJeu extends Observe {
 
     // Getter
 
-    public VueMessageBox getvText() {
-        return vText;
-    }
+   
 
     public Aventurier getAventurier() {
         return aventurier;
