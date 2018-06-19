@@ -5,6 +5,7 @@
  */
 package view;
 
+import Aventurier.Aventurier;
 import Enumeration.EtatTuile;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -13,10 +14,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import util.Utils.Pion;
 
 /**
  *
@@ -28,11 +31,13 @@ public class VueTuile extends JPanel{
     private String nomTuile;
     private Dimension dim;
     private boolean cadre;
+    private ArrayList<Pion> joueur;
     
     private BufferedImage tuileNormale;
     private BufferedImage tuileInondee;
     
     public VueTuile(String nom, EtatTuile etat, Dimension dim){
+        joueur = new ArrayList<>();
         setCadre(false);
         setDim(dim);
         setNomTuile(nom);
@@ -76,8 +81,22 @@ public class VueTuile extends JPanel{
             g.setColor(Color.yellow);
             g.drawRect(0, 0, dim.width, dim.height);
         }
+        afficherPion(g);
         
     }
+    
+    public void afficherPion(Graphics g){
+        
+        int cX = 0;
+        int cY = 0;
+        for(Pion j : joueur){    
+            g.drawImage(j.getImage(),cX,cY,dim.width/2,dim.height/2,null);
+            cX = (cX == 0 ? dim.width/2 : 0);
+            cY = (cX == 0 ? cY : dim.height/2);
+        }
+    }
+    
+    
     
     public String getNomFichierTuile(String nomTuile){
         String nom;
@@ -193,5 +212,16 @@ public class VueTuile extends JPanel{
         this.cadre = cadre;
     }
     
+    public void addJoueur(Aventurier j){
+        joueur.add(j.getPion());
+    }
+    
+    public void retirerJoueur(Aventurier j){
+        joueur.remove(j.getPion());
+    }
+
+    public ArrayList<Pion> getJoueur() {
+        return joueur;
+    }
     
 }

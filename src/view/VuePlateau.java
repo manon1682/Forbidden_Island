@@ -35,6 +35,8 @@ public class VuePlateau extends JPanel {
         joueurs = js;
         tuiles = new VueTuile[6][6];
         initTuiles(grille);
+        
+        this.setBackground(Color.blue);
         this.setLayout(new GridLayout(6, 6));
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
@@ -55,7 +57,18 @@ public class VuePlateau extends JPanel {
             }
         }
     }
-
+    
+    public void majTuiles(ArrayList<Aventurier> joueurs) {
+        for (int l = 0; l < 6; l++) {
+            for (int c = 0; c < 6; c++) {
+                tuiles[l][c].getJoueur().clear();
+            }
+        }
+        for(Aventurier j : joueurs){
+            tuiles[j.getL()][j.getL()].getJoueur().add(j.getPion());
+       }
+    }
+    
     public void initTuiles(Grille grille) {
         Tuile[][] ts = grille.getTuiles();
         for (int l = 0; l < 6; l++) {
