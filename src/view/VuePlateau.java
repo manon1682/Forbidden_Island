@@ -23,8 +23,10 @@ public class VuePlateau extends JPanel {
 
     private Grille grille;
     private VueTuile[][] tuiles;
+    private boolean activer;
     
     public VuePlateau(Grille grille) {
+        activer = false;
         this.grille = grille;
         tuiles = new VueTuile[6][6];
         initTuiles(grille);
@@ -61,4 +63,25 @@ public class VuePlateau extends JPanel {
             }
         }
     }
+    
+    public void afficherPossible(boolean[][] gBool){
+        activer = true;
+        for(int l = 0; l<6 ; l++){
+            for(int c = 0; c<6 ; c++){
+                if(gBool[l][c]){
+                    tuiles[l][c].setCadre(true);
+                }
+            }
+        }
+    }
+    
+    public void desaficherPossible(){
+        for(int l = 0; l<6 ; l++){
+            for(int c = 0; c<6 ; c++){
+                tuiles[l][c].setCadre(false);
+            }
+        }
+    }
+    
+    
 }

@@ -6,6 +6,7 @@
 package view;
 
 import Enumeration.EtatTuile;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -26,11 +27,13 @@ public class VueTuile extends JPanel{
     private EtatTuile etat;
     private String nomTuile;
     private Dimension dim;
+    private boolean cadre;
     
     private BufferedImage tuileNormale;
     private BufferedImage tuileInondee;
     
     public VueTuile(String nom, EtatTuile etat, Dimension dim){
+        setCadre(false);
         setDim(dim);
         setNomTuile(nom);
         setEtat(etat);
@@ -66,7 +69,12 @@ public class VueTuile extends JPanel{
             g.drawImage(tuileInondee, 0, 0, dim.width, dim.height, null);
         } else {
             g.setColor(Color.blue);
-            g.fillRect(0, 0, dim.width, dim.width);
+            g.fillRect(0, 0, dim.width, dim.height);
+        }
+        if(isCadre()){
+            BasicStroke nStrock = new BasicStroke(4.0f); //Augmente epaissuer du contour de la tuile
+            g.setColor(Color.yellow);
+            g.drawRect(0, 0, dim.width, dim.height);
         }
         
     }
@@ -176,5 +184,14 @@ public class VueTuile extends JPanel{
     public void setDim(Dimension dim) {
         this.dim = dim;
     }
+
+    public boolean isCadre() {
+        return cadre;
+    }
+
+    public void setCadre(boolean cadre) {
+        this.cadre = cadre;
+    }
+    
     
 }
