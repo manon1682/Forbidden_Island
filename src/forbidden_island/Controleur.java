@@ -548,9 +548,25 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         vueTemp.getBtnActionSpeciale().setEnabled(actionSpecialePossible());
 
         //Activation ou non du bouton "Prendre trésor"
-        //Activation ou non du bouton "Donner carte" uniquement lors d'un clic sur une carte (Donc dans traiter message)
+        //Le bouton "Donner carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
         //Le bouton "Utiliser carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
     }
+    
+    public void finirTour(){
+        //On récupère la vue des action de la vue de l'IHM Jeu
+        VueActionAventurier vueTemp = vueIHMJeu.getvActionAven();
+
+        //Activation ou non du bouton "Déplacer"
+        vueTemp.getBtnDeplacer().setEnabled(false);
+
+        //Activation ou non du bouton "Assécher"
+        vueTemp.getBtnAssecher().setEnabled(false);
+
+        //Activation ou non du bouton "Action spéciale"
+        vueTemp.getBtnActionSpeciale().setEnabled(false);
+
+    }
+    
 
     public ArrayList<CarteInnondation> tirageCarteInnondation() {
         ArrayList<CarteInnondation> cartes = new ArrayList<>();
@@ -817,7 +833,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             //Si le joueur n'a plus d'action on fini son tour
             if (nbAction == 0) {
-                vueIHMJeu.finirTour();
+                finirTour();
             }
 
         }
