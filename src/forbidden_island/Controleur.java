@@ -13,6 +13,7 @@ import Cartes.Deck;
 import Enumeration.CarteUtilisable;
 import Enumeration.EtatTuile;
 import Enumeration.Tresor;
+import Enumeration.TypesNiveaux;
 
 /*Charger fichier tuiles*/
 import java.io.BufferedReader;
@@ -204,7 +205,9 @@ public class Controleur implements Observateur {
         joueurCourant = joueurs.get(0);
 
     }
-
+    public void initJauge(TypesNiveaux type){
+        //A FAIRE
+    }
     public void addDefausseT(CarteTresor carte) {
         getDeck_T().defausser(carte);
     }
@@ -776,7 +779,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case NOUVELLE_PARTIE:
                 //On initialise les joueurs
-                initJoueur(m.getNbJoueur(), m.getNom());
+                initJoueur(m.getNom().size(), m.getNom());
+                //On initialise le niveau du jeu
+                initJauge(m.getNiveau());
                 //On désaffiche la fenêtre d'initialisation
                 vueIHMJeu.desafficherIni();
 
