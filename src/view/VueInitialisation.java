@@ -9,7 +9,9 @@ import Enumeration.TypesMessages;
 import forbidden_island.Message;
 import forbidden_island.Observe;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -43,9 +45,12 @@ public class VueInitialisation extends JPanel {
     private JComboBox choixNbJoueur;
     private String[] nbjoueurs;
     private JPanel panelHaut;
+    private JPanel panelHautTitre;
+    private JPanel panelHautChoix;
     private JPanel panelBas;
     private JButton valider;
     private JButton manuel;
+    private JLabel labTitre;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
 
@@ -60,7 +65,7 @@ public class VueInitialisation extends JPanel {
         this.nbjoueurs = new String[]{"2", "3", "4"};
         this.window = new JFrame();
         window.setResizable(false);
-        window.setSize(500, 350);
+        window.setSize(500, 600);
         window.setLocationRelativeTo(null);
 
         window.setTitle("Ile Interdite");
@@ -75,36 +80,48 @@ public class VueInitialisation extends JPanel {
         this.window.add(this);
 
         // **** Panel Haut ****
-        panelHaut = new JPanel(new GridLayout(5, 3));
+        panelHaut = new JPanel(new BorderLayout());
         panelHaut.setOpaque(false);
         
-        //Ligne 1 Titre
-        panelHaut.add(new JLabel());
-        panelHaut.add(new JLabel("Ile Interdite"));
-        panelHaut.add(new JLabel());
+        //PanelHautTitre
+        labTitre = new JLabel("Ile Interdite");
+        labTitre.setForeground(Color.white);
+        labTitre.setFont(new Font("Arial Black", Font.PLAIN, 40));
+        panelHautTitre = new JPanel();
+        panelHautTitre.setOpaque(false);
+        panelHautTitre.add(labTitre);
+        panelHaut.add(panelHautTitre, BorderLayout.NORTH);
         
-        //Ligne 2 Saut de ligne
-        panelHaut.add(new JLabel());
-        panelHaut.add(new JLabel());
-        panelHaut.add(new JLabel());
+        panelHautChoix = new JPanel(new GridLayout(4, 4));
+        panelHautChoix.setOpaque(false);
+        //Ligne 1 Saut de ligne
+        panelHautChoix.add(new JLabel());
+        panelHautChoix.add(new JLabel());
+        panelHautChoix.add(new JLabel());
+        panelHautChoix.add(new JLabel());
         
-        //Ligne 3 Bouton Manuel
-        panelHaut.add(new JLabel());
-        panelHaut.add(new JLabel());
+        //Ligne 2 Bouton Manuel
+        panelHautChoix.add(new JLabel());
+        panelHautChoix.add(new JLabel());
         manuel = new JButton("Manuel");
-        panelHaut.add(manuel);
+        panelHautChoix.add(manuel);
+        panelHautChoix.add(new JLabel());
         
-        //Ligne 4 Nombre Joueur  
-        panelHaut.add(new JLabel());
-        panelHaut.add(new JLabel("Nombre de Joueur : "));
+        //Ligne 3 Nombre Joueur  
+        panelHautChoix.add(new JLabel());
+        panelHautChoix.add(new JLabel("Nombre de Joueur : "));
         choixNbJoueur = new JComboBox(nbjoueurs);
-        panelHaut.add(choixNbJoueur);
+        panelHautChoix.add(choixNbJoueur);
+        panelHautChoix.add(new JLabel());
         
-        //Ligne 5 Saut de Ligne
-        panelHaut.add(new JLabel());
-        panelHaut.add(new JLabel());
-        panelHaut.add(new JLabel());
+        //Ligne 4 Saut de Ligne
+        panelHautChoix.add(new JLabel());
+        panelHautChoix.add(new JLabel());
+        panelHautChoix.add(new JLabel());
+        panelHautChoix.add(new JLabel());
 
+        panelHaut.add(panelHautChoix, BorderLayout.CENTER);
+        
         this.add(panelHaut, BorderLayout.NORTH);
 
         // **** Fin PanelHaut ****
@@ -177,7 +194,7 @@ public class VueInitialisation extends JPanel {
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, 500, 350, null, this);
+        g.drawImage(image, 0, 0, 500, 600, null, this);
     }
 
     public void afficher() {

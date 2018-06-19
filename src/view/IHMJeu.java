@@ -33,6 +33,7 @@ public class IHMJeu extends Observe {
     private ArrayList<Aventurier> joueurs;
     private Aventurier joueurCourant;
     private Grille grille;
+    private int jaugeInnondation;
 
     public IHMJeu(Grille g, ArrayList<Aventurier> joueurs, Aventurier a) {
 
@@ -93,10 +94,13 @@ public class IHMJeu extends Observe {
     public void desafficherIni(){
         vIni.desafficher();
     }
+    
+    public void afficherTuilePossible(boolean[][] grille){
+        
+    }
+    
 
     // Getter
-
-   
 
     public Aventurier getAventurier() {
         return joueurCourant;

@@ -14,8 +14,17 @@ import javax.swing.JPanel;
  * @author blanquan
  */
 public class VueNiveau extends JPanel {
+    
+    
+     private Integer jaugeInnondation ;
 
-    public VueNiveau() {
+    public VueNiveau(int jaugeInn) {
+        
+        //initialisation
+        this.jaugeInnondation = jaugeInn;
+
+        
+        
         this.setBackground(Color.PINK);
         
         JPanel caseNiveauTemporaire = new JPanel(); //à suppr pour une image dès que possible        
