@@ -199,14 +199,14 @@ public class Controleur implements Observateur {
                     joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
             }
-            
+
             ArrayList<CarteTresor> main = new ArrayList<>();
-            
+
             for (int j = 0; j < 2; j++) {
                 //On pioche une carte
                 CarteTresor carte = (CarteTresor) deck_T.pioche();
                 //Tant que le joueur pioche une carte montée des eaux
-                while (carte.getNom().equals(CarteUtilisable.MONTEE_EAU.toString())){
+                while (carte.getNom().equals(CarteUtilisable.MONTEE_EAU.toString())) {
                     //On remet cette carte dans la pioche
                     deck_T.getPioche().add(carte);
                     //On mélange la pioche
@@ -217,7 +217,7 @@ public class Controleur implements Observateur {
                 //On ajoute la carte piochée à la main
                 main.add(carte);
             }
-            
+
             //On lui ajoute une main sans "montée des eaux"
             joueurs.get(i).ajouterCartesMain(main);
             roles.remove(rand);
@@ -227,17 +227,19 @@ public class Controleur implements Observateur {
         joueurCourant = joueurs.get(0);
 
     }
-    public void initJauge(TypesNiveaux type){
-        if (type == TypesNiveaux.NOVICE){
+
+    public void initJauge(TypesNiveaux type) {
+        if (type == TypesNiveaux.NOVICE) {
             jaugeInnondation = 1;
         } else if (type == TypesNiveaux.NORMAL) {
             jaugeInnondation = 2;
-        } else if (type == TypesNiveaux.ELITE){
+        } else if (type == TypesNiveaux.ELITE) {
             jaugeInnondation = 3;
         } else {
             jaugeInnondation = 4;
         }
     }
+
     public void addDefausseT(CarteTresor carte) {
         getDeck_T().defausser(carte);
     }
@@ -307,7 +309,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         Tuile tuileHelico = grille.getTuileAvecNom("Heliport");
 
         boolean joueursPresentsHeliport = true;
-        
+
         for (Aventurier j : joueurs) {
             if (j.getL() != tuileHelico.getLigne() || j.getC() != tuileHelico.getColonne()) {
                 joueursPresentsHeliport = false;
@@ -362,21 +364,21 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         Aventurier sauvegarde = joueurCourant;
         for (Aventurier joueur : joueurs) {
             if (joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()) {
-                if (evasion(joueur)){
+                if (evasion(joueur)) {
                     joueurCourant = joueur;
                     Message m = new Message(TypesMessages.DEPLACER);
                     traiterMessage(m);
-                    
+
                     //On désactive tous les boutons pour que le joueur soit obliger de choisir une case où se déplacer
                     VueActionAventurier vueTemp = vueIHMJeu.getvActionAven();
                     vueTemp.getBtnDeplacer().setEnabled(false);
                     vueTemp.getBtnActionSpeciale().setEnabled(false);
                     vueTemp.getBtnAssecher().setEnabled(false);
-                    
+
                 } else {
                     partiePerdue = true;
                 }
-                
+
             }
         }
         joueurCourant = sauvegarde;
@@ -416,19 +418,19 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         4. Si le Marqueur de niveau atteint la tête de mort.        
          */
 
-        //cas 1
-        if (grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.coulée
+        //Cas 1
+        if ((grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.coulée
                 && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.coulée
-                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Temple du Soleil").getTresor()) == false
-                || grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.coulée
+                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Temple du Soleil").getTresor()) == false)
+                || (grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.coulée
                 && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.coulée
-                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("La Caverne des Ombres").getTresor()) == false
-                || grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.coulée
+                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("La Caverne des Ombres").getTresor()) == false)
+                || (grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.coulée
                 && grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.coulée
-                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Palais des Marees").getTresor()) == false
-                || grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.coulée
+                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Palais des Marees").getTresor()) == false)
+                || (grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.coulée
                 && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.coulée
-                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false) {
+                && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false)) {
             return true;
         }
 
@@ -582,8 +584,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //Le bouton "Donner carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
         //Le bouton "Utiliser carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
     }
-    
-    public void finirTour(){
+
+    public void finirTour() {
         //On récupère la vue des action de la vue de l'IHM Jeu
         VueActionAventurier vueTemp = vueIHMJeu.getvActionAven();
 
@@ -597,7 +599,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         vueTemp.getBtnActionSpeciale().setEnabled(false);
 
     }
-    
 
     public ArrayList<CarteInnondation> tirageCarteInnondation() {
         ArrayList<CarteInnondation> cartes = new ArrayList<>();
@@ -607,6 +608,12 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             CarteInnondation carte = (CarteInnondation) deck_I.pioche();
 
             while (!(inondee(carte.getLieu()))) {
+                //S'il n'y a plus de carte dans la pioche
+                if (deck_I.getPioche().isEmpty()) {
+                    //On mélange la défausse et la met dans la pioche
+                    deck_I.melangerDefausse();
+                    deck_I.getPioche().addAll(deck_I.getDefausse());
+                }
                 carte = (CarteInnondation) deck_I.pioche();
             }
 
@@ -619,6 +626,13 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //TIRAGE DES CARTES TRESORS
         //Le joueur pioche 2 cartes Trésors
         ArrayList<CarteTresor> cartesTresors = new ArrayList<>();
+        //S'il n'y a plus de carte dans la pioche
+        if (deck_T.getPioche().isEmpty()) {
+            //On mélange la défausse et la met dans la pioche
+            deck_T.melangerDefausse();
+            deck_T.getPioche().addAll(deck_T.getDefausse());
+        }
+
         cartesTresors = deck_T.piocher();
 
         //On ajoute les cartes à la main du joueur
@@ -629,27 +643,32 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //PREND EN COMPTE LA MONTEE DES EAUX
         //On regarde le nombre de carte montée des eaux que le joueur a pioché
         for (CarteTresor carte : cartesTresors) {
+            int ancienneJauge = jaugeInnondation;
             if (carte.getNom().equals(CarteUtilisable.MONTEE_EAU.toString())) {
                 //Monte la jauge d'un cran
                 jaugeInnondation = jaugeInnondation + 1;
             }
-        }
 
-        //Si le tas de défausse n'est pas vide
-        if (!(deck_I.getDefausse().isEmpty())) {
-            deck_I.melangerDefausse();
-            deck_I.getPioche().addAll(deck_I.getDefausse());
+            //Si la jauge a augmenté (donc on a tiré une carte "Montée des eaux")
+            if (ancienneJauge != jaugeInnondation) {
+                //Si le tas de défausse n'est pas vide
+                if (!(deck_I.getDefausse().isEmpty())) {
+                    //On mélange la défausse
+                    deck_I.melangerDefausse();
+                    //On remet la défausse dans la pioche
+                    deck_I.getPioche().addAll(deck_I.getDefausse());
 
-            //Tire les carte inondations
-            ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
-            //Ajoute ces cartes à la défausse
-            deck_I.getDefausse().addAll(cartesInnondation);
-            //Pour repeindre la plateau avec les nouvelles cartes inondées
-            vueIHMJeu.setGrille(grille);
-            vueIHMJeu.getvPlat().majTuiles(grille);
-            //vueA.afficher();
-            //On affiche les cartes piochées
+                    //Tire les carte inondations
+                    ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
+                    //Ajoute ces cartes à la défausse
+                    deck_I.getDefausse().addAll(cartesInnondation);
+                    //Pour repeindre la plateau avec les nouvelles cartes inondées
+                    vueIHMJeu.setGrille(grille);
+                    vueIHMJeu.getvPlat().majTuiles(grille);
+                    //On affiche les cartes piochées
 //            vueA.afficherCartePioche(cartesInnondation);
+                }
+            }
         }
 
         //TIRAGE DES CARTES INONDATIONS
@@ -677,6 +696,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     g = joueurCourant.deplacementPossible(grille);
                     // On affiche l'IHM avec les tuiles possibles
                     vueIHMJeu.afficherTuilePossible(g);
+                    //actionPossible();
+                    //Desactivation ou non du bouton "Déplacer"
+                    //vueIHMJeu.getvActionAven().getBtnDeplacer().setEnabled(false);
                 } else {
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
@@ -685,7 +707,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     int c = tuile.getColonne();
 
                     joueurCourant.deplacer(l, c);
-                    actionPossible();
+                    //actionPossible();
+                    vueIHMJeu.getvPlat().majTuiles(joueurs);
                 }
 
                 break;
@@ -696,13 +719,18 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     g = joueurCourant.assechementPossible(getGrille());
                     // On affiche l'IHM avec les tuiles possibles
                     vueIHMJeu.afficherTuilePossible(g);
+                    // actionPossible();
+                    //Desactivation ou non du bouton "Assécher"
+                    //  vueIHMJeu.getvActionAven().getBtnAssecher().setEnabled(false);
+
                 } else {
                     //Sinon on asséche la tuile choisie
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
 
                     tuile.asseche();
-                    actionPossible();
+                    //actionPossible();
+                    vueIHMJeu.getvPlat().majTuiles(grille);
                 }
                 break;
 
@@ -748,11 +776,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         //Si sa capacité utilisée = 2, le joueur en est à son 2ème asséchement
                         //On met à jour sa capacité spéciale
                         ingenieur.setCapaciteUtilisee(0);
-                        actionPossible();
+                        //actionPossible();
                     }
                     joueurCourant = ingenieur;
                 }
-                actionPossible();
 
                 break;
 
@@ -814,10 +841,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 vueIHMJeu.desafficherIni();
 
                 //On affiche la fenêtre de jeu
-                vueIHMJeu.afficher(grille, joueurs, joueurCourant, jaugeInnondation);
-                
+                vueIHMJeu.afficherInitiale(grille, joueurs, joueurCourant, jaugeInnondation);
+
                 //On affiche les actions possibles
-                actionPossible();
+                //actionPossible();
                 break;
 
             case TOUR_SUIVANT:
@@ -831,6 +858,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 // Ici on vérifie que la partie n'est ni perdu ni gagner pour continuer
                 if (perdrePartie()) {
                     System.out.println("perdue");
+                    vueIHMJeu.getvPlat().majTuiles(grille);
 //                    vueA.perdu();
                 } else if (gagnerPartie()) {
                     System.out.println("gagnée");
@@ -843,21 +871,22 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                     //On créer une nouvelle vue Aventurier
                     //vueIHMJeu.miseAJour(joueurCourant);
-                    vueIHMJeu.afficher(grille, joueurs, joueurCourant, jaugeInnondation);
-                    actionPossible();
+                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation);
+                    //actionPossible();
                 }
 
                 break;
 
         }
-        
+
         //Affiche les boutons d'actions possibles
         actionPossible();
-        
-        if (type != TypesMessages.NOUVELLE_PARTIE &&
-                type != TypesMessages.TOUR_SUIVANT &&
-                type != TypesMessages.UTILISER_CARTE &&
-                type != TypesMessages.CARTE_CLICK) {
+
+        if (type != TypesMessages.NOUVELLE_PARTIE
+                && type != TypesMessages.TOUR_SUIVANT
+                && type != TypesMessages.UTILISER_CARTE
+                && type != TypesMessages.CARTE_CLICK
+                && m.getTuile() != null) {
             //On décrémente le nombre d'action
             nbAction = nbAction - 1;
 

@@ -47,6 +47,7 @@ public class VueTuile extends JPanel{
     }
     
     public VueTuile(String nom, EtatTuile etat){
+        joueur = new ArrayList<>();
         int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
         setDim(new Dimension(size, size));
         setNomTuile(nom);
@@ -86,8 +87,6 @@ public class VueTuile extends JPanel{
             g2.setColor(Color.yellow);
             g2.drawRect(0, 0, dim.width, dim.height);
         }
-        
-        
     }
     
     public void afficherPion(Graphics g){
