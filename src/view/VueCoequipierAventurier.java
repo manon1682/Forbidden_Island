@@ -119,11 +119,11 @@ public class VueCoequipierAventurier extends JPanel {
         JPanel grilleTresor = new JPanel(new GridLayout(1, 4));
 
         grilleTresor.add(tresorCristalArdent);
-        grilleTresor.add(tresorCristalArdent);
-        grilleTresor.add(tresorCristalArdent);
-        grilleTresor.add(tresorCristalArdent);
+        grilleTresor.add(tresorStatueZephir);
+        grilleTresor.add(tresorCaliceOrdre);
+        grilleTresor.add(tresorPierreSacre);
 
-        containerCase1.add(containerCase1, BorderLayout.CENTER);
+        containerCase1.add(grilleTresor, BorderLayout.CENTER);
         containerCase1.add(btnFermerJeu, BorderLayout.EAST);
 
         grilleCoequipier.add(containerCase1);
@@ -153,7 +153,7 @@ public class VueCoequipierAventurier extends JPanel {
         JPanel J3containerCarte5 = new JPanel(new GridLayout(2, 1));
         JPanel J3containerCarte6 = new JPanel(new GridLayout(2, 1));
         
-        //simplifiable 100%, nomdevariable avec variable d'après Matthias   
+        //simplifiable 100%, nomdevariable avec variable d'après Mathias   
         for (int i = 0; i < 6; i++) {
             
             if (i == 0) {
@@ -250,8 +250,20 @@ public class VueCoequipierAventurier extends JPanel {
             
         }
         
+        grilleCoequipier.add(J1grilleInventaire);
+        grilleCoequipier.add(J1grilleInventaire);
+        grilleCoequipier.add(J1grilleInventaire);
+
+        
         //Case 5 de la grilleCoequipier (MessageBox)
-        grilleCoequipier.add(ihm.getvText());
+        
+        JPanel case5Temporaire = new JPanel(); //à suppr pour ihmText dès que possible
+        case5Temporaire.setBackground(Color.GREEN);
+        
+        grilleCoequipier.add(case5Temporaire);
+        
+        //grilleCoequipier.add(ihm.getvText()); active dès que possible
+        
 
         //Ajout des éléments à la fenêtre principale;
         this.add(grilleCoequipier);

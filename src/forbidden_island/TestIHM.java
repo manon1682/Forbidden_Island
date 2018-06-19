@@ -16,7 +16,8 @@ public class TestIHM {
     
     
     public TestIHM(){
-        new IHMJeu();
+        Controleur c =  new Controleur();
+        new IHMJeu(c.getGrille());
     }
     
     

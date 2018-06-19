@@ -6,6 +6,7 @@
 package view;
 
 import Enumeration.EtatTuile;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -36,22 +37,36 @@ public class VueTuile extends JPanel{
         initImage();
     }
     
+    public VueTuile(String nom, EtatTuile etat){
+        int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
+        setDim(new Dimension(size, size));
+        setNomTuile(nom);
+        setEtat(etat);
+        initImage();
+    }
+    
     public void initImage(){
-        try {
-            tuileNormale = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+".png")));
-            tuileInondee = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Inonde.png")));
-        } catch (IOException ex) {
-            ex.fillInStackTrace();
+        if(getNomFichierTuile(nomTuile) != null){
+            try {
+                tuileNormale = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+".png")));
+                tuileInondee = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Inonde.png")));
+            } catch (IOException ex) {
+                ex.fillInStackTrace();
+            }   
         }
     }
     
     @Override
     public void paint(Graphics g){
-        
+        int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
+        setDim(new Dimension(size, size));
         if(etat == EtatTuile.sèche){
             g.drawImage(tuileNormale, 0, 0, dim.width, dim.height, null);
-        } else {
+        } else if(etat == EtatTuile.inondée){
             g.drawImage(tuileInondee, 0, 0, dim.width, dim.height, null);
+        } else {
+            g.setColor(Color.blue);
+            g.fillRect(0, 0, dim.width, dim.width);
         }
         
     }
@@ -66,7 +81,7 @@ public class VueTuile extends JPanel{
                 nom = "LaPorteDeBronze";
             } break;
             case "La Caverne des Ombres":{
-                nom = "LaCaverneDesOmbres";
+                nom = "LaCarverneDesOmbres";
             } break;
             case "La Porte de Fer":{
                 nom = "LaPorteDeFer";
@@ -111,7 +126,7 @@ public class VueTuile extends JPanel{
                 nom = "LeRocherFantome";
             } break;
             case "La Caverne du Brasier":{
-                nom = "LaCaverneDuBrasier";
+                nom = "LaCarverneDuBrasier";
             } break;
             case "Le Temple du Soleil":{
                 nom = "LeTempleDuSoleil";
@@ -132,7 +147,7 @@ public class VueTuile extends JPanel{
                 nom = "LeJardinDesMurmures";
             } break;
             default :{
-                nom = new String();
+                nom = null;
             }
         }
         return nom;

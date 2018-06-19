@@ -30,17 +30,19 @@ public class IHMJeu extends Observe {
     private VueActionAventurier vActionAven;
     private VueInventaireAventurier vMainAven;
     
-    private Aventurier avTest;
+    private Aventurier aventurier;
+    private Grille grille;
 
-    public IHMJeu() {
+    public IHMJeu(Grille grille) {
 
         //initialisation variable
+        setGrille(grille);
         vNiveau = new VueNiveau();
-        vPlat = new VuePlateau();
-        vAven = new VueCoequipierAventurier(avTest);
+        vPlat = new VuePlateau(grille);
+        vAven = new VueCoequipierAventurier(aventurier);
         vText = new VueMessageBox();
-        vActionAven = new VueActionAventurier(avTest);
-        vMainAven = new VueInventaireAventurier(avTest);
+        vActionAven = new VueActionAventurier(aventurier);
+        vMainAven = new VueInventaireAventurier(aventurier);
         //fin initialisation
 
         this.window = new JFrame();
@@ -86,6 +88,26 @@ public class IHMJeu extends Observe {
 
     public VueMessageBox getvText() {
         return vText;
+    }
+
+    public Aventurier getAventurier() {
+        return aventurier;
+    }
+
+    public void setAventurier(Aventurier aventurier) {
+        this.aventurier = aventurier;
+    }
+
+    public Grille getGrille() {
+        return grille;
+    }
+
+    public void setGrille(Grille grille) {
+        this.grille = grille;
+    }
+
+    public VuePlateau getvPlat() {
+        return vPlat;
     }
     
     
