@@ -53,26 +53,10 @@ public class VueInitialisation extends JPanel{
 
     public VueInitialisation() {
         this.nbjoueurs = new String[]{"2", "3", "4"};
-        this.window = new JFrame() {
-            @Override
-            public void paintComponents(Graphics g) {
-                try {
-                    Image img = ImageIO.read(new FileInputStream("images/background/image_init.jpg"));
-                    g.drawImage(img, 0, 0, null);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        window.add(this);
+        this.window = new JFrame();
         window.setSize(500, 350);
 
         window.setTitle("Ile Interdite");
-       
-        
-        
-        
         try {
             this.image = ImageIO.read(new FileInputStream("images/background/image_init_size.png"));
             
@@ -156,6 +140,7 @@ public class VueInitialisation extends JPanel{
         });
        
         window.setVisible(true);
+        this.repaint();
     }
     
     @Override
@@ -167,7 +152,6 @@ public class VueInitialisation extends JPanel{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, 500, 350, null, this);
-        this.repaint();
     }
 
     public void afficher() {
