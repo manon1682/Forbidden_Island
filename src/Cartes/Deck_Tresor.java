@@ -40,11 +40,11 @@ public class Deck_Tresor extends Deck {
         }
         
         laCarte = CarteUtilisable.PIERRE_SACRE;
-        for (int i = 0; i <= 4; i++) {   
+        for (int i = 0; i < 4; i++) {   
             for (int j = 0; j <= 5; j++) {
                 cartesPioche.add( new CarteTresor(laCarte));
             }
-            laCarte.getNext();
+            laCarte = laCarte.getNext();
         }
         return cartesPioche;
     }

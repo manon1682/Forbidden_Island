@@ -198,6 +198,7 @@ public class Controleur implements Observateur {
                     joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
             }
+            
             joueurs.get(i).ajouterCartesMain(deck_T.piocher());
             roles.remove(rand);
         }
