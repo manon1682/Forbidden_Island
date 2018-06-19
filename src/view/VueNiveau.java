@@ -5,6 +5,8 @@
  */
 package view;
 
+import java.awt.Color;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -12,5 +14,22 @@ import javax.swing.JPanel;
  * @author blanquan
  */
 public class VueNiveau extends JPanel {
+
+    public VueNiveau() {
+        this.setBackground(Color.PINK);
+        
+        JPanel caseNiveauTemporaire = new JPanel(); //à suppr pour une image dès que possible        
+        JLabel msgboxTempo = new JLabel("niveau eau");
+        caseNiveauTemporaire.add(msgboxTempo);
+
+        this.add(caseNiveauTemporaire);
+        
+    }
+    
+    
+    
+    
+    
+    
     
 }
