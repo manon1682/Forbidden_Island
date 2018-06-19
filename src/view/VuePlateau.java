@@ -100,7 +100,7 @@ public class VuePlateau extends JPanel {
         Tuile[][] ts = grille.getTuiles();
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
-                if (grille.getTuiles()[l][c] != null && grille.getTuiles()[l][c].getEtat() != EtatTuile.coulée) {
+                if (grille.getTuiles()[l][c] != null){ //&& grille.getTuiles()[l][c].getEtat() != EtatTuile.coulée) {
                     ((VueTuile) tuiles[l][c]).setEtat(ts[l][c].getEtat());
                 } else {
                     tuiles[l][c] = new VueTuile("Ocean", EtatTuile.coulée);

@@ -360,7 +360,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         }
     }
 
-    public void coule(Tuile tuile) {    //Si une tuile coule on vérifie que ça ne tue pas un aventurier si sa en tue un la partie est perdu
+    public void coule(Tuile tuile) {    //Si une tuile coule on vérifie que ça ne tue pas un aventurier si ça en tue un la partie est perdue
         Aventurier sauvegarde = joueurCourant;
         for (Aventurier joueur : joueurs) {
             if (joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()) {
@@ -619,6 +619,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             cartes.add(carte);
         }
+
         return cartes;
     }
 
@@ -672,6 +673,12 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         }
 
         //TIRAGE DES CARTES INONDATIONS
+        //S'il n'y a plus de carte dans la pioche
+        if (deck_I.getPioche().isEmpty()) {
+            //On mélange la défausse et la met dans la pioche
+            deck_I.melangerDefausse();
+            deck_I.getPioche().addAll(deck_I.getDefausse());
+        }
         //Tire les carte inondations
         ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
         //Ajoute ces cartes à la défausse
@@ -679,6 +686,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //Pour repeindre la plateau avec les nouvelles cartes inondées
         vueIHMJeu.setGrille(grille);
         vueIHMJeu.getvPlat().majTuiles(grille);
+        vueIHMJeu.getvPlat().repaint();
         //On affiche les cartes piochées
 //        vueA.afficherCartePioche(cartesInnondation);
 
@@ -751,6 +759,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                         joueurCourant.deplacer(l, c);
                         ((Pilote) joueurCourant).setCapaciteUtilisee(true);
+                        vueIHMJeu.getvPlat().majTuiles(joueurs);
                     }
                 } else //Sinon il s'agit de l'ingénieur
                 // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Action spéciale"
@@ -779,6 +788,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         //actionPossible();
                     }
                     joueurCourant = ingenieur;
+                    vueIHMJeu.getvPlat().majTuiles(grille);
                 }
 
                 break;
@@ -858,7 +868,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 // Ici on vérifie que la partie n'est ni perdu ni gagner pour continuer
                 if (perdrePartie()) {
                     System.out.println("perdue");
-                    vueIHMJeu.getvPlat().majTuiles(grille);
 //                    vueA.perdu();
                 } else if (gagnerPartie()) {
                     System.out.println("gagnée");
