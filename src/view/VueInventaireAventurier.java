@@ -35,6 +35,8 @@ public class VueInventaireAventurier extends JPanel {
         ihm = ihmJ;
         a = aventurier;
         
+        this.setPreferredSize(new Dimension(500,200));
+        
         setLayout(new BorderLayout());
         JPanel main = new JPanel(new GridLayout(1, 6));
         JPanel panelNord = new JPanel(new BorderLayout());
