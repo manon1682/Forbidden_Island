@@ -635,7 +635,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //Monte la jauge d'un cran
                 jaugeInnondation = jaugeInnondation + 1;
             }
-            
+
             //Si la jauge a augmenté (donc on a tiré une carte "Montée des eaux")
             if (ancienneJauge != jaugeInnondation) {
                 //Si le tas de défausse n'est pas vide
@@ -683,6 +683,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     g = joueurCourant.deplacementPossible(grille);
                     // On affiche l'IHM avec les tuiles possibles
                     vueIHMJeu.afficherTuilePossible(g);
+                    actionPossible();
+                    //Desactivation ou non du bouton "Déplacer"
+                    //vueIHMJeu.getvActionAven().getBtnDeplacer().setEnabled(false);
                 } else {
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
@@ -703,6 +706,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     g = joueurCourant.assechementPossible(getGrille());
                     // On affiche l'IHM avec les tuiles possibles
                     vueIHMJeu.afficherTuilePossible(g);
+                    actionPossible();
+                    //Desactivation ou non du bouton "Assécher"
+                  //  vueIHMJeu.getvActionAven().getBtnAssecher().setEnabled(false);
+
                 } else {
                     //Sinon on asséche la tuile choisie
                     String nom = m.getTuile();
@@ -865,7 +872,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         if (type != TypesMessages.NOUVELLE_PARTIE
                 && type != TypesMessages.TOUR_SUIVANT
                 && type != TypesMessages.UTILISER_CARTE
-                && type != TypesMessages.CARTE_CLICK) {
+                && type != TypesMessages.CARTE_CLICK
+                && m.getTuile() != null) {
             //On décrémente le nombre d'action
             nbAction = nbAction - 1;
 

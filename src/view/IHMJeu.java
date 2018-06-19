@@ -6,6 +6,7 @@
 package view;
 
 import Aventurier.Aventurier;
+import Enumeration.TypesMessages;
 import forbidden_island.Grille;
 import forbidden_island.Observe;
 import java.awt.BorderLayout;
@@ -59,6 +60,7 @@ public class IHMJeu extends Observe {
         jaugeInnondation = jauge;
         vNiveau = new VueNiveau(jaugeInnondation);
         vPlat = new VuePlateau(grille, this.joueurs, this); 
+        vPlat.majTuiles(joueurs);
         vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
         vActionAven = new VueActionAventurier(joueurCourant, this);
         vMainAven = new VueInventaireAventurier(joueurCourant, this);
@@ -135,4 +137,7 @@ public class IHMJeu extends Observe {
         
     }
     
+    public TypesMessages getSauvType(){
+        return vActionAven.getSauvType();
+    }
 }
