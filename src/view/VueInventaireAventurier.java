@@ -8,10 +8,14 @@ package view;
 import Aventurier.Aventurier;
 import Cartes.CarteTresor;
 import Enumeration.CarteUtilisable;
+import Enumeration.TypesMessages;
+import forbidden_island.Message;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,6 +33,67 @@ public class VueInventaireAventurier extends JPanel {
 
         //Initialisation
         ihm = ihmJ;
+        a = aventurier;
+
+        //Couleur pour les test
+        this.setBackground(Color.red);
+        
+        setLayout(new BorderLayout());
+        JPanel main = new JPanel(new GridLayout(1, 6));
+        JPanel panelNord = new JPanel(new BorderLayout());
+        
+        panelNord.add(new JLabel(aventurier.getPseudo()), BorderLayout.WEST);
+        panelNord.add(new JLabel(aventurier.getRole()), BorderLayout.WEST);
+        
+        add(panelNord, BorderLayout.NORTH);
+        add(main, BorderLayout.CENTER);
+
+        CarteUtilisable laCarte = CarteUtilisable.PIERRE_SACRE;
+
+        for (int i = 0; i < 6; i++) {
+            int n = 0;
+            for (CarteTresor carte : a.getMainA()) {
+                if (carte.getNom().equals(laCarte.toString())) {
+                    n = n + 1;
+                }
+            }
+
+            JPanel carte = new PanelCarte(n, laCarte);
+            
+            carte.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    Message m = new Message(TypesMessages.CARTE_CLICK);
+                    ihm.notifierObservateur(m);
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                }
+            });
+            
+            main.add(carte);
+            laCarte = laCarte.getNext();
+
+        }
+
+    }
+    
+    public VueInventaireAventurier(Aventurier aventurier) {
+
+        //Initialisation
         a = aventurier;
 
         //Couleur pour les test
@@ -53,4 +118,5 @@ public class VueInventaireAventurier extends JPanel {
         }
 
     }
+    
 }
