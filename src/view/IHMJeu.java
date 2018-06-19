@@ -42,10 +42,10 @@ public class IHMJeu extends Observe {
         setAventurier(a);
         jaugeInnondation = jauge;
         vNiveau = new VueNiveau(jaugeInnondation);
-        vPlat = new VuePlateau(grille);
-        vAven = new VueCoequipierAventurier(joueurCourant);
-        vActionAven = new VueActionAventurier(joueurCourant);
-        vMainAven = new VueInventaireAventurier(joueurCourant);
+        vPlat = new VuePlateau(grille, this.joueurs, this);
+        vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
+        vActionAven = new VueActionAventurier(joueurCourant, this);
+        vMainAven = new VueInventaireAventurier(joueurCourant, this);
         this.joueurs = joueurs;
         //fin initialisation
         

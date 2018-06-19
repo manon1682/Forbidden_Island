@@ -34,8 +34,9 @@ public class VueInventaireAventurier extends JPanel {
     
     protected Aventurier a;
     
-    public VueInventaireAventurier(Aventurier aventurier) {
+    public VueInventaireAventurier(Aventurier aventurier, IHMJeu ihmJ) {
 
+        ihm = ihmJ;
         //initialisation
         carte1 = new JLabel("img Cristal Ardent");
         carte2 = new JLabel("img Statue zéphir");

@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -82,11 +83,15 @@ public class VueCoequipierAventurier extends JPanel {
     //=====
     private IHMJeu ihm;
 
-    protected Aventurier a;
+    private Aventurier a;
+    private ArrayList<Aventurier> joueurs;
 
-    public VueCoequipierAventurier(Aventurier aventurier) {
+    public VueCoequipierAventurier(Aventurier aventurier, ArrayList<Aventurier> js, IHMJeu ihm) {
 
         //Initialisation
+        this.ihm = ihm;
+        a = aventurier;
+        joueurs = js;
         //Case 1 de la grilleCoequipier
         btnFermerJeu = new JButton("Fermer Jeu");
         tresorCristalArdent = new JLabel("tresorCA");
