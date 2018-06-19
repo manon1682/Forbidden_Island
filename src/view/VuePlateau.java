@@ -7,12 +7,16 @@ package view;
 
 import Aventurier.Aventurier;
 import Enumeration.EtatTuile;
+import Enumeration.TypesMessages;
 import forbidden_island.Grille;
+import forbidden_island.Message;
 import forbidden_island.Tuile;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -23,6 +27,7 @@ import javax.swing.JPanel;
 public class VuePlateau extends JPanel {
 
     private Grille grille;
+    private boolean[][] gPossible;
     private VueTuile[][] tuiles;
     private IHMJeu ihmJeu;
     private ArrayList<Aventurier> joueurs;
@@ -43,6 +48,38 @@ public class VuePlateau extends JPanel {
                 this.add(tuiles[l][c]);
             }
         }
+        this.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                if(activer){
+                    int l = getLigne(me.getY());
+                    int c = getColonne(me.getX());
+                    if(!tuiles[l][c].getNomTuile().equals("Ocean") && gPossible[l][c]){
+                        Message m = new Message(TypesMessages.DEPLACER);
+                        m.setTuile(tuiles[l][c].getNomTuile());
+                        ihm.notifierObservateur(m);
+                    }
+                    activer = false;
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+            }
+        });
+        
     }
 
     public void majTuiles(Grille grille) {
@@ -84,6 +121,7 @@ public class VuePlateau extends JPanel {
     
     public void afficherPossible(boolean[][] gBool){
         activer = true;
+        setgPossible(gBool);
         for(int l = 0; l<6 ; l++){
             for(int c = 0; c<6 ; c++){
                 if(gBool[l][c]){
@@ -100,6 +138,23 @@ public class VuePlateau extends JPanel {
             }
         }
     }
+    
+    private int getColonne(int x) { 
+        return (x * 6) / this.getWidth();
+    }
+        
+    private int getLigne(int y) { 
+        return (y * 6) / this.getHeight();
+    }
+
+    public boolean[][] getgPossible() {
+        return gPossible;
+    }
+
+    public void setgPossible(boolean[][] gPossible) {
+        this.gPossible = gPossible;
+    }
+    
     
     
 }
