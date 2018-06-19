@@ -89,7 +89,7 @@ public class IHMJeu extends Observe {
         window.setVisible(false);
     }
     public void desafficherIni(){
-        vIni.setVisible(false);
+        vIni.desafficher();
     }
 
     // Getter

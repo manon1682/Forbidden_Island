@@ -733,9 +733,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 vueIHMJeu.desafficherIni();
                 //vueA = new VueAventurier(joueurCourant, grille);
 
-                //actionPossible();
+                // actionPossible();
 
-                vueIHMJeu.addObservateur(this);
+               // vueIHMJeu.addObservateur(this);
               //  actionPossible();
 
                 vueIHMJeu.afficher();   
