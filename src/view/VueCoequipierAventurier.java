@@ -153,7 +153,7 @@ public class VueCoequipierAventurier extends JPanel {
         containerCase1.add(btnFermerJeu, BorderLayout.EAST);
 
         grilleCoequipier.add(containerCase1);
-
+        
         //Case 2 à 4 de la grilleCoequipier (inventaires coequipiers)
         JPanel J1grilleInventaire = new JPanel(new GridLayout(1, 6));
         JPanel J1containerCarte1 = new JPanel(new GridLayout(2, 1));
