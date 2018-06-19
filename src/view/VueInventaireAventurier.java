@@ -6,9 +6,12 @@
 package view;
 
 import Aventurier.Aventurier;
+import Cartes.CarteTresor;
+import Enumeration.CarteUtilisable;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
-import javax.swing.JButton;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -17,9 +20,9 @@ import javax.swing.JPanel;
  * @author blanquan
  */
 public class VueInventaireAventurier extends JPanel {
-    
-    private JLabel carte1; // à modif une fois qu'on a image
-    private JLabel nbcarte1;
+
+    private JPanel carte; // à modif une fois qu'on a image
+    /* private JLabel nbcarte1;
     private JLabel carte2;// à modif une fois qu'on a image
     private JLabel nbcarte2;
     private JLabel carte3;// à modif une fois qu'on a image
@@ -29,17 +32,16 @@ public class VueInventaireAventurier extends JPanel {
     private JLabel carte5;// à modif une fois qu'on a image
     private JLabel nbcarte5;
     private JLabel carte6;// à modif une fois qu'on a image
-    private JLabel nbcarte6;
+    private JLabel nbcarte6;*/
     private IHMJeu ihm;
-    
+
     protected Aventurier a;
-    
+
     public VueInventaireAventurier(Aventurier aventurier, IHMJeu ihmJ) {
 
+        //Initialisation
         ihm = ihmJ;
-        //initialisation
-        carte1 = new JLabel("img Cristal Ardent");
-        carte2 = new JLabel("img Statue zéphir");
+        /*carte2 = new JLabel("img Statue zéphir");
         carte3 = new JLabel("img Calice de l'onde");
         carte4 = new JLabel("img la Pierre sacre");
         carte5 = new JLabel("img sac de sable");
@@ -50,25 +52,63 @@ public class VueInventaireAventurier extends JPanel {
         nbcarte3 = new JLabel("x0");
         nbcarte4 = new JLabel("x0");
         nbcarte5 = new JLabel("x0");
-        nbcarte6 = new JLabel("x0");
-        
-        a = aventurier;
-        //fin initialisation
-        
-        //couleur pour les test
+        nbcarte6 = new JLabel("x0");*/
+
+        //Couleur pour les test
         this.setBackground(Color.red);
 
         JPanel grilleInventaire = new JPanel(new GridLayout(1, 6));
-        
+
+       /*JPanel containerCarte1 = new JPanel(new GridLayout(2, 1));
+        JPanel containerCarte2 = new JPanel(new GridLayout(2, 1));
+        JPanel containerCarte3 = new JPanel(new GridLayout(2, 1));
+        JPanel containerCarte4 = new JPanel(new GridLayout(2, 1));
+        JPanel containerCarte5 = new JPanel(new GridLayout(2, 1));
+        JPanel containerCarte6 = new JPanel(new GridLayout(2, 1));*/
+
+        //On créer une liste contenant toute les cartes que l'on veut afficher
+        ArrayList<CarteUtilisable> listeNom = new ArrayList<>();
+        listeNom.add(CarteUtilisable.CRISTAL_ARDENT);
+        listeNom.add(CarteUtilisable.CALICE_DE_ORDRE);
+        listeNom.add(CarteUtilisable.STATUE_DU_ZEPHIR);
+        listeNom.add(CarteUtilisable.PIERRE_SACRE);
+        listeNom.add(CarteUtilisable.HELICO);
+        listeNom.add(CarteUtilisable.SAC_SABLE);
+
+        for (CarteUtilisable nom : listeNom) {
+            int n = 0;
+            for (CarteTresor carte : a.getMainA()) {
+                if (carte.getNom().equals(nom.toString())) {
+                    n = n + 1;
+                }
+            }
+
+            if (n != 0) {
+                carte = new PanelCarte(n);
+            } else {
+                carte = new JPanel();
+            }
+            grilleInventaire.add(carte);
+
+        }
+
+        a = aventurier;
+        //fin initialisation
+
+        //couleur pour les test
+        this.setBackground(Color.red);
+
+        /*JPanel grilleInventaire = new JPanel(new GridLayout(1, 6));
+
         JPanel containerCarte1 = new JPanel(new GridLayout(2, 1));
         JPanel containerCarte2 = new JPanel(new GridLayout(2, 1));
         JPanel containerCarte3 = new JPanel(new GridLayout(2, 1));
         JPanel containerCarte4 = new JPanel(new GridLayout(2, 1));
         JPanel containerCarte5 = new JPanel(new GridLayout(2, 1));
-        JPanel containerCarte6 = new JPanel(new GridLayout(2, 1));
-        
-        for (int i = 0; i < 6; i++) {
-            
+        JPanel containerCarte6 = new JPanel(new GridLayout(2, 1));*/
+
+        /* for (int i = 0; i < 6; i++) {
+
             if (i == 0) {
                 containerCarte1.add(carte1);
                 containerCarte1.add(nbcarte1);
@@ -96,10 +136,9 @@ public class VueInventaireAventurier extends JPanel {
             } else {
                 grilleInventaire.add(new JLabel("")); //inutile ici
             }
-            
-        }
-        
+
+        }*/
         this.add(grilleInventaire);
-        
+
     }
 }
