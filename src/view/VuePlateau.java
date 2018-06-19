@@ -32,6 +32,7 @@ public class VuePlateau extends JPanel {
     private IHMJeu ihmJeu;
     private ArrayList<Aventurier> joueurs;
     private boolean activer;
+    private VuePlateau plat;
     
     public VuePlateau(Grille grille, ArrayList<Aventurier> js, IHMJeu ihm) {
         activer = false;
@@ -48,6 +49,7 @@ public class VuePlateau extends JPanel {
                 this.add(tuiles[l][c]);
             }
         }
+        plat = this;
         this.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -56,6 +58,7 @@ public class VuePlateau extends JPanel {
                     int c = getColonne(me.getX());
                     if(!tuiles[l][c].getNomTuile().equals("Ocean") && gPossible[l][c]){
                         Message m = new Message(ihmJeu.getSauvType());
+                        plat.desaficherPossible();
                         m.setTuile(tuiles[l][c].getNomTuile());
                         ihm.notifierObservateur(m);
                     }
