@@ -107,7 +107,7 @@ public class VuePlateau extends JPanel {
                 }
             }
         }
-        this.repaint();
+        repaintTuiles();
     }
     
     public void majTuiles(ArrayList<Aventurier> joueurs) {
@@ -119,7 +119,7 @@ public class VuePlateau extends JPanel {
         for(Aventurier j : joueurs){
             tuiles[j.getL()][j.getC()].getJoueur().add(j.getPion());
        }
-        this.repaint();
+       repaintTuiles();
     }
     
     public void initTuiles(Grille grille) {
@@ -153,16 +153,23 @@ public class VuePlateau extends JPanel {
                 tuiles[l][c].setCadre(false);
             }
         }
+        this.repaint();
     }
 
-    @Override
-    public void paint(Graphics g) {
-        g.drawImage(fond, 0, 0, plat.getWidth() , plat.getHeight(),null);
+    public void repaintTuiles(){
         for(int l = 0; l<6 ; l++){
             for(int c = 0; c<6 ; c++){
                 tuiles[l][c].repaint();
             }
         }
+    }
+    
+    
+    
+    @Override
+    public void paint(Graphics g) {
+        g.drawImage(fond, 0, 0, plat.getWidth() , plat.getHeight(),null);
+        repaintTuiles();
     }
     
     private int getColonne(int x) { 
