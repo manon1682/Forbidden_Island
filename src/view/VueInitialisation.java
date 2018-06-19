@@ -46,12 +46,11 @@ public class VueInitialisation extends JPanel{
     private JButton manuel;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
-    private IHMJeu ihm;
 
     
     private Image image ;
 
-    public VueInitialisation() {
+    public VueInitialisation(IHMJeu ihm) {
         this.nbjoueurs = new String[]{"2", "3", "4"};
         this.window = new JFrame();
         window.setSize(500, 350);
@@ -71,10 +70,11 @@ public class VueInitialisation extends JPanel{
 
         // Panel Haut
         panelHaut = new JPanel(new GridLayout(4, 2));
+        panelHaut.setOpaque(false);
         panelHaut.add(new JLabel("Ile Interdite"));
         manuel = new JButton("Manuel");
         panelHaut.add(manuel);
-
+        
         panelHaut.add(new JLabel());
         panelHaut.add(new JLabel());
 
@@ -88,6 +88,7 @@ public class VueInitialisation extends JPanel{
 
         //Panel Centre
         panelCentre = new JPanel(new GridLayout(4, 2));
+        panelCentre.setOpaque(false);
         
         for(int i = 0; i < 8; i++){
            panelCentre.add(new JLabel()); 
@@ -133,6 +134,7 @@ public class VueInitialisation extends JPanel{
 
                     Message m = new Message(TypesMessages.NOUVELLE_PARTIE, null);
                     m.setNom(nom);
+                    m.setNbJoueur(nbJ);
                     ihm.notifierObservateur(m);
                 }
 
@@ -150,6 +152,7 @@ public class VueInitialisation extends JPanel{
      * avec le même contexte graphique (Graphics)
      */
     public void paintComponent(Graphics g) {
+
         super.paintComponent(g);
         g.drawImage(image, 0, 0, 500, 350, null, this);
     }

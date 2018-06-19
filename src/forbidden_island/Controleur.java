@@ -48,7 +48,7 @@ public class Controleur implements Observateur {
         initDeck();
         vueIHMJeu = new IHMJeu(grille);
         vueIHMJeu.addObservateur(this);
-        vueIHMJeu.afficher();
+        //vueIHMJeu.afficher();
     }
 
     public ArrayList<String> chargerNomTuile() {
@@ -730,15 +730,15 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             case NOUVELLE_PARTIE:
                 initJoueur(m.getNbJoueur(), m.getNom());
-                vueIHMJeu.desafficher();
-                vueA = new VueAventurier(joueurCourant, grille);
+                vueIHMJeu.desafficherIni();
+                //vueA = new VueAventurier(joueurCourant, grille);
 
-                actionPossible();
+                //actionPossible();
 
-                vueA.addObservateur(this);
-                actionPossible();
+                vueIHMJeu.addObservateur(this);
+              //  actionPossible();
 
-                vueA.afficher();
+                vueIHMJeu.afficher();   
                 break;
 
             case TOUR_SUIVANT:
