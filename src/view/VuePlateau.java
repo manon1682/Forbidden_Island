@@ -26,8 +26,10 @@ public class VuePlateau extends JPanel {
     private VueTuile[][] tuiles;
     private IHMJeu ihmJeu;
     private ArrayList<Aventurier> joueurs;
+    private boolean activer;
     
     public VuePlateau(Grille grille, ArrayList<Aventurier> js, IHMJeu ihm) {
+        activer = false;
         this.grille = grille;
         ihmJeu = ihm;
         joueurs = js;
@@ -66,4 +68,25 @@ public class VuePlateau extends JPanel {
             }
         }
     }
+    
+    public void afficherPossible(boolean[][] gBool){
+        activer = true;
+        for(int l = 0; l<6 ; l++){
+            for(int c = 0; c<6 ; c++){
+                if(gBool[l][c]){
+                    tuiles[l][c].setCadre(true);
+                }
+            }
+        }
+    }
+    
+    public void desaficherPossible(){
+        for(int l = 0; l<6 ; l++){
+            for(int c = 0; c<6 ; c++){
+                tuiles[l][c].setCadre(false);
+            }
+        }
+    }
+    
+    
 }
