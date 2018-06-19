@@ -35,16 +35,13 @@ public class VueInventaireAventurier extends JPanel {
         ihm = ihmJ;
         a = aventurier;
 
-        //Couleur pour les test
-        this.setBackground(Color.red);
-        
         setLayout(new BorderLayout());
         JPanel main = new JPanel(new GridLayout(1, 6));
         JPanel panelNord = new JPanel(new BorderLayout());
-        
+
         panelNord.add(new JLabel(aventurier.getPseudo()), BorderLayout.WEST);
-        panelNord.add(new JLabel(aventurier.getRole()), BorderLayout.WEST);
-        
+        panelNord.add(new JLabel(aventurier.getRole()), BorderLayout.EAST);
+
         add(panelNord, BorderLayout.NORTH);
         add(main, BorderLayout.CENTER);
 
@@ -59,7 +56,7 @@ public class VueInventaireAventurier extends JPanel {
             }
 
             JPanel carte = new PanelCarte(n, laCarte);
-            
+
             carte.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -83,23 +80,27 @@ public class VueInventaireAventurier extends JPanel {
                 public void mouseExited(MouseEvent e) {
                 }
             });
-            
+
             main.add(carte);
             laCarte = laCarte.getNext();
 
         }
 
     }
-    
-    public VueInventaireAventurier(Aventurier aventurier) {
 
+    public VueInventaireAventurier(Aventurier aventurier) {
         //Initialisation
         a = aventurier;
 
-        //Couleur pour les test
-        this.setBackground(Color.red);
+        setLayout(new BorderLayout());
+        JPanel main = new JPanel(new GridLayout(1, 6));
+        JPanel panelNord = new JPanel(new BorderLayout());
 
-        setLayout(new GridLayout(1, 6));
+        panelNord.add(new JLabel(aventurier.getPseudo()), BorderLayout.WEST);
+        panelNord.add(new JLabel(aventurier.getRole()), BorderLayout.EAST);
+
+        add(panelNord, BorderLayout.NORTH);
+        add(main, BorderLayout.CENTER);
 
         CarteUtilisable laCarte = CarteUtilisable.PIERRE_SACRE;
 
@@ -112,11 +113,10 @@ public class VueInventaireAventurier extends JPanel {
             }
 
             JPanel carte = new PanelCarte(n, laCarte);
-            add(carte);
+
+            main.add(carte);
             laCarte = laCarte.getNext();
 
         }
-
     }
-    
 }
