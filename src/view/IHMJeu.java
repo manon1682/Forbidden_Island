@@ -96,7 +96,7 @@ public class IHMJeu extends Observe {
     }
     
     public void afficherTuilePossible(boolean[][] grille){
-        
+        vPlat.afficherPossible(grille);
     }
     
 
