@@ -15,7 +15,6 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-import util.Utils.Pion;
 
 /**
  *
@@ -59,32 +58,17 @@ public class VuePlateau extends JPanel {
         }
     }
     
-    public void majTuiles(Grille grille, ArrayList<Aventurier> joueurs) {
-        Tuile[][] ts = grille.getTuiles();
+    public void majTuiles(ArrayList<Aventurier> joueurs) {
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
-                if (grille.getTuiles()[l][c] != null && grille.getTuiles()[l][c].getEtat() != EtatTuile.coulée) {
-                    ((VueTuile) tuiles[l][c]).setEtat(ts[l][c].getEtat());
-                    for(Aventurier j : joueurs){
-                        ArrayList<Pion> pions = tuiles[l][c].getJoueur();
-                        for(Pion pion : pions){
-                            if(pion.equals(j.getPion()) && (j.getL() != l || j.getC() != c)){
-                                tuiles[l][c].getJoueur().remove(j.getPion());
-                            }
-                        }
-                        if(j.getL() == l && j.getC() == c){
-                            tuiles[l][c].addJoueur(j);
-                        } 
-                    }
-                } else {
-                    tuiles[l][c] = new VueTuile("Ocean", EtatTuile.coulée);
-                }
+                tuiles[l][c].getJoueur().clear();
             }
         }
+        for(Aventurier j : joueurs){
+            tuiles[j.getL()][j.getL()].getJoueur().add(j.getPion());
+       }
     }
     
-    
-
     public void initTuiles(Grille grille) {
         Tuile[][] ts = grille.getTuiles();
         for (int l = 0; l < 6; l++) {
