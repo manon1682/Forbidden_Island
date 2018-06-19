@@ -11,8 +11,11 @@ public class Deck_Innondation extends Deck {
     }
 
     private void setPioche(ArrayList<String> nomTuiles) {
+            
+            
         for (String nomTuile : nomTuiles) { //remember francis <3
-            super.getPioche().add(new CarteInnondation(nomTuile));
+            CarteInnondation carte = new CarteInnondation(nomTuile); 
+            getPioche().push(carte);
         }
     }
 }

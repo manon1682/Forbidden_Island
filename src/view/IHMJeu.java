@@ -33,11 +33,12 @@ public class IHMJeu extends Observe {
     private Aventurier aventurier;
     private Grille grille;
 
-    public IHMJeu() {
+    public IHMJeu(Grille grille) {
 
         //initialisation variable
+        setGrille(grille);
         vNiveau = new VueNiveau();
-        vPlat = new VuePlateau();
+        vPlat = new VuePlateau(grille);
         vAven = new VueCoequipierAventurier(aventurier);
         vText = new VueMessageBox();
         vActionAven = new VueActionAventurier(aventurier);
@@ -51,7 +52,7 @@ public class IHMJeu extends Observe {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         //Création 2 panels dans Panel Principale > "1" pour le "haut/centre", "2" pour le sud
-        JPanel panelCentre1 = new JPanel();
+        JPanel panelCentre1 = new JPanel(new BorderLayout());
         JPanel panelSud2 = new JPanel(new BorderLayout());
 
         //Ajout 3 panel au Panel Centre1 >
@@ -87,6 +88,26 @@ public class IHMJeu extends Observe {
 
     public VueMessageBox getvText() {
         return vText;
+    }
+
+    public Aventurier getAventurier() {
+        return aventurier;
+    }
+
+    public void setAventurier(Aventurier aventurier) {
+        this.aventurier = aventurier;
+    }
+
+    public Grille getGrille() {
+        return grille;
+    }
+
+    public void setGrille(Grille grille) {
+        this.grille = grille;
+    }
+
+    public VuePlateau getvPlat() {
+        return vPlat;
     }
     
     

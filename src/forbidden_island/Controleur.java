@@ -24,9 +24,11 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import view.IHMJeu;
 import view.VueAventurier;
 import view.VueInitialisation;
+import view.VuePlateau;
 
 public class Controleur implements Observateur {
 
@@ -44,7 +46,7 @@ public class Controleur implements Observateur {
     public Controleur() {
         initPlateau();
         initDeck();
-        vueIHMJeu = new IHMJeu();
+        vueIHMJeu = new IHMJeu(grille);
         vueIHMJeu.addObservateur(this);
         vueIHMJeu.afficher();
     }
@@ -65,7 +67,7 @@ public class Controleur implements Observateur {
         return nomTuile;
     }
 
-   /* public EtatTuile etatTuileDemo(Tuile tuile) {
+    /* public EtatTuile etatTuileDemo(Tuile tuile) {
         EtatTuile etat;
         switch (tuile.getNom()) {
             case "Les Dunes de l’Illusion":
@@ -88,7 +90,6 @@ public class Controleur implements Observateur {
         }
         return etat;
     }*/
-
     public Tresor assigneTresorTuile(String nomTuile) {
         Tresor t;
         switch (nomTuile) {
@@ -119,7 +120,7 @@ public class Controleur implements Observateur {
         Tuile[][] tuiles = new Tuile[6][6];
         ArrayList<String> nomTuile = chargerNomTuile();
         Tuile tuile;
-        
+
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
                 if ((l == 0 && ((c == 0) || (c == 1) || (c == 4) || (c == 5)))
@@ -576,7 +577,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             //Ajoute ces cartes à la défausse
             deck_I.getDefausse().addAll(cartesInnondation);
             //Pour repeindre la plateau avec les nouvelles cartes inondées
-            vueA.afficher();
+            vueIHMJeu.setGrille(grille);
+            vueIHMJeu.getvPlat().majTuiles(grille);
+            //vueA.afficher();
             //On affiche les cartes piochées
 //            vueA.afficherCartePioche(cartesInnondation);
         }
@@ -587,7 +590,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //Ajoute ces cartes à la défausse
         deck_I.getDefausse().addAll(cartesInnondation);
         //Pour repeindre la plateau avec les nouvelles cartes inondées
-        vueA.afficher();
+        vueIHMJeu.setGrille(grille);
+        vueIHMJeu.getvPlat().majTuiles(grille);
         //On affiche les cartes piochées
 //        vueA.afficherCartePioche(cartesInnondation);
 
@@ -650,35 +654,33 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         joueurCourant.deplacer(l, c);
                         ((Pilote) joueurCourant).setCapaciteUtilisee(true);
                     }
+                } else //Sinon il s'agit de l'ingénieur
+                // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Action spéciale"
+                if (m.getTuile() == null) {
+                    // On met à jour sa capacité utilisée
+                    ((Ingénieur) joueurCourant).setCapaciteUtilisee(1);
+                    vueA.assechementIngenieur();
                 } else {
-                    //Sinon il s'agit de l'ingénieur
-                    // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Action spéciale"
-                    if (m.getTuile() == null) {
-                        // On met à jour sa capacité utilisée
-                        ((Ingénieur) joueurCourant).setCapaciteUtilisee(1);
+                    //Sinon on assèche la tuile choisie
+                    String nom = m.getTuile();
+                    Tuile tuile = grille.getTuileAvecNom(nom);
+                    tuile.asseche();
+
+                    Ingénieur ingenieur = (Ingénieur) joueurCourant;
+
+                    //Si sa capacité utilisée = 1, le joueur en est à son 1er asséchement
+                    if (ingenieur.getCapaciteUtilisee() == 1) {
+                        //On incrémente son nombre d'action pour qu'une fois décrémenté cela n'ai pas d'incidence
+                        nbAction = nbAction + 1;
+                        ingenieur.setCapaciteUtilisee(2);
                         vueA.assechementIngenieur();
-                    } else {
-                        //Sinon on assèche la tuile choisie
-                        String nom = m.getTuile();
-                        Tuile tuile = grille.getTuileAvecNom(nom);
-                        tuile.asseche();
-
-                        Ingénieur ingenieur = (Ingénieur) joueurCourant;
-
-                        //Si sa capacité utilisée = 1, le joueur en est à son 1er asséchement
-                        if (ingenieur.getCapaciteUtilisee() == 1) {
-                            //On incrémente son nombre d'action pour qu'une fois décrémenté cela n'ai pas d'incidence
-                            nbAction = nbAction + 1;
-                            ingenieur.setCapaciteUtilisee(2);
-                            vueA.assechementIngenieur();
-                        } else if (ingenieur.getCapaciteUtilisee() == 2) {
-                            //Si sa capacité utilisée = 2, le joueur en est à son 2ème asséchement
-                            //On met à jour sa capacité spéciale
-                            ingenieur.setCapaciteUtilisee(0);
-                            actionPossible();
-                        }
-                        joueurCourant = ingenieur;
+                    } else if (ingenieur.getCapaciteUtilisee() == 2) {
+                        //Si sa capacité utilisée = 2, le joueur en est à son 2ème asséchement
+                        //On met à jour sa capacité spéciale
+                        ingenieur.setCapaciteUtilisee(0);
+                        actionPossible();
                     }
+                    joueurCourant = ingenieur;
                 }
 
                 break;
@@ -700,7 +702,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case UTILISER_CARTE:
-                g = new boolean[6][6];
 
                 // helico = true si la carte hélico est choisi
                 // helico = false s'il s'agit d'une autre, donc du sac de sable
