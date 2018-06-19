@@ -131,15 +131,8 @@ public class VueCoequipierAventurier extends JPanel {
 
 
         //Case 5 de la grilleCoequipier (MessageBox)
-        JPanel case5Temporaire = new JPanel(); //à suppr pour ihmText dès que possible
-        case5Temporaire.setBackground(Color.GREEN);
-
-        JLabel msgboxTempo = new JLabel("msg box");
-        case5Temporaire.add(msgboxTempo);
-
-        grilleCoequipier.add(case5Temporaire);
-
-        //grilleCoequipier.add(ihm.getvText()); active dès que possible
+        grilleCoequipier.add(vText);
+        
         //Ajout des éléments à la fenêtre principale;
         this.add(grilleCoequipier);
 

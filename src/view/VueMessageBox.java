@@ -5,6 +5,8 @@
  */
 package view;
 
+import java.awt.Color;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -12,5 +14,17 @@ import javax.swing.JPanel;
  * @author blanquan
  */
 public class VueMessageBox extends JPanel {
+
+    public VueMessageBox() {
+        this.setBackground(Color.GREEN);
+        
+        JPanel caseMsgTemporaire = new JPanel();    
+        JLabel msgboxTempo = new JLabel("niveau eaud");
+        caseMsgTemporaire.add(msgboxTempo);
+
+        this.add(caseMsgTemporaire);
+    }
+        
+    
     
 }
