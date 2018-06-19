@@ -1,29 +1,29 @@
 package Enumeration;
 
-import java.util.ArrayList;
-
 public enum CarteUtilisable {
-    hélico,
-    sac_sable,
-    montée_eau,
-    Pierre_Sacré,
-    Statue_du_Zéphir,
-    Cristal_Ardent,
-    Calice_de_Ordre;
+    HELICO("Helico"),
+    SAC_SABLE("Sac De Sable"),
+    MONTEE_EAU("Montee Des Eaux"),
+    PIERRE_SACRE("Pierre Sacré"),
+    STATUE_DU_ZEPHIR("Statue du Zéphir"),
+    CRISTAL_ARDENT("Cristal Ardent"),
+    CALICE_DE_ORDRE("Calice de Ordre");
 
-    public String toString() {
-        return name().toLowerCase();
-    }
-    
-    
-    //methodes next et getNext n'ont pas été utiles pour le moment, à supprimer à la fin.
-    
+    private String label;
+
     public CarteUtilisable getNext() {
-     return this.ordinal() < CarteUtilisable.values().length - 1
-            ? CarteUtilisable.values()[this.ordinal() + 1]
-            : null;
-   }
-    
-    
-    
+        return this.ordinal() < CarteUtilisable.values().length - 1
+                ? CarteUtilisable.values()[this.ordinal() + 1]
+                : null;
+    }
+
+    private CarteUtilisable(String label) {
+        this.label = label;
+    }
+
+    @Override
+    public String toString() {
+        return this.label;
+    }
+
 }

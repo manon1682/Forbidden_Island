@@ -17,5 +17,6 @@ public enum TypesMessages {
     UTILISER_CARTE,
     TOUR_SUIVANT,
     NOUVELLE_PARTIE,
-    SPECIALE
+    SPECIALE,
+    CARTE_CLICK;
 }

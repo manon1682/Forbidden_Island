@@ -28,18 +28,18 @@ public class Deck_Tresor extends Deck {
         
         //hélicos
         for (int i = 0; i <= 3; i++) {
-            cartesPioche.add( new CarteTresor(CarteUtilisable.hélico));
+            cartesPioche.add( new CarteTresor(CarteUtilisable.HELICO));
         }
         //sac de sable
         for (int i = 0; i <= 2; i++) {
-            cartesPioche.add( new CarteTresor(CarteUtilisable.sac_sable));
+            cartesPioche.add( new CarteTresor(CarteUtilisable.SAC_SABLE));
         }
         //montées des eaux
         for (int i = 0; i <= 3; i++) {
-            cartesPioche.add( new CarteTresor(CarteUtilisable.montée_eau));
+            cartesPioche.add( new CarteTresor(CarteUtilisable.MONTEE_EAU));
         }
         
-        laCarte = CarteUtilisable.Pierre_Sacré;
+        laCarte = CarteUtilisable.PIERRE_SACRE;
         for (int i = 0; i <= 4; i++) {   
             for (int j = 0; j <= 5; j++) {
                 cartesPioche.add( new CarteTresor(laCarte));

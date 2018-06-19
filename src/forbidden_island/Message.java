@@ -23,9 +23,8 @@ public class Message {
     private ArrayList<String> nom; //Liste de joueur pour nouvelle partie
     private int nbJoueur; //Nombre de joueurs pour nouvelle partie
 
-    public Message(TypesMessages t, Aventurier a) {
+    public Message(TypesMessages t) {
         type = t;
-        joueur = a;
     }
 
     public TypesMessages getType() {

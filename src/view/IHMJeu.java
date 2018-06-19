@@ -109,8 +109,10 @@ public class IHMJeu extends Observe {
     public VuePlateau getvPlat() {
         return vPlat;
     }
-    
-    
+
+    public VueActionAventurier getvActionAven() {
+        return vActionAven;
+    }
     
 
 }
