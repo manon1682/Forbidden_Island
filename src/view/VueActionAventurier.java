@@ -129,9 +129,7 @@ public class VueActionAventurier extends JPanel {
                 //à coder lol
                 ihm.notifierObservateur(m);
             }
-
         });
-
     }
 
     public boolean btnActionSpecialeActive() {
