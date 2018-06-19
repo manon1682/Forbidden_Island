@@ -29,6 +29,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -37,7 +38,6 @@ import javax.swing.JTextField;
 public class VueInitialisation extends JPanel {
 
     private final JFrame window;
-    //private final JPanel mainPanel;
     private JPanel panelCentre;
     private JComboBox choixNbJoueur;
     private String[] nbjoueurs;
@@ -52,21 +52,28 @@ public class VueInitialisation extends JPanel {
     private JButton manuel;
     private JLabel labTitre;
     private JLabel labNiv;
+    private JLabel labAlea;
+    private JLabel labNbJ;
     private ButtonGroup groupeNiv;
+    private ButtonGroup groupeAlea;
     private JRadioButton [] boutNiv;
+    private JRadioButton[] boutAlea;
     private JRadioButton bouton;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
+    private int height;
+    private int width;
 
     private Image image;
 
     public VueInitialisation(IHMJeu ihm) {
-       
+        width = 800;
+        height = 700;
         
         this.nbjoueurs = new String[]{"2", "3", "4"};
         this.window = new JFrame();
         window.setResizable(false);
-        window.setSize(500, 600);
+        window.setSize(width, height);
         window.setLocationRelativeTo(null);
 
         window.setTitle("Ile Interdite");
@@ -93,15 +100,16 @@ public class VueInitialisation extends JPanel {
         panelHautTitre.add(labTitre);
         panelHaut.add(panelHautTitre, BorderLayout.NORTH);
         
-        panelHautCentre = new JPanel(new GridLayout(5, 1));
+        //PanelHautCentre
+        panelHautCentre = new JPanel(new GridLayout(4, 1));
         panelHautCentre.setOpaque(false);
         //Ligne 1 Saut de ligne
         panelHautCentre.add(new JLabel());
       
-        //Ligne 2 Sélection du niveau
-        panHauCent1 = new JPanel(new GridLayout(1, 5));
+        //Ligne 2 Sélection du niveau + Choix Role Aléatoire/Choisis
+        panHauCent1 = new JPanel(new GridLayout(2, 6));
         panHauCent1.setOpaque(false);
-        labNiv= new JLabel("Niveau");
+        labNiv= new JLabel("Niveau : ", SwingConstants.RIGHT);
         labNiv.setForeground(Color.white);
         panHauCent1.add(labNiv);
         
@@ -110,18 +118,26 @@ public class VueInitialisation extends JPanel {
         boutNiv = new JRadioButton[4];
         
         bouton = new JRadioButton("Novice");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
         boutNiv[0] = bouton;
         groupeNiv.add(bouton);
         
         bouton = new JRadioButton("Normal");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
         boutNiv[1] = bouton;
         groupeNiv.add(bouton);
         
         bouton = new JRadioButton("Elite");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
         boutNiv[2] = bouton;
         groupeNiv.add(bouton);
         
         bouton = new JRadioButton("Légendaire");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
         boutNiv[3] = bouton;
         groupeNiv.add(bouton);
         
@@ -131,23 +147,57 @@ public class VueInitialisation extends JPanel {
         panHauCent1.add(boutNiv[1]);
         panHauCent1.add(boutNiv[2]);
         panHauCent1.add(boutNiv[3]);
+        panHauCent1.add(new JLabel());
+        
+        //Choix Role Aléatoire/Choisis
+        
+        panHauCent1.setOpaque(false);
+        labAlea = new JLabel("Rôles : ", SwingConstants.RIGHT);
+        labAlea.setForeground(Color.white);    
+        panHauCent1.add(labAlea);
+        
+        groupeAlea = new ButtonGroup();
+        
+        boutAlea = new JRadioButton[2];
+        
+        bouton = new JRadioButton("Aléatoire");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
+        boutAlea[0] = bouton;
+        groupeAlea.add(bouton);
+        
+        bouton = new JRadioButton("Manuel");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
+        boutAlea[1] = bouton;
+        groupeAlea.add(bouton);
+        
+        boutAlea[0].setSelected(true);
+        
+        panHauCent1.add(boutAlea[0]);
+        panHauCent1.add(boutAlea[1]);
+        
+        panHauCent1.add(new JLabel());
+        panHauCent1.add(new JLabel());
+        panHauCent1.add(new JLabel());
+        
         panelHautCentre.add(panHauCent1);
         
-        //Ligne 3 Choix Role Aléatoire/Choisis
-        
         //Ligne 4 Nombre Joueur  
-        panelHautCentre.add(new JLabel());
-        panelHautCentre.add(new JLabel("Nombre de Joueur : "));
+        panHauCent3 = new JPanel(new GridLayout(1, 3));
+        panHauCent3.setOpaque(false);
+        labNbJ = new JLabel("Nombre de joueurs : ");
+        labNbJ.setForeground(Color.white);        
+        panHauCent3.add(labNbJ);
         choixNbJoueur = new JComboBox(nbjoueurs);
-        panelHautCentre.add(choixNbJoueur);
-        panelHautCentre.add(new JLabel());
+        panHauCent3.add(choixNbJoueur);
+        panHauCent3.add(new JLabel());
+        panelHautCentre.add(panHauCent3);
         
         
         //Ligne 5 Saut de Ligne
         panelHautCentre.add(new JLabel());
-        panelHautCentre.add(new JLabel());
-        panelHautCentre.add(new JLabel());
-        panelHautCentre.add(new JLabel());
+      
 
         panelHaut.add(panelHautCentre, BorderLayout.CENTER);
         
@@ -203,7 +253,7 @@ public class VueInitialisation extends JPanel {
 
                     Message m = new Message(TypesMessages.NOUVELLE_PARTIE);
                     m.setNom(nom);
-                    m.setNiveau(ACOMPLETERRRRR);
+                    //m.setNiveau(ACOMPLETERRRRR);
                     ihm.notifierObservateur(m);
                 }
 
@@ -223,7 +273,7 @@ public class VueInitialisation extends JPanel {
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, 500, 600, null, this);
+        g.drawImage(image, 0, 0, width, height, null, this);
     }
 
     public void afficher() {
