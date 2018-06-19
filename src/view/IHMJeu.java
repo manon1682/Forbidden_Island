@@ -90,10 +90,13 @@ public class IHMJeu extends Observe {
     public void desafficherIni(){
         vIni.desafficher();
     }
+    
+    public void afficherTuilePossible(boolean[][] grille){
+        
+    }
+    
 
     // Getter
-
-   
 
     public Aventurier getAventurier() {
         return aventurier;
