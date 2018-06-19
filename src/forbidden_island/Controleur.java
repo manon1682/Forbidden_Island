@@ -7,6 +7,7 @@ import Aventurier.*;
 import Aventurier.Explorateur;
 import Aventurier.Ingénieur;
 import Aventurier.Messager;
+import Cartes.Carte;
 import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Cartes.Deck;
@@ -198,10 +199,31 @@ public class Controleur implements Observateur {
                     joueurs.add(new Plongeur(nom.get(i), t.getLigne(), t.getColonne()));
                     break;
             }
-            joueurs.get(i).ajouterCartesMain(deck_T.piocher());
+            
+            ArrayList<CarteTresor> main = new ArrayList<>();
+            
+            for (int j = 0; j < 2; j++) {
+                //On pioche une carte
+                CarteTresor carte = (CarteTresor) deck_T.pioche();
+                //Tant que le joueur pioche une carte montée des eaux
+                while (carte.getNom().equals(CarteUtilisable.MONTEE_EAU.toString())){
+                    //On remet cette carte dans la pioche
+                    deck_T.getPioche().add(carte);
+                    //On mélange la pioche
+                    deck_T.melangerPioche();
+                    //On pioche une nouvelle carte
+                    carte = (CarteTresor) deck_T.pioche();
+                }
+                //On ajoute la carte piochée à la main
+                main.add(carte);
+            }
+            
+            //On lui ajoute une main sans "montée des eaux"
+            joueurs.get(i).ajouterCartesMain(main);
             roles.remove(rand);
         }
 
+        //On initialise le joueur courant au 1er joueur
         joueurCourant = joueurs.get(0);
 
     }
