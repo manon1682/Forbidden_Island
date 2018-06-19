@@ -81,7 +81,7 @@ public class VueTuile extends JPanel{
             g.fillRect(0, 0, dim.width, dim.height);
         }
         if(isCadre()){
-            BasicStroke nStrock = new BasicStroke(2.5f); //Augmente epaissuer du contour de la tuile
+            BasicStroke nStrock = new BasicStroke(3.0f); //Augmente epaissuer du contour de la tuile
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(nStrock);
             g2.setColor(Color.yellow);

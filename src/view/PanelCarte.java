@@ -25,6 +25,7 @@ public class PanelCarte extends JPanel {
     private Dimension dim;
     private CarteUtilisable carte;
     private int nb;
+    private boolean clickable;
     private JButton donner;
     private JButton utiliser;
 
@@ -37,6 +38,7 @@ public class PanelCarte extends JPanel {
         
         donner.setVisible(false);
         utiliser.setVisible(false);
+        this.setPreferredSize(new Dimension(90, 120));
     }
 
     @Override
@@ -49,8 +51,8 @@ public class PanelCarte extends JPanel {
         if (nb != 0) {
             g.drawImage(carte.getImage(), 0, 0, dim.width, dim.height, null);
             g.setColor(Color.BLACK);
-            g.setFont(new Font("Arial", Font.BOLD, dim.width/5));
-            g.drawString("x " + nb, dim.width - 20, dim.width/5);
+            g.setFont(new Font("Arial", Font.BOLD, dim.height/4));
+            g.drawString("x " + nb, dim.width/2, dim.height/4);
         }
     }
 
