@@ -122,7 +122,6 @@ public class VueActionAventurier extends JPanel {
                 btnActionSpeciale.setEnabled(false);
             }
         });
-
     }
 
     public JButton getBtnAssecher() {
