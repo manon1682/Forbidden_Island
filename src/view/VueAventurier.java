@@ -110,7 +110,7 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.DEPLACER;
-                Message m = new Message(TypesMessages.DEPLACER, a);
+                Message m = new Message(TypesMessages.DEPLACER);
 
                 if (!(btnAssecher.isEnabled())) {
                     btnAssecher.setEnabled(true);
@@ -138,7 +138,7 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.ASSECHER;
-                Message m = new Message(TypesMessages.ASSECHER, a);
+                Message m = new Message(TypesMessages.ASSECHER);
 
                 if (!(btnBouger.isEnabled())) {
                     panelCentre.remove(panelChoixetVal);
@@ -170,7 +170,7 @@ public class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message m = new Message(TypesMessages.SPECIALE, a);
+                Message m = new Message(TypesMessages.SPECIALE);
                 sauvType = TypesMessages.SPECIALE;
 
                 /*if (a.getRole() == "Pilote") {
@@ -206,7 +206,7 @@ public class VueAventurier extends Observe {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sauvType = TypesMessages.TOUR_SUIVANT;
-                Message m = new Message(TypesMessages.TOUR_SUIVANT, a);
+                Message m = new Message(TypesMessages.TOUR_SUIVANT);
                 notifierObservateur(m);
             }
 
@@ -216,7 +216,7 @@ public class VueAventurier extends Observe {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message m = new Message(sauvType, a);
+                Message m = new Message(sauvType);
 
                 m.setTuile((String) listeChoix.getSelectedItem());
 

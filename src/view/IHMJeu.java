@@ -87,7 +87,7 @@ public class IHMJeu extends Observe {
         window.setVisible(false);
     }
     public void desafficherIni(){
-        vIni.setVisible(false);
+        vIni.desafficher();
     }
 
     // Getter
@@ -113,8 +113,10 @@ public class IHMJeu extends Observe {
     public VuePlateau getvPlat() {
         return vPlat;
     }
-    
-    
+
+    public VueActionAventurier getvActionAven() {
+        return vActionAven;
+    }
     
 
 }

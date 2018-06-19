@@ -26,6 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import view.IHMJeu;
+import view.VueActionAventurier;
 import view.VueAventurier;
 import view.VueInitialisation;
 import view.VuePlateau;
@@ -301,7 +302,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         boolean carteHelicoPresente = false;
         for (Aventurier j : joueurs) {
             for (CarteTresor cT : j.getMainA()) {
-                if (cT.utilisation() == CarteUtilisable.hélico) {
+                if (cT.utilisation() == CarteUtilisable.HELICO) {
                     carteHelicoPresente = true;
                 }
             }
@@ -488,7 +489,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
     public boolean utiliserCartePossible(CarteTresor carte) {
         String nom = carte.getNom();
         //La carte est une carte qu'on peut utliser (autre qu'une carte trésor)
-        if (nom.equals("sac_sable") || nom.equals("hélico") || nom.equals("montée_eau")) {
+        if (nom.equals(CarteUtilisable.HELICO.toString()) || nom.equals(CarteUtilisable.MONTEE_EAU.toString())) {
             return true;
         } else {
             return false;
@@ -520,15 +521,21 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
     }
 
     public void actionPossible() {
+        //On récupère la vue des action de la vue de l'IHM Jeu
+        VueActionAventurier vueTemp = vueIHMJeu.getvActionAven();
 
-        //Pour le bouton "Déplacer"
-        vueA.getBtnBouger().setEnabled(deplacementPossible()); // fois le nombre de bouton --> à compléter
+        //Activation ou non du bouton "Déplacer"
+        vueTemp.getBtnDeplacer().setEnabled(deplacementPossible());
 
-        //Pour le bouton "Assécher"
-        //Pour le bouton "Prendre trésor"
-        //Pour le bouton "Donner carte"
-        // Pour le bouton "Utiliser carte"
-        //Pour le bouton "Action spéciale"
+        //Activation ou non du bouton "Assécher"
+        vueTemp.getBtnAssecher().setEnabled(assechementPossible());
+
+        //Activation ou non du bouton "Action spéciale"
+        vueTemp.getBtnActionSpeciale().setEnabled(actionSpecialePossible());
+
+        //Activation ou non du bouton "Prendre trésor"
+        //Activation ou non du bouton "Donner carte" uniquement lors d'un clic sur une carte (Donc dans traiter message)
+        //Le bouton "Utiliser carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
     }
 
     public ArrayList<CarteInnondation> tirageCarteInnondation() {
@@ -561,7 +568,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //PREND EN COMPTE LA MONTEE DES EAUX
         //On regarde le nombre de carte montée des eaux que le joueur a pioché
         for (CarteTresor carte : cartesTresors) {
-            if (carte.getNom().equals(CarteUtilisable.montée_eau)) {
+            if (carte.getNom().equals(CarteUtilisable.MONTEE_EAU.toString())) {
                 //Monte la jauge d'un cran
                 jaugeInnondation = jaugeInnondation + 1;
             }
@@ -617,6 +624,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     int c = tuile.getColonne();
 
                     joueurCourant.deplacer(l, c);
+                    actionPossible();
                 }
 
                 break;
@@ -633,6 +641,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     Tuile tuile = grille.getTuileAvecNom(nom);
 
                     tuile.asseche();
+                    actionPossible();
                 }
                 break;
 
@@ -682,6 +691,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     }
                     joueurCourant = ingenieur;
                 }
+                actionPossible();
 
                 break;
 
@@ -702,10 +712,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case UTILISER_CARTE:
-
                 // helico = true si la carte hélico est choisi
                 // helico = false s'il s'agit d'une autre, donc du sac de sable
-                boolean helico = m.getCarte().getNom().equals(CarteUtilisable.hélico);
+                boolean helico = m.getCarte().getNom().equals(CarteUtilisable.HELICO.toString());
 
                 Tuile[][] tuiles = grille.getTuiles();
 
@@ -726,19 +735,26 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 }
 
                 vueA.afficherTuilePossible(g, grille);
+
+                break;
+
+            case CARTE_CLICK:
+                //Afficher le bouton "Utiliser carte" et "Donner carte" avec la méthode qui renvoie un boolean
+                utiliserCartePossible(m.getCarte());
+                donnerCartePossible();
                 break;
 
             case NOUVELLE_PARTIE:
+                //On initialise les joueurs
                 initJoueur(m.getNbJoueur(), m.getNom());
+                //On désaffiche la fenêtre d'initialisation
                 vueIHMJeu.desafficherIni();
-                //vueA = new VueAventurier(joueurCourant, grille);
 
-                //actionPossible();
-
-                vueIHMJeu.addObservateur(this);
-              //  actionPossible();
-
-                vueIHMJeu.afficher();   
+                //On affiche la fenêtre de jeu
+                vueIHMJeu.afficher();
+                
+                //On affiche les actions possibles
+                actionPossible();   
                 break;
 
             case TOUR_SUIVANT:
@@ -774,20 +790,23 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
         }
-
-        if (type != TypesMessages.NOUVELLE_PARTIE && type != TypesMessages.TOUR_SUIVANT && type != TypesMessages.UTILISER_CARTE) {
+        
+        //Affiche les boutons d'actions possibles
+        actionPossible();
+        
+        if (type != TypesMessages.NOUVELLE_PARTIE &&
+                type != TypesMessages.TOUR_SUIVANT &&
+                type != TypesMessages.UTILISER_CARTE &&
+                type != TypesMessages.CARTE_CLICK) {
             //On décrémente le nombre d'action
             nbAction = nbAction - 1;
 
             //Si le joueur n'a plus d'action on fini son tour
             if (nbAction == 0) {
                 vueA.finirTour();
-            } else {
-                //Sinon on affiche les actions possibles
-                actionPossible();
             }
-        }
 
+        }
     }
 
 }
