@@ -27,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -40,8 +41,7 @@ public class VueInitialisation extends JPanel {
     private final JFrame window;
     private int height;
     private int width;
-    
-    
+
     private JPanel panelCentre;
     private JComboBox choixNbJoueur;
     private String[] nbjoueurs;
@@ -51,21 +51,28 @@ public class VueInitialisation extends JPanel {
     private JPanel panHauCent1;
     private JPanel panHauCent2;
     private JPanel panelBas;
-    private JPanel panGridBas;
     private JButton valider;
     private JButton manuel;
     private JLabel labTitre;
-    private JLabel labNiv;
+
     private JLabel labNbJ;
     private JLabel labNomJ;
-    private ButtonGroup groupeNiv;
-    private JRadioButton[] boutNiv;
+
     private JRadioButton bouton;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
-    
 
+    //Sélection Niveau
+    private JLabel labNiv;
+    private ButtonGroup groupeNiv;
+    private JRadioButton[] boutNiv;
+
+
+    //Image fond
     private Image image;
+
+    //Manuel
+    private VueManuel vMan;
 
     public VueInitialisation(IHMJeu ihm) {
         width = 787;
@@ -107,18 +114,18 @@ public class VueInitialisation extends JPanel {
         //Ligne 1 Saut de ligne
         panelHautCentre.add(new JLabel());
 
-        //Ligne 2 Sélection du niveau + Choix Role Aléatoire/Choisis
-        panHauCent1 = new JPanel(new GridLayout(1, 6));
+        //Ligne 2 Sélection du niveau
+        panHauCent1 = new JPanel(new GridLayout(1, 7));
         panHauCent1.setOpaque(false);
         labNiv = new JLabel("Niveau : ", SwingConstants.RIGHT);
         labNiv.setForeground(Color.white);
-        labNiv.setFont(new Font("Arial", Font.PLAIN, 18));
+        labNiv.setFont(new Font("Arial", Font.PLAIN, 20));
         panHauCent1.add(labNiv);
 
         groupeNiv = new ButtonGroup();
 
         boutNiv = new JRadioButton[4];
-        
+
         bouton = new JRadioButton("Novice");
         bouton.setOpaque(false);
         bouton.setForeground(Color.white);
@@ -153,9 +160,10 @@ public class VueInitialisation extends JPanel {
         panHauCent1.add(boutNiv[1]);
         panHauCent1.add(boutNiv[2]);
         panHauCent1.add(boutNiv[3]);
+      
+
         panHauCent1.add(new JLabel());
         panelHautCentre.add(panHauCent1);
-        
 
         //Ligne 4 Nombre Joueur  
         panHauCent2 = new JPanel(new GridLayout(1, 3));
@@ -177,7 +185,6 @@ public class VueInitialisation extends JPanel {
         this.add(panelHaut, BorderLayout.NORTH);
 
         // **** Fin PanelHaut ****
-        
         // **** Panel Centre ****
         panelCentre = new JPanel(new GridLayout(18, 3));
         panelCentre.setOpaque(false);
@@ -187,31 +194,27 @@ public class VueInitialisation extends JPanel {
         }
 
         this.add(BorderLayout.CENTER, panelCentre);
-        
-        // **** Fin PanelCentre ****
 
+        // **** Fin PanelCentre ****
         // **** Panel bas ****
         valider = new JButton("Valider");
         manuel = new JButton("Manuel");
-        panGridBas = new JPanel(new GridLayout(1,3));
-        panGridBas.setOpaque(false);
-        
-        panGridBas.add(manuel);
-        panGridBas.add(new JLabel());
-        panGridBas.add(valider);
-        
-        this.add(BorderLayout.SOUTH, panGridBas);
-        
-        // **** Fin PanelBas ****
-        
+        panelBas = new JPanel(new GridLayout(1, 3));
+        panelBas.setOpaque(false);
 
-        
+        panelBas.add(manuel);
+        panelBas.add(new JLabel());
+        panelBas.add(valider);
+
+        this.add(BorderLayout.SOUTH, panelBas);
+
+        // **** Fin PanelBas ****
         valider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 if (choixNbJoueur.isEnabled()) {
-                    
+
                     nbJ = choixNbJoueur.getSelectedIndex() + 2;
 
                     for (int i = 0; i < 54; i++) {
@@ -220,8 +223,8 @@ public class VueInitialisation extends JPanel {
 
                     for (int i = 0; i < nbJ; i++) {
                         saisirJ.add(new JTextField("Joueur " + (i + 1)));
-                        
-                        labNomJ = new JLabel("Nom Joueur " + (i+1) + " : ", SwingConstants.RIGHT);
+
+                        labNomJ = new JLabel("Nom Joueur " + (i + 1) + " : ", SwingConstants.RIGHT);
                         labNomJ.setForeground(Color.white);
                         labNomJ.setFont(new Font("Arial", Font.PLAIN, 20));
                         panelCentre.add(new JLabel());
@@ -232,9 +235,9 @@ public class VueInitialisation extends JPanel {
                         panelCentre.add(new JLabel());
 
                     }
-                    for (int i = 0; i < 54 - 6*nbJ; i++) {
+                    for (int i = 0; i < 54 - 6 * nbJ; i++) {
                         panelCentre.add(new JLabel());
-                        
+
                     }
                     choixNbJoueur.setEnabled(false);
                     window.setVisible(true);
@@ -252,11 +255,11 @@ public class VueInitialisation extends JPanel {
                     //If pour renvoye le niveau sélectionné
                     if (boutNiv[0].isSelected()) {
                         m.setNiveau(TypesNiveaux.NOVICE);
-                    }else if(boutNiv[1].isSelected()){
+                    } else if (boutNiv[1].isSelected()) {
                         m.setNiveau(TypesNiveaux.NORMAL);
-                    }else if(boutNiv[2].isSelected()){
+                    } else if (boutNiv[2].isSelected()) {
                         m.setNiveau(TypesNiveaux.ELITE);
-                    }else{
+                    } else {
                         m.setNiveau(TypesNiveaux.LEGENDAIRE);
                     }
                  
@@ -266,8 +269,19 @@ public class VueInitialisation extends JPanel {
             }
         });
 
+        //ActionListener du Manuel
+        manuel.addActionListener(
+                new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vMan = new VueManuel();
+                vMan.afficher();
+                vMan.repaint();
+            }
+        });
+
         window.setVisible(true);
-        this.repaint();
+
     }
 
     @Override

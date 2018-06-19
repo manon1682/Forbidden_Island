@@ -95,7 +95,7 @@ public class VueActionAventurier extends JPanel {
                 Message m = new Message(TypesMessages.ASSECHER);
                 ihm.notifierObservateur(m);
                 
-                btnDeplacer.setEnabled(false);
+                btnAssecher.setEnabled(false);
             }
 
         });
