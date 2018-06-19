@@ -9,6 +9,7 @@ import Aventurier.Aventurier;
 import forbidden_island.Grille;
 import forbidden_island.Observe;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -33,7 +34,7 @@ public class IHMJeu extends Observe {
     private Aventurier aventurier;
     private Grille grille;
 
-    public IHMJeu(Grille grille) {
+    public IHMJeu(Grille grille, ArrayList<Aventurier> joueurs, Aventurier joueurCourant) {
 
         //initialisation variable
         setGrille(grille);
@@ -89,7 +90,7 @@ public class IHMJeu extends Observe {
         window.setVisible(false);
     }
     public void desafficherIni(){
-        vIni.setVisible(false);
+        vIni.desafficher();
     }
 
     // Getter
