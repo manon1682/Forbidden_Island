@@ -46,7 +46,7 @@ public class Controleur implements Observateur {
     public Controleur() {
         initPlateau();
         initDeck();
-        vueIHMJeu = new IHMJeu(grille, joueurs, joueurCourant);
+        vueIHMJeu = new IHMJeu(grille, joueurs, joueurCourant, jaugeInnondation);
         vueIHMJeu.addObservateur(this);
     }
 
