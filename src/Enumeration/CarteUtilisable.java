@@ -5,13 +5,13 @@ import java.io.FileInputStream;
 import javax.imageio.ImageIO;
 
 public enum CarteUtilisable {
-    HELICO("Helico","Helicoptere.png"),
-    SAC_SABLE("Sac De Sable","SacsDeSable.png"),
-    MONTEE_EAU("Montee Des Eaux","MonteeDesEaux.png"),
     PIERRE_SACRE("Pierre Sacré","Pierre.png"),
     STATUE_DU_ZEPHIR("Statue du Zéphir","Zephyr.png"),
     CRISTAL_ARDENT("Cristal Ardent","Cristal.png"),
-    CALICE_DE_ORDRE("Calice de Ordre","Calice.png");
+    CALICE_DE_ORDRE("Calice de Ordre","Calice.png"),
+    HELICO("Helico","Helicoptere.png"),
+    SAC_SABLE("Sac De Sable","SacsDeSable.png"),
+    MONTEE_EAU("Montee Des Eaux","MonteeDesEaux.png"),;
 
     private String label;
     private BufferedImage image;

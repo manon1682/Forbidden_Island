@@ -35,19 +35,7 @@ public class IHMJeu extends Observe {
     private Grille grille;
     private int jaugeInnondation;
 
-    public IHMJeu(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge) {
-
-        //initialisation variable
-        setGrille(g);
-        setAventurier(a);
-        jaugeInnondation = jauge;
-        vNiveau = new VueNiveau(jaugeInnondation);
-        vPlat = new VuePlateau(grille);
-        vAven = new VueCoequipierAventurier(joueurCourant);
-        vActionAven = new VueActionAventurier(joueurCourant);
-        vMainAven = new VueInventaireAventurier(joueurCourant);
-        this.joueurs = joueurs;
-        //fin initialisation
+    public IHMJeu() {
         
         //Ouverture fenêtre initialisation
         vIni = new VueInitialisation(this);
@@ -56,8 +44,26 @@ public class IHMJeu extends Observe {
         vIni.repaint(); 
         this.window = new JFrame();
         window.setLayout(new BorderLayout());
-        //this.afficher();
+        window.setVisible(false);
 
+    }
+
+    public void afficher(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge) {
+        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        window.setSize(1400, 800);
+        
+        //initialisation variable
+        setGrille(g);
+        setAventurier(a);
+        jaugeInnondation = jauge;
+        vNiveau = new VueNiveau(jaugeInnondation);
+        vPlat = new VuePlateau(grille, this.joueurs, this); 
+        vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
+        vActionAven = new VueActionAventurier(joueurCourant, this);
+        vMainAven = new VueInventaireAventurier(joueurCourant, this);
+        this.joueurCourant = joueurCourant;
+        //Fin de l'initialisation
+        
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         //Création 2 panels dans Panel Principale > "1" pour le "haut/centre", "2" pour le sud
@@ -79,13 +85,6 @@ public class IHMJeu extends Observe {
         mainPanel.add(panelSud2, BorderLayout.SOUTH);
 
         window.add(mainPanel);
-        window.setVisible(false);
-
-    }
-
-    public void afficher() {
-        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        window.setSize(1400, 800);
         window.setVisible(true);
     }
 

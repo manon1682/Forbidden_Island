@@ -7,7 +7,6 @@ package view;
 
 import Enumeration.TypesMessages;
 import forbidden_island.Message;
-import forbidden_island.Observe;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,20 +17,19 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -40,32 +38,42 @@ import javax.swing.JTextField;
 public class VueInitialisation extends JPanel {
 
     private final JFrame window;
-    //private final JPanel mainPanel;
     private JPanel panelCentre;
     private JComboBox choixNbJoueur;
     private String[] nbjoueurs;
     private JPanel panelHaut;
     private JPanel panelHautTitre;
-    private JPanel panelHautChoix;
+    private JPanel panelHautCentre;
+    private JPanel panHauCent1;
+    private JPanel panHauCent2;
+    private JPanel panHauCent3;
     private JPanel panelBas;
     private JButton valider;
     private JButton manuel;
     private JLabel labTitre;
+    private JLabel labNiv;
+    private JLabel labAlea;
+    private JLabel labNbJ;
+    private ButtonGroup groupeNiv;
+    private ButtonGroup groupeAlea;
+    private JRadioButton [] boutNiv;
+    private JRadioButton[] boutAlea;
+    private JRadioButton bouton;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
+    private int height;
+    private int width;
 
     private Image image;
 
     public VueInitialisation(IHMJeu ihm) {
-        //récuperation de la taille de l'écran
-        Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        int height = tailleEcran.height;
-        int width = tailleEcran.width;
+        width = 800;
+        height = 700;
         
         this.nbjoueurs = new String[]{"2", "3", "4"};
         this.window = new JFrame();
         window.setResizable(false);
-        window.setSize(500, 600);
+        window.setSize(width, height);
         window.setLocationRelativeTo(null);
 
         window.setTitle("Ile Interdite");
@@ -92,35 +100,106 @@ public class VueInitialisation extends JPanel {
         panelHautTitre.add(labTitre);
         panelHaut.add(panelHautTitre, BorderLayout.NORTH);
         
-        panelHautChoix = new JPanel(new GridLayout(4, 4));
-        panelHautChoix.setOpaque(false);
+        //PanelHautCentre
+        panelHautCentre = new JPanel(new GridLayout(4, 1));
+        panelHautCentre.setOpaque(false);
         //Ligne 1 Saut de ligne
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
+        panelHautCentre.add(new JLabel());
+      
+        //Ligne 2 Sélection du niveau + Choix Role Aléatoire/Choisis
+        panHauCent1 = new JPanel(new GridLayout(2, 6));
+        panHauCent1.setOpaque(false);
+        labNiv= new JLabel("Niveau : ", SwingConstants.RIGHT);
+        labNiv.setForeground(Color.white);
+        panHauCent1.add(labNiv);
         
-        //Ligne 2 Bouton Manuel
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
-        manuel = new JButton("Manuel");
-        panelHautChoix.add(manuel);
-        panelHautChoix.add(new JLabel());
+        groupeNiv = new ButtonGroup();
         
-        //Ligne 3 Nombre Joueur  
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel("Nombre de Joueur : "));
+        boutNiv = new JRadioButton[4];
+        
+        bouton = new JRadioButton("Novice");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
+        boutNiv[0] = bouton;
+        groupeNiv.add(bouton);
+        
+        bouton = new JRadioButton("Normal");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
+        boutNiv[1] = bouton;
+        groupeNiv.add(bouton);
+        
+        bouton = new JRadioButton("Elite");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
+        boutNiv[2] = bouton;
+        groupeNiv.add(bouton);
+        
+        bouton = new JRadioButton("Légendaire");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
+        boutNiv[3] = bouton;
+        groupeNiv.add(bouton);
+        
+        boutNiv[1].setSelected(true);
+        
+        panHauCent1.add(boutNiv[0]);
+        panHauCent1.add(boutNiv[1]);
+        panHauCent1.add(boutNiv[2]);
+        panHauCent1.add(boutNiv[3]);
+        panHauCent1.add(new JLabel());
+        
+        //Choix Role Aléatoire/Choisis
+        
+        panHauCent1.setOpaque(false);
+        labAlea = new JLabel("Rôles : ", SwingConstants.RIGHT);
+        labAlea.setForeground(Color.white);    
+        panHauCent1.add(labAlea);
+        
+        groupeAlea = new ButtonGroup();
+        
+        boutAlea = new JRadioButton[2];
+        
+        bouton = new JRadioButton("Aléatoire");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
+        boutAlea[0] = bouton;
+        groupeAlea.add(bouton);
+        
+        bouton = new JRadioButton("Manuel");
+        bouton.setOpaque(false);
+        bouton.setForeground(Color.white);
+        boutAlea[1] = bouton;
+        groupeAlea.add(bouton);
+        
+        boutAlea[0].setSelected(true);
+        
+        panHauCent1.add(boutAlea[0]);
+        panHauCent1.add(boutAlea[1]);
+        
+        panHauCent1.add(new JLabel());
+        panHauCent1.add(new JLabel());
+        panHauCent1.add(new JLabel());
+        
+        panelHautCentre.add(panHauCent1);
+        
+        //Ligne 4 Nombre Joueur  
+        panHauCent3 = new JPanel(new GridLayout(1, 3));
+        panHauCent3.setOpaque(false);
+        labNbJ = new JLabel("Nombre de joueurs : ");
+        labNbJ.setForeground(Color.white);        
+        panHauCent3.add(labNbJ);
         choixNbJoueur = new JComboBox(nbjoueurs);
-        panelHautChoix.add(choixNbJoueur);
-        panelHautChoix.add(new JLabel());
+        panHauCent3.add(choixNbJoueur);
+        panHauCent3.add(new JLabel());
+        panelHautCentre.add(panHauCent3);
         
-        //Ligne 4 Saut de Ligne
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
-        panelHautChoix.add(new JLabel());
+        
+        //Ligne 5 Saut de Ligne
+        panelHautCentre.add(new JLabel());
+      
 
-        panelHaut.add(panelHautChoix, BorderLayout.CENTER);
+        panelHaut.add(panelHautCentre, BorderLayout.CENTER);
         
         this.add(panelHaut, BorderLayout.NORTH);
 
@@ -174,7 +253,7 @@ public class VueInitialisation extends JPanel {
 
                     Message m = new Message(TypesMessages.NOUVELLE_PARTIE);
                     m.setNom(nom);
-                    m.setNbJoueur(nbJ);
+                    //m.setNiveau(ACOMPLETERRRRR);
                     ihm.notifierObservateur(m);
                 }
 
@@ -194,7 +273,7 @@ public class VueInitialisation extends JPanel {
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        g.drawImage(image, 0, 0, 500, 600, null, this);
+        g.drawImage(image, 0, 0, width, height, null, this);
     }
 
     public void afficher() {
