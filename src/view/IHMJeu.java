@@ -22,7 +22,7 @@ public class IHMJeu extends Observe {
     //composants fenêtre
     private final JFrame window;
 
-//        private VueIninialisation vIni;
+    private VueInitialisation vIni;
     private VueNiveau vNiveau;
     private VuePlateau vPlat;
     private VueCoequipierAventurier vAven;
@@ -44,10 +44,15 @@ public class IHMJeu extends Observe {
         vActionAven = new VueActionAventurier(aventurier);
         vMainAven = new VueInventaireAventurier(aventurier);
         //fin initialisation
-
+        
+        //Ouverture fenêtre initialisation
+        vIni = new VueInitialisation(this);
+        
+        vIni.setVisible(true);
+        vIni.repaint(); 
         this.window = new JFrame();
         window.setLayout(new BorderLayout());
-        this.afficher();
+        //this.afficher();
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -70,7 +75,7 @@ public class IHMJeu extends Observe {
         mainPanel.add(panelSud2, BorderLayout.SOUTH);
 
         window.add(mainPanel);
-        
+        window.setVisible(false);
 
     }
 
@@ -82,6 +87,9 @@ public class IHMJeu extends Observe {
 
     public void desafficher() {
         window.setVisible(false);
+    }
+    public void desafficherIni(){
+        vIni.setVisible(false);
     }
 
     // Getter

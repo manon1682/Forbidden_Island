@@ -1,3 +1,4 @@
+
 package view;
 
 import Aventurier.Aventurier;
