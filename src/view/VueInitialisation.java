@@ -37,7 +37,6 @@ import javax.swing.JTextField;
 public class VueInitialisation extends JPanel {
 
     private final JFrame window;
-    //private final JPanel mainPanel;
     private JPanel panelCentre;
     private JComboBox choixNbJoueur;
     private String[] nbjoueurs;
