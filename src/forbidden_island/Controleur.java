@@ -830,8 +830,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 // Ici on vérifie que la partie n'est ni perdu ni gagner pour continuer
                 if (perdrePartie()) {
+                    System.out.println("perdue");
 //                    vueA.perdu();
                 } else if (gagnerPartie()) {
+                    System.out.println("gagnée");
 //                    vueA.gagner();
                 } else {
                     joueurCourant = joueurSuivant();

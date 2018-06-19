@@ -34,7 +34,6 @@ public class VueNiveau extends JPanel {
 
     public VueNiveau(int jaugeInn) {
 
-        System.out.println("kangouroiu");
 
         //initialisation
         this.jaugeInnondation = jaugeInn;
@@ -70,7 +69,8 @@ public class VueNiveau extends JPanel {
         JLabel labelSticker = new JLabel();
         labelSticker.setIcon(imgSticker);
         
-        jaugeInnondation = 7; //test
+        System.out.println(jaugeInnondation);
+        
         for (int i = 0; i < 11; i++) {
             
             if (i == 10-jaugeInnondation) {

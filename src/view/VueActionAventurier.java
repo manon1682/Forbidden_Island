@@ -120,8 +120,6 @@ public class VueActionAventurier extends JPanel {
                 sauvType = TypesMessages.TOUR_SUIVANT;
                 Message m = new Message(TypesMessages.TOUR_SUIVANT);
                 ihm.notifierObservateur(m);
-                
-                btnTerminerTour.setEnabled(false);
             }
         });
     }
