@@ -61,10 +61,7 @@ public class VueInitialisation extends JPanel {
     private Image image;
 
     public VueInitialisation(IHMJeu ihm) {
-        //récuperation de la taille de l'écran
-        Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
-        int height = tailleEcran.height;
-        int width = tailleEcran.width;
+       
         
         this.nbjoueurs = new String[]{"2", "3", "4"};
         this.window = new JFrame();
