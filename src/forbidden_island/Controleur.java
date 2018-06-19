@@ -871,7 +871,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                     //On créer une nouvelle vue Aventurier
                     //vueIHMJeu.miseAJour(joueurCourant);
-                    vueIHMJeu.afficher(grille, joueurs, joueurCourant, jaugeInnondation);
+                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation);
                     //actionPossible();
                 }
 
