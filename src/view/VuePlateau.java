@@ -17,7 +17,11 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -33,6 +37,7 @@ public class VuePlateau extends JPanel {
     private ArrayList<Aventurier> joueurs;
     private boolean activer;
     private VuePlateau plat;
+    private BufferedImage fond;
     
     public VuePlateau(Grille grille, ArrayList<Aventurier> js, IHMJeu ihm) {
         activer = false;
@@ -42,7 +47,13 @@ public class VuePlateau extends JPanel {
         tuiles = new VueTuile[6][6];
         initTuiles(grille);
         
-        this.setBackground(Color.blue);
+        try{
+            fond = ImageIO.read((new FileInputStream("images/mer.jpg")));
+        } catch (IOException ex) {
+            ex.fillInStackTrace();
+        }
+        
+        //this.setBackground(Color.blue);
         this.setLayout(new GridLayout(6, 6));
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
@@ -140,6 +151,16 @@ public class VuePlateau extends JPanel {
         for(int l = 0; l<6 ; l++){
             for(int c = 0; c<6 ; c++){
                 tuiles[l][c].setCadre(false);
+            }
+        }
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        g.drawImage(fond, 0, 0, plat.getWidth() , plat.getHeight(),null);
+        for(int l = 0; l<6 ; l++){
+            for(int c = 0; c<6 ; c++){
+                tuiles[l][c].repaint();
             }
         }
     }
