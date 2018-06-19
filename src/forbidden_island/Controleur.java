@@ -46,7 +46,7 @@ public class Controleur implements Observateur {
     public Controleur() {
         initPlateau();
         initDeck();
-        vueIHMJeu = new IHMJeu(grille, joueurs, joueurCourant);
+        vueIHMJeu = new IHMJeu(grille, joueurs, joueurCourant, jaugeInnondation);
         vueIHMJeu.addObservateur(this);
     }
 
@@ -681,7 +681,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     if (m.getTuile() == null) {
                         // On affiche l'IHM avec les tuiles possibles
                         g = ((Pilote) joueurCourant).deplacementPossibleSpecial(grille);
-                        vueIHMJeu.afficherTuilePossible(g, getGrille());
+                        vueIHMJeu.afficherTuilePossible(g);
                     } else {
                         //Sinon on déplace le pilote et on met à jour sa capacité utilisée
                         String nom = m.getTuile();
@@ -764,7 +764,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     g[joueurCourant.getL()][joueurCourant.getC()] = false;
                 }
 
-                vueIHMJeu.afficherTuilePossible(g, grille);
+                vueIHMJeu.afficherTuilePossible(g);
 
                 break;
 
@@ -811,7 +811,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
 
                     //On créer une nouvelle vue Aventurier
-                    vueIHMJeu.miseAjour(joueurCourant);
+                    vueIHMJeu.miseAJour(joueurCourant);
                     vueIHMJeu.addObservateur(this);
                     vueIHMJeu.afficher();
 

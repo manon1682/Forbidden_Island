@@ -38,4 +38,9 @@ public enum CarteUtilisable {
     public String toString() {
         return this.label;
     }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+        
 }

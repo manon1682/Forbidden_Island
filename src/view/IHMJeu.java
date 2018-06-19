@@ -30,18 +30,23 @@ public class IHMJeu extends Observe {
     private VueActionAventurier vActionAven;
     private VueInventaireAventurier vMainAven;
     
-    private Aventurier aventurier;
+    private ArrayList<Aventurier> joueurs;
+    private Aventurier joueurCourant;
     private Grille grille;
+    private int jaugeInnondation;
 
-    public IHMJeu(Grille grille, ArrayList<Aventurier> joueurs, Aventurier joueurCourant) {
+    public IHMJeu(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge) {
 
         //initialisation variable
-        setGrille(grille);
-        vNiveau = new VueNiveau();
+        setGrille(g);
+        setAventurier(a);
+        jaugeInnondation = jauge;
+        vNiveau = new VueNiveau(jaugeInnondation);
         vPlat = new VuePlateau(grille);
-        vAven = new VueCoequipierAventurier(aventurier);
-        vActionAven = new VueActionAventurier(aventurier);
-        vMainAven = new VueInventaireAventurier(aventurier);
+        vAven = new VueCoequipierAventurier(joueurCourant);
+        vActionAven = new VueActionAventurier(joueurCourant);
+        vMainAven = new VueInventaireAventurier(joueurCourant);
+        this.joueurs = joueurs;
         //fin initialisation
         
         //Ouverture fenêtre initialisation
@@ -90,17 +95,20 @@ public class IHMJeu extends Observe {
     public void desafficherIni(){
         vIni.desafficher();
     }
+    
+    public void afficherTuilePossible(boolean[][] grille){
+        
+    }
+    
 
     // Getter
 
-   
-
     public Aventurier getAventurier() {
-        return aventurier;
+        return joueurCourant;
     }
 
     public void setAventurier(Aventurier aventurier) {
-        this.aventurier = aventurier;
+        this.joueurCourant = aventurier;
     }
 
     public Grille getGrille() {
@@ -119,5 +127,13 @@ public class IHMJeu extends Observe {
         return vActionAven;
     }
     
+    public void miseAJour(Aventurier a){
+        joueurCourant = a;
+        window.setVisible(true);
+    }
 
+    public void assechementIngenieur(){
+        
+    }
+    
 }
