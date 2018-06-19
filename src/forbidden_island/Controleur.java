@@ -307,9 +307,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         Tuile tuileHelico = grille.getTuileAvecNom("Heliport");
 
         boolean joueursPresentsHeliport = true;
-        while (nbAction != 0) {
-
-        }
+        
         for (Aventurier j : joueurs) {
             if (j.getL() != tuileHelico.getLigne() || j.getC() != tuileHelico.getColonne()) {
                 joueursPresentsHeliport = false;
@@ -823,9 +821,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case TOUR_SUIVANT:
-                //On désaffiche la vue
-                //vueIHMJeu.desafficher();
-
                 //Si le joueur était un pilote, on met à jour sa capacité spéciale
                 if (joueurCourant.estRole("Pilote")) {
                     ((Pilote) joueurCourant).setCapaciteUtilisee(false);
@@ -834,20 +829,20 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 tirageCarte();
 
                 // Ici on vérifie que la partie n'est ni perdu ni gagner pour continuer
-                if (partiePerdue) {
+                if (perdrePartie()) {
 //                    vueA.perdu();
                 } else if (gagnerPartie()) {
 //                    vueA.gagner();
                 } else {
                     joueurCourant = joueurSuivant();
-                    actionPossible();
 
                     //On initialise le nombre d'actions selon si c'est un navigateur ou non
                     nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
 
                     //On créer une nouvelle vue Aventurier
-                    vueIHMJeu.miseAJour(joueurCourant);
-                    vueIHMJeu.addObservateur(this);
+                    //vueIHMJeu.miseAJour(joueurCourant);
+                    vueIHMJeu.afficher(grille, joueurs, joueurCourant, jaugeInnondation);
+                    actionPossible();
                 }
 
                 break;

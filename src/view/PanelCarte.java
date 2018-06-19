@@ -29,12 +29,6 @@ public class PanelCarte extends JPanel {
 
         carte = c;
         nb = n;
-        /*setLayout(new BorderLayout());
-
-        JPanel panelhaut = new JPanel(new BorderLayout());
-        JLabel nombre = new JLabel("x " + n);
-        panelhaut.add(nombre, BorderLayout.EAST);
-        add(panelhaut, BorderLayout.NORTH);*/
     }
 
     @Override
