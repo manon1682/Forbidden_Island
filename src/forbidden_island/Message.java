@@ -77,6 +77,10 @@ public class Message {
     public void setNiveau(TypesNiveaux niveau) {
         this.niveau = niveau;
     }
+    
+  
+    
+    
 
     
 

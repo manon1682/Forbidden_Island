@@ -6,15 +6,14 @@
 package view;
 
 import Enumeration.TypesMessages;
+import Enumeration.TypesNiveaux;
 import forbidden_island.Message;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
@@ -37,7 +36,12 @@ import javax.swing.SwingConstants;
  */
 public class VueInitialisation extends JPanel {
 
+    // Variable Fenêtre
     private final JFrame window;
+    private int height;
+    private int width;
+    
+    
     private JPanel panelCentre;
     private JComboBox choixNbJoueur;
     private String[] nbjoueurs;
@@ -46,30 +50,27 @@ public class VueInitialisation extends JPanel {
     private JPanel panelHautCentre;
     private JPanel panHauCent1;
     private JPanel panHauCent2;
-    private JPanel panHauCent3;
     private JPanel panelBas;
+    private JPanel panGridBas;
     private JButton valider;
     private JButton manuel;
     private JLabel labTitre;
     private JLabel labNiv;
-    private JLabel labAlea;
     private JLabel labNbJ;
+    private JLabel labNomJ;
     private ButtonGroup groupeNiv;
-    private ButtonGroup groupeAlea;
-    private JRadioButton [] boutNiv;
-    private JRadioButton[] boutAlea;
+    private JRadioButton[] boutNiv;
     private JRadioButton bouton;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
-    private int height;
-    private int width;
+    
 
     private Image image;
 
     public VueInitialisation(IHMJeu ihm) {
-        width = 800;
-        height = 700;
-        
+        width = 787;
+        height = 787;
+
         this.nbjoueurs = new String[]{"2", "3", "4"};
         this.window = new JFrame();
         window.setResizable(false);
@@ -90,156 +91,150 @@ public class VueInitialisation extends JPanel {
         // **** Panel Haut ****
         panelHaut = new JPanel(new BorderLayout());
         panelHaut.setOpaque(false);
-        
+
         //PanelHautTitre
         labTitre = new JLabel("Ile Interdite");
         labTitre.setForeground(Color.white);
-        labTitre.setFont(new Font("Arial Black", Font.PLAIN, 40));
+        labTitre.setFont(new Font("Serif", Font.ROMAN_BASELINE, 100));
         panelHautTitre = new JPanel();
         panelHautTitre.setOpaque(false);
         panelHautTitre.add(labTitre);
         panelHaut.add(panelHautTitre, BorderLayout.NORTH);
-        
+
         //PanelHautCentre
         panelHautCentre = new JPanel(new GridLayout(4, 1));
         panelHautCentre.setOpaque(false);
         //Ligne 1 Saut de ligne
         panelHautCentre.add(new JLabel());
-      
+
         //Ligne 2 Sélection du niveau + Choix Role Aléatoire/Choisis
-        panHauCent1 = new JPanel(new GridLayout(2, 6));
+        panHauCent1 = new JPanel(new GridLayout(1, 6));
         panHauCent1.setOpaque(false);
-        labNiv= new JLabel("Niveau : ", SwingConstants.RIGHT);
+        labNiv = new JLabel("Niveau : ", SwingConstants.RIGHT);
         labNiv.setForeground(Color.white);
+        labNiv.setFont(new Font("Arial", Font.PLAIN, 18));
         panHauCent1.add(labNiv);
-        
+
         groupeNiv = new ButtonGroup();
-        
+
         boutNiv = new JRadioButton[4];
         
         bouton = new JRadioButton("Novice");
         bouton.setOpaque(false);
         bouton.setForeground(Color.white);
+        bouton.setFont(new Font("Arial", Font.PLAIN, 18));
         boutNiv[0] = bouton;
         groupeNiv.add(bouton);
-        
+
         bouton = new JRadioButton("Normal");
         bouton.setOpaque(false);
         bouton.setForeground(Color.white);
+        bouton.setFont(new Font("Arial", Font.PLAIN, 18));
         boutNiv[1] = bouton;
         groupeNiv.add(bouton);
-        
+
         bouton = new JRadioButton("Elite");
         bouton.setOpaque(false);
         bouton.setForeground(Color.white);
+        bouton.setFont(new Font("Arial", Font.PLAIN, 18));
         boutNiv[2] = bouton;
         groupeNiv.add(bouton);
-        
+
         bouton = new JRadioButton("Légendaire");
         bouton.setOpaque(false);
         bouton.setForeground(Color.white);
+        bouton.setFont(new Font("Arial", Font.PLAIN, 18));
         boutNiv[3] = bouton;
         groupeNiv.add(bouton);
-        
+
         boutNiv[1].setSelected(true);
-        
+
         panHauCent1.add(boutNiv[0]);
         panHauCent1.add(boutNiv[1]);
         panHauCent1.add(boutNiv[2]);
         panHauCent1.add(boutNiv[3]);
         panHauCent1.add(new JLabel());
-        
-        //Choix Role Aléatoire/Choisis
-        
-        panHauCent1.setOpaque(false);
-        labAlea = new JLabel("Rôles : ", SwingConstants.RIGHT);
-        labAlea.setForeground(Color.white);    
-        panHauCent1.add(labAlea);
-        
-        groupeAlea = new ButtonGroup();
-        
-        boutAlea = new JRadioButton[2];
-        
-        bouton = new JRadioButton("Aléatoire");
-        bouton.setOpaque(false);
-        bouton.setForeground(Color.white);
-        boutAlea[0] = bouton;
-        groupeAlea.add(bouton);
-        
-        bouton = new JRadioButton("Manuel");
-        bouton.setOpaque(false);
-        bouton.setForeground(Color.white);
-        boutAlea[1] = bouton;
-        groupeAlea.add(bouton);
-        
-        boutAlea[0].setSelected(true);
-        
-        panHauCent1.add(boutAlea[0]);
-        panHauCent1.add(boutAlea[1]);
-        
-        panHauCent1.add(new JLabel());
-        panHauCent1.add(new JLabel());
-        panHauCent1.add(new JLabel());
-        
         panelHautCentre.add(panHauCent1);
         
+
         //Ligne 4 Nombre Joueur  
-        panHauCent3 = new JPanel(new GridLayout(1, 3));
-        panHauCent3.setOpaque(false);
-        labNbJ = new JLabel("Nombre de joueurs : ");
-        labNbJ.setForeground(Color.white);        
-        panHauCent3.add(labNbJ);
+        panHauCent2 = new JPanel(new GridLayout(1, 3));
+        panHauCent2.setOpaque(false);
+        labNbJ = new JLabel("Nombre de joueurs : ", SwingConstants.RIGHT);
+        labNbJ.setForeground(Color.white);
+        labNbJ.setFont(new Font("Arial", Font.PLAIN, 20));
+        panHauCent2.add(labNbJ);
         choixNbJoueur = new JComboBox(nbjoueurs);
-        panHauCent3.add(choixNbJoueur);
-        panHauCent3.add(new JLabel());
-        panelHautCentre.add(panHauCent3);
-        
-        
+        panHauCent2.add(choixNbJoueur);
+        panHauCent2.add(new JLabel());
+        panelHautCentre.add(panHauCent2);
+
         //Ligne 5 Saut de Ligne
         panelHautCentre.add(new JLabel());
-      
 
         panelHaut.add(panelHautCentre, BorderLayout.CENTER);
-        
+
         this.add(panelHaut, BorderLayout.NORTH);
 
         // **** Fin PanelHaut ****
         
-        //Panel Centre
-        panelCentre = new JPanel(new GridLayout(4, 2));
+        // **** Panel Centre ****
+        panelCentre = new JPanel(new GridLayout(18, 3));
         panelCentre.setOpaque(false);
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 54; i++) {
             panelCentre.add(new JLabel());
         }
 
         this.add(BorderLayout.CENTER, panelCentre);
+        
+        // **** Fin PanelCentre ****
 
-        //Panel bas
+        // **** Panel bas ****
         valider = new JButton("Valider");
-        this.add(BorderLayout.SOUTH, valider);
+        manuel = new JButton("Manuel");
+        panGridBas = new JPanel(new GridLayout(1,3));
+        panGridBas.setOpaque(false);
+        
+        panGridBas.add(manuel);
+        panGridBas.add(new JLabel());
+        panGridBas.add(valider);
+        
+        this.add(BorderLayout.SOUTH, panGridBas);
+        
+        // **** Fin PanelBas ****
+        
 
+        
         valider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 if (choixNbJoueur.isEnabled()) {
+                    
                     nbJ = choixNbJoueur.getSelectedIndex() + 2;
 
-                    for (int i = 0; i < 8; i++) {
+                    for (int i = 0; i < 54; i++) {
                         panelCentre.remove(0);
                     }
 
                     for (int i = 0; i < nbJ; i++) {
                         saisirJ.add(new JTextField("Joueur " + (i + 1)));
-
-                        panelCentre.add(new JLabel("Nom joueur " + (i + 1)));
+                        
+                        labNomJ = new JLabel("Nom Joueur " + (i+1) + " : ", SwingConstants.RIGHT);
+                        labNomJ.setForeground(Color.white);
+                        labNomJ.setFont(new Font("Arial", Font.PLAIN, 20));
+                        panelCentre.add(new JLabel());
+                        panelCentre.add(new JLabel());
+                        panelCentre.add(new JLabel());
+                        panelCentre.add(labNomJ);
                         panelCentre.add(saisirJ.get(i));
+                        panelCentre.add(new JLabel());
 
                     }
-                    for (int i = 0; i < 4 - nbJ; i++) {
+                    for (int i = 0; i < 54 - 6*nbJ; i++) {
                         panelCentre.add(new JLabel());
-                        panelCentre.add(new JLabel());
+                        
                     }
                     choixNbJoueur.setEnabled(false);
                     window.setVisible(true);
@@ -253,7 +248,18 @@ public class VueInitialisation extends JPanel {
 
                     Message m = new Message(TypesMessages.NOUVELLE_PARTIE);
                     m.setNom(nom);
-                    //m.setNiveau(ACOMPLETERRRRR);
+
+                    //If pour renvoye le niveau sélectionné
+                    if (boutNiv[0].isSelected()) {
+                        m.setNiveau(TypesNiveaux.NOVICE);
+                    }else if(boutNiv[1].isSelected()){
+                        m.setNiveau(TypesNiveaux.NORMAL);
+                    }else if(boutNiv[2].isSelected()){
+                        m.setNiveau(TypesNiveaux.ELITE);
+                    }else{
+                        m.setNiveau(TypesNiveaux.LEGENDAIRE);
+                    }
+                 
                     ihm.notifierObservateur(m);
                 }
 

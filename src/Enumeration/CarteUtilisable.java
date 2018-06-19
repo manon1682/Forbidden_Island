@@ -11,7 +11,7 @@ public enum CarteUtilisable {
     CALICE_DE_ORDRE("Calice de Ordre","Calice.png"),
     HELICO("Helico","Helicoptere.png"),
     SAC_SABLE("Sac De Sable","SacsDeSable.png"),
-    MONTEE_EAU("Montee Des Eaux","MonteeDesEaux.png"),;
+    MONTEE_EAU("Montee Des Eaux","MonteeDesEaux.png");
 
     private String label;
     private BufferedImage image;
