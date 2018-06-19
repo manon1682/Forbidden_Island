@@ -202,7 +202,7 @@ public class VueInitialisation extends JPanel {
 
                     Message m = new Message(TypesMessages.NOUVELLE_PARTIE);
                     m.setNom(nom);
-                    m.setNbJoueur(nbJ);
+                    m.setNiveau(ACOMPLETERRRRR);
                     ihm.notifierObservateur(m);
                 }
 

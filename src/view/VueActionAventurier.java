@@ -32,9 +32,11 @@ public class VueActionAventurier extends JPanel {
 
     private IHMJeu ihm;
 
-    public VueActionAventurier(Aventurier aventurier) {
+    public VueActionAventurier(Aventurier aventurier, IHMJeu ihmJ) {
+        //Donner en entrée l'IHM !!!
 
         //initialisation
+        ihm = ihmJ;
         btnDeplacer = new JButton("Déplacer");
         btnAssecher = new JButton("Assécher");
         btnActionSpeciale = new JButton("Action Spécial");

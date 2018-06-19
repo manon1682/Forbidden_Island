@@ -5,6 +5,7 @@
  */
 package view;
 
+import Aventurier.Aventurier;
 import Enumeration.EtatTuile;
 import forbidden_island.Grille;
 import forbidden_island.Tuile;
@@ -23,9 +24,13 @@ public class VuePlateau extends JPanel {
 
     private Grille grille;
     private VueTuile[][] tuiles;
+    private IHMJeu ihmJeu;
+    private ArrayList<Aventurier> joueurs;
     
-    public VuePlateau(Grille grille) {
+    public VuePlateau(Grille grille, ArrayList<Aventurier> js, IHMJeu ihm) {
         this.grille = grille;
+        ihmJeu = ihm;
+        joueurs = js;
         tuiles = new VueTuile[6][6];
         initTuiles(grille);
         this.setLayout(new GridLayout(6, 6));
