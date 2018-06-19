@@ -6,6 +6,7 @@
 package view;
 
 import Aventurier.Aventurier;
+import Enumeration.TypesMessages;
 import forbidden_island.Grille;
 import forbidden_island.Observe;
 import java.awt.BorderLayout;
@@ -99,8 +100,7 @@ public class IHMJeu extends Observe {
     public void afficherTuilePossible(boolean[][] grille){
         vPlat.afficherPossible(grille);
         vPlat.repaint();
-    }
-    
+    }    
 
     // Getter
 
@@ -137,4 +137,7 @@ public class IHMJeu extends Observe {
         
     }
     
+    public TypesMessages getSauvType(){
+        return vActionAven.getSauvType();
+    }
 }

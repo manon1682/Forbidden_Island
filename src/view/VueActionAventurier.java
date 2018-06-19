@@ -135,4 +135,9 @@ public class VueActionAventurier extends JPanel {
     public JButton getBtnActionSpeciale() {
         return btnActionSpeciale;
     }
+
+    public TypesMessages getSauvType() {
+        return sauvType;
+    }
+    
 }

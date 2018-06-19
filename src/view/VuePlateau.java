@@ -57,8 +57,8 @@ public class VuePlateau extends JPanel {
                     int l = getLigne(me.getY());
                     int c = getColonne(me.getX());
                     if(!tuiles[l][c].getNomTuile().equals("Ocean") && gPossible[l][c]){
+                        Message m = new Message(ihmJeu.getSauvType());
                         plat.desaficherPossible();
-                        Message m = new Message(TypesMessages.DEPLACER);
                         m.setTuile(tuiles[l][c].getNomTuile());
                         ihm.notifierObservateur(m);
                     }
@@ -96,6 +96,7 @@ public class VuePlateau extends JPanel {
                 }
             }
         }
+        this.repaint();
     }
     
     public void majTuiles(ArrayList<Aventurier> joueurs) {
@@ -107,6 +108,7 @@ public class VuePlateau extends JPanel {
         for(Aventurier j : joueurs){
             tuiles[j.getL()][j.getC()].getJoueur().add(j.getPion());
        }
+        this.repaint();
     }
     
     public void initTuiles(Grille grille) {
