@@ -209,6 +209,7 @@ public class VueInitialisation extends JPanel {
         JLabel logoVal = new JLabel();
         logoVal.setIcon(logoValider);
         btnValider.setIcon(logoValider);
+        
  
         
         //Manuel Aspect
