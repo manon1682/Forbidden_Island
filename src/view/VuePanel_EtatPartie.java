@@ -56,7 +56,7 @@ public class VuePanel_EtatPartie extends JPanel {
         a = aventurier;
         joueurs = js;
         //Case 1 de la grilleCoequipier
-        btnPrendreTresor = new JButton();
+        btnPrendreTresor = new JButton("Prendre trésor");
         /*ImageIcon logoFermer = new ImageIcon("images/icones/iconClose.png");
         JLabel logoF = new JLabel();
         logoF.setIcon(logoFermer);
@@ -92,7 +92,7 @@ public class VuePanel_EtatPartie extends JPanel {
         grilleTresor.add(tresorPierreSacre);
 
         containerCase1.add(grilleTresor, BorderLayout.CENTER);
-        containerCase1.add(btnPrendreTresor, BorderLayout.EAST);
+        containerCase1.add(btnPrendreTresor, BorderLayout.WEST);
 
         grilleCoequipier.add(containerCase1);
 
