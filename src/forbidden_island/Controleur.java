@@ -857,9 +857,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case CARTE_CLICK:
-                //Afficher le bouton "Utiliser carte" et "Donner carte" et "défausser" avec la méthode qui renvoie un boolean
+                //Afficher le bouton "Utiliser carte" et "Donner carte" et "Défausser" avec la méthode qui renvoie un boolean
                 if (defaussementEnCours) {
-                    // affiche le bouton defausser
+                    // affiche le bouton defausser*
+                    //utiliser aussi
                 } else {
                     //afficher les bouton utiliser et donner
                     utiliserCartePossible(m.getCarte());

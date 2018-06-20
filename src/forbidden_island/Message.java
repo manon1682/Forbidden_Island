@@ -8,6 +8,7 @@ package forbidden_island;
 import Enumeration.TypesMessages;
 import Aventurier.Aventurier;
 import Cartes.CarteTresor;
+import Enumeration.CarteUtilisable;
 import Enumeration.TypesNiveaux;
 import java.util.ArrayList;
 
@@ -77,11 +78,5 @@ public class Message {
     public void setNiveau(TypesNiveaux niveau) {
         this.niveau = niveau;
     }
-    
   
-    
-    
-
-    
-
 }

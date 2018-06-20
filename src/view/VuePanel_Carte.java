@@ -5,6 +5,7 @@
  */
 package view;
 
+import Cartes.CarteTresor;
 import Enumeration.CarteUtilisable;
 import Enumeration.EtatTuile;
 import Enumeration.TypesMessages;
@@ -28,7 +29,7 @@ import javax.swing.JPanel;
 public class VuePanel_Carte extends JPanel {
 
     private Dimension dim;
-    private CarteUtilisable carte;
+    private CarteTresor carte;
     private int nb;
     private JButton donner;
     private JButton defausser;
@@ -40,7 +41,7 @@ public class VuePanel_Carte extends JPanel {
 
     public VuePanel_Carte(int n, CarteUtilisable c) {
 
-        carte = c;
+        carte = new CarteTresor(c);
         nb = n;
         donner = new JButton("Donner");
         defausser = new JButton("Défausser");
@@ -59,7 +60,9 @@ public class VuePanel_Carte extends JPanel {
         mainPanel.add(defausser);
         mainPanel.add(new JLabel());
         mainPanel.add(utiliser);
-        mainPanel.add(new JLabel());        
+        mainPanel.add(new JLabel());
+        
+        add(mainPanel);
         
         //ActionListener des boutons
         donner.addActionListener(
@@ -67,37 +70,40 @@ public class VuePanel_Carte extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message(TypesMessages.DONNER_CARTE);
+                m.setCarte(carte);
                 ihm.notifierObservateur(m);    
             }
         });
+        
         defausser.addActionListener(
             new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message(TypesMessages.DEFAUSSER_CARTE);
+                m.setCarte(carte);
                 ihm.notifierObservateur(m);
             }
         });
+        
         utiliser.addActionListener(
             new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message(TypesMessages.UTILISER_CARTE);
+                m.setCarte(carte);
                 ihm.notifierObservateur(m);
             }
         });
         
     }
     
-    
-
     @Override
     public void paint(Graphics g) {
         int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width)) - 2;
         setDim(new Dimension(size, size));
         
         if (nb != 0) {
-            g.drawImage(carte.getImage(), 0, 0, dim.width, dim.height, null);
+            g.drawImage(carte.utilisation().getImage(), 0, 0, dim.width, dim.height, null);
             g.setColor(Color.BLACK);
             g.setFont(new Font("Arial", Font.BOLD, dim.height/4));
             g.drawString("x " + nb, dim.width/2, dim.height/4);
