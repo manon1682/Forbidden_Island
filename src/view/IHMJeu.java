@@ -207,6 +207,10 @@ public class IHMJeu extends Observe {
         return vActionAven.getSauvType();
     }
     
+    public void setSauvType(TypesMessages t) {
+        vActionAven.setSauvType(t);
+    }
+    
     //Affichage Victoire
     public void Victoire() {
         
