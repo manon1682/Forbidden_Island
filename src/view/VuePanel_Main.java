@@ -89,7 +89,6 @@ public class VuePanel_Main extends JPanel {
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
-
                         Message m = new Message(TypesMessages.CARTE_CLICK);
                         m.setVueCarte((VuePanel_Carte) e.getSource());
                         ihm.notifierObservateur(m);
@@ -98,10 +97,13 @@ public class VuePanel_Main extends JPanel {
 
                     @Override
                     public void mouseExited(MouseEvent e) {
-                        carte.getUtiliser().setVisible(false);
-                        carte.getDonner().setVisible(false);
-                        carte.getDefausser().setVisible(false);
-                        repaint();
+                        if (carte.getSize().width < e.getX() || 0 > e.getX()
+                                || carte.getSize().height < e.getY() || 0 > e.getY()) {
+                            carte.getUtiliser().setVisible(false);
+                            carte.getDonner().setVisible(false);
+                            carte.getDefausser().setVisible(false);
+                            repaint();
+                        }
                     }
                 });
             }

@@ -1019,7 +1019,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         }
 
         //Affiche les boutons d'actions possibles
-        if (!defaussementEnCours) {
+        if (!defaussementEnCours && nbAction != 0) {
             actionPossible();
         }
 
