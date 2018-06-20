@@ -21,9 +21,12 @@ import javax.swing.JPanel;
  */
 public class IHMJeu extends Observe {
 
-    //composants fenêtre
+    //Composants fenêtre
     private final JFrame window;
+    private JPanel panelCentre1;
+    private JPanel panelSud2;
 
+    //Vues qu'elle possède
     private VueInitialisation vIni;
     private VueNiveau vNiveau;
     private VuePlateau vPlat;
@@ -31,6 +34,7 @@ public class IHMJeu extends Observe {
     private VueActionAventurier vActionAven;
     private VueInventaireAventurier vMainAven;
 
+    //Variables
     private ArrayList<Aventurier> joueurs;
     private Aventurier joueurCourant;
     private Grille grille;
@@ -49,7 +53,7 @@ public class IHMJeu extends Observe {
         window.setVisible(false);
     }
 
-    public void afficherInitiale(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge) {
+    public void afficherInitiale(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge, int nbAction) {
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1400, 800);
 
@@ -62,15 +66,15 @@ public class IHMJeu extends Observe {
         vPlat = new VuePlateau(grille, this.joueurs, this);
         vPlat.majTuiles(joueurs);
         vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
-        vActionAven = new VueActionAventurier(joueurCourant, this);
+        vActionAven = new VueActionAventurier(this, nbAction);
         vMainAven = new VueInventaireAventurier(joueurCourant, this);
         //Fin de l'initialisation
 
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         //Création 2 panels dans Panel Principale > "1" pour le "haut/centre", "2" pour le sud
-        JPanel panelCentre1 = new JPanel(new BorderLayout());
-        JPanel panelSud2 = new JPanel(new BorderLayout());
+        panelCentre1 = new JPanel(new BorderLayout());
+        panelSud2 = new JPanel(new BorderLayout());
 
         //Ajout 3 panel au Panel Centre1 >
         panelCentre1.add(vNiveau, BorderLayout.WEST);
@@ -89,42 +93,34 @@ public class IHMJeu extends Observe {
         window.setVisible(true);
     }
 
-    public void afficher(Grille g, Aventurier a, int jauge) {
+    public void afficher(Grille g, Aventurier a, int jauge, int nbAction) {
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1400, 800);
 
-        //initialisation variable
+        //On enlève les panels liés à au joueur prédécent
+        panelCentre1.remove(vNiveau);
+        panelCentre1.remove(vAven);
+        panelSud2.remove(vMainAven);
+        panelSud2.remove(vActionAven);
+
+        //Mis à jour des variables
         setGrille(g);
         setAventurier(a);
         jaugeInnondation = jauge;
+        //Mis à jour des vues
         vNiveau = new VueNiveau(jaugeInnondation);
-        vPlat.majTuiles(joueurs);
         vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
         vMainAven = new VueInventaireAventurier(joueurCourant, this);
+        vActionAven = new VueActionAventurier(this, nbAction);
+        vPlat.majTuiles(joueurs);
         //Fin de l'initialisation
 
-     /*   JPanel mainPanel = new JPanel(new BorderLayout());
-
-        //Création 2 panels dans Panel Principale > "1" pour le "haut/centre", "2" pour le sud
-        JPanel panelCentre1 = new JPanel(new BorderLayout());
-        JPanel panelSud2 = new JPanel(new BorderLayout());
-
-        //Ajout 3 panel au Panel Centre1 >
+        //On replace les nouveaux panels créés selon le nouveau joueur
         panelCentre1.add(vNiveau, BorderLayout.WEST);
-        panelCentre1.add(vPlat, BorderLayout.CENTER);
-        
         panelCentre1.add(vAven, BorderLayout.EAST);
-
-        //Ajout 2 panel au Panel Sud2 > vueMainAven centre / gauche | vueActionAven > à droite
         panelSud2.add(vMainAven, BorderLayout.CENTER);
-        
         panelSud2.add(vActionAven, BorderLayout.EAST);
 
-        //Ajout panel au Panel Principale
-        mainPanel.add(panelCentre1, BorderLayout.CENTER);
-        mainPanel.add(panelSud2, BorderLayout.SOUTH);
-
-        window.add(mainPanel); */
         window.setVisible(true);
     }
 
@@ -139,6 +135,12 @@ public class IHMJeu extends Observe {
     public void afficherTuilePossible(boolean[][] grille) {
         vPlat.afficherPossible(grille);
         vPlat.repaint();
+    }
+
+    public void miseAJourNbAction(int nbAction) {
+        panelSud2.remove(vActionAven);
+        vActionAven = new VueActionAventurier(this, nbAction);
+        panelSud2.add(vActionAven, BorderLayout.EAST);
     }
 
     // Getter
