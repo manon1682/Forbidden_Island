@@ -25,7 +25,7 @@ import javax.swing.JPanel;
  *
  * @author blanquan
  */
-public class VuePanel_EtatPartie extends JPanel {
+public class VueCoequipierAventurier extends JPanel {
 
     //Case 1 de la grilleCoequipier
     private JButton btnPrendreTresor;
@@ -36,9 +36,9 @@ public class VuePanel_EtatPartie extends JPanel {
     //créer 4 images supplémentaires si on peut pas modif transparance sur les images
 
     //nouvelle case
-    private VuePanel_InventaireCoequipiers vInv1;
-    private VuePanel_InventaireCoequipiers vInv2;
-    private VuePanel_InventaireCoequipiers vInv3;
+    private VuePanel_InventaireCoequipier vInv1;
+    private VuePanel_InventaireCoequipier vInv2;
+    private VuePanel_InventaireCoequipier vInv3;
 
     //case 5
     private VuePanel_MessageBox vText;
@@ -49,27 +49,26 @@ public class VuePanel_EtatPartie extends JPanel {
     private Aventurier a;
     private ArrayList<Aventurier> joueurs;
 
-    public VuePanel_EtatPartie(Aventurier aventurier, ArrayList<Aventurier> js, IHMJeu ihm) {
+    public VueCoequipierAventurier(Aventurier aventurier, ArrayList<Aventurier> js, IHMJeu ihm) {
 
         //Initialisation
         this.ihm = ihm;
         a = aventurier;
         joueurs = js;
         //Case 1 de la grilleCoequipier
-        btnPrendreTresor = new JButton();
+        btnPrendreTresor = new JButton("Prendre trésor");
         /*ImageIcon logoFermer = new ImageIcon("images/icones/iconClose.png");
         JLabel logoF = new JLabel();
-        logoF.setIcon(logoFermer);
-        btnPrendreTresor.setIcon(logoFermer);*/
+        logoF.setIcon(logoFermer);*/
         tresorCristalArdent = new JLabel("tresorCA");
         tresorStatueZephir = new JLabel("tresorSZ");
         tresorCaliceOrdre = new JLabel("tresorCO");
         tresorPierreSacre = new JLabel("tresorPS");
 
         //nouvelle case 2 à 4
-        vInv1 = new VuePanel_InventaireCoequipiers();
-        vInv2 = new VuePanel_InventaireCoequipiers();
-        vInv3 = new VuePanel_InventaireCoequipiers();
+        vInv1 = new VuePanel_InventaireCoequipier();
+        vInv2 = new VuePanel_InventaireCoequipier();
+        vInv3 = new VuePanel_InventaireCoequipier();
 
         //case 5 
         vText = new VuePanel_MessageBox();
@@ -92,7 +91,7 @@ public class VuePanel_EtatPartie extends JPanel {
         grilleTresor.add(tresorPierreSacre);
 
         containerCase1.add(grilleTresor, BorderLayout.CENTER);
-        containerCase1.add(btnPrendreTresor, BorderLayout.EAST);
+        containerCase1.add(btnPrendreTresor, BorderLayout.WEST);
 
         grilleCoequipier.add(containerCase1);
 
@@ -118,16 +117,17 @@ public class VuePanel_EtatPartie extends JPanel {
         new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               Message m = new Message(TypesMessages.PRENDRE_TRESOR);
-               ihm.notifierObservateur(m);
+                Message m = new Message(TypesMessages.PRENDRE_TRESOR);
+                ihm.notifierObservateur(m);
             }
         });
        
-
     }
 
     public JButton getBtnPrendreTresor() {
         return btnPrendreTresor;
     }
+    
+    
 
 }

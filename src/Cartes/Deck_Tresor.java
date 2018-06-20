@@ -27,21 +27,21 @@ public class Deck_Tresor extends Deck {
         //  5 de chaque Tresor
         
         //hélicos
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i < 3; i++) {
             cartesPioche.add( new CarteTresor(CarteUtilisable.HELICO));
         }
         //sac de sable
-        for (int i = 0; i <= 2; i++) {
+        for (int i = 0; i < 2; i++) {
             cartesPioche.add( new CarteTresor(CarteUtilisable.SAC_SABLE));
         }
         //montées des eaux
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i < 3; i++) {
             cartesPioche.add( new CarteTresor(CarteUtilisable.MONTEE_EAU));
         }
         
         laCarte = CarteUtilisable.PIERRE_SACRE;
         for (int i = 0; i < 4; i++) {   
-            for (int j = 0; j <= 5; j++) {
+            for (int j = 0; j < 5; j++) {
                 cartesPioche.add( new CarteTresor(laCarte));
             }
             laCarte = laCarte.getNext();
