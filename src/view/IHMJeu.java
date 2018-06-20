@@ -70,7 +70,7 @@ public class IHMJeu extends Observe {
     public void afficherInitiale(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge, int nbAction) {
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1400, 800);
-        
+        window.setTitle("L'île Interdite");
         //initialisation variable
         setGrille(g);
         setAventurier(a);
