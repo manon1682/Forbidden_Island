@@ -15,6 +15,7 @@ public enum TypesMessages {
     DONNER_CARTE,
     PRENDRE_TRESOR,
     UTILISER_CARTE,
+    DEFAUSSER_CARTE,
     TOUR_SUIVANT,
     NOUVELLE_PARTIE,
     SPECIALE,

@@ -709,6 +709,11 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         boolean[][] g = new boolean[6][6];
         TypesMessages type = m.getType();
 
+        if (type != TypesMessages.NOUVELLE_PARTIE) {
+            //On désaffiche les cartes précédemment encadrées
+            vueIHMJeu.getvPlat().desaficherPossible();
+        }
+
         switch (type) {
 
             case DEPLACER:

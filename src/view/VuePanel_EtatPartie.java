@@ -35,11 +35,6 @@ public class VuePanel_EtatPartie extends JPanel {
     private JLabel tresorPierreSacre;   // "
     //créer 4 images supplémentaires si on peut pas modif transparance sur les images
 
-    //nouvelle case
-    private VuePanel_InventaireCoequipiers vInv1;
-    private VuePanel_InventaireCoequipiers vInv2;
-    private VuePanel_InventaireCoequipiers vInv3;
-
     //case 5
     private VuePanel_MessageBox vText;
 
@@ -56,20 +51,23 @@ public class VuePanel_EtatPartie extends JPanel {
         a = aventurier;
         joueurs = js;
         //Case 1 de la grilleCoequipier
-        btnPrendreTresor = new JButton();
-        /*ImageIcon logoFermer = new ImageIcon("images/icones/iconClose.png");
-        JLabel logoF = new JLabel();
-        logoF.setIcon(logoFermer);
-        btnPrendreTresor.setIcon(logoFermer);*/
-        tresorCristalArdent = new JLabel("tresorCA");
-        tresorStatueZephir = new JLabel("tresorSZ");
-        tresorCaliceOrdre = new JLabel("tresorCO");
-        tresorPierreSacre = new JLabel("tresorPS");
-
-        //nouvelle case 2 à 4
-        vInv1 = new VuePanel_InventaireCoequipiers();
-        vInv2 = new VuePanel_InventaireCoequipiers();
-        vInv3 = new VuePanel_InventaireCoequipiers();
+        btnPrendreTresor = new JButton("Prendre trésor");
+        
+        ImageIcon logo = new ImageIcon("images/tresors/calice.png");
+        tresorCaliceOrdre = new JLabel();
+        tresorCaliceOrdre.setIcon(logo);
+        
+        logo = new ImageIcon("images/tresors/cristal.png");
+        tresorCristalArdent = new JLabel();
+        tresorCristalArdent.setIcon(logo);
+        
+        logo = new ImageIcon("images/tresors/pierre.png");
+        tresorPierreSacre = new JLabel();
+        tresorPierreSacre.setIcon(logo);
+        
+        logo = new ImageIcon("images/tresors/zephyr.png");
+        tresorStatueZephir = new JLabel();
+        tresorStatueZephir.setIcon(logo);
 
         //case 5 
         vText = new VuePanel_MessageBox();
@@ -92,7 +90,7 @@ public class VuePanel_EtatPartie extends JPanel {
         grilleTresor.add(tresorPierreSacre);
 
         containerCase1.add(grilleTresor, BorderLayout.CENTER);
-        containerCase1.add(btnPrendreTresor, BorderLayout.EAST);
+        containerCase1.add(btnPrendreTresor, BorderLayout.WEST);
 
         grilleCoequipier.add(containerCase1);
 
@@ -103,9 +101,6 @@ public class VuePanel_EtatPartie extends JPanel {
                 grilleCoequipier.add(vInv);
             }
         }
-        /*grilleCoequipier.add(vInv1);
-        grilleCoequipier.add(vInv2);
-        grilleCoequipier.add(vInv3);*/
 
         //Case 5 de la grilleCoequipier (MessageBox)
         grilleCoequipier.add(vText);
