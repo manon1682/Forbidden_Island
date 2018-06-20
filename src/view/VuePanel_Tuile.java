@@ -36,11 +36,16 @@ public class VuePanel_Tuile extends JPanel{
     private Dimension dim;
     private boolean possible;
     private boolean cadre;
+    private boolean tresor = false;
     private ArrayList<Pion> joueur;
     private VuePanel_Plateau vPlat;
     
     private BufferedImage tuileNormale;
     private BufferedImage tuileInondee;
+    
+    private BufferedImage tuileNormaleNoTresor;
+    private BufferedImage tuileInondeeNoTresor;
+    
     
     public VuePanel_Tuile(String nom, EtatTuile etat, Dimension dim,VuePanel_Plateau plat){
         joueur = new ArrayList<>();
@@ -96,9 +101,16 @@ public class VuePanel_Tuile extends JPanel{
     
     public void initImage(){
         if(getNomFichierTuile(nomTuile) != null){
+            tuileNormaleNoTresor = null;
+            tuileInondeeNoTresor = null;
+            
             try {
                 tuileNormale = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+".png")));
                 tuileInondee = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Innonde.png")));
+                if(tresor){
+                    tuileNormaleNoTresor = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_NoTresor.png")));
+                    tuileInondeeNoTresor = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Innonde_NoTresor.png")));
+                }
             } catch (IOException ex) {
                 ex.fillInStackTrace();
             }   
@@ -110,10 +122,10 @@ public class VuePanel_Tuile extends JPanel{
         int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
         setDim(new Dimension(size, size));
         if(etat == EtatTuile.sèche){
-            g.drawImage(tuileNormale, 0, 0, dim.width, dim.height, null);
+            g.drawImage((!tresor ? (tuileNormaleNoTresor != null ? tuileNormaleNoTresor : tuileNormale) : tuileNormale), 0, 0, dim.width, dim.height, null);
             afficherPion(g);
         } else if(etat == EtatTuile.inondée){
-            g.drawImage(tuileInondee, 0, 0, dim.width, dim.height, null);
+            g.drawImage((!tresor ? (tuileInondeeNoTresor != null ? tuileInondeeNoTresor : tuileInondee) : tuileInondee), 0, 0, dim.width, dim.height, null);
             afficherPion(g);
         }
         if(isPossible()){
@@ -122,11 +134,12 @@ public class VuePanel_Tuile extends JPanel{
         }
         
         if(isCadre()){
-            BasicStroke nStrock = new BasicStroke(3.0f); //Augmente épaisseur du contour de la tuile
+            /*BasicStroke nStrock = new BasicStroke(3.0f); //Augmente épaisseur du contour de la tuile
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(nStrock);
             g2.setColor(Color.GREEN);
-            g2.drawRect(dim.width/28, dim.height/28, dim.width-dim.width/14, dim.height-dim.height/14);
+            g2.drawRect(dim.width/28, dim.height/28, dim.width-dim.width/14, dim.height-dim.height/14);*/
+            g.drawImage(vPlat.getContourPassage(), 0, 0, dim.width, dim.height, null);
         } else {
             
         }
@@ -157,6 +170,7 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "La Caverne des Ombres":{
                 nom = "LaCaverneDesOmbres";
+                this.tresor = true;
             } break;
             case "La Porte de Fer":{
                 nom = "LaPorteDeFer";
@@ -169,6 +183,7 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "Le Palais de Corail":{
                 nom = "LePalaisDeCorail";
+                this.tresor = true;
             } break;
             case "La Porte d’Argent":{
                 nom = "LaPorteArgent";
@@ -184,6 +199,7 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "Le Jardin des Hurlements":{
                 nom = "LeJardinDesHurlements";
+                this.tresor = true;
             } break;
             case "La Foret Pourpre":{
                 nom = "LaForetPourpre";
@@ -202,6 +218,7 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "La Caverne du Brasier":{
                 nom = "LaCaverneDuBrasier";
+                this.tresor = true;
             } break;
             case "Le Temple du Soleil":{
                 nom = "LeTempleDuSoleil";
@@ -211,6 +228,7 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "Le Palais des Marees":{
                 nom = "LePalaisDesMarees";
+                this.tresor = true;
             } break;
             case "Le Val du Crepuscule":{
                 nom = "LeValDuCrepuscule";
@@ -220,6 +238,7 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "Le Jardin des Murmures":{
                 nom = "LeJardinDesMurmures";
+                this.tresor = true;
             } break;
             default :{
                 nom = null;
@@ -288,6 +307,8 @@ public class VuePanel_Tuile extends JPanel{
         this.cadre = cadre;
     }
     
-    
+    public void setTresor(boolean tr){
+        tresor = tr;
+    }
     
 }

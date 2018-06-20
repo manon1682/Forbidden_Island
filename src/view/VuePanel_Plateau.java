@@ -38,6 +38,8 @@ public class VuePanel_Plateau extends JPanel {
     private boolean activer;
     private VuePanel_Plateau plat;
     private BufferedImage fond;
+    private BufferedImage contourPassage;
+    private BufferedImage contourPossible;
     
     public VuePanel_Plateau(Grille grille, ArrayList<Aventurier> js, IHMJeu ihm) {
         activer = false;
@@ -48,6 +50,8 @@ public class VuePanel_Plateau extends JPanel {
         initTuiles(grille);
         
         try{
+            contourPassage = ImageIO.read((new FileInputStream("images/Tile_Movement_Icon@2x.png")));
+            contourPossible = ImageIO.read((new FileInputStream("images/Tile_Flood_Icon@2x.png")));
             fond = ImageIO.read((new FileInputStream("images/mer.jpg")));
         } catch (IOException ex) {
             ex.fillInStackTrace();
@@ -131,8 +135,6 @@ public class VuePanel_Plateau extends JPanel {
         }
     }
     
-    
-    
     @Override
     public void paint(Graphics g) {
         g.drawImage(fond, 0, 0, plat.getWidth() , plat.getHeight(),null);
@@ -161,6 +163,14 @@ public class VuePanel_Plateau extends JPanel {
     
     public TypesMessages getType(){
         return ihmJeu.getSauvType();
+    }
+
+    public BufferedImage getContourPassage() {
+        return contourPassage;
+    }
+
+    public BufferedImage getContourPossible() {
+        return contourPossible;
     }
     
 }
