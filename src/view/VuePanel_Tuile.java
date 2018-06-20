@@ -36,7 +36,8 @@ public class VuePanel_Tuile extends JPanel{
     private Dimension dim;
     private boolean possible;
     private boolean cadre;
-    private boolean tresor = false;
+    private boolean possedeTresor = false;
+    private String tresor;
     private ArrayList<Pion> joueur;
     private VuePanel_Plateau vPlat;
     
@@ -107,7 +108,7 @@ public class VuePanel_Tuile extends JPanel{
             try {
                 tuileNormale = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+".png")));
                 tuileInondee = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Innonde.png")));
-                if(tresor){
+                if(possedeTresor){
                     tuileNormaleNoTresor = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_NoTresor.png")));
                     tuileInondeeNoTresor = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Innonde_NoTresor.png")));
                 }
@@ -122,10 +123,10 @@ public class VuePanel_Tuile extends JPanel{
         int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
         setDim(new Dimension(size, size));
         if(etat == EtatTuile.sèche){
-            g.drawImage((!tresor ? (tuileNormaleNoTresor != null ? tuileNormaleNoTresor : tuileNormale) : tuileNormale), 0, 0, dim.width, dim.height, null);
+            g.drawImage((!possedeTresor ? (tuileNormaleNoTresor != null ? tuileNormaleNoTresor : tuileNormale) : tuileNormale), 0, 0, dim.width, dim.height, null);
             afficherPion(g);
         } else if(etat == EtatTuile.inondée){
-            g.drawImage((!tresor ? (tuileInondeeNoTresor != null ? tuileInondeeNoTresor : tuileInondee) : tuileInondee), 0, 0, dim.width, dim.height, null);
+            g.drawImage((!possedeTresor ? (tuileInondeeNoTresor != null ? tuileInondeeNoTresor : tuileInondee) : tuileInondee), 0, 0, dim.width, dim.height, null);
             afficherPion(g);
         }
         if(isPossible()){
@@ -170,7 +171,8 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "La Caverne des Ombres":{
                 nom = "LaCaverneDesOmbres";
-                this.tresor = true;
+                this.possedeTresor = true;
+                tresor = "";
             } break;
             case "La Porte de Fer":{
                 nom = "LaPorteDeFer";
@@ -183,7 +185,8 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "Le Palais de Corail":{
                 nom = "LePalaisDeCorail";
-                this.tresor = true;
+                this.possedeTresor = true;
+                tresor = "";
             } break;
             case "La Porte d’Argent":{
                 nom = "LaPorteArgent";
@@ -199,7 +202,8 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "Le Jardin des Hurlements":{
                 nom = "LeJardinDesHurlements";
-                this.tresor = true;
+                this.possedeTresor = true;
+                tresor = "";
             } break;
             case "La Foret Pourpre":{
                 nom = "LaForetPourpre";
@@ -218,7 +222,8 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "La Caverne du Brasier":{
                 nom = "LaCaverneDuBrasier";
-                this.tresor = true;
+                this.possedeTresor = true;
+                tresor = "";
             } break;
             case "Le Temple du Soleil":{
                 nom = "LeTempleDuSoleil";
@@ -228,7 +233,8 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "Le Palais des Marees":{
                 nom = "LePalaisDesMarees";
-                this.tresor = true;
+                this.possedeTresor = true;
+                tresor = "";
             } break;
             case "Le Val du Crepuscule":{
                 nom = "LeValDuCrepuscule";
@@ -238,7 +244,8 @@ public class VuePanel_Tuile extends JPanel{
             } break;
             case "Le Jardin des Murmures":{
                 nom = "LeJardinDesMurmures";
-                this.tresor = true;
+                this.possedeTresor = true;
+                tresor = ""; 
             } break;
             default :{
                 nom = null;
@@ -307,8 +314,16 @@ public class VuePanel_Tuile extends JPanel{
         this.cadre = cadre;
     }
     
-    public void setTresor(boolean tr){
-        tresor = tr;
+    public void setPossedeTresor(boolean tr){
+        possedeTresor = tr;
+    }
+    
+    public boolean possedeTresor(){
+        return possedeTresor;
+    }
+    
+    public String getTresor(){
+        return tresor;
     }
     
 }

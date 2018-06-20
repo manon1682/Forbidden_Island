@@ -173,4 +173,15 @@ public class VuePanel_Plateau extends JPanel {
         return contourPossible;
     }
     
+    public void majTresor(String tr){
+        for(int l = 0; l<6 ; l++){
+            for(int c = 0; c<6 ; c++){
+                if((tuiles[l][c].possedeTresor() ? tuiles[l][c].getTresor().equals(tr): false)){
+                    tuiles[l][c].setPossedeTresor(false);
+                }
+            }
+        }
+    }
+    
+    
 }
