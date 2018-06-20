@@ -61,39 +61,6 @@ public class VuePanel_Plateau extends JPanel {
             }
         }
         plat = this;
-        this.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent me) {
-                if(activer){
-                    int l = getLigne(me.getY());
-                    int c = getColonne(me.getX());
-                    if(!tuiles[l][c].getNomTuile().equals("Ocean") && gPossible[l][c]){
-                        Message m = new Message(ihmJeu.getSauvType());
-                        plat.desaficherPossible();
-                        m.setTuile(tuiles[l][c].getNomTuile());
-                        ihm.notifierObservateur(m);
-                    }
-                    activer = false;
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent me) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent me) {
-            }
-        });
-        
     }
 
     public void majTuiles(Grille grille) {
@@ -127,9 +94,9 @@ public class VuePanel_Plateau extends JPanel {
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
                 if (grille.getTuiles()[l][c] != null) {
-                    tuiles[l][c] = new VuePanel_Tuile(ts[l][c].getNom(), ts[l][c].getEtat(), new Dimension(100, 100));
+                    tuiles[l][c] = new VuePanel_Tuile(ts[l][c].getNom(), ts[l][c].getEtat(), new Dimension(100, 100),this);
                 } else {
-                    tuiles[l][c] = new VuePanel_Tuile("Ocean", EtatTuile.coulée, new Dimension(100, 100));
+                    tuiles[l][c] = new VuePanel_Tuile("Ocean", EtatTuile.coulée);
                 }
             }
         }
@@ -141,7 +108,7 @@ public class VuePanel_Plateau extends JPanel {
         for(int l = 0; l<6 ; l++){
             for(int c = 0; c<6 ; c++){
                 if(gBool[l][c]){
-                    tuiles[l][c].setCadre(true);
+                    tuiles[l][c].setPossible(true);
                 }
             }
         }
@@ -150,7 +117,7 @@ public class VuePanel_Plateau extends JPanel {
     public void desaficherPossible(){
         for(int l = 0; l<6 ; l++){
             for(int c = 0; c<6 ; c++){
-                tuiles[l][c].setCadre(false);
+                tuiles[l][c].setPossible(false);
             }
         }
         this.repaint();
@@ -188,6 +155,12 @@ public class VuePanel_Plateau extends JPanel {
         this.gPossible = gPossible;
     }
     
+    public void transmettreMessage(Message m){
+        this.ihmJeu.notifierObservateur(m);
+    }
     
+    public TypesMessages getType(){
+        return ihmJeu.getSauvType();
+    }
     
 }

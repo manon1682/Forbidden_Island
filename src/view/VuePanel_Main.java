@@ -14,10 +14,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -27,29 +30,29 @@ import javax.swing.border.Border;
  * @author blanquan
  */
 public class VuePanel_Main extends JPanel {
-    
+
     private IHMJeu ihm;
     private Aventurier a;
-    
+
     public VuePanel_Main(Aventurier aventurier, IHMJeu ihmJ) {
 
         //Initialisation
         ihm = ihmJ;
         a = aventurier;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        
+
         setLayout(new BorderLayout());
         JPanel main = new JPanel(new GridLayout(1, 6));
         JPanel panelNord = new JPanel(new BorderLayout());
-        
+
         panelNord.add(new JLabel(aventurier.getPseudo()), BorderLayout.WEST);
         panelNord.add(new JLabel(aventurier.getRole()), BorderLayout.EAST);
-        
+
         add(panelNord, BorderLayout.NORTH);
         add(main, BorderLayout.CENTER);
-        
+
         CarteUtilisable laCarte = CarteUtilisable.PIERRE_SACRE;
-        
+
         for (int i = 0; i < 6; i++) {
             int n = 0;
             //On regarde le nombre de carte correspondant à laCarte
@@ -58,60 +61,73 @@ public class VuePanel_Main extends JPanel {
                     n = n + 1;
                 }
             }
-            
+
             //Créer le panel carte
-            JPanel carte = new VuePanel_Carte(n, laCarte);
+            VuePanel_Carte carte = new VuePanel_Carte(n, laCarte);
+            carte.setIhm(this);
             CarteTresor c = new CarteTresor(laCarte);
-            
-            carte.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    Message m = new Message(TypesMessages.CARTE_CLICK);
-                    m.setCarte(c);
-                    ihm.notifierObservateur(m);
-                }
+
+            if (n != 0) {
+                carte.getUtiliser().setVisible(false);
+                carte.getDonner().setVisible(false);
+                carte.getDefausser().setVisible(false);
                 
-                @Override
-                public void mousePressed(MouseEvent e) {
-                }
+                carte.getUtiliser().setVisible(true);
+                carte.getDonner().setVisible(true);
+                carte.getDefausser().setVisible(true);
                 
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                }
                 
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                }
-                
-                @Override
-                public void mouseExited(MouseEvent e) {
-                }
-            });
-            
+                carte.repaint();
+                carte.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        Message m = new Message(TypesMessages.CARTE_CLICK);
+                        m.setVueCarte((VuePanel_Carte) e.getSource());
+                        ihm.notifierObservateur(m);
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+                });
+            }
+
             main.add(carte);
             laCarte = laCarte.getNext();
-            
+
         }
         this.setPreferredSize(new Dimension(10, 120));
-        
+
     }
-    
+
     public VuePanel_Main(Aventurier aventurier) {
         //Initialisation
         a = aventurier;
-        
+
         setLayout(new BorderLayout());
         JPanel main = new JPanel(new GridLayout(1, 6));
         JPanel panelNord = new JPanel(new BorderLayout());
-        
+
         panelNord.add(new JLabel(aventurier.getPseudo()), BorderLayout.WEST);
         panelNord.add(new JLabel(aventurier.getRole()), BorderLayout.EAST);
-        
+
         add(panelNord, BorderLayout.NORTH);
         add(main, BorderLayout.CENTER);
-        
+
         CarteUtilisable laCarte = CarteUtilisable.PIERRE_SACRE;
-        
+
         for (int i = 0; i < 6; i++) {
             int n = 0;
             for (CarteTresor carte : a.getMainA()) {
@@ -119,13 +135,27 @@ public class VuePanel_Main extends JPanel {
                     n = n + 1;
                 }
             }
-            
-            JPanel carte = new VuePanel_Carte(n, laCarte);
-            
+
+            VuePanel_Carte carte = new VuePanel_Carte(n, laCarte);
+            if (n != 0) {
+                carte.getUtiliser().setVisible(false);
+                carte.getDonner().setVisible(false);
+                carte.getDefausser().setVisible(false);
+                carte.repaint();
+            }
+
             main.add(carte);
             laCarte = laCarte.getNext();
-            
+
         }
     }
+
+    public void notifierObservateur(Message m) {
+        ihm.notifierObservateur(m);
+    }
     
+    public void setSauvType(TypesMessages t){
+        ihm.setSauvType(t);
+    }
+
 }

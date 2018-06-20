@@ -23,6 +23,7 @@ public class IHMJeu extends Observe {
 
     //Composants fenêtre
     private final JFrame window;
+    private JPanel mainPanel;
     private JPanel panelCentre1;
     private JPanel panelSud2;
 
@@ -70,7 +71,7 @@ public class IHMJeu extends Observe {
         vMainAven = new VuePanel_Main(joueurCourant, this);
         //Fin de l'initialisation
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel = new JPanel(new BorderLayout());
 
         //Création 2 panels dans Panel Principale > "1" pour le "haut/centre", "2" pour le sud
         panelCentre1 = new JPanel(new BorderLayout());
@@ -98,7 +99,7 @@ public class IHMJeu extends Observe {
         window.setSize(1400, 800);
 
         //On enlève les panels liés à au joueur prédécent
-        panelCentre1.remove(vNiveau);
+        //panelCentre1.remove(vNiveau);
         panelCentre1.remove(vAven);
         panelSud2.remove(vMainAven);
         panelSud2.remove(vActionAven);
@@ -108,7 +109,8 @@ public class IHMJeu extends Observe {
         setAventurier(a);
         jaugeInnondation = jauge;
         //Mis à jour des vues
-        vNiveau = new VuePanel_Niveau(jaugeInnondation);
+        //vNiveau = new VuePanel_Niveau(jaugeInnondation);
+        vNiveau.setJauge(jaugeInnondation);
         vAven = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
         vMainAven = new VuePanel_Main(joueurCourant, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
@@ -166,6 +168,10 @@ public class IHMJeu extends Observe {
         return vAven;
     }
 
+    public VuePanel_Main getvMainAven() {
+        return vMainAven;
+    }
+
     public VuePanel_ActionAventurier getvActionAven() {
         return vActionAven;
     }
@@ -182,4 +188,9 @@ public class IHMJeu extends Observe {
     public TypesMessages getSauvType() {
         return vActionAven.getSauvType();
     }
+    
+    public void setSauvType(TypesMessages t){
+        vActionAven.setSauvType(t);
+    }
+
 }

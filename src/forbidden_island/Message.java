@@ -8,8 +8,10 @@ package forbidden_island;
 import Enumeration.TypesMessages;
 import Aventurier.Aventurier;
 import Cartes.CarteTresor;
+import Enumeration.CarteUtilisable;
 import Enumeration.TypesNiveaux;
 import java.util.ArrayList;
+import view.VuePanel_Carte;
 
 /**
  *
@@ -24,7 +26,7 @@ public class Message {
     
     //Pour donner une carte
     private Aventurier joueur; // Le joueur destinataire
-    private CarteTresor carte;
+    private VuePanel_Carte vueCarte;
 
     //Pour commencer une partie
     private TypesNiveaux niveau; 
@@ -46,8 +48,8 @@ public class Message {
         return joueur;
     }
 
-    public CarteTresor getCarte() {
-        return carte;
+    public VuePanel_Carte getVueCarte() {
+        return vueCarte;
     }
 
     public ArrayList<String> getNom() {
@@ -62,8 +64,8 @@ public class Message {
         this.joueur = joueur;
     }
 
-    public void setCarte(CarteTresor carte) {
-        this.carte = carte;
+    public void setVueCarte(VuePanel_Carte carte) {
+        this.vueCarte = carte;
     }
 
     public void setNom(ArrayList<String> nom) {
@@ -77,11 +79,5 @@ public class Message {
     public void setNiveau(TypesNiveaux niveau) {
         this.niveau = niveau;
     }
-    
   
-    
-    
-
-    
-
 }
