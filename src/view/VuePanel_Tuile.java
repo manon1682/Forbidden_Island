@@ -134,15 +134,13 @@ public class VuePanel_Tuile extends JPanel{
             g.fillRect(0, 0, dim.width, dim.height);
         }
         
-        if(isCadre()){
+        if(isCadre() && etat != EtatTuile.coulée){
             /*BasicStroke nStrock = new BasicStroke(3.0f); //Augmente épaisseur du contour de la tuile
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(nStrock);
             g2.setColor(Color.GREEN);
             g2.drawRect(dim.width/28, dim.height/28, dim.width-dim.width/14, dim.height-dim.height/14);*/
             g.drawImage(vPlat.getContourPassage(), 0, 0, dim.width, dim.height, null);
-        } else {
-            
         }
         
     }
