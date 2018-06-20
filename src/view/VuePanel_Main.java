@@ -105,7 +105,7 @@ public class VuePanel_Main extends JPanel {
                             carte.getUtiliser().setVisible(false);
                             carte.getDonner().setVisible(false);
                             carte.getDefausser().setVisible(false);
-                            carte.repaint();
+                            repaint();
 
                         }
                     }
