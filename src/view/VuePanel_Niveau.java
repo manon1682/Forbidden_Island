@@ -35,82 +35,61 @@ import javax.swing.JPanel;
 public class VuePanel_Niveau extends JPanel {
 
     private int jaugeInnondation;
+    private int jaugeInnondationPrecedente;
+    
+    private double precedentRatio;
     private JButton btnManuel;
-
+    private BufferedImage imageJauge;
+    private BufferedImage imagePointeur;
+    
     public VuePanel_Niveau(int jaugeInn) {
 
 
         //initialisation
         this.jaugeInnondation = jaugeInn;
+        jaugeInnondationPrecedente = jaugeInnondation;
         //fin ini
-
-        this.setBackground(Color.PINK);
-
-        JPanel mainPanelNiveau = new JPanel(new BorderLayout());
-
-        JLabel labelTitre = new JLabel("Niveau", JLabel.CENTER);
-        mainPanelNiveau.add(labelTitre, BorderLayout.NORTH);
-        labelTitre.setFont(new Font("Copperplate Gothic Bold", Font.BOLD, 14));
-
-        ImageIcon imgNiveauEau = new ImageIcon("images/Niveau.png"); // load the image to a imageIcon
-        Image imageNiveauEau = imgNiveauEau.getImage(); // transform it 
-        Image newimageNiveauEau = imageNiveauEau.getScaledInstance(178, 466, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        imgNiveauEau = new ImageIcon(newimageNiveauEau);  // transform it back
-        JLabel labelNiveauEau = new JLabel();
-        labelNiveauEau.setIcon(imgNiveauEau);
-
-        mainPanelNiveau.add(labelNiveauEau, BorderLayout.CENTER); // img
-
-        JPanel grilleStickJauge = new JPanel(new GridLayout(11, 1));
-        grilleStickJauge.setBackground(Color.cyan);
+        precedentRatio = 0.825-(0.083393)*(jaugeInn-1);
         
-              
-
-        ImageIcon imgSticker = new ImageIcon("images/pointeur.png");
-        Image imageSticker = imgSticker.getImage(); // transform it 
-        Image newimgSticker = imageSticker.getScaledInstance(58, 45, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        imgSticker = new ImageIcon(newimgSticker);  // transform it back 
+        this.setPreferredSize(new Dimension(200,520));
         
-        JLabel labelSticker = new JLabel();
-        labelSticker.setIcon(imgSticker);
-        
-        System.out.println(jaugeInnondation);
-        
-        for (int i = 0; i < 11; i++) {
-            
-            if (i == 10-jaugeInnondation) {
-                grilleStickJauge.add(labelSticker);
-            } else {
-                grilleStickJauge.add(new JLabel(""));
-            }
-              
+        try {
+            imageJauge = ImageIO.read((new FileInputStream("images/Niveau.png")));
+            imagePointeur = ImageIO.read((new FileInputStream("images/pointeur2.png")));
+        } catch (IOException ex) {
+                ex.fillInStackTrace();
         }
-
-        mainPanelNiveau.add(grilleStickJauge, BorderLayout.WEST);
         
-        // Bouton manuel
-        btnManuel = new JButton();
-        ImageIcon logoManuel = new ImageIcon("images/icones/iconBook.png");
-        JLabel logoMan = new JLabel();
-        logoMan.setIcon(logoManuel);
-        btnManuel.setIcon(logoManuel);
-        btnManuel.setBackground(Color.gray);
-        btnManuel.setBorderPainted(false); 
-        btnManuel.setOpaque(false);
-
-        mainPanelNiveau.add(btnManuel, BorderLayout.SOUTH);
-        
-        //Action du bouton manuel
-        btnManuel.addActionListener(
-            new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                VuePanel_Manuel vMan = new VuePanel_Manuel();
-                vMan.afficher();
-            }
-        });
-        
-        this.add(mainPanelNiveau);
     }
-
+    
+    @Override
+    public void paint(Graphics g){
+        
+        g.drawImage(imageJauge, 0, 0, this.getWidth(), this.getHeight(), null);
+        g.drawImage(imagePointeur,poiteurPosX(), poiteurPosY(), 30, 30, null);
+        
+    }
+    
+    public int poiteurPosX(){
+        return this.getWidth()/3;
+    }
+    
+    public int poiteurPosY(){
+        if(jaugeInnondation - jaugeInnondationPrecedente != 0){
+            double ratio;
+            if(jaugeInnondation == 8 && jaugeInnondationPrecedente == 7){
+                ratio = 0.075;
+            } else {
+                ratio = 0.083393;
+            }
+            jaugeInnondationPrecedente = jaugeInnondation;
+            precedentRatio = (precedentRatio -ratio);
+        }
+        return (int)(this.getHeight()*precedentRatio)-15;
+    }
+    
+    public void setJauge(int jauge){
+        this.jaugeInnondation = jauge;
+    }
+    
 }
