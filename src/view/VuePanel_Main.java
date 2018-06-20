@@ -71,19 +71,12 @@ public class VuePanel_Main extends JPanel {
                 carte.getUtiliser().setVisible(false);
                 carte.getDonner().setVisible(false);
                 carte.getDefausser().setVisible(false);
-                
-                carte.getUtiliser().setVisible(true);
-                carte.getDonner().setVisible(true);
-                carte.getDefausser().setVisible(true);
-                
-                
+
                 carte.repaint();
+
                 carte.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        Message m = new Message(TypesMessages.CARTE_CLICK);
-                        m.setVueCarte((VuePanel_Carte) e.getSource());
-                        ihm.notifierObservateur(m);
                     }
 
                     @Override
@@ -96,10 +89,19 @@ public class VuePanel_Main extends JPanel {
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
+
+                        Message m = new Message(TypesMessages.CARTE_CLICK);
+                        m.setVueCarte((VuePanel_Carte) e.getSource());
+                        ihm.notifierObservateur(m);
+
                     }
 
                     @Override
                     public void mouseExited(MouseEvent e) {
+                        carte.getUtiliser().setVisible(false);
+                        carte.getDonner().setVisible(false);
+                        carte.getDefausser().setVisible(false);
+                        repaint();
                     }
                 });
             }
@@ -153,8 +155,8 @@ public class VuePanel_Main extends JPanel {
     public void notifierObservateur(Message m) {
         ihm.notifierObservateur(m);
     }
-    
-    public void setSauvType(TypesMessages t){
+
+    public void setSauvType(TypesMessages t) {
         ihm.setSauvType(t);
     }
 

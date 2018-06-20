@@ -32,7 +32,15 @@ public abstract class Aventurier {
     }
 
     public void removeMainA(CarteTresor nomCarte) {
-        mainAventurier.remove(nomCarte);
+        //Permet d'enlever une carte de la main même s'il ne s'agit pas du même objet
+        
+        ArrayList<CarteTresor> main = getMainA();
+        int i = 0;
+        
+        while (!nomCarte.getNom().equals(main.get(i).getNom())) {
+            i = i+1;
+        }
+        mainAventurier.remove(main.get(i));
     }
 
     public boolean[][] deplacementPossible(Grille grille) {
