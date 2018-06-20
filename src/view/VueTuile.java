@@ -76,27 +76,26 @@ public class VueTuile extends JPanel{
         } else if(etat == EtatTuile.inondée){
             g.drawImage(tuileInondee, 0, 0, dim.width, dim.height, null);
             afficherPion(g);
-        } else {
-            g.setColor(Color.blue);
-            g.fillRect(0, 0, dim.width, dim.height);
         }
+        
         if(isCadre()){
-            BasicStroke nStrock = new BasicStroke(2.5f); //Augmente epaissuer du contour de la tuile
+            BasicStroke nStrock = new BasicStroke(3.0f); //Augmente épaisseur du contour de la tuile
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(nStrock);
             g2.setColor(Color.yellow);
             g2.drawRect(0, 0, dim.width, dim.height);
         }
+        
     }
     
     public void afficherPion(Graphics g){
         
         int cX = 0;
         int cY = 0;
-        for(Pion j : joueur){    
+        for(Pion j : joueur){
             g.drawImage(j.getImage(),cX,cY,dim.width/2,dim.height/2,null);
-            cX = (cX == 0 ? dim.width/2 : 0);
             cY = (cX == 0 ? cY : dim.height/2);
+            cX = (cX == 0 ? dim.width/2 : 0);
         }
     }
     

@@ -17,8 +17,10 @@ import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 /**
  *
@@ -34,8 +36,7 @@ public class VueInventaireAventurier extends JPanel {
         //Initialisation
         ihm = ihmJ;
         a = aventurier;
-        
-        this.setPreferredSize(new Dimension(500,200));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
         setLayout(new BorderLayout());
         JPanel main = new JPanel(new GridLayout(1, 6));
@@ -91,6 +92,7 @@ public class VueInventaireAventurier extends JPanel {
             laCarte = laCarte.getNext();
             
         }
+        this.setPreferredSize(new Dimension(10, 120));
         
     }
     
