@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  *
  * @author blanquan
  */
-public class VuePanel_InventaireCoequipier extends JPanel {
+public class VuePanel_InventaireCoequipiers extends JPanel {
     
     private JLabel carte1; // à modif une fois qu'on a image
     private JLabel nbcarte1;
@@ -30,7 +30,7 @@ public class VuePanel_InventaireCoequipier extends JPanel {
     
     
     
-    public VuePanel_InventaireCoequipier() {
+    public VuePanel_InventaireCoequipiers() {
         
         //initialisation
         carte1 = new JLabel("CA");
