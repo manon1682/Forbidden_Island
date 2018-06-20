@@ -6,6 +6,8 @@
 package view;
 
 import Aventurier.Aventurier;
+import Enumeration.TypesMessages;
+import forbidden_island.Message;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
@@ -26,7 +28,7 @@ import javax.swing.JPanel;
 public class VueCoequipierAventurier extends JPanel {
 
     //Case 1 de la grilleCoequipier
-    private JButton btnFermerJeu;
+    private JButton btnPrendreTresor;
     private JLabel tresorCristalArdent; //sera transformé en image
     private JLabel tresorStatueZephir;  // "
     private JLabel tresorCaliceOrdre;   // "
@@ -54,11 +56,10 @@ public class VueCoequipierAventurier extends JPanel {
         a = aventurier;
         joueurs = js;
         //Case 1 de la grilleCoequipier
-        btnFermerJeu = new JButton();
-        ImageIcon logoFermer = new ImageIcon("images/icones/iconClose.png");
+        btnPrendreTresor = new JButton("Prendre trésor");
+        /*ImageIcon logoFermer = new ImageIcon("images/icones/iconClose.png");
         JLabel logoF = new JLabel();
-        logoF.setIcon(logoFermer);
-        btnFermerJeu.setIcon(logoFermer);
+        logoF.setIcon(logoFermer);*/
         tresorCristalArdent = new JLabel("tresorCA");
         tresorStatueZephir = new JLabel("tresorSZ");
         tresorCaliceOrdre = new JLabel("tresorCO");
@@ -90,7 +91,7 @@ public class VueCoequipierAventurier extends JPanel {
         grilleTresor.add(tresorPierreSacre);
 
         containerCase1.add(grilleTresor, BorderLayout.CENTER);
-        containerCase1.add(btnFermerJeu, BorderLayout.EAST);
+        containerCase1.add(btnPrendreTresor, BorderLayout.WEST);
 
         grilleCoequipier.add(containerCase1);
 
@@ -112,15 +113,21 @@ public class VueCoequipierAventurier extends JPanel {
         this.add(grilleCoequipier);
         
         //Fermeture du jeu
-       btnFermerJeu.addActionListener(
+       btnPrendreTresor.addActionListener(
         new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);                
+                Message m = new Message(TypesMessages.PRENDRE_TRESOR);
+                ihm.notifierObservateur(m);
             }
         });
        
-
     }
+
+    public JButton getBtnPrendreTresor() {
+        return btnPrendreTresor;
+    }
+    
+    
 
 }

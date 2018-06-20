@@ -162,6 +162,10 @@ public class IHMJeu extends Observe {
         return vPlat;
     }
 
+    public VueCoequipierAventurier getvAven() {
+        return vAven;
+    }
+    
     public VueActionAventurier getvActionAven() {
         return vActionAven;
     }
