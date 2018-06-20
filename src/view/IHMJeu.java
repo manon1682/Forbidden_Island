@@ -23,6 +23,7 @@ public class IHMJeu extends Observe {
 
     //Composants fenêtre
     private final JFrame window;
+    private JPanel mainPanel;
     private JPanel panelCentre1;
     private JPanel panelSud2;
 
@@ -70,7 +71,7 @@ public class IHMJeu extends Observe {
         vMainAven = new VuePanel_Main(joueurCourant, this);
         //Fin de l'initialisation
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel = new JPanel(new BorderLayout());
 
         //Création 2 panels dans Panel Principale > "1" pour le "haut/centre", "2" pour le sud
         panelCentre1 = new JPanel(new BorderLayout());
