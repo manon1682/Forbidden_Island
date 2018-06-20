@@ -36,9 +36,9 @@ public class VueCoequipierAventurier extends JPanel {
     //créer 4 images supplémentaires si on peut pas modif transparance sur les images
 
     //nouvelle case
-    private VuePanel_InventaireCoequipier vInv1;
-    private VuePanel_InventaireCoequipier vInv2;
-    private VuePanel_InventaireCoequipier vInv3;
+    private VuePanel_InventaireCoequipiers vInv1;
+    private VuePanel_InventaireCoequipiers vInv2;
+    private VuePanel_InventaireCoequipiers vInv3;
 
     //case 5
     private VuePanel_MessageBox vText;
