@@ -6,6 +6,7 @@
 package view;
 
 import Aventurier.Aventurier;
+import Enumeration.Tresor;
 import Enumeration.TypesMessages;
 import forbidden_island.Message;
 import java.awt.BorderLayout;
@@ -33,6 +34,7 @@ public class VuePanel_EtatPartie extends JPanel {
     private JLabel tresorStatueZephir;  // "
     private JLabel tresorCaliceOrdre;   // "
     private JLabel tresorPierreSacre;   // "
+    
     //créer 4 images supplémentaires si on peut pas modif transparance sur les images
 
     //case 5
@@ -52,22 +54,27 @@ public class VuePanel_EtatPartie extends JPanel {
         joueurs = js;
         //Case 1 de la grilleCoequipier
         btnPrendreTresor = new JButton("Prendre trésor");
-        
-        ImageIcon logo = new ImageIcon("images/tresors/calice.png");
-        tresorCaliceOrdre = new JLabel();
-        tresorCaliceOrdre.setIcon(logo);
-        
-        logo = new ImageIcon("images/tresors/cristal.png");
         tresorCristalArdent = new JLabel();
-        tresorCristalArdent.setIcon(logo);
-        
-        logo = new ImageIcon("images/tresors/pierre.png");
-        tresorPierreSacre = new JLabel();
-        tresorPierreSacre.setIcon(logo);
-        
-        logo = new ImageIcon("images/tresors/zephyr.png");
         tresorStatueZephir = new JLabel();
-        tresorStatueZephir.setIcon(logo);
+        tresorCaliceOrdre = new JLabel();
+        tresorPierreSacre = new JLabel();
+
+        for (Tresor tr : aventurier.getTresor()) {
+            ImageIcon logo;
+            if (tr == Tresor.CALICE_DE_ORDRE) {
+                logo = new ImageIcon("images/tresors/calice.png");
+                tresorCaliceOrdre.setIcon(logo);
+            }else if (tr == Tresor.CRISTAL_ARDENT) {
+                logo = new ImageIcon("images/tresors/cristal.png");
+                tresorCristalArdent.setIcon(logo);
+            }else if (tr == Tresor.PIERRE_SACRE) {
+                logo = new ImageIcon("images/tresors/pierre.png");
+                tresorPierreSacre.setIcon(logo);
+            }else {
+                logo = new ImageIcon("images/tresors/zephyr.png");
+                tresorStatueZephir.setIcon(logo);
+            }
+        }
 
         //case 5 
         vText = new VuePanel_MessageBox();
@@ -84,10 +91,10 @@ public class VuePanel_EtatPartie extends JPanel {
         JPanel containerCase1 = new JPanel(new BorderLayout());
         JPanel grilleTresor = new JPanel(new GridLayout(1, 4));
 
-        grilleTresor.add(tresorCristalArdent);
-        grilleTresor.add(tresorStatueZephir);
-        grilleTresor.add(tresorCaliceOrdre);
         grilleTresor.add(tresorPierreSacre);
+        grilleTresor.add(tresorStatueZephir);
+        grilleTresor.add(tresorCristalArdent);
+        grilleTresor.add(tresorCaliceOrdre);
 
         containerCase1.add(grilleTresor, BorderLayout.CENTER);
         containerCase1.add(btnPrendreTresor, BorderLayout.WEST);
@@ -107,22 +114,20 @@ public class VuePanel_EtatPartie extends JPanel {
 
         //Ajout des éléments à la fenêtre principale;
         this.add(grilleCoequipier);
-        
+
         //Fermeture du jeu
-       btnPrendreTresor.addActionListener(
-        new ActionListener() {
+        btnPrendreTresor.addActionListener(
+                new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               Message m = new Message(TypesMessages.PRENDRE_TRESOR);
-               ihm.notifierObservateur(m);
+                Message m = new Message(TypesMessages.PRENDRE_TRESOR);
+                ihm.notifierObservateur(m);
             }
         });
-       
 
     }
 
     public JButton getBtnPrendreTresor() {
         return btnPrendreTresor;
     }
-
 }

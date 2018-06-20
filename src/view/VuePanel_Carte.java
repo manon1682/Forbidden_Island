@@ -25,7 +25,6 @@ public class VuePanel_Carte extends JPanel {
     private Dimension dim;
     private CarteUtilisable carte;
     private int nb;
-    private boolean clickable;
     private JButton donner;
     private JButton utiliser;
 
@@ -46,8 +45,6 @@ public class VuePanel_Carte extends JPanel {
         int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width)) - 2;
         setDim(new Dimension(size, size));
         
-        
-
         if (nb != 0) {
             g.drawImage(carte.getImage(), 0, 0, dim.width, dim.height, null);
             g.setColor(Color.BLACK);

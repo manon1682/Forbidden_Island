@@ -270,6 +270,9 @@ public class Controleur implements Observateur {
         //On ajoute le trésor au joueur
         a.ajoutTresor(tr);
 
+        //On affiche la fenêtre de jeu pour mettre à jour la main du joueur et les trésors
+        vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+
     }
 
     public Deck getDeck_T() {
@@ -882,6 +885,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 //On affiche les actions possibles
                 actionPossible();
+
                 break;
 
             case TOUR_SUIVANT:
