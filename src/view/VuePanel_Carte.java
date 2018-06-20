@@ -50,7 +50,7 @@ public class VuePanel_Carte extends JPanel {
             donner = new JButton("Donner");
             defausser = new JButton("Défausser");
             utiliser = new JButton("Utiliser");
-            
+
             //Layout des boutons sur la carte
             mainPanel = new JPanel(new GridLayout(3, 1));
             //  mainPanel.add(new JLabel());
@@ -59,7 +59,7 @@ public class VuePanel_Carte extends JPanel {
             // mainPanel.add(new JLabel());
             mainPanel.add(utiliser);
             //mainPanel.add(new JLabel());
-            
+
             add(mainPanel);
             vueCarte = this;
 
@@ -90,8 +90,14 @@ public class VuePanel_Carte extends JPanel {
                     new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Message m = new Message(TypesMessages.UTILISER_CARTE);
-                    ihm.setSauvType(TypesMessages.UTILISER_CARTE);
+
+                    Message m;
+                    if (carte.getNom().equals(CarteUtilisable.HELICO.toString())) {
+                        m = new Message(TypesMessages.UTILISER_CARTE_HELICO);
+                    } else {
+                        m = new Message(TypesMessages.UTILISER_CARTE_SAC_SABLE);
+                    }
+                    ihm.setSauvType(m.getType());
                     m.setVueCarte(vueCarte);
                     ihm.notifierObservateur(m);
                 }

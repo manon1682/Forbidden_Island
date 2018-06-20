@@ -132,6 +132,10 @@ public class VuePanel_ActionAventurier extends JPanel {
         return btnActionSpeciale;
     }
 
+    public JButton getBtnTerminerTour() {
+        return btnTerminerTour;
+    }
+
     public TypesMessages getSauvType() {
         return sauvType;
     }

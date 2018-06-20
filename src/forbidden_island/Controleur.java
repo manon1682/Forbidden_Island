@@ -437,26 +437,30 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.coulée
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false)) {
             System.out.println("Normalement 1 tresor a totallement coulé");
+            vueIHMJeu.Defaite();
             return true;
         }
 
         //Cas 2
         if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.coulée) {
             System.out.println("Normalement l'heliport a coulé");
+            vueIHMJeu.Defaite();
             return true;
         }
 
         //cas 3 : 3. Si un joueur est sur une tuile Île qui sombre 
         //et qu’il n’y a pas de tuile adjacente où nager ;
         //PLONGEUR & HELICO DIFF 
-        if (partiePerdue) { //modifié dans la méthode evasions<coulee<inonde
+        if (partiePerdue) { //modifié dans la méthode evasions<coulee<inonde-
             System.out.println("Normalement un joueur vien de se noyer");
+            vueIHMJeu.Defaite();
             return true;
         }
 
         //Cas 4
         if (niveauInnondation() == 6) { // 6 correspond à la tête de mort
             System.out.println("Normalement le niveau d'innondation est trop élevé");
+            vueIHMJeu.Defaite();
             return true;
         }
 
@@ -550,7 +554,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
     public boolean utiliserCartePossible(CarteTresor carte) {
         String nom = carte.getNom();
         //La carte est une carte qu'on peut utliser (autre qu'une carte trésor)
-        if (nom.equals(CarteUtilisable.HELICO.toString()) || nom.equals(CarteUtilisable.MONTEE_EAU.toString())) {
+        if ((nom == CarteUtilisable.HELICO.toString()) || nom == CarteUtilisable.SAC_SABLE.toString()) {
             return true;
         } else {
             return false;
@@ -708,12 +712,34 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
     }
 
+    public void defausse() {
+        //On récupère la vue des action de la vue de l'IHM Jeu
+        VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
+
+        //Desactivation du bouton "Déplacer"
+        vueTemp.getBtnDeplacer().setEnabled(false);
+
+        //Desativation du bouton "Assécher"
+        vueTemp.getBtnAssecher().setEnabled(false);
+
+        //Desativation du bouton "Action spéciale"
+        vueTemp.getBtnActionSpeciale().setEnabled(false);
+
+        //Desativation du bouton "Terminer tour"
+        vueTemp.getBtnTerminerTour().setEnabled(false);
+
+        //Desativation du bouton "Prendre trésor"
+        vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(false);
+        defaussementEnCours = true;
+    }
+
     @Override
     public void traiterMessage(Message m) {
         boolean[][] g = new boolean[6][6];
         TypesMessages type = m.getType();
 
-        if (type != TypesMessages.NOUVELLE_PARTIE) {
+        if (type != TypesMessages.NOUVELLE_PARTIE
+                && type != TypesMessages.CARTE_CLICK) {
             //On désaffiche les cartes précédemment encadrées
             vueIHMJeu.getvPlat().desaficherPossible();
         }
@@ -830,10 +856,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 prendreTresor(joueurCourant);
                 break;
 
-            case UTILISER_CARTE:
-                // helico = true si la carte hélico est choisi
-                // helico = false s'il s'agit d'une autre, donc du sac de sable
-                boolean helico = m.getVueCarte().getCarte().getNom().equals(CarteUtilisable.HELICO.toString());
+            case UTILISER_CARTE_HELICO:
                 //On vient juste d'appuyer sur le bouton "Utiliser"
                 if (m.getTuile() == null) {
 
@@ -843,16 +866,49 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         for (int c = 0; c < 6; c++) {
                             Tuile tuile = tuiles[l][c];
                             if (tuile != null) {
-                                //Si la carte choisie est l'hélico on vérifie s'il est possible de se DEPLACER sur la tuile (verifTuileD())
-                                //Sinon on a choisi le sac de sable et on vérifie s'il est possible d'ASSECHER la tuile (verifTuileA())
-                                g[l][c] = (helico ? tuile.verifTuileD() : tuile.verifTuileA());
+                                //On vérifie s'il est possible de se déplacer sur la tuile
+                                g[l][c] = tuile.verifTuileD();
                             }
                         }
                     }
 
-                    //Si c'est la carte hélico qui est choisie, le joueur ne peut pas se déplacer sur sa propre case
-                    if (helico) {
-                        g[joueurCourant.getL()][joueurCourant.getC()] = false;
+                    g[joueurCourant.getL()][joueurCourant.getC()] = false;
+
+                    vueIHMJeu.afficherTuilePossible(g);
+
+                    if (!defaussementEnCours) {
+                        actionPossible();
+                    }
+                } else {
+                    String nom = m.getTuile();
+                    Tuile tuile = grille.getTuileAvecNom(nom);
+
+                    int l = tuile.getLigne();
+                    int c = tuile.getColonne();
+                    joueurCourant.deplacer(l, c);
+                    CarteTresor ca = new CarteTresor(CarteUtilisable.HELICO);
+                    joueurCourant.removeMainA(ca);
+                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+                    vueIHMJeu.getvPlat().majTuiles(joueurs);
+
+                }
+
+                break;
+
+            case UTILISER_CARTE_SAC_SABLE:
+                //On vient juste d'appuyer sur le bouton "Utiliser"
+                if (m.getTuile() == null) {
+
+                    Tuile[][] tuiles = grille.getTuiles();
+
+                    for (int l = 0; l < 6; l++) {
+                        for (int c = 0; c < 6; c++) {
+                            Tuile tuile = tuiles[l][c];
+                            if (tuile != null) {
+                                //On vérifie s'il est possible d'assècher la tuile
+                                g[l][c] = tuile.verifTuileA();
+                            }
+                        }
                     }
 
                     vueIHMJeu.afficherTuilePossible(g);
@@ -863,12 +919,13 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 } else {
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
-                    
-                    if (helico) {
-                        joueurCourant.deplacer(tuile.getLigne(), tuile.getColonne());
-                    } else {
-                        tuile.asseche();
-                    }
+
+                    tuile.asseche();
+                    CarteTresor c = new CarteTresor(CarteUtilisable.SAC_SABLE);
+                    joueurCourant.removeMainA(c);
+                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+                    vueIHMJeu.getvPlat().majTuiles(grille);
+
                 }
 
                 break;
@@ -878,20 +935,31 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 VuePanel_Carte carte = m.getVueCarte();
                 if (defaussementEnCours) {
                     // affiche le bouton Défausser
-                    carte.getDefausser().setEnabled(true);
+                    carte.getDefausser().setVisible(true);
                 } else {
                     //afficher le bouton Donner
-                    carte.getDonner().setEnabled(donnerCartePossible());
+                    carte.getDonner().setVisible(donnerCartePossible());
                 }
                 //Dans tous les cas on regarde si on peut l'utiliser
-                carte.getUtiliser().setEnabled(utiliserCartePossible(carte.getCarte()));
+                carte.getUtiliser().setVisible(utiliserCartePossible(carte.getCarte()));
+
                 break;
 
             case DEFAUSSER_CARTE:
                 CarteTresor c = m.getVueCarte().getCarte();
                 joueurCourant.removeMainA(c);
                 deck_T.getPioche().add(c);
-                vueIHMJeu.getvMainAven().repaint();
+                //On affiche l'IHM qui sera mise à jour
+                vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+
+                if (joueurCourant.getMainA().size() > 5) {
+                    defausse();
+                } else {
+                    defaussementEnCours = false;
+
+                    actionPossible();
+                }
+
                 break;
 
             case NOUVELLE_PARTIE:
@@ -910,9 +978,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On affiche la fenêtre de jeu
                 vueIHMJeu.afficherInitiale(grille, joueurs, joueurCourant, jaugeInnondation, nbAction);
 
-                //On affiche les actions possibles
-                actionPossible();
-
                 break;
 
             case TOUR_SUIVANT:
@@ -920,8 +985,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 if (joueurCourant.estRole("Pilote")) {
                     ((Pilote) joueurCourant).setCapaciteUtilisee(false);
                 }
-
-                tirageCarte();
 
                 // Ici on vérifie que la partie n'est ni perdu ni gagner pour continuer
                 if (perdrePartie()) {
@@ -931,36 +994,25 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     System.out.println("gagnée");
 //                    vueA.gagner();
                 } else {
+
+                    tirageCarte();
                     joueurCourant = joueurSuivant();
-
-                    //AJOUTER LE DEFAUSSEMENT DES CARTES
-                    if (joueurCourant.getMainA().size() > 5) {
-                        //On récupère la vue des action de la vue de l'IHM Jeu
-                        VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
-
-                        //Desactivation du bouton "Déplacer"
-                        vueTemp.getBtnDeplacer().setEnabled(false);
-
-                        //Desativation du bouton "Assécher"
-                        vueTemp.getBtnAssecher().setEnabled(false);
-
-                        //Desativation du bouton "Action spéciale"
-                        vueTemp.getBtnActionSpeciale().setEnabled(false);
-
-                        //Desativation du bouton "Prendre trésor"
-                        vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(prendreTresorPossible());
-
-                        defaussementEnCours = true;
-                    }
-
-                    defaussementEnCours = false;
 
                     //On initialise le nombre d'actions selon si c'est un navigateur ou non
                     nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
 
                     //On affiche l'IHM qui sera mise à jour
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
-                    actionPossible();
+
+                    //Pour le défaussent des cartes
+                    System.out.println(joueurCourant.getMainA().size());
+                    if (joueurCourant.getMainA().size() > 5) {
+                        defausse();
+                    } else {
+                        defaussementEnCours = false;
+                        //On affiche l'IHM qui sera mise à jour
+                        vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+                    }
                 }
 
                 break;
@@ -968,14 +1020,18 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         }
 
         //Affiche les boutons d'actions possibles
-        actionPossible();
+        if (!defaussementEnCours && nbAction != 0) {
+            actionPossible();
+        }
 
         if (type != TypesMessages.NOUVELLE_PARTIE
                 && type != TypesMessages.TOUR_SUIVANT
-                && type != TypesMessages.UTILISER_CARTE
+                && type != TypesMessages.UTILISER_CARTE_HELICO
+                && type != TypesMessages.UTILISER_CARTE_SAC_SABLE
                 && type != TypesMessages.CARTE_CLICK
                 && type != TypesMessages.DEFAUSSER_CARTE
-                && m.getTuile() != null) {
+                && m.getTuile()
+                != null) {
             //On décrémente le nombre d'action
             nbAction = nbAction - 1;
 
