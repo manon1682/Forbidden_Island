@@ -7,11 +7,14 @@ package view;
 
 import Aventurier.Aventurier;
 import Enumeration.EtatTuile;
+import forbidden_island.Message;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,24 +34,59 @@ public class VuePanel_Tuile extends JPanel{
     private EtatTuile etat;
     private String nomTuile;
     private Dimension dim;
+    private boolean possible;
     private boolean cadre;
     private ArrayList<Pion> joueur;
+    private VuePanel_Plateau vPlat;
     
     private BufferedImage tuileNormale;
     private BufferedImage tuileInondee;
     
-    public VuePanel_Tuile(String nom, EtatTuile etat, Dimension dim){
+    public VuePanel_Tuile(String nom, EtatTuile etat, Dimension dim,VuePanel_Plateau plat){
         joueur = new ArrayList<>();
-        setCadre(false);
+        setvPlat(plat);
+        setPossible(false);
         setDim(dim);
         setNomTuile(nom);
         setEtat(etat);
         initImage();
+        
+        this.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                if(((VuePanel_Tuile)me.getComponent()).isPossible()){
+                    Message m = new Message(vPlat.getType());
+                    m.setTuile(((VuePanel_Tuile)me.getComponent()).getNomTuile());
+                    vPlat.transmettreMessage(m); 
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent me) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent me) {
+                ((VuePanel_Tuile)me.getComponent()).setCadre(true);
+                ((VuePanel_Tuile)me.getComponent()).repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent me) {
+                ((VuePanel_Tuile)me.getComponent()).setCadre(false);
+                ((VuePanel_Tuile)me.getComponent()).repaint();
+            }
+        });
     }
     
     public VuePanel_Tuile(String nom, EtatTuile etat){
         joueur = new ArrayList<>();
         int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
+        setvPlat(null);
         setDim(new Dimension(size, size));
         setNomTuile(nom);
         setEtat(etat);
@@ -77,13 +115,17 @@ public class VuePanel_Tuile extends JPanel{
             g.drawImage(tuileInondee, 0, 0, dim.width, dim.height, null);
             afficherPion(g);
         }
+        if(isPossible()){
+            g.setColor(new Color(250,250,0,100));
+            g.fillRect(0, 0, dim.width, dim.height);
+        }
         
         if(isCadre()){
             BasicStroke nStrock = new BasicStroke(3.0f); //Augmente épaisseur du contour de la tuile
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(nStrock);
-            g2.setColor(Color.yellow);
-            g2.drawRect(0, 0, dim.width, dim.height);
+            g2.setColor(Color.GREEN);
+            g2.drawRect(dim.width/28, dim.height/28, dim.width-dim.width/14, dim.height-dim.height/14);
         }
         
     }
@@ -207,12 +249,12 @@ public class VuePanel_Tuile extends JPanel{
         this.dim = dim;
     }
 
-    public boolean isCadre() {
-        return cadre;
+    public boolean isPossible() {
+        return possible;
     }
 
-    public void setCadre(boolean cadre) {
-        this.cadre = cadre;
+    public void setPossible(boolean poss) {
+        this.possible = poss;
     }
     
     public void addJoueur(Aventurier j){
@@ -226,5 +268,23 @@ public class VuePanel_Tuile extends JPanel{
     public ArrayList<Pion> getJoueur() {
         return joueur;
     }
+
+    public VuePanel_Plateau getvPlat() {
+        return vPlat;
+    }
+
+    public void setvPlat(VuePanel_Plateau vPlat) {
+        this.vPlat = vPlat;
+    }
+
+    public boolean isCadre() {
+        return cadre;
+    }
+
+    public void setCadre(boolean cadre) {
+        this.cadre = cadre;
+    }
+    
+    
     
 }
