@@ -36,9 +36,9 @@ public class VuePanel_EtatPartie extends JPanel {
     //créer 4 images supplémentaires si on peut pas modif transparance sur les images
 
     //nouvelle case
-    private VuePanel_InventaireCoequipier vInv1;
-    private VuePanel_InventaireCoequipier vInv2;
-    private VuePanel_InventaireCoequipier vInv3;
+    private VuePanel_InventaireCoequipiers vInv1;
+    private VuePanel_InventaireCoequipiers vInv2;
+    private VuePanel_InventaireCoequipiers vInv3;
 
     //case 5
     private VuePanel_MessageBox vText;
@@ -67,9 +67,9 @@ public class VuePanel_EtatPartie extends JPanel {
         tresorPierreSacre = new JLabel("tresorPS");
 
         //nouvelle case 2 à 4
-        vInv1 = new VuePanel_InventaireCoequipier();
-        vInv2 = new VuePanel_InventaireCoequipier();
-        vInv3 = new VuePanel_InventaireCoequipier();
+        vInv1 = new VuePanel_InventaireCoequipiers();
+        vInv2 = new VuePanel_InventaireCoequipiers();
+        vInv3 = new VuePanel_InventaireCoequipiers();
 
         //case 5 
         vText = new VuePanel_MessageBox();
