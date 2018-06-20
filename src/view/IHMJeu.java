@@ -186,6 +186,10 @@ public class IHMJeu extends Observe {
         return vAven;
     }
 
+    public VuePanel_Main getvMainAven() {
+        return vMainAven;
+    }
+
     public VuePanel_ActionAventurier getvActionAven() {
         return vActionAven;
     }

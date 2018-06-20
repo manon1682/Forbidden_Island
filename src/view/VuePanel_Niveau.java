@@ -49,9 +49,9 @@ public class VuePanel_Niveau extends JPanel {
         this.jaugeInnondation = jaugeInn;
         jaugeInnondationPrecedente = jaugeInnondation;
         //fin ini
-        precedentRatio = 0.825;
+        precedentRatio = 0.825-(0.083393)*(jaugeInn-1);
         
-        this.setPreferredSize(new Dimension(200,520));
+        this.setPreferredSize(new Dimension(120,260));
         
         try {
             imageJauge = ImageIO.read((new FileInputStream("images/Niveau.png")));
