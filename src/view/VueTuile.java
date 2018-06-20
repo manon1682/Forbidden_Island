@@ -93,10 +93,10 @@ public class VueTuile extends JPanel{
         
         int cX = 0;
         int cY = 0;
-        for(Pion j : joueur){    
+        for(Pion j : joueur){
             g.drawImage(j.getImage(),cX,cY,dim.width/2,dim.height/2,null);
-            cX = (cX == 0 ? dim.width/2 : 0);
             cY = (cX == 0 ? cY : dim.height/2);
+            cX = (cX == 0 ? dim.width/2 : 0);
         }
     }
     

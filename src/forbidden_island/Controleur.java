@@ -431,11 +431,13 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 || (grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.coulée
                 && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.coulée
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false)) {
+            System.out.println("Normalement 1 tresor a totallement coulé");
             return true;
         }
 
         //Cas 2
         if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.coulée) {
+            System.out.println("Normalement l'heliport a coulé");
             return true;
         }
 
@@ -443,11 +445,13 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //et qu’il n’y a pas de tuile adjacente où nager ;
         //PLONGEUR & HELICO DIFF 
         if (partiePerdue) { //modifié dans la méthode evasions<coulee<inonde
+            System.out.println("Normalement un joueur vien de se noyer");
             return true;
         }
 
         //Cas 4
         if (niveauInnondation() == 6) { // 6 correspond à la tête de mort
+            System.out.println("Normalement le niveau d'innondation est trop élevé");
             return true;
         }
 
