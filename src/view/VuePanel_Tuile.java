@@ -126,6 +126,8 @@ public class VuePanel_Tuile extends JPanel{
             g2.setStroke(nStrock);
             g2.setColor(Color.GREEN);
             g2.drawRect(dim.width/28, dim.height/28, dim.width-dim.width/14, dim.height-dim.height/14);
+        } else {
+            
         }
         
     }

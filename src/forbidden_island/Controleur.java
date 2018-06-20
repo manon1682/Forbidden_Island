@@ -986,8 +986,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             if (nbAction == 0) {
                 finirTour();
             }
-
         }
     }
-
 }
