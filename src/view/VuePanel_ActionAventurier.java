@@ -23,7 +23,7 @@ import javax.swing.JPanel;
  *
  * @author blanquan
  */
-public class VueActionAventurier extends JPanel {
+public class VuePanel_ActionAventurier extends JPanel {
 
     private JButton btnDeplacer, btnAssecher, btnActionSpeciale, btnTerminerTour;
     private JLabel nbActionText, nbActionInt;
@@ -31,7 +31,7 @@ public class VueActionAventurier extends JPanel {
 
     private IHMJeu ihm;
 
-    public VueActionAventurier(IHMJeu ihmJ, int nbAction) {
+    public VuePanel_ActionAventurier(IHMJeu ihmJ, int nbAction) {
 
         //initialisation
         ihm = ihmJ;

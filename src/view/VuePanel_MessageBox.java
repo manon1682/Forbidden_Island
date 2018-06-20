@@ -19,14 +19,14 @@ import javax.swing.ScrollPaneConstants;
  *
  * @author blanquan
  */
-public class VueMessageBox extends JPanel {
+public class VuePanel_MessageBox extends JPanel {
     
 //    private final JEditorPane html ;    
 //    private final JScrollPane scrollPane;
     String texte ;
 
 
-    public VueMessageBox() {
+    public VuePanel_MessageBox() {
         this.setBackground(Color.GREEN);
         
         JPanel caseMsgTemporaire = new JPanel();    

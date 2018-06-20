@@ -6,6 +6,8 @@
 package view;
 
 import Aventurier.Aventurier;
+import Enumeration.TypesMessages;
+import forbidden_island.Message;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
@@ -23,23 +25,18 @@ import javax.swing.JPanel;
  *
  * @author blanquan
  */
-public class VueCoequipierAventurier extends JPanel {
+public class VuePanel_EtatPartie extends JPanel {
 
     //Case 1 de la grilleCoequipier
-    private JButton btnFermerJeu;
+    private JButton btnPrendreTresor;
     private JLabel tresorCristalArdent; //sera transformé en image
     private JLabel tresorStatueZephir;  // "
     private JLabel tresorCaliceOrdre;   // "
     private JLabel tresorPierreSacre;   // "
     //créer 4 images supplémentaires si on peut pas modif transparance sur les images
 
-    //nouvelle case
-    private VuePanel_InventaireCoequipier vInv1;
-    private VuePanel_InventaireCoequipier vInv2;
-    private VuePanel_InventaireCoequipier vInv3;
-
     //case 5
-    private VueMessageBox vText;
+    private VuePanel_MessageBox vText;
 
     //=====
     private IHMJeu ihm;
@@ -47,30 +44,33 @@ public class VueCoequipierAventurier extends JPanel {
     private Aventurier a;
     private ArrayList<Aventurier> joueurs;
 
-    public VueCoequipierAventurier(Aventurier aventurier, ArrayList<Aventurier> js, IHMJeu ihm) {
+    public VuePanel_EtatPartie(Aventurier aventurier, ArrayList<Aventurier> js, IHMJeu ihm) {
 
         //Initialisation
         this.ihm = ihm;
         a = aventurier;
         joueurs = js;
         //Case 1 de la grilleCoequipier
-        btnFermerJeu = new JButton();
-        ImageIcon logoFermer = new ImageIcon("images/icones/iconClose.png");
-        JLabel logoF = new JLabel();
-        logoF.setIcon(logoFermer);
-        btnFermerJeu.setIcon(logoFermer);
-        tresorCristalArdent = new JLabel("tresorCA");
-        tresorStatueZephir = new JLabel("tresorSZ");
-        tresorCaliceOrdre = new JLabel("tresorCO");
-        tresorPierreSacre = new JLabel("tresorPS");
-
-        //nouvelle case 2 à 4
-        vInv1 = new VuePanel_InventaireCoequipier();
-        vInv2 = new VuePanel_InventaireCoequipier();
-        vInv3 = new VuePanel_InventaireCoequipier();
+        btnPrendreTresor = new JButton("Prendre trésor");
+        
+        ImageIcon logo = new ImageIcon("images/tresors/calice.png");
+        tresorCaliceOrdre = new JLabel();
+        tresorCaliceOrdre.setIcon(logo);
+        
+        logo = new ImageIcon("images/tresors/cristal.png");
+        tresorCristalArdent = new JLabel();
+        tresorCristalArdent.setIcon(logo);
+        
+        logo = new ImageIcon("images/tresors/pierre.png");
+        tresorPierreSacre = new JLabel();
+        tresorPierreSacre.setIcon(logo);
+        
+        logo = new ImageIcon("images/tresors/zephyr.png");
+        tresorStatueZephir = new JLabel();
+        tresorStatueZephir.setIcon(logo);
 
         //case 5 
-        vText = new VueMessageBox();
+        vText = new VuePanel_MessageBox();
 
         a = aventurier;
         //fin initialisation
@@ -90,20 +90,17 @@ public class VueCoequipierAventurier extends JPanel {
         grilleTresor.add(tresorPierreSacre);
 
         containerCase1.add(grilleTresor, BorderLayout.CENTER);
-        containerCase1.add(btnFermerJeu, BorderLayout.EAST);
+        containerCase1.add(btnPrendreTresor, BorderLayout.WEST);
 
         grilleCoequipier.add(containerCase1);
 
         //nouvelle case 2 à 4
         for (Aventurier joueur : joueurs) {
             if (!(joueur.equals(a))) {
-                VueInventaireAventurier vInv = new VueInventaireAventurier(joueur);
+                VuePanel_Main vInv = new VuePanel_Main(joueur);
                 grilleCoequipier.add(vInv);
             }
         }
-        /*grilleCoequipier.add(vInv1);
-        grilleCoequipier.add(vInv2);
-        grilleCoequipier.add(vInv3);*/
 
         //Case 5 de la grilleCoequipier (MessageBox)
         grilleCoequipier.add(vText);
@@ -112,15 +109,20 @@ public class VueCoequipierAventurier extends JPanel {
         this.add(grilleCoequipier);
         
         //Fermeture du jeu
-       btnFermerJeu.addActionListener(
+       btnPrendreTresor.addActionListener(
         new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);                
+               Message m = new Message(TypesMessages.PRENDRE_TRESOR);
+               ihm.notifierObservateur(m);
             }
         });
        
 
+    }
+
+    public JButton getBtnPrendreTresor() {
+        return btnPrendreTresor;
     }
 
 }

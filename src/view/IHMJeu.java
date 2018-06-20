@@ -27,12 +27,12 @@ public class IHMJeu extends Observe {
     private JPanel panelSud2;
 
     //Vues qu'elle possède
-    private VueInitialisation vIni;
-    private VueNiveau vNiveau;
-    private VuePlateau vPlat;
-    private VueCoequipierAventurier vAven;
-    private VueActionAventurier vActionAven;
-    private VueInventaireAventurier vMainAven;
+    private VuePanel_Initialisation vIni;
+    private VuePanel_Niveau vNiveau;
+    private VuePanel_Plateau vPlat;
+    private VuePanel_EtatPartie vAven;
+    private VuePanel_ActionAventurier vActionAven;
+    private VuePanel_Main vMainAven;
 
     //Variables
     private ArrayList<Aventurier> joueurs;
@@ -43,7 +43,7 @@ public class IHMJeu extends Observe {
     public IHMJeu() {
 
         //Ouverture fenêtre initialisation
-        vIni = new VueInitialisation(this);
+        vIni = new VuePanel_Initialisation(this);
 
         vIni.setVisible(true);
         vIni.repaint();
@@ -62,12 +62,12 @@ public class IHMJeu extends Observe {
         setAventurier(a);
         this.joueurs = joueurs;
         jaugeInnondation = jauge;
-        vNiveau = new VueNiveau(jaugeInnondation);
-        vPlat = new VuePlateau(grille, this.joueurs, this);
+        vNiveau = new VuePanel_Niveau(jaugeInnondation);
+        vPlat = new VuePanel_Plateau(grille, this.joueurs, this);
         vPlat.majTuiles(joueurs);
-        vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
-        vActionAven = new VueActionAventurier(this, nbAction);
-        vMainAven = new VueInventaireAventurier(joueurCourant, this);
+        vAven = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
+        vActionAven = new VuePanel_ActionAventurier(this, nbAction);
+        vMainAven = new VuePanel_Main(joueurCourant, this);
         //Fin de l'initialisation
 
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -108,10 +108,10 @@ public class IHMJeu extends Observe {
         setAventurier(a);
         jaugeInnondation = jauge;
         //Mis à jour des vues
-        vNiveau = new VueNiveau(jaugeInnondation);
-        vAven = new VueCoequipierAventurier(joueurCourant, this.joueurs, this);
-        vMainAven = new VueInventaireAventurier(joueurCourant, this);
-        vActionAven = new VueActionAventurier(this, nbAction);
+        vNiveau = new VuePanel_Niveau(jaugeInnondation);
+        vAven = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
+        vMainAven = new VuePanel_Main(joueurCourant, this);
+        vActionAven = new VuePanel_ActionAventurier(this, nbAction);
         vPlat.majTuiles(joueurs);
         //Fin de l'initialisation
 
@@ -158,11 +158,15 @@ public class IHMJeu extends Observe {
         this.grille = grille;
     }
 
-    public VuePlateau getvPlat() {
+    public VuePanel_Plateau getvPlat() {
         return vPlat;
     }
 
-    public VueActionAventurier getvActionAven() {
+    public VuePanel_EtatPartie getvAven() {
+        return vAven;
+    }
+
+    public VuePanel_ActionAventurier getvActionAven() {
         return vActionAven;
     }
 

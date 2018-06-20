@@ -28,23 +28,23 @@ import javax.swing.JPanel;
  *
  * @author cdlk
  */
-public class VuePlateau extends JPanel {
+public class VuePanel_Plateau extends JPanel {
 
     private Grille grille;
     private boolean[][] gPossible;
-    private VueTuile[][] tuiles;
+    private VuePanel_Tuile[][] tuiles;
     private IHMJeu ihmJeu;
     private ArrayList<Aventurier> joueurs;
     private boolean activer;
-    private VuePlateau plat;
+    private VuePanel_Plateau plat;
     private BufferedImage fond;
     
-    public VuePlateau(Grille grille, ArrayList<Aventurier> js, IHMJeu ihm) {
+    public VuePanel_Plateau(Grille grille, ArrayList<Aventurier> js, IHMJeu ihm) {
         activer = false;
         this.grille = grille;
         ihmJeu = ihm;
         joueurs = js;
-        tuiles = new VueTuile[6][6];
+        tuiles = new VuePanel_Tuile[6][6];
         initTuiles(grille);
         
         try{
@@ -101,9 +101,9 @@ public class VuePlateau extends JPanel {
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
                 if (grille.getTuiles()[l][c] != null){ //&& grille.getTuiles()[l][c].getEtat() != EtatTuile.coulée) {
-                    ((VueTuile) tuiles[l][c]).setEtat(ts[l][c].getEtat());
+                    ((VuePanel_Tuile) tuiles[l][c]).setEtat(ts[l][c].getEtat());
                 } else {
-                    tuiles[l][c] = new VueTuile("Ocean", EtatTuile.coulée);
+                    tuiles[l][c] = new VuePanel_Tuile("Ocean", EtatTuile.coulée);
                 }
             }
         }
@@ -127,9 +127,9 @@ public class VuePlateau extends JPanel {
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
                 if (grille.getTuiles()[l][c] != null) {
-                    tuiles[l][c] = new VueTuile(ts[l][c].getNom(), ts[l][c].getEtat(), new Dimension(100, 100));
+                    tuiles[l][c] = new VuePanel_Tuile(ts[l][c].getNom(), ts[l][c].getEtat(), new Dimension(100, 100));
                 } else {
-                    tuiles[l][c] = new VueTuile("Ocean", EtatTuile.coulée, new Dimension(100, 100));
+                    tuiles[l][c] = new VuePanel_Tuile("Ocean", EtatTuile.coulée, new Dimension(100, 100));
                 }
             }
         }
