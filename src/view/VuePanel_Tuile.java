@@ -172,7 +172,7 @@ public class VuePanel_Tuile extends JPanel{
             case "La Caverne des Ombres":{
                 nom = "LaCaverneDesOmbres";
                 this.possedeTresor = true;
-                tresor = "";
+                tresor = "Cristal Ardent";
             } break;
             case "La Porte de Fer":{
                 nom = "LaPorteDeFer";
@@ -186,7 +186,7 @@ public class VuePanel_Tuile extends JPanel{
             case "Le Palais de Corail":{
                 nom = "LePalaisDeCorail";
                 this.possedeTresor = true;
-                tresor = "";
+                tresor = "Calice de Ordre";
             } break;
             case "La Porte d’Argent":{
                 nom = "LaPorteArgent";
@@ -203,7 +203,7 @@ public class VuePanel_Tuile extends JPanel{
             case "Le Jardin des Hurlements":{
                 nom = "LeJardinDesHurlements";
                 this.possedeTresor = true;
-                tresor = "";
+                tresor = "Statue du Zéphir";
             } break;
             case "La Foret Pourpre":{
                 nom = "LaForetPourpre";
@@ -223,18 +223,22 @@ public class VuePanel_Tuile extends JPanel{
             case "La Caverne du Brasier":{
                 nom = "LaCaverneDuBrasier";
                 this.possedeTresor = true;
-                tresor = "";
+                tresor = "Cristal Ardent";
             } break;
             case "Le Temple du Soleil":{
                 nom = "LeTempleDuSoleil";
+                this.possedeTresor = true;
+                tresor = "Pierre Sacré";
             } break;
             case "Le Temple de La Lune":{
                 nom = "LeTempleDeLaLune";
+                this.possedeTresor = true;
+                tresor = "Pierre Sacré";
             } break;
             case "Le Palais des Marees":{
                 nom = "LePalaisDesMarees";
                 this.possedeTresor = true;
-                tresor = "";
+                tresor = "Calice de Ordre";
             } break;
             case "Le Val du Crepuscule":{
                 nom = "LeValDuCrepuscule";
@@ -245,7 +249,7 @@ public class VuePanel_Tuile extends JPanel{
             case "Le Jardin des Murmures":{
                 nom = "LeJardinDesMurmures";
                 this.possedeTresor = true;
-                tresor = ""; 
+                tresor = "Statue du Zéphir"; 
             } break;
             default :{
                 nom = null;

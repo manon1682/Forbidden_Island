@@ -272,8 +272,8 @@ public class Controleur implements Observateur {
         a.ajoutTresor(tr);
 
         //On affiche la fenêtre de jeu pour mettre à jour la main du joueur et les trésors
+        vueIHMJeu.getvPlat().majTresor(tr.toString());
         vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
-
     }
 
     public Deck getDeck_T() {
