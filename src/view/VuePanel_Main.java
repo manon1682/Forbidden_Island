@@ -63,83 +63,46 @@ public class VuePanel_Main extends JPanel {
             }
 
             //Créer le panel carte
-            JPanel carte = new VuePanel_Carte(n, laCarte);
+            VuePanel_Carte carte = new VuePanel_Carte(n, laCarte);
+            carte.setIhm(this);
             CarteTresor c = new CarteTresor(laCarte);
 
-            carte.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    Message m = new Message(TypesMessages.CARTE_CLICK);
-                    m.setCarte(c);
-                    ihm.notifierObservateur(m);
-                }
+            if (n != 0) {
+                carte.getUtiliser().setVisible(false);
+                carte.getDonner().setVisible(false);
+                carte.getDefausser().setVisible(false);
+                
+                carte.getUtiliser().setVisible(true);
+                carte.getDonner().setVisible(true);
+                carte.getDefausser().setVisible(true);
+                
+                
+                carte.repaint();
+                carte.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        Message m = new Message(TypesMessages.CARTE_CLICK);
+                        m.setVueCarte((VuePanel_Carte) e.getSource());
+                        ihm.notifierObservateur(m);
+                    }
 
-                @Override
-                public void mousePressed(MouseEvent e) {
-                }
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
 
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                }
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
 
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                }
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                }
-            });
-
-            JButton donner = new JButton("Donner");
-            JButton defausser = new JButton("Défausser");
-            JButton utiliser = new JButton("Utiliser");
-
-            donner.setVisible(false);
-            utiliser.setVisible(false);
-            this.setPreferredSize(new Dimension(90, 120));
-
-            //Layout des boutons sur la carte
-            JPanel mainPanel = new JPanel(new GridLayout(6, 1));
-            mainPanel.add(new JLabel());
-            mainPanel.add(donner);
-            mainPanel.add(defausser);
-            mainPanel.add(new JLabel());
-            mainPanel.add(utiliser);
-            mainPanel.add(new JLabel());
-
-            add(mainPanel);
-
-            //ActionListener des boutons
-            donner.addActionListener(
-                    new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Message m = new Message(TypesMessages.DONNER_CARTE);
-                    m.setCarte(c);
-                    ihm.notifierObservateur(m);
-                }
-            });
-
-            defausser.addActionListener(
-                    new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Message m = new Message(TypesMessages.DEFAUSSER_CARTE);
-                    m.setCarte(c);
-                    ihm.notifierObservateur(m);
-                }
-            });
-
-            utiliser.addActionListener(
-                    new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Message m = new Message(TypesMessages.UTILISER_CARTE);
-                    m.setCarte(c);
-                    ihm.notifierObservateur(m);
-                }
-            });
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+                });
+            }
 
             main.add(carte);
             laCarte = laCarte.getNext();
@@ -173,12 +136,26 @@ public class VuePanel_Main extends JPanel {
                 }
             }
 
-            JPanel carte = new VuePanel_Carte(n, laCarte);
+            VuePanel_Carte carte = new VuePanel_Carte(n, laCarte);
+            if (n != 0) {
+                carte.getUtiliser().setVisible(false);
+                carte.getDonner().setVisible(false);
+                carte.getDefausser().setVisible(false);
+                carte.repaint();
+            }
 
             main.add(carte);
             laCarte = laCarte.getNext();
 
         }
+    }
+
+    public void notifierObservateur(Message m) {
+        ihm.notifierObservateur(m);
+    }
+    
+    public void setSauvType(TypesMessages t){
+        ihm.setSauvType(t);
     }
 
 }

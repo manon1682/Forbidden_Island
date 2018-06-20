@@ -135,6 +135,10 @@ public class VuePanel_ActionAventurier extends JPanel {
     public TypesMessages getSauvType() {
         return sauvType;
     }
+
+    public void setSauvType(TypesMessages sauvType) {
+        this.sauvType = sauvType;
+    }
     
     public void misAJourNbAction(int nbAction){
         nbActionInt.setText(Integer.toString(nbAction));

@@ -30,6 +30,7 @@ import javax.swing.JFrame;
 import view.IHMJeu;
 import view.VuePanel_ActionAventurier;
 import view.VueAventurier;
+import view.VuePanel_Carte;
 import view.VuePanel_Initialisation;
 import view.VuePanel_Plateau;
 
@@ -814,13 +815,13 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case DONNER_CARTE:
-                // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Donner carte"
+                // Si le joueur est null cela signifie qu'on vient d'appuyer sur le bouton "Donner carte"
                 if (m.getJoueur() == null) {
                     ArrayList<Aventurier> recepteurPossible = aventuriersPourDonnerCarte(joueurCourant);
                     //vueA.afficherJoueursPossible();
                 } else {
                     //Sinon on donne la carte au joueur choisi
-                    joueurCourant.donnerCarte(m.getJoueur(), m.getCarte());
+                    joueurCourant.donnerCarte(m.getJoueur(), m.getVueCarte().getCarte());
                 }
 
                 break;
@@ -832,40 +833,65 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             case UTILISER_CARTE:
                 // helico = true si la carte hélico est choisi
                 // helico = false s'il s'agit d'une autre, donc du sac de sable
-                boolean helico = m.getCarte().getNom().equals(CarteUtilisable.HELICO.toString());
+                boolean helico = m.getVueCarte().getCarte().getNom().equals(CarteUtilisable.HELICO.toString());
+                //On vient juste d'appuyer sur le bouton "Utiliser"
+                if (m.getTuile() == null) {
 
-                Tuile[][] tuiles = grille.getTuiles();
+                    Tuile[][] tuiles = grille.getTuiles();
 
-                for (int l = 0; l < 6; l++) {
-                    for (int c = 0; c < 6; c++) {
-                        Tuile tuile = tuiles[l][c];
-                        if (tuile != null) {
-                            //Si la carte choisie est l'hélico on vérifie s'il est possible de se DEPLACER sur la tuile (verifTuileD())
-                            //Sinon on a choisi le sac de sable et on vérifie s'il est possible d'ASSECHER la tuile (verifTuileA())
-                            g[l][c] = (helico ? tuile.verifTuileD() : tuile.verifTuileA());
+                    for (int l = 0; l < 6; l++) {
+                        for (int c = 0; c < 6; c++) {
+                            Tuile tuile = tuiles[l][c];
+                            if (tuile != null) {
+                                //Si la carte choisie est l'hélico on vérifie s'il est possible de se DEPLACER sur la tuile (verifTuileD())
+                                //Sinon on a choisi le sac de sable et on vérifie s'il est possible d'ASSECHER la tuile (verifTuileA())
+                                g[l][c] = (helico ? tuile.verifTuileD() : tuile.verifTuileA());
+                            }
                         }
                     }
-                }
 
-                //Si c'est la carte hélico qui est choisie, le joueur ne peut pas se déplacer sur sa propre case
-                if (helico) {
-                    g[joueurCourant.getL()][joueurCourant.getC()] = false;
-                }
+                    //Si c'est la carte hélico qui est choisie, le joueur ne peut pas se déplacer sur sa propre case
+                    if (helico) {
+                        g[joueurCourant.getL()][joueurCourant.getC()] = false;
+                    }
 
-                vueIHMJeu.afficherTuilePossible(g);
+                    vueIHMJeu.afficherTuilePossible(g);
+
+                    if (!defaussementEnCours) {
+                        actionPossible();
+                    }
+                } else {
+                    String nom = m.getTuile();
+                    Tuile tuile = grille.getTuileAvecNom(nom);
+                    
+                    if (helico) {
+                        joueurCourant.deplacer(tuile.getLigne(), tuile.getColonne());
+                    } else {
+                        tuile.asseche();
+                    }
+                }
 
                 break;
 
             case CARTE_CLICK:
                 //Afficher le bouton "Utiliser carte" et "Donner carte" et "Défausser" avec la méthode qui renvoie un boolean
+                VuePanel_Carte carte = m.getVueCarte();
                 if (defaussementEnCours) {
-                    // affiche le bouton defausser*
-                    //utiliser aussi
+                    // affiche le bouton Défausser
+                    carte.getDefausser().setEnabled(true);
                 } else {
-                    //afficher les bouton utiliser et donner
-                    utiliserCartePossible(m.getCarte());
-                    donnerCartePossible();
+                    //afficher le bouton Donner
+                    carte.getDonner().setEnabled(donnerCartePossible());
                 }
+                //Dans tous les cas on regarde si on peut l'utiliser
+                carte.getUtiliser().setEnabled(utiliserCartePossible(carte.getCarte()));
+                break;
+
+            case DEFAUSSER_CARTE:
+                CarteTresor c = m.getVueCarte().getCarte();
+                joueurCourant.removeMainA(c);
+                deck_T.getPioche().add(c);
+                vueIHMJeu.getvMainAven().repaint();
                 break;
 
             case NOUVELLE_PARTIE:
@@ -948,6 +974,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 && type != TypesMessages.TOUR_SUIVANT
                 && type != TypesMessages.UTILISER_CARTE
                 && type != TypesMessages.CARTE_CLICK
+                && type != TypesMessages.DEFAUSSER_CARTE
                 && m.getTuile() != null) {
             //On décrémente le nombre d'action
             nbAction = nbAction - 1;

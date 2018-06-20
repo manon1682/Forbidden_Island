@@ -168,6 +168,10 @@ public class IHMJeu extends Observe {
         return vAven;
     }
 
+    public VuePanel_Main getvMainAven() {
+        return vMainAven;
+    }
+
     public VuePanel_ActionAventurier getvActionAven() {
         return vActionAven;
     }
@@ -184,4 +188,9 @@ public class IHMJeu extends Observe {
     public TypesMessages getSauvType() {
         return vActionAven.getSauvType();
     }
+    
+    public void setSauvType(TypesMessages t){
+        vActionAven.setSauvType(t);
+    }
+
 }
