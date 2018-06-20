@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  *
  * @author blancoma
  */
-public class PanelCarte extends JPanel {
+public class VuePanel_Carte extends JPanel {
 
     private Dimension dim;
     private CarteUtilisable carte;
@@ -29,7 +29,7 @@ public class PanelCarte extends JPanel {
     private JButton donner;
     private JButton utiliser;
 
-    public PanelCarte(int n, CarteUtilisable c) {
+    public VuePanel_Carte(int n, CarteUtilisable c) {
 
         carte = c;
         nb = n;

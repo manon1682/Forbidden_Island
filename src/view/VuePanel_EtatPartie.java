@@ -25,7 +25,7 @@ import javax.swing.JPanel;
  *
  * @author blanquan
  */
-public class VueCoequipierAventurier extends JPanel {
+public class VuePanel_EtatPartie extends JPanel {
 
     //Case 1 de la grilleCoequipier
     private JButton btnPrendreTresor;
@@ -49,17 +49,18 @@ public class VueCoequipierAventurier extends JPanel {
     private Aventurier a;
     private ArrayList<Aventurier> joueurs;
 
-    public VueCoequipierAventurier(Aventurier aventurier, ArrayList<Aventurier> js, IHMJeu ihm) {
+    public VuePanel_EtatPartie(Aventurier aventurier, ArrayList<Aventurier> js, IHMJeu ihm) {
 
         //Initialisation
         this.ihm = ihm;
         a = aventurier;
         joueurs = js;
         //Case 1 de la grilleCoequipier
-        btnPrendreTresor = new JButton("Prendre trésor");
+        btnPrendreTresor = new JButton();
         /*ImageIcon logoFermer = new ImageIcon("images/icones/iconClose.png");
         JLabel logoF = new JLabel();
-        logoF.setIcon(logoFermer);*/
+        logoF.setIcon(logoFermer);
+        btnPrendreTresor.setIcon(logoFermer);*/
         tresorCristalArdent = new JLabel("tresorCA");
         tresorStatueZephir = new JLabel("tresorSZ");
         tresorCaliceOrdre = new JLabel("tresorCO");
@@ -91,7 +92,7 @@ public class VueCoequipierAventurier extends JPanel {
         grilleTresor.add(tresorPierreSacre);
 
         containerCase1.add(grilleTresor, BorderLayout.CENTER);
-        containerCase1.add(btnPrendreTresor, BorderLayout.WEST);
+        containerCase1.add(btnPrendreTresor, BorderLayout.EAST);
 
         grilleCoequipier.add(containerCase1);
 
@@ -117,17 +118,16 @@ public class VueCoequipierAventurier extends JPanel {
         new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message m = new Message(TypesMessages.PRENDRE_TRESOR);
-                ihm.notifierObservateur(m);
+               Message m = new Message(TypesMessages.PRENDRE_TRESOR);
+               ihm.notifierObservateur(m);
             }
         });
        
+
     }
 
     public JButton getBtnPrendreTresor() {
         return btnPrendreTresor;
     }
-    
-    
 
 }
