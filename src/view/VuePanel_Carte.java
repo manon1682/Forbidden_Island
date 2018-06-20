@@ -7,11 +7,16 @@ package view;
 
 import Enumeration.CarteUtilisable;
 import Enumeration.EtatTuile;
+import Enumeration.TypesMessages;
+import forbidden_island.Message;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,19 +31,65 @@ public class VuePanel_Carte extends JPanel {
     private CarteUtilisable carte;
     private int nb;
     private JButton donner;
+    private JButton defausser;
     private JButton utiliser;
+    private IHMJeu ihm;
+    
+    //Panel layout des boutons
+    private JPanel mainPanel;
 
     public VuePanel_Carte(int n, CarteUtilisable c) {
 
         carte = c;
         nb = n;
         donner = new JButton("Donner");
+        defausser = new JButton("Défausser");
         utiliser = new JButton("Utiliser");
+        
         
         donner.setVisible(false);
         utiliser.setVisible(false);
         this.setPreferredSize(new Dimension(90, 120));
+        
+        
+        //Layout des boutons sur la carte
+        mainPanel = new JPanel(new GridLayout(6, 1));
+        mainPanel.add(new JLabel());
+        mainPanel.add(donner);
+        mainPanel.add(defausser);
+        mainPanel.add(new JLabel());
+        mainPanel.add(utiliser);
+        mainPanel.add(new JLabel());        
+        
+        //ActionListener des boutons
+        donner.addActionListener(
+            new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message(TypesMessages.DONNER_CARTE);
+                ihm.notifierObservateur(m);    
+            }
+        });
+        defausser.addActionListener(
+            new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message(TypesMessages.DEFAUSSER_CARTE);
+                ihm.notifierObservateur(m);
+            }
+        });
+        utiliser.addActionListener(
+            new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message(TypesMessages.UTILISER_CARTE);
+                ihm.notifierObservateur(m);
+            }
+        });
+        
     }
+    
+    
 
     @Override
     public void paint(Graphics g) {
