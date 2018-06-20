@@ -54,10 +54,10 @@ public class VuePanel_Carte extends JPanel {
             //Layout des boutons sur la carte
             mainPanel = new JPanel(new GridLayout(3, 1));
             //  mainPanel.add(new JLabel());
-            mainPanel.add(donner);
             mainPanel.add(defausser);
             // mainPanel.add(new JLabel());
             mainPanel.add(utiliser);
+            mainPanel.add(donner);
             //mainPanel.add(new JLabel());
 
             add(mainPanel);
