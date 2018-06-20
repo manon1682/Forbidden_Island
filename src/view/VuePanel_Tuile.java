@@ -77,14 +77,18 @@ public class VuePanel_Tuile extends JPanel{
             g.drawImage(tuileInondee, 0, 0, dim.width, dim.height, null);
             afficherPion(g);
         }
-        
         if(isCadre()){
+            g.setColor(new Color(250,250,0,100));
+            g.fillRect(0, 0, dim.width, dim.height);
+        }
+        
+        /*if(isCadre()){
             BasicStroke nStrock = new BasicStroke(3.0f); //Augmente épaisseur du contour de la tuile
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(nStrock);
             g2.setColor(Color.yellow);
             g2.drawRect(0, 0, dim.width, dim.height);
-        }
+        }*/
         
     }
     
