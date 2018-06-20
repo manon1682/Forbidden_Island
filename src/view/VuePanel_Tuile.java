@@ -54,6 +54,7 @@ public class VuePanel_Tuile extends JPanel{
         this.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
+                System.out.println(((VuePanel_Tuile)me.getComponent()).getNomTuile());
                 if(((VuePanel_Tuile)me.getComponent()).isPossible()){
                     Message m = new Message(vPlat.getType());
                     m.setTuile(((VuePanel_Tuile)me.getComponent()).getNomTuile());
@@ -97,7 +98,7 @@ public class VuePanel_Tuile extends JPanel{
         if(getNomFichierTuile(nomTuile) != null){
             try {
                 tuileNormale = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+".png")));
-                tuileInondee = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Inonde.png")));
+                tuileInondee = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Innonde.png")));
             } catch (IOException ex) {
                 ex.fillInStackTrace();
             }   
@@ -155,7 +156,7 @@ public class VuePanel_Tuile extends JPanel{
                 nom = "LaPorteDeBronze";
             } break;
             case "La Caverne des Ombres":{
-                nom = "LaCarverneDesOmbres";
+                nom = "LaCaverneDesOmbres";
             } break;
             case "La Porte de Fer":{
                 nom = "LaPorteDeFer";
@@ -170,7 +171,7 @@ public class VuePanel_Tuile extends JPanel{
                 nom = "LePalaisDeCorail";
             } break;
             case "La Porte d’Argent":{
-                nom = "LaPortedArgent";
+                nom = "LaPorteArgent";
             } break;
             case "Les Dunes de l’Illusion":{
                 nom = "LesDunesDeLIllusion";
@@ -200,7 +201,7 @@ public class VuePanel_Tuile extends JPanel{
                 nom = "LeRocherFantome";
             } break;
             case "La Caverne du Brasier":{
-                nom = "LaCarverneDuBrasier";
+                nom = "LaCaverneDuBrasier";
             } break;
             case "Le Temple du Soleil":{
                 nom = "LeTempleDuSoleil";
