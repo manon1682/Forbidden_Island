@@ -66,9 +66,9 @@ public class VueCoequipierAventurier extends JPanel {
         tresorPierreSacre = new JLabel("tresorPS");
 
         //nouvelle case 2 à 4
-        vInv1 = new VuePanel_InventaireCoequipier();
-        vInv2 = new VuePanel_InventaireCoequipier();
-        vInv3 = new VuePanel_InventaireCoequipier();
+        vInv1 = new VuePanel_InventaireCoequipiers();
+        vInv2 = new VuePanel_InventaireCoequipiers();
+        vInv3 = new VuePanel_InventaireCoequipiers();
 
         //case 5 
         vText = new VuePanel_MessageBox();
