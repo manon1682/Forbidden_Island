@@ -16,14 +16,14 @@ import javax.swing.JScrollPane;
  *
  * @author cabezama
  */
-public class VueManuel extends JPanel {
+public class VuePanel_Manuel extends JPanel {
 
     //Variables Fenêtre
     private final JFrame window;
     private int height;
     private int width;
 
-    public VueManuel() {
+    public VuePanel_Manuel() {
         super();
         width = 900;
         height = 960;

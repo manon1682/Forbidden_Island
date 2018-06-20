@@ -36,7 +36,7 @@ import javax.swing.SwingConstants;
  *
  * @author cabezama
  */
-public class VueInitialisation extends JPanel {
+public class VuePanel_Initialisation extends JPanel {
 
     // Variable Fenêtre
     private final JFrame window;
@@ -73,9 +73,9 @@ public class VueInitialisation extends JPanel {
     private Image image;
 
     //Manuel
-    private VueManuel vMan;
+    private VuePanel_Manuel vMan;
 
-    public VueInitialisation(IHMJeu ihm) {
+    public VuePanel_Initialisation(IHMJeu ihm) {
         width = 787;
         height = 787;
 
@@ -304,7 +304,7 @@ public class VueInitialisation extends JPanel {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vMan = new VueManuel();
+                vMan = new VuePanel_Manuel();
                 vMan.afficher();
                 vMan.repaint();
             }

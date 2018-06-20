@@ -28,10 +28,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import view.IHMJeu;
-import view.VueActionAventurier;
+import view.VuePanel_ActionAventurier;
 import view.VueAventurier;
-import view.VueInitialisation;
-import view.VuePlateau;
+import view.VuePanel_Initialisation;
+import view.VuePanel_Plateau;
 
 public class Controleur implements Observateur {
 
@@ -370,7 +370,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
                     traiterMessage(m);
 
                     //On désactive tous les boutons pour que le joueur soit obliger de choisir une case où se déplacer
-                    VueActionAventurier vueTemp = vueIHMJeu.getvActionAven();
+                    VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
                     vueTemp.getBtnDeplacer().setEnabled(false);
                     vueTemp.getBtnActionSpeciale().setEnabled(false);
                     vueTemp.getBtnAssecher().setEnabled(false);
@@ -573,7 +573,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
     public void actionPossible() {
         //On récupère la vue des action de la vue de l'IHM Jeu
-        VueActionAventurier vueTemp = vueIHMJeu.getvActionAven();
+        VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
 
         //Activation ou non du bouton "Déplacer"
         vueTemp.getBtnDeplacer().setEnabled(deplacementPossible());
@@ -591,7 +591,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
     public void finirTour() {
         //On récupère la vue des action de la vue de l'IHM Jeu
-        VueActionAventurier vueTemp = vueIHMJeu.getvActionAven();
+        VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
 
         //Activation ou non du bouton "Déplacer"
         vueTemp.getBtnDeplacer().setEnabled(false);

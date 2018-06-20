@@ -23,7 +23,7 @@ import javax.swing.JPanel;
  *
  * @author blanquan
  */
-public class VueCoequipierAventurier extends JPanel {
+public class VuePanel_EtatPartie extends JPanel {
 
     //Case 1 de la grilleCoequipier
     private JButton btnFermerJeu;
@@ -39,7 +39,7 @@ public class VueCoequipierAventurier extends JPanel {
     private VuePanel_InventaireCoequipier vInv3;
 
     //case 5
-    private VueMessageBox vText;
+    private VuePanel_MessageBox vText;
 
     //=====
     private IHMJeu ihm;
@@ -47,7 +47,7 @@ public class VueCoequipierAventurier extends JPanel {
     private Aventurier a;
     private ArrayList<Aventurier> joueurs;
 
-    public VueCoequipierAventurier(Aventurier aventurier, ArrayList<Aventurier> js, IHMJeu ihm) {
+    public VuePanel_EtatPartie(Aventurier aventurier, ArrayList<Aventurier> js, IHMJeu ihm) {
 
         //Initialisation
         this.ihm = ihm;
@@ -70,7 +70,7 @@ public class VueCoequipierAventurier extends JPanel {
         vInv3 = new VuePanel_InventaireCoequipier();
 
         //case 5 
-        vText = new VueMessageBox();
+        vText = new VuePanel_MessageBox();
 
         a = aventurier;
         //fin initialisation
@@ -97,7 +97,7 @@ public class VueCoequipierAventurier extends JPanel {
         //nouvelle case 2 à 4
         for (Aventurier joueur : joueurs) {
             if (!(joueur.equals(a))) {
-                VueInventaireAventurier vInv = new VueInventaireAventurier(joueur);
+                VuePanel_Main vInv = new VuePanel_Main(joueur);
                 grilleCoequipier.add(vInv);
             }
         }

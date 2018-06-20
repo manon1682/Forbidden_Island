@@ -32,12 +32,12 @@ import javax.swing.JPanel;
  *
  * @author blanquan
  */
-public class VueNiveau extends JPanel {
+public class VuePanel_Niveau extends JPanel {
 
     private int jaugeInnondation;
     private JButton btnManuel;
 
-    public VueNiveau(int jaugeInn) {
+    public VuePanel_Niveau(int jaugeInn) {
 
 
         //initialisation
@@ -105,7 +105,7 @@ public class VueNiveau extends JPanel {
             new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                VueManuel vMan = new VueManuel();
+                VuePanel_Manuel vMan = new VuePanel_Manuel();
                 vMan.afficher();
             }
         });

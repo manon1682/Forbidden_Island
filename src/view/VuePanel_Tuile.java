@@ -26,7 +26,7 @@ import util.Utils.Pion;
  *
  * @author cdlk
  */
-public class VueTuile extends JPanel{
+public class VuePanel_Tuile extends JPanel{
     
     private EtatTuile etat;
     private String nomTuile;
@@ -37,7 +37,7 @@ public class VueTuile extends JPanel{
     private BufferedImage tuileNormale;
     private BufferedImage tuileInondee;
     
-    public VueTuile(String nom, EtatTuile etat, Dimension dim){
+    public VuePanel_Tuile(String nom, EtatTuile etat, Dimension dim){
         joueur = new ArrayList<>();
         setCadre(false);
         setDim(dim);
@@ -46,7 +46,7 @@ public class VueTuile extends JPanel{
         initImage();
     }
     
-    public VueTuile(String nom, EtatTuile etat){
+    public VuePanel_Tuile(String nom, EtatTuile etat){
         joueur = new ArrayList<>();
         int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
         setDim(new Dimension(size, size));

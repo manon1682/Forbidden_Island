@@ -26,12 +26,12 @@ import javax.swing.border.Border;
  *
  * @author blanquan
  */
-public class VueInventaireAventurier extends JPanel {
+public class VuePanel_Main extends JPanel {
     
     private IHMJeu ihm;
     private Aventurier a;
     
-    public VueInventaireAventurier(Aventurier aventurier, IHMJeu ihmJ) {
+    public VuePanel_Main(Aventurier aventurier, IHMJeu ihmJ) {
 
         //Initialisation
         ihm = ihmJ;
@@ -60,7 +60,7 @@ public class VueInventaireAventurier extends JPanel {
             }
             
             //Créer le panel carte
-            JPanel carte = new PanelCarte(n, laCarte);
+            JPanel carte = new VuePanel_Carte(n, laCarte);
             CarteTresor c = new CarteTresor(laCarte);
             
             carte.addMouseListener(new MouseListener() {
@@ -96,7 +96,7 @@ public class VueInventaireAventurier extends JPanel {
         
     }
     
-    public VueInventaireAventurier(Aventurier aventurier) {
+    public VuePanel_Main(Aventurier aventurier) {
         //Initialisation
         a = aventurier;
         
@@ -120,7 +120,7 @@ public class VueInventaireAventurier extends JPanel {
                 }
             }
             
-            JPanel carte = new PanelCarte(n, laCarte);
+            JPanel carte = new VuePanel_Carte(n, laCarte);
             
             main.add(carte);
             laCarte = laCarte.getNext();
