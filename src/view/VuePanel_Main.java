@@ -97,12 +97,16 @@ public class VuePanel_Main extends JPanel {
 
                     @Override
                     public void mouseExited(MouseEvent e) {
+                        //On vérifie qu'on sorte "réellement" de la carte,
+                        //qu'on aille pas sur un bouton positionner sur la carte (ce qui entrainer ce mouseExited)
                         if (carte.getSize().width < e.getX() || 0 > e.getX()
                                 || carte.getSize().height < e.getY() || 0 > e.getY()) {
+
                             carte.getUtiliser().setVisible(false);
                             carte.getDonner().setVisible(false);
                             carte.getDefausser().setVisible(false);
-                            repaint();
+                            carte.repaint();
+
                         }
                     }
                 });

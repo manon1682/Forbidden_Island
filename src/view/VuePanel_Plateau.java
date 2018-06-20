@@ -136,6 +136,7 @@ public class VuePanel_Plateau extends JPanel {
     @Override
     public void paint(Graphics g) {
         g.drawImage(fond, 0, 0, plat.getWidth() , plat.getHeight(),null);
+        System.out.println("qjksdhfjdshgjkhjk");
         repaintTuiles();
     }
     

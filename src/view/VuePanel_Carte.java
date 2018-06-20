@@ -44,7 +44,7 @@ public class VuePanel_Carte extends JPanel {
 
         carte = new CarteTresor(c);
         nb = n;
-        //this.setPreferredSize(new Dimension(90, 120));
+        this.setPreferredSize(new Dimension(90, 120));
 
         if (n != 0) {
             donner = new JButton("Donner");
