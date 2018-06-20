@@ -907,6 +907,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             nbAction = nbAction - 1;
             
             vueIHMJeu.miseAJourNbAction(nbAction);
+            actionPossible();
 
             //Si le joueur n'a plus d'action on fini son tour
             if (nbAction == 0) {

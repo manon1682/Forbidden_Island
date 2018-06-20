@@ -115,7 +115,7 @@ public class IHMJeu extends Observe {
         vPlat.majTuiles(joueurs);
         //Fin de l'initialisation
 
-        //On replace les nouveaux panels créés selon le nouveau joueur
+        //On replace les nouveaux panels créés
         panelCentre1.add(vNiveau, BorderLayout.WEST);
         panelCentre1.add(vAven, BorderLayout.EAST);
         panelSud2.add(vMainAven, BorderLayout.CENTER);
@@ -138,9 +138,7 @@ public class IHMJeu extends Observe {
     }
 
     public void miseAJourNbAction(int nbAction) {
-        panelSud2.remove(vActionAven);
-        vActionAven = new VueActionAventurier(this, nbAction);
-        panelSud2.add(vActionAven, BorderLayout.EAST);
+        vActionAven.misAJourNbAction(nbAction);
     }
 
     // Getter

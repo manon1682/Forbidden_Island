@@ -136,4 +136,8 @@ public class VueActionAventurier extends JPanel {
         return sauvType;
     }
     
+    public void misAJourNbAction(int nbAction){
+        nbActionInt.setText(Integer.toString(nbAction));
+    }
+    
 }
