@@ -160,6 +160,7 @@ public class IHMJeu extends Observe {
     
     public void afficherJoueursPossible(ArrayList<Aventurier> js){
         vAven.donnerCarte(js);
+        window.setVisible(true);
     }
 
     public void desafficherJoueursPossible() {

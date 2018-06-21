@@ -919,7 +919,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.removeMainA(c);
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                     vueIHMJeu.getvPlat().majTuiles(grille);
-
                 }
 
                 break;
