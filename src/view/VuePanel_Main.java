@@ -71,19 +71,12 @@ public class VuePanel_Main extends JPanel {
                 carte.getUtiliser().setVisible(false);
                 carte.getDonner().setVisible(false);
                 carte.getDefausser().setVisible(false);
-                
-                carte.getUtiliser().setVisible(true);
-                carte.getDonner().setVisible(true);
-                carte.getDefausser().setVisible(true);
-                
-                
+
                 carte.repaint();
+
                 carte.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        Message m = new Message(TypesMessages.CARTE_CLICK);
-                        m.setVueCarte((VuePanel_Carte) e.getSource());
-                        ihm.notifierObservateur(m);
                     }
 
                     @Override
@@ -96,10 +89,25 @@ public class VuePanel_Main extends JPanel {
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
+                        Message m = new Message(TypesMessages.CARTE_CLICK);
+                        m.setVueCarte((VuePanel_Carte) e.getSource());
+                        ihm.notifierObservateur(m);
+
                     }
 
                     @Override
                     public void mouseExited(MouseEvent e) {
+                        //On vérifie qu'on sorte "réellement" de la carte,
+                        //qu'on aille pas sur un bouton positionner sur la carte (ce qui entrainer ce mouseExited)
+                        if (carte.getSize().width < e.getX() || 0 > e.getX()
+                                || carte.getSize().height < e.getY() || 0 > e.getY()) {
+
+                            carte.getUtiliser().setVisible(false);
+                            carte.getDonner().setVisible(false);
+                            carte.getDefausser().setVisible(false);
+                            repaint();
+
+                        }
                     }
                 });
             }
@@ -153,8 +161,8 @@ public class VuePanel_Main extends JPanel {
     public void notifierObservateur(Message m) {
         ihm.notifierObservateur(m);
     }
-    
-    public void setSauvType(TypesMessages t){
+
+    public void setSauvType(TypesMessages t) {
         ihm.setSauvType(t);
     }
 
