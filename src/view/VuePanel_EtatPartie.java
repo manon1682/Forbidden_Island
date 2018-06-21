@@ -58,16 +58,16 @@ public class VuePanel_EtatPartie extends JPanel {
         for (Tresor tr : aventurier.getTresor()) {
             ImageIcon logo;
             if (tr == Tresor.CALICE_DE_ORDRE) {
-                logo = new ImageIcon("images/tresors/calice.png");
+                logo = new ImageIcon("images/tresors/calice_old.png");
                 tresorCaliceOrdre.setIcon(logo);
             } else if (tr == Tresor.CRISTAL_ARDENT) {
-                logo = new ImageIcon("images/tresors/cristal.png");
+                logo = new ImageIcon("images/tresors/cristal_old.png");
                 tresorCristalArdent.setIcon(logo);
             } else if (tr == Tresor.PIERRE_SACRE) {
-                logo = new ImageIcon("images/tresors/pierre.png");
+                logo = new ImageIcon("images/tresors/pierre_old.png");
                 tresorPierreSacre.setIcon(logo);
             } else {
-                logo = new ImageIcon("images/tresors/zephyr.png");
+                logo = new ImageIcon("images/tresors/zephyr_old.png");
                 tresorStatueZephir.setIcon(logo);
             }
         }

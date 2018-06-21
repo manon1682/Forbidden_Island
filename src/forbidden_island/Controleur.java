@@ -1062,7 +1062,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 // Ici on vérifie que la partie n'est ni perdu ni gagner pour continuer
                 if (perdrePartie()) {
-                    //L'affichage de la perte de partie est faist automatiquement
+
+                    System.out.println("perdu");
+
                 } else if (gagnerPartie()) {
                     System.out.println("gagnée");
                     //demande à l'IHM d'afficher la victoire
