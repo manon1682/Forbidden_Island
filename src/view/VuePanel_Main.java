@@ -143,7 +143,7 @@ public class VuePanel_Main extends JPanel {
         setClickable(clickable);
 
         if (isClickable()) {
-            this.setBackground(Color.green);
+            this.setBorder(BorderFactory.createLineBorder(Color.green, 4));
 
         }
 

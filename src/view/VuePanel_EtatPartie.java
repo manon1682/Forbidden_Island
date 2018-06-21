@@ -34,12 +34,8 @@ public class VuePanel_EtatPartie extends JPanel {
     private JLabel tresorStatueZephir;  // "
     private JLabel tresorCaliceOrdre;   // "
     private JLabel tresorPierreSacre;   // "
-    
+
     //créer 4 images supplémentaires si on peut pas modif transparance sur les images
-
-    //case 5
-    private VuePanel_MessageBox vText;
-
     //=====
     private IHMJeu ihm;
 
@@ -64,29 +60,26 @@ public class VuePanel_EtatPartie extends JPanel {
             if (tr == Tresor.CALICE_DE_ORDRE) {
                 logo = new ImageIcon("images/tresors/calice.png");
                 tresorCaliceOrdre.setIcon(logo);
-            }else if (tr == Tresor.CRISTAL_ARDENT) {
+            } else if (tr == Tresor.CRISTAL_ARDENT) {
                 logo = new ImageIcon("images/tresors/cristal.png");
                 tresorCristalArdent.setIcon(logo);
-            }else if (tr == Tresor.PIERRE_SACRE) {
+            } else if (tr == Tresor.PIERRE_SACRE) {
                 logo = new ImageIcon("images/tresors/pierre.png");
                 tresorPierreSacre.setIcon(logo);
-            }else {
+            } else {
                 logo = new ImageIcon("images/tresors/zephyr.png");
                 tresorStatueZephir.setIcon(logo);
             }
         }
-
-        //case 5 
-        vText = new VuePanel_MessageBox();
 
         a = aventurier;
         //fin initialisation
 
         //couleur pour les test
         this.setBackground(Color.ORANGE);
-        
-        this.generation(null);
 
+        this.generation(null);
+        
         //Fermeture du jeu
         btnPrendreTresor.addActionListener(
                 new ActionListener() {
@@ -102,20 +95,20 @@ public class VuePanel_EtatPartie extends JPanel {
     public JButton getBtnPrendreTresor() {
         return btnPrendreTresor;
     }
-    
-    public void donnerCarte(ArrayList<Aventurier> js){
+
+    public void donnerCarte(ArrayList<Aventurier> js) {
         this.removeAll();
         this.generation(js);
     }
-    
-    public void desactiverDonCarte(){
+
+    public void desactiverDonCarte() {
         this.removeAll();
         this.generation(null);
     }
-    
-    public void generation(ArrayList<Aventurier> js){
+
+    public void generation(ArrayList<Aventurier> js) {
         this.removeAll();
-        JPanel grilleCoequipier = new JPanel(new GridLayout(5, 1));
+        JPanel grilleCoequipier = new JPanel(new GridLayout(4, 1));
 
         //Case 1 de la grilleCoequipier (Liste Tresor obtenus des Aventuriers et bouton fermerJeu)
         JPanel containerCase1 = new JPanel(new BorderLayout());
@@ -134,15 +127,11 @@ public class VuePanel_EtatPartie extends JPanel {
         //nouvelle case 2 à 4
         for (Aventurier joueur : joueurs) {
             if (!(joueur.equals(a))) {
-                VuePanel_Main vInv = new VuePanel_Main(joueur,ihm,(js != null ? (js.contains(joueur) ? true : false) : false));
+                VuePanel_Main vInv = new VuePanel_Main(joueur, ihm, (js != null ? (js.contains(joueur) ? true : false) : false));
                 grilleCoequipier.add(vInv);
             }
         }
-
-        //Case 5 de la grilleCoequipier (MessageBox)
-        grilleCoequipier.add(vText);
         //Ajout des éléments à la fenêtre principale;
         this.add(grilleCoequipier);
     }
-
 }
