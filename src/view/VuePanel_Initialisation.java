@@ -204,7 +204,7 @@ public class VuePanel_Initialisation extends JPanel {
         //Valider Aspect
         btnValider = new JButton();
         ImageIcon logoValider = new ImageIcon("images/icones/iconChecked.png");
-        JLabel logoVal = new JLabel();
+        JLabel logoVal = new JLabel();        
         logoVal.setIcon(logoValider);
         btnValider.setIcon(logoValider);
         
