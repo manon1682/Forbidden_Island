@@ -18,14 +18,9 @@ public class VuePanel_Victoire extends JPanel{
     private IHMJeu ihm;
 
     public VuePanel_Victoire() {
-        ihm.vidangeIhm();
+
         this.setLayout(new BorderLayout());
       
-        ImageIcon logoTrophe = new ImageIcon("images/victoire/trophe.png");
-        JLabel logoTroph = new JLabel();
-        logoTroph.setIcon(logoTrophe);
-        
-        this.add(logoTroph, BorderLayout.CENTER);
         
     }
     
