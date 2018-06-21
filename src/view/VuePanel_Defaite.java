@@ -34,7 +34,7 @@ public class VuePanel_Defaite extends JPanel {
         this.add(ile, BorderLayout.NORTH);
         
         //CENTRE
-        ImageIcon logoDef = new ImageIcon("images/defaite/defaite.png");
+        ImageIcon logoDef = new ImageIcon("images/defaite/defaite_photoshop.png");
         JLabel def = new JLabel("",SwingConstants.CENTER);
         def.setIcon(logoDef);      
         
