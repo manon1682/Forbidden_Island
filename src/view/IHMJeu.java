@@ -91,7 +91,9 @@ public class IHMJeu extends Observe {
         panelSud2 = new JPanel(new BorderLayout());
 
         //Ajout 3 panel au Panel Centre1 >
-        panelCentre1.add(vNiveau, BorderLayout.WEST);
+//        panelCentre1.add(vNiveau, BorderLayout.WEST);
+        panelCentre1.add(new JLabel(""), BorderLayout.WEST); //On enleve vueNiveauLeTempsDe
+        
         panelCentre1.add(vPlat, BorderLayout.CENTER);
         panelCentre1.add(vAven, BorderLayout.EAST);
 
