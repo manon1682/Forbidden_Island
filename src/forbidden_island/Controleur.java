@@ -354,6 +354,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         // IF GENERALE
         if (joueursPresentsHeliport && listeTresorComplete && (pilotePresent || carteHelicoPresente)) {
             return true;
+
         } else {
             return false;
         }
@@ -836,6 +837,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         //On incrémente son nombre d'action pour qu'une fois décrémenté cela n'ai pas d'incidence
                         nbAction = nbAction + 1;
                         ingenieur.setCapaciteUtilisee(2);
+                        //On désaffiche les anciennes tuiles et réaffiche les nouvelles
                         vueIHMJeu.getvPlat().desaficherPossible();
                         vueIHMJeu.afficherTuilePossibleIngenieur(g);
                     } else if (ingenieur.getCapaciteUtilisee() == 2) {
@@ -843,6 +845,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         //On met à jour sa capacité spéciale
                         ingenieur.setCapaciteUtilisee(0);
                         actionPossible();
+                        vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                     }
                     joueurCourant = ingenieur;
                     vueIHMJeu.getvPlat().majTuiles(grille);
@@ -857,10 +860,11 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     vueIHMJeu.getVText().ajoutMessage("Choissez le joueur destinataire");
 
                     ArrayList<Aventurier> recepteurPossible = aventuriersPourDonnerCarte(joueurCourant);
-                    //vueA.afficherJoueursPossible();
+                    vueIHMJeu.afficherJoueursPossible(recepteurPossible);
                 } else {
                     //Sinon on donne la carte au joueur choisi
                     joueurCourant.donnerCarte(m.getJoueur(), m.getVueCarte().getCarte());
+                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                 }
 
                 actionPossible();
@@ -1046,7 +1050,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //L'affichage de la perte de partie est faist automatiquement
                 } else if (gagnerPartie()) {
                     System.out.println("gagnée");
-//                    vueA.gagner();
+                    //demande à l'IHM d'afficher la victoire
+                    vueIHMJeu.victoire();
+
                 } else {
 
                     tirageCarte();
@@ -1075,15 +1081,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
         }
-
-        //Affiche les boutons d'actions possibles
-        /*if (joueurCourant.estRole("Ingénieur")) {
-            if (((Ingénieur) joueurCourant).getCapaciteUtilisee() != 2) {
-                actionPossible();
-            }
-        } else if (!defaussementEnCours && type != TypesMessages.COULE) {
-            actionPossible();
-        }*/
+        
         if (type != TypesMessages.NOUVELLE_PARTIE
                 && type != TypesMessages.TOUR_SUIVANT
                 && type != TypesMessages.UTILISER_CARTE_HELICO
