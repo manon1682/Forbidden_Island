@@ -49,6 +49,7 @@ public class IHMJeu extends Observe {
     private Aventurier joueurCourant;
     private Grille grille;
     private int jaugeInnondation;
+    private TypesMessages sauvType;
 
     public IHMJeu() {
 
@@ -197,16 +198,22 @@ public class IHMJeu extends Observe {
         window.setVisible(true);
     }
 
-    public void assechementIngenieur() {
+    public void afficherTuilePossibleIngenieur(boolean[][] g) {
+        this.afficherTuilePossible(g);
+        getvActionAven().finirTour();
+        
+        panelSud2.remove(vMainAven);
+        vMainAven = new VuePanel_Main(joueurCourant);
+        panelSud2.add(vMainAven, BorderLayout.CENTER);
 
     }
 
     public TypesMessages getSauvType() {
-        return vActionAven.getSauvType();
+        return sauvType;
     }
 
     public void setSauvType(TypesMessages t) {
-        vActionAven.setSauvType(t);
+        sauvType = t;
     }
 
     //Affichage Victoire

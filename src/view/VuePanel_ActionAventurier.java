@@ -27,7 +27,6 @@ public class VuePanel_ActionAventurier extends JPanel {
 
     private JButton btnDeplacer, btnAssecher, btnActionSpeciale, btnTerminerTour;
     private JLabel nbActionText, nbActionInt;
-    private TypesMessages sauvType;
 
     private IHMJeu ihm;
 
@@ -74,7 +73,7 @@ public class VuePanel_ActionAventurier extends JPanel {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sauvType = TypesMessages.DEPLACER;
+                ihm.setSauvType(TypesMessages.DEPLACER);
                 Message m = new Message(TypesMessages.DEPLACER);
                 ihm.notifierObservateur(m);
                 
@@ -87,7 +86,7 @@ public class VuePanel_ActionAventurier extends JPanel {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sauvType = TypesMessages.ASSECHER;
+                ihm.setSauvType(TypesMessages.ASSECHER);
                 Message m = new Message(TypesMessages.ASSECHER);
                 ihm.notifierObservateur(m);
                 
@@ -101,7 +100,7 @@ public class VuePanel_ActionAventurier extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Message m = new Message(TypesMessages.SPECIALE);
-                sauvType = TypesMessages.SPECIALE;
+                ihm.setSauvType(TypesMessages.SPECIALE);
                 ihm.notifierObservateur(m);
                 
                 btnActionSpeciale.setEnabled(false);
@@ -113,7 +112,7 @@ public class VuePanel_ActionAventurier extends JPanel {
                 new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                sauvType = TypesMessages.TOUR_SUIVANT;
+                ihm.setSauvType(TypesMessages.TOUR_SUIVANT);
                 Message m = new Message(TypesMessages.TOUR_SUIVANT);
                 ihm.notifierObservateur(m);
             }
@@ -135,13 +134,16 @@ public class VuePanel_ActionAventurier extends JPanel {
     public JButton getBtnTerminerTour() {
         return btnTerminerTour;
     }
+    
+    public void finirTour(){
+        //Activation ou non du bouton "Déplacer"
+        getBtnDeplacer().setEnabled(false);
 
-    public TypesMessages getSauvType() {
-        return sauvType;
-    }
+        //Activation ou non du bouton "Assécher"
+        getBtnAssecher().setEnabled(false);
 
-    public void setSauvType(TypesMessages sauvType) {
-        this.sauvType = sauvType;
+        //Activation ou non du bouton "Action spéciale"
+        getBtnActionSpeciale().setEnabled(false);
     }
     
     public void misAJourNbAction(int nbAction){
