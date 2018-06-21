@@ -40,7 +40,9 @@ public class VuePanel_Main extends JPanel {
         ihm = ihmJ;
         a = aventurier;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
+        
+        this.setPreferredSize(new Dimension(768,188));
+        
         setLayout(new BorderLayout());
         JPanel main = new JPanel(new GridLayout(1, 6));
         JPanel panelNord = new JPanel(new BorderLayout());
@@ -116,14 +118,15 @@ public class VuePanel_Main extends JPanel {
             laCarte = laCarte.getNext();
 
         }
-        this.setPreferredSize(new Dimension(10, 120));
 
     }
 
     public VuePanel_Main(Aventurier aventurier) {
         //Initialisation
+        this.setPreferredSize(new Dimension(768/2,188/2));
         a = aventurier;
 
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setLayout(new BorderLayout());
         JPanel main = new JPanel(new GridLayout(1, 6));
         JPanel panelNord = new JPanel(new BorderLayout());
@@ -135,7 +138,7 @@ public class VuePanel_Main extends JPanel {
         add(main, BorderLayout.CENTER);
 
         CarteUtilisable laCarte = CarteUtilisable.PIERRE_SACRE;
-
+        
         for (int i = 0; i < 6; i++) {
             int n = 0;
             for (CarteTresor carte : a.getMainA()) {
@@ -145,13 +148,14 @@ public class VuePanel_Main extends JPanel {
             }
 
             VuePanel_Carte carte = new VuePanel_Carte(n, laCarte);
+            
             if (n != 0) {
                 carte.getUtiliser().setVisible(false);
                 carte.getDonner().setVisible(false);
                 carte.getDefausser().setVisible(false);
                 carte.repaint();
             }
-
+            carte.setSize(new Dimension(128/2, 188/2));
             main.add(carte);
             laCarte = laCarte.getNext();
 
