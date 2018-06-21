@@ -391,9 +391,9 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
                     vueTemp.finirTour();
                     vueTemp.getBtnTerminerTour().setEnabled(false);
                     vueIHMJeu.desactivationCarte();
+                } else {
+                    partiePerdue = true;
                 }
-            } else {
-                partiePerdue = true;
             }
 
         }
@@ -434,7 +434,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         4. Si le Marqueur de niveau atteint la tête de mort.        
          */
 
-        //Cas 1
+        //Cas 1 : un trésor a coulé
         if ((grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.coulée
                 && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.coulée
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Temple du Soleil").getTresor()) == false)
@@ -452,7 +452,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             return true;
         }
 
-        //Cas 2
+        //Cas 2 : l'héliport a coulé
         if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.coulée) {
             System.out.println("Normalement l'heliport a coulé");
             vueIHMJeu.defaite(Defaite.HELIPORT_COULE);
@@ -463,12 +463,12 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //et qu’il n’y a pas de tuile adjacente où nager ;
         //PLONGEUR & HELICO DIFF 
         if (partiePerdue) { //modifié dans la méthode evasions<coulee<inonde-
-            System.out.println("Normalement un joueur vien de se noyer");
+            System.out.println("Normalement un joueur vient de se noyer");
             vueIHMJeu.defaite(Defaite.JOUEUR_NOYE);
             return true;
         }
 
-        //Cas 4
+        //Cas 4 : le niveau d'eau est trop haut
         if (niveauInnondation() == 6) { // 6 correspond à la tête de mort
             System.out.println("Normalement le niveau d'innondation est trop élevé");
             vueIHMJeu.defaite(Defaite.INONDATION_ELEVEE);
