@@ -353,6 +353,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         // IF GENERALE
         if (joueursPresentsHeliport && listeTresorComplete && (pilotePresent || carteHelicoPresente)) {
             return true;
+
         } else {
             return false;
         }
@@ -738,8 +739,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         if (type != TypesMessages.NOUVELLE_PARTIE
                 && type != TypesMessages.CARTE_CLICK) {
-                //On désaffiche les cartes précédemment encadrées
-                vueIHMJeu.getvPlat().desaficherPossible();
+            //On désaffiche les cartes précédemment encadrées
+            vueIHMJeu.getvPlat().desaficherPossible();
         }
 
         switch (type) {
@@ -982,12 +983,11 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 }
 
                 // Ici on vérifie que la partie n'est ni perdu ni gagner pour continuer
-                if (perdrePartie()) {
-                    System.out.println("perdue");
-//                    vueA.perdu();
-                } else if (gagnerPartie()) {
+                if (gagnerPartie()) {
                     System.out.println("gagnée");
-//                    vueA.gagner();
+                    //demande à l'IHM d'afficher la victoire
+                    vueIHMJeu.victoire();
+
                 } else {
 
                     tirageCarte();
