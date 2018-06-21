@@ -601,7 +601,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         //Activation ou non du bouton "Prendre trésor"
         vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(prendreTresorPossible());
-        
+
         //Le bouton "Donner carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
         //Le bouton "Utiliser carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
     }
@@ -983,8 +983,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case DEFAUSSER_CARTE:
-                //On affiche un message
-                vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
                 CarteTresor c = m.getVueCarte().getCarte();
                 joueurCourant.removeMainA(c);
                 deck_T.getPioche().add(c);
@@ -1000,7 +998,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 }
 
                 break;
-                
+
             case NOUVELLE_PARTIE:
                 //On initialise les joueurs
                 initJoueur(m.getNom().size(), m.getNom());
@@ -1053,6 +1051,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                     //Pour le défaussent des cartes
                     if (joueurCourant.getMainA().size() > 5) {
+                        //On affiche un message
+                        vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
                         defausse();
                     } else {
                         defaussementEnCours = false;
