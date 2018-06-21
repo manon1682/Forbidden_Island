@@ -44,8 +44,8 @@ public class VuePanel_Carte extends JPanel {
 
         carte = new CarteTresor(c);
         nb = n;
-        //this.setPreferredSize(new Dimension(50, 75));
-        this.setSize(new Dimension(50, 75));
+        this.setPreferredSize(new Dimension(128, 188));
+        //this.setSize(new Dimension(128, 188));
 
         if (n != 0) {
             donner = new JButton("Donner");
@@ -118,7 +118,7 @@ public class VuePanel_Carte extends JPanel {
         //setDim(new Dimension(size, size));
 
         if (nb != 0) {
-            g.drawImage(carte.utilisation().getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
+            g.drawImage(carte.utilisation().getImage(), 0, 0, this.getWidth(), this.getHeight()/*(int)((this.getWidth())*1.5)*/, null);
             g.setColor(Color.BLACK);
             g.setFont(new Font("Arial", Font.BOLD, this.getHeight() / 4));
             g.drawString("x " + nb, this.getWidth() / 2, this.getHeight() / 4);

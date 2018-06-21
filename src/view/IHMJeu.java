@@ -133,10 +133,11 @@ public class IHMJeu extends Observe {
         //Fin de l'initialisation
         //On replace les nouveaux panels créés
         //panelCentre1.add(vNiveau, BorderLayout.WEST);
+        
+        panelCentre1.add(vPlat, BorderLayout.CENTER);
         panelCentre1.add(vAven, BorderLayout.EAST);
-        // panelCentre1.add(vPlat, BorderLayout.CENTER);
-        panelSud2.add(vMainAven, BorderLayout.CENTER);
-        panelSud2.add(vActionAven, BorderLayout.EAST);
+        panelSud2.add(vMainAven, BorderLayout.WEST);
+        panelSud2.add(vActionAven, BorderLayout.CENTER);
         window.setVisible(true);
 
     }
