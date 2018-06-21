@@ -32,7 +32,6 @@ public class IHMJeu extends Observe {
     private JPanel mainPanel;
     private JPanel panelCentre1;
     private JPanel panelSud2;
-    
 
     //Vues qu'elle possède
     private VuePanel_Initialisation vIni;
@@ -93,7 +92,7 @@ public class IHMJeu extends Observe {
         //Ajout 3 panel au Panel Centre1 >
 //        panelCentre1.add(vNiveau, BorderLayout.WEST);
         panelCentre1.add(new JLabel(""), BorderLayout.WEST); //On enleve vueNiveauLeTempsDe
-        
+
         panelCentre1.add(vPlat, BorderLayout.CENTER);
         panelCentre1.add(vAven, BorderLayout.EAST);
 
@@ -136,7 +135,6 @@ public class IHMJeu extends Observe {
         //Fin de l'initialisation
         //On replace les nouveaux panels créés
         //panelCentre1.add(vNiveau, BorderLayout.WEST);
-        
         panelCentre1.add(vPlat, BorderLayout.CENTER);
         panelCentre1.add(vAven, BorderLayout.EAST);
         panelSud2.add(vMainAven, BorderLayout.WEST);
@@ -157,13 +155,12 @@ public class IHMJeu extends Observe {
         vPlat.afficherPossible(grille);
         vPlat.repaint();
     }
-    
-    public void afficherJoueursPossible(ArrayList<Aventurier> js){
-        System.out.println("Voilou ihmJeu");
+
+    public void afficherJoueursPossible(ArrayList<Aventurier> js) {
         vAven.donnerCarte(js);
     }
-    
-    public void desafficherJoueursPossible(){
+
+    public void desafficherJoueursPossible() {
         vAven.desactiverDonCarte();
     }
 
@@ -212,10 +209,10 @@ public class IHMJeu extends Observe {
     public void afficherTuilePossibleIngenieur(boolean[][] g) {
         this.afficherTuilePossible(g);
         getvActionAven().finirTour();
-        
+
         panelSud2.remove(vMainAven);
-        vMainAven = new VuePanel_Main(joueurCourant,this,false);
-        vMainAven.setPreferredSize(new Dimension(768,188));
+        vMainAven = new VuePanel_Main(joueurCourant, this, false);
+        vMainAven.setPreferredSize(new Dimension(768, 188));
         panelSud2.add(vMainAven, BorderLayout.CENTER);
 
     }
@@ -227,34 +224,38 @@ public class IHMJeu extends Observe {
     public void setSauvType(TypesMessages t) {
         sauvType = t;
     }
-    
-    public void setSauvCarte(VuePanel_Carte carte){
+
+    public void setSauvCarte(VuePanel_Carte carte) {
         this.sauvCarte = carte;
     }
-    
-    public VuePanel_Carte getSauvCarte(){
+
+    public VuePanel_Carte getSauvCarte() {
         return sauvCarte;
     }
-    
+
     //Affichage Victoire
     public void victoire() {
+        window.setResizable(false);
         mainPanel.removeAll();
-        
-        // vSup.addPanel(panVictoire, 2, 1);
+        vVictoire = new VuePanel_Victoire();
+        mainPanel.add(vVictoire);
+
+        window.setVisible(true);
 
     }
 
     //Affichage Défaite
     public void defaite(Defaite d) {
+        window.setResizable(false);
         mainPanel.removeAll();
         vDefaite = new VuePanel_Defaite(d);
         mainPanel.add(vDefaite);
+
+//        vVictoire = new VuePanel_Victoire();
+//        mainPanel.add(vVictoire);
+
         window.setVisible(true);
 
     }
-    
-    //Vidage du mainPanel
-    public void vidangeIhm() {
-        mainPanel.removeAll();
-    }
+
 }
