@@ -601,7 +601,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         //Activation ou non du bouton "Prendre trésor"
         vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(prendreTresorPossible());
-
+        
         //Le bouton "Donner carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
         //Le bouton "Utiliser carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
     }
@@ -1052,14 +1052,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
 
                     //Pour le défaussent des cartes
-                    System.out.println(joueurCourant.getMainA().size());
                     if (joueurCourant.getMainA().size() > 5) {
                         defausse();
                     } else {
                         defaussementEnCours = false;
-                        //On affiche l'IHM qui sera mise à jour
-                        vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+                        //On affiche les actions possibles
                         actionPossible();
+                        //On affiche l'IHM qui sera mise à jour selon les actions
+                        vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                         //On affiche un message
                         vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
                     }
