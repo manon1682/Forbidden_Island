@@ -32,6 +32,7 @@ public class IHMJeu extends Observe {
     private JPanel mainPanel;
     private JPanel panelCentre1;
     private JPanel panelSud2;
+    private JPanel sousPanel1;
 
     //Vues qu'elle possède
     private VuePanel_Initialisation vIni;
@@ -96,7 +97,7 @@ public class IHMJeu extends Observe {
 
         panelCentre1.add(vPlat, BorderLayout.CENTER);
         
-        JPanel sousPanel1 = new JPanel(new BorderLayout());
+        sousPanel1 = new JPanel(new BorderLayout());
         sousPanel1.add(vAven, BorderLayout.CENTER);
         sousPanel1.add(vMessage, BorderLayout.SOUTH);
         panelCentre1.add(sousPanel1, BorderLayout.EAST);
@@ -120,10 +121,15 @@ public class IHMJeu extends Observe {
 
         //On enlève les panels liés à au joueur prédécent
         //panelCentre1.remove(vNiveau);
-        panelCentre1.remove(vAven);
+        panelCentre1.remove(sousPanel1);
         panelSud2.remove(vMainAven);
         panelSud2.remove(vActionAven);
 
+        sousPanel1 = new JPanel(new BorderLayout());
+        sousPanel1.add(vAven, BorderLayout.CENTER);
+        sousPanel1.add(vMessage, BorderLayout.SOUTH);
+        panelCentre1.add(sousPanel1, BorderLayout.EAST);
+        
         //Mis à jour des variables
         setGrille(g);
         setAventurier(a);
@@ -135,6 +141,7 @@ public class IHMJeu extends Observe {
         
         vMainAven = new VuePanel_Main(joueurCourant, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
+        vPlat.majTuiles(grille);
         vPlat.majTuiles(joueurs);
 
         //Fin de l'initialisation
@@ -142,7 +149,7 @@ public class IHMJeu extends Observe {
         //panelCentre1.add(vNiveau, BorderLayout.WEST);
         
         //panelCentre1.add(vPlat, BorderLayout.CENTER);
-        panelCentre1.add(vAven, BorderLayout.EAST);
+        //panelCentre1.add(vAven, BorderLayout.EAST);
         panelSud2.add(vMainAven, BorderLayout.WEST);
         panelSud2.add(vActionAven, BorderLayout.CENTER);
         window.setVisible(true);
@@ -220,11 +227,13 @@ public class IHMJeu extends Observe {
     public void afficherTuilePossibleIngenieur(boolean[][] g) {
         this.afficherTuilePossible(g);
         getvActionAven().finirTour();
+        
+        desactivationCarte();
 
-        panelSud2.remove(vMainAven);
+        /*panelSud2.remove(vMainAven);
         vMainAven = new VuePanel_Main(joueurCourant, this, false);
-        vMainAven.setPreferredSize(new Dimension(768, 188));
-        panelSud2.add(vMainAven, BorderLayout.CENTER);
+        //vMainAven.setPreferredSize(new Dimension(768, 188));
+        panelSud2.add(vMainAven, BorderLayout.CENTER);*/
 
     }
 
@@ -238,8 +247,11 @@ public class IHMJeu extends Observe {
     
     public void desactivationCarte(){
         panelSud2.remove(vMainAven);
+        panelSud2.remove(vActionAven);
         vMainAven = new VuePanel_Main(joueurCourant, this);
+        //vMainAven.setPreferredSize(new Dimension(768, 188));
         panelSud2.add(vMainAven, BorderLayout.CENTER);
+        panelSud2.add(vActionAven, BorderLayout.EAST);
     }
 
     public void setSauvCarte(VuePanel_Carte carte) {

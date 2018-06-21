@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Clock;
@@ -58,19 +59,40 @@ public class VuePanel_EtatPartie extends JPanel {
         for (Tresor tr : aventurier.getTresor()) {
             ImageIcon logo;
             if (tr == Tresor.CALICE_DE_ORDRE) {
-                logo = new ImageIcon("images/tresors/calice_old.png");
+                logo = new ImageIcon("images/tresors/calice.png");
+                Image imageCO = logo.getImage(); // transform it 
+                Image newimgCO = imageCO.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+                logo = new ImageIcon(newimgCO); 
+                
                 tresorCaliceOrdre.setIcon(logo);
             } else if (tr == Tresor.CRISTAL_ARDENT) {
-                logo = new ImageIcon("images/tresors/cristal_old.png");
+                logo = new ImageIcon("images/tresors/cristal.png");
+                Image imageCA = logo.getImage(); // transform it 
+                Image newimgCA = imageCA.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+                logo = new ImageIcon(newimgCA); 
+                
                 tresorCristalArdent.setIcon(logo);
             } else if (tr == Tresor.PIERRE_SACRE) {
-                logo = new ImageIcon("images/tresors/pierre_old.png");
+                logo = new ImageIcon("images/tresors/pierre.png");
+                Image imagePS = logo.getImage(); // transform it 
+                Image newimgPS = imagePS.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+                logo = new ImageIcon(newimgPS); 
+                
                 tresorPierreSacre.setIcon(logo);
             } else {
-                logo = new ImageIcon("images/tresors/zephyr_old.png");
+                logo = new ImageIcon("images/tresors/zephyr.png");
+                Image imageSZ = logo.getImage(); // transform it 
+                Image newimgSZ = imageSZ.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+                logo = new ImageIcon(newimgSZ); 
+                
                 tresorStatueZephir.setIcon(logo);
             }
         }
+
+        ImageIcon imageIcon = new ImageIcon("./img/imageName.png"); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        imageIcon = new ImageIcon(newimg);  // transform it back
 
         a = aventurier;
         //fin initialisation
@@ -79,7 +101,7 @@ public class VuePanel_EtatPartie extends JPanel {
         this.setBackground(Color.ORANGE);
 
         this.generation(null);
-        
+
         //Fermeture du jeu
         btnPrendreTresor.addActionListener(
                 new ActionListener() {
