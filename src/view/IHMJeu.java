@@ -6,6 +6,7 @@
 package view;
 
 import Aventurier.Aventurier;
+import Enumeration.Defaite;
 import Enumeration.TypesMessages;
 import forbidden_island.Grille;
 import forbidden_island.Observe;
@@ -26,15 +27,11 @@ public class IHMJeu extends Observe {
 
     //Composants fenêtre
     private final JFrame window;
-    
+
     private JPanel mainPanel;
     private JPanel panelCentre1;
     private JPanel panelSud2;
     
-    //Panels victoires et défaites
-    private JPanel panTransparent;
-    private JPanel panVictoire;
-    private JPanel panDefaite;
 
     //Vues qu'elle possède
     private VuePanel_Initialisation vIni;
@@ -43,6 +40,8 @@ public class IHMJeu extends Observe {
     private VuePanel_EtatPartie vAven;
     private VuePanel_ActionAventurier vActionAven;
     private VuePanel_Main vMainAven;
+    private VuePanel_Victoire vVictoire;
+    private VuePanel_Defaite vDefaite;
     //private VuePanel_Superposition vSup;
 
     //Variables
@@ -64,8 +63,6 @@ public class IHMJeu extends Observe {
         window.setVisible(false);
 
         //vSup = new VuePanel_Superposition();
-        
-
     }
 
     public void afficherInitiale(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge, int nbAction) {
@@ -99,15 +96,14 @@ public class IHMJeu extends Observe {
         panelCentre1.add(vAven, BorderLayout.EAST);
 
         //Ajout 2 panel au Panel Sud2 > vueMainAven centre / gauche | vueActionAven > à droite
-        panelSud2.add(vMainAven, BorderLayout.CENTER);
-        panelSud2.add(vActionAven, BorderLayout.EAST);
+        panelSud2.add(vMainAven, BorderLayout.WEST);
+        panelSud2.add(vActionAven, BorderLayout.CENTER);
 
         //Ajout panel au Panel Principale
         mainPanel.add(panelCentre1, BorderLayout.CENTER);
         mainPanel.add(panelSud2, BorderLayout.SOUTH);
 
         window.add(mainPanel);
-         
 
         //vSup.addPanel(mainPanel, 1,0);
         window.setVisible(true);
@@ -129,26 +125,26 @@ public class IHMJeu extends Observe {
         jaugeInnondation = jauge;
         //Mis à jour des vues
         //vNiveau = new VuePanel_Niveau(jaugeInnondation);
-        vNiveau.setJauge(jaugeInnondation);
+        //vNiveau.setJauge(jaugeInnondation);
         vAven = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
         vMainAven = new VuePanel_Main(joueurCourant, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
         vPlat.majTuiles(joueurs);
-        
-        //Fin de l'initialisation
 
+        //Fin de l'initialisation
         //On replace les nouveaux panels créés
-        panelCentre1.add(vNiveau, BorderLayout.WEST);
+        //panelCentre1.add(vNiveau, BorderLayout.WEST);
+        
+        panelCentre1.add(vPlat, BorderLayout.CENTER);
         panelCentre1.add(vAven, BorderLayout.EAST);
-       // panelCentre1.add(vPlat, BorderLayout.CENTER);
-        panelSud2.add(vMainAven, BorderLayout.CENTER);
-        panelSud2.add(vActionAven, BorderLayout.EAST);
+        panelSud2.add(vMainAven, BorderLayout.WEST);
+        panelSud2.add(vActionAven, BorderLayout.CENTER);
         window.setVisible(true);
-       
+
     }
 
     public void desafficher() {
-       window.setVisible(false);
+        window.setVisible(false);
     }
 
     public void desafficherIni() {
@@ -215,34 +211,29 @@ public class IHMJeu extends Observe {
     public TypesMessages getSauvType() {
         return sauvType;
     }
-    
+
     public void setSauvType(TypesMessages t) {
         sauvType = t;
     }
-    
+
     //Affichage Victoire
-    public void Victoire() {
+    public void victoire() {
+        mainPanel.removeAll();
         
-        panVictoire = new JPanel(new BorderLayout());
-        
-        JLabel victoire = new JLabel("Victoire!");
-        panVictoire.setBackground(new Color(0,0,0,30));
-        panVictoire.add(victoire, BorderLayout.SOUTH);
-       // vSup.addPanel(panVictoire, 2, 1);
-      
-        
+        // vSup.addPanel(panVictoire, 2, 1);
+
+    }
+
+    //Affichage Défaite
+    public void defaite(Defaite d) {
+        mainPanel.removeAll();
+        vDefaite.TypeDefaite(d);
+        mainPanel.add(vDefaite);
+
     }
     
-    //Affichage Défaite
-    public void Defaite() {
-        
-        panDefaite = new JPanel(new BorderLayout());
-        JLabel victoire = new JLabel("Défaite...");
-        panDefaite.add(victoire, BorderLayout.SOUTH);
-        panDefaite.setBackground(new Color(0,0,0,200));
-       // vSup.addPanel(panDefaite, 2,1);
-        
-        
-        
+    //Vidage du mainPanel
+    public void vidangeIhm() {
+        mainPanel.removeAll();
     }
 }

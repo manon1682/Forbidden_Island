@@ -55,6 +55,7 @@ public class VuePanel_Initialisation extends JPanel {
     private JButton btnValider;
     private JButton btnManuel;
     private JLabel labTitre;
+    private JTextField saisieNom;
 
     private JLabel labNbJ;
     private JLabel labNomJ;
@@ -101,9 +102,6 @@ public class VuePanel_Initialisation extends JPanel {
         panelHaut.setOpaque(false);
 
         //PanelHautTitre
-//        labTitre = new JLabel("Ile Interdite");
-//        labTitre.setForeground(Color.white);
-//        labTitre.setFont(new Font("Serif", Font.ROMAN_BASELINE, 100));
         panelHautTitre = new JPanel();
         panelHautTitre.setOpaque(false);
         
@@ -252,9 +250,11 @@ public class VuePanel_Initialisation extends JPanel {
                     }
 
                     for (int i = 0; i < nbJ; i++) {
-                        saisirJ.add(new JTextField("Joueur " + (i + 1)));
+                        saisieNom  =new JTextField("Joueur " + (i + 1));
+                        saisieNom.setBorder(null);
+                        saisirJ.add(saisieNom);
 
-                        labNomJ = new JLabel("Nom Joueur " + (i + 1) + " : ", SwingConstants.RIGHT);
+                        labNomJ = new JLabel("Nom Aventurier : ", SwingConstants.RIGHT);
                         labNomJ.setForeground(Color.white);
                         labNomJ.setFont(new Font("Arial", Font.PLAIN, 20));
                         panelCentre.add(new JLabel());

@@ -12,6 +12,7 @@ import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Cartes.Deck;
 import Enumeration.CarteUtilisable;
+import Enumeration.Defaite;
 import Enumeration.EtatTuile;
 import Enumeration.Tresor;
 import Enumeration.TypesNiveaux;
@@ -442,14 +443,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.coulée
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false)) {
             System.out.println("Normalement 1 tresor a totallement coulé");
-            vueIHMJeu.Defaite();
+            vueIHMJeu.defaite(Defaite.TRESOR_COULE);
             return true;
         }
 
         //Cas 2
         if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.coulée) {
             System.out.println("Normalement l'heliport a coulé");
-            vueIHMJeu.Defaite();
+            vueIHMJeu.defaite(Defaite.HELIPORT_COULE);
             return true;
         }
 
@@ -458,14 +459,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //PLONGEUR & HELICO DIFF 
         if (partiePerdue) { //modifié dans la méthode evasions<coulee<inonde-
             System.out.println("Normalement un joueur vien de se noyer");
-            vueIHMJeu.Defaite();
+            vueIHMJeu.defaite(Defaite.JOUEUR_NOYE);
             return true;
         }
 
         //Cas 4
         if (niveauInnondation() == 6) { // 6 correspond à la tête de mort
             System.out.println("Normalement le niveau d'innondation est trop élevé");
-            vueIHMJeu.Defaite();
+            vueIHMJeu.defaite(Defaite.INONDATION_ELEVEE);
             return true;
         }
 
