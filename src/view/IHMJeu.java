@@ -227,11 +227,14 @@ public class IHMJeu extends Observe {
     public void afficherTuilePossibleIngenieur(boolean[][] g) {
         this.afficherTuilePossible(g);
         getvActionAven().finirTour();
+        
+        desactivationCarte();
 
-        panelSud2.remove(vMainAven);
+        /*panelSud2.remove(vMainAven);
         vMainAven = new VuePanel_Main(joueurCourant, this, false);
-        vMainAven.setPreferredSize(new Dimension(768, 188));
-        panelSud2.add(vMainAven, BorderLayout.CENTER);
+        //vMainAven.setPreferredSize(new Dimension(768, 188));
+        panelSud2.add(vMainAven, BorderLayout.CENTER);*/
+
     }
 
     public TypesMessages getSauvType() {
@@ -244,8 +247,11 @@ public class IHMJeu extends Observe {
     
     public void desactivationCarte(){
         panelSud2.remove(vMainAven);
+        panelSud2.remove(vActionAven);
         vMainAven = new VuePanel_Main(joueurCourant, this);
+        //vMainAven.setPreferredSize(new Dimension(768, 188));
         panelSud2.add(vMainAven, BorderLayout.CENTER);
+        panelSud2.add(vActionAven, BorderLayout.EAST);
     }
 
     public void setSauvCarte(VuePanel_Carte carte) {
