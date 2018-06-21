@@ -38,7 +38,7 @@ public class IHMJeu extends Observe {
     private VuePanel_Initialisation vIni;
     private VuePanel_Niveau vNiveau;
     private VuePanel_Plateau vPlat;
-    private VuePanel_EtatPartie vAven;
+    private VuePanel_EtatPartie vEtatPartie;
     private VuePanel_ActionAventurier vActionAven;
     private VuePanel_Main vMainAven;
     private VuePanel_Victoire vVictoire;
@@ -79,7 +79,7 @@ public class IHMJeu extends Observe {
         vNiveau = new VuePanel_Niveau(jaugeInnondation);
         vPlat = new VuePanel_Plateau(grille, this.joueurs, this);
         vPlat.majTuiles(joueurs);
-        vAven = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
+        vEtatPartie = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
         vMainAven = new VuePanel_Main(joueurCourant, this);
         vMessage = new VuePanel_MessageBox();
@@ -98,7 +98,7 @@ public class IHMJeu extends Observe {
         panelCentre1.add(vPlat, BorderLayout.CENTER);
         
         sousPanel1 = new JPanel(new BorderLayout());
-        sousPanel1.add(vAven, BorderLayout.CENTER);
+        sousPanel1.add(vEtatPartie, BorderLayout.CENTER);
         sousPanel1.add(vMessage, BorderLayout.SOUTH);
         panelCentre1.add(sousPanel1, BorderLayout.EAST);
 
@@ -126,7 +126,7 @@ public class IHMJeu extends Observe {
         panelSud2.remove(vActionAven);
 
         sousPanel1 = new JPanel(new BorderLayout());
-        sousPanel1.add(vAven, BorderLayout.CENTER);
+        sousPanel1.add(vEtatPartie, BorderLayout.CENTER);
         sousPanel1.add(vMessage, BorderLayout.SOUTH);
         panelCentre1.add(sousPanel1, BorderLayout.EAST);
         
@@ -137,7 +137,7 @@ public class IHMJeu extends Observe {
         //Mis à jour des vues
         //vNiveau = new VuePanel_Niveau(jaugeInnondation);
         //vNiveau.setJauge(jaugeInnondation);
-        vAven = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
+        vEtatPartie = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
         
         vMainAven = new VuePanel_Main(joueurCourant, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
@@ -170,12 +170,12 @@ public class IHMJeu extends Observe {
     }
     
     public void afficherJoueursPossible(ArrayList<Aventurier> js){
-        vAven.donnerCarte(js);
+        vEtatPartie.donnerCarte(js);
         window.setVisible(true);
     }
 
     public void desafficherJoueursPossible() {
-        vAven.desactiverDonCarte();
+        vEtatPartie.desactiverDonCarte();
     }
 
     public void miseAJourNbAction(int nbAction) {
@@ -183,16 +183,9 @@ public class IHMJeu extends Observe {
     }
 
     // Getter
-    public Aventurier getAventurier() {
-        return joueurCourant;
-    }
 
-    public void setAventurier(Aventurier aventurier) {
+   public void setAventurier(Aventurier aventurier) {
         this.joueurCourant = aventurier;
-    }
-
-    public Grille getGrille() {
-        return grille;
     }
 
     public void setGrille(Grille grille) {
@@ -204,7 +197,7 @@ public class IHMJeu extends Observe {
     }
 
     public VuePanel_EtatPartie getvAven() {
-        return vAven;
+        return vEtatPartie;
     }
 
     public VuePanel_Main getvMainAven() {
@@ -219,24 +212,14 @@ public class IHMJeu extends Observe {
         return vActionAven;
     }
 
-    public void miseAJour(Aventurier a) {
-        joueurCourant = a;
-        window.setVisible(true);
-    }
-
     public void afficherTuilePossibleIngenieur(boolean[][] g) {
         this.afficherTuilePossible(g);
         getvActionAven().finirTour();
         
         desactivationCarte();
-
-        /*panelSud2.remove(vMainAven);
-        vMainAven = new VuePanel_Main(joueurCourant, this, false);
-        //vMainAven.setPreferredSize(new Dimension(768, 188));
-        panelSud2.add(vMainAven, BorderLayout.CENTER);*/
-
     }
 
+    //Getter et Setter de SauvType
     public TypesMessages getSauvType() {
         return sauvType;
     }
@@ -245,15 +228,18 @@ public class IHMJeu extends Observe {
         sauvType = t;
     }
     
+    
+    //N'affiche plus les boutons lorsque l'on passe sur les cartes
     public void desactivationCarte(){
         panelSud2.remove(vMainAven);
         panelSud2.remove(vActionAven);
         vMainAven = new VuePanel_Main(joueurCourant, this);
-        //vMainAven.setPreferredSize(new Dimension(768, 188));
         panelSud2.add(vMainAven, BorderLayout.CENTER);
         panelSud2.add(vActionAven, BorderLayout.EAST);
     }
 
+    
+    //Getter et Setter de SauvCarte
     public void setSauvCarte(VuePanel_Carte carte) {
         this.sauvCarte = carte;
     }

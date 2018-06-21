@@ -983,8 +983,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case DEFAUSSER_CARTE:
-                //On affiche un message
-                vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
                 CarteTresor c = m.getVueCarte().getCarte();
                 joueurCourant.removeMainA(c);
                 deck_T.getPioche().add(c);
@@ -1000,7 +998,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 }
 
                 break;
-                
+
             case NOUVELLE_PARTIE:
                 //On initialise les joueurs
                 initJoueur(m.getNom().size(), m.getNom());
@@ -1052,14 +1050,16 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
 
                     //Pour le défaussent des cartes
-                    System.out.println(joueurCourant.getMainA().size());
                     if (joueurCourant.getMainA().size() > 5) {
+                        //On affiche un message
+                        vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
                         defausse();
                     } else {
                         defaussementEnCours = false;
-                        //On affiche l'IHM qui sera mise à jour
-                        vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+                        //On affiche les actions possibles
                         actionPossible();
+                        //On affiche l'IHM qui sera mise à jour selon les actions
+                        vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                         //On affiche un message
                         vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
                     }
