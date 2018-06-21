@@ -41,7 +41,7 @@ public class VuePanel_Main extends JPanel {
         //Initialisation
         ihm = ihmJ;
         a = aventurier;
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.setBorder(BorderFactory.createLineBorder(a.getPion().getCouleur(),4));
         
         this.setPreferredSize(new Dimension(768,188));
         

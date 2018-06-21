@@ -104,19 +104,12 @@ public class VuePanel_Carte extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        /*if(this.getSize().width > this.getSize().height){
-            int size = this.getSize().height;
-        } else {
-            int size = this.getSize().width;
-        }*/
-        //int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width)) - 2;
-        //setDim(new Dimension(size, size));
 
         if (nb != 0) {
             g.drawImage(carte.utilisation().getImage(), 0, 0, this.getWidth(), this.getHeight()/*(int)((this.getWidth())*1.5)*/, null);
             g.setColor(Color.BLACK);
             g.setFont(new Font("Arial", Font.BOLD, this.getHeight() / 4));
-            g.drawString("x " + nb, this.getWidth() / 2, this.getHeight() / 4);
+            g.drawString("x " + nb, this.getWidth() / 2 - this.getWidth() / 10 , this.getHeight() / 4);
         }
     }
 
