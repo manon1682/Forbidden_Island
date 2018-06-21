@@ -378,16 +378,26 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         for (Aventurier joueur : joueurs) {
             if (joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()) {
                 if (evasion(joueur)) {
-                    Message m = new Message(TypesMessages.COULE);
-                    vueIHMJeu.setSauvType(TypesMessages.COULE);
-                    traiterMessage(m);
+                    vueIHMJeu.setSauvType(TypesMessages.DEPLACER);
 
-                } else {
-                    partiePerdue = true;
+                    //On affiche un message
+                    vueIHMJeu.getVText().ajoutMessage("Vous coulez, déplacez-vous sur une des tuiles");
+                    // On affiche l'IHM avec les tuiles possibles
+                    boolean[][] g = sauvegarde.deplacementPossible(grille);
+                    vueIHMJeu.afficherTuilePossible(g);
+
+                    //On désactive tous les boutons pour que le joueur soit obliger de choisir une case où se déplacer
+                    VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
+                    vueTemp.finirTour();
+                    vueTemp.getBtnTerminerTour().setEnabled(false);
+                    vueIHMJeu.desactivationCarte();
                 }
-
+            } else {
+                partiePerdue = true;
             }
+
         }
+
     }
 
     public boolean evasion(Aventurier a) { //Vérifie qu'un aventurier coincé sur une tuile qui coule peut s'échaper
@@ -755,7 +765,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     int l = tuile.getLigne();
                     int c = tuile.getColonne();
 
-                    joueurCourant.deplacer(l, c);
+                    sauvegarde.deplacer(l, c);
+                    sauvegarde = joueurCourant;
                     vueIHMJeu.getvPlat().majTuiles(joueurs);
                 }
                 actionPossible();
@@ -794,8 +805,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         g = ((Pilote) joueurCourant).deplacementPossibleSpecial(grille);
                         vueIHMJeu.afficherTuilePossible(g);
                     } else {
-                    //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("Déplacement fait");
+                        //On affiche un message
+                        vueIHMJeu.getVText().ajoutMessage("Déplacement fait");
                         //Sinon on déplace le pilote et on met à jour sa capacité utilisée
                         String nom = m.getTuile();
                         Tuile tuile = grille.getTuileAvecNom(nom);
@@ -988,7 +999,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 break;
 
-            case COULE:
+            /*case COULE:
                 if (m.getTuile() == null) {
                     //On affiche un message
                     vueIHMJeu.getVText().ajoutMessage("Vous coulez, déplacez-vous sur une des tuiles");
@@ -1015,11 +1026,11 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     vueIHMJeu.getvPlat().majTuiles(joueurs);
                     actionPossible();
                 }
-                break;
-
+                break;*/
             case NOUVELLE_PARTIE:
                 //On initialise les joueurs
                 initJoueur(m.getNom().size(), m.getNom());
+                sauvegarde = joueurCourant;
                 //On initialise le niveau du jeu
                 initJauge(m.getNiveau());
                 //On désaffiche la fenêtre d'initialisation
@@ -1057,7 +1068,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                     tirageCarte();
                     joueurCourant = joueurSuivant();
-
+                    sauvegarde = joueurCourant;
                     //On initialise le nombre d'actions selon si c'est un navigateur ou non
                     nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
 
@@ -1081,7 +1092,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
         }
-        
+
         if (type != TypesMessages.NOUVELLE_PARTIE
                 && type != TypesMessages.TOUR_SUIVANT
                 && type != TypesMessages.UTILISER_CARTE_HELICO
