@@ -141,6 +141,7 @@ public class IHMJeu extends Observe {
         
         vMainAven = new VuePanel_Main(joueurCourant, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
+        vPlat.majTuiles(grille);
         vPlat.majTuiles(joueurs);
 
         //Fin de l'initialisation
