@@ -841,7 +841,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 } else {
                     //Sinon on donne la carte au joueur choisi
                     joueurCourant.donnerCarte(m.getJoueur(), m.getVueCarte().getCarte());
-                    vueIHMJeu.desafficherJoueursPossible();
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                 }
 

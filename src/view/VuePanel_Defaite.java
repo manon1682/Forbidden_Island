@@ -13,6 +13,7 @@ import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -27,54 +28,43 @@ public class VuePanel_Defaite extends JPanel {
         
         // NORD
         ImageIcon logoIle= new ImageIcon("images/logo/ile-interdite-logo.png");
-        JLabel ile = new JLabel();
+        JLabel ile = new JLabel("",SwingConstants.CENTER);
         ile.setIcon(logoIle);
-        JPanel panNord = new JPanel(new GridLayout(1, 3));
-        panNord.add(new JLabel());
-        panNord.add(ile);
-        panNord.add(new JLabel());
-        panNord.setOpaque(false);
-        add(panNord, BorderLayout.NORTH);
+        
+        this.add(ile, BorderLayout.NORTH);
         
         //CENTRE
         ImageIcon logoDef = new ImageIcon("images/defaite/defaite.png");
-        JLabel def = new JLabel();
-        def.setIcon(logoDef);
-        JPanel panCentre = new JPanel(new GridLayout(1,3));
-        panCentre.setOpaque(false);
-        panCentre.add(new JLabel());
-        panCentre.add(def);
-        panCentre.add(new JLabel());
+        JLabel def = new JLabel("",SwingConstants.CENTER);
+        def.setIcon(logoDef);      
         
-        
-        this.add(panCentre, BorderLayout.CENTER);
+        this.add(def, BorderLayout.CENTER);
 
         //SUD : Traitement des différentes défaites
-        JPanel panSud = new JPanel(new GridLayout(1,3));
         if (null != d) {
             switch (d) {
                 case HELIPORT_COULE: {
 
-                    motif = new JLabel("Votre Héliport à coulé! Vous n'avez pas pu vous échaper!");
-                    motif.setFont(new Font("Serif", Font.ITALIC, 30));
+                    motif = new JLabel("Votre Héliport a coulé! Vous n'avez pas pu vous échapper!",SwingConstants.CENTER);
+                    motif.setFont(new Font("Serif", Font.ITALIC, 35));
                     motif.setForeground(new Color(225,221,136));
                     break;
                 }
                 case INONDATION_ELEVEE: {
-                    motif = new JLabel("Niveau d'inondation trop élevé! vous vous êtes noyés!");
-                    motif.setFont(new Font("Serif", Font.ITALIC, 30));
+                    motif = new JLabel("Niveau d'inondation trop élevé! vous vous êtes noyés!",SwingConstants.CENTER);
+                    motif.setFont(new Font("Serif", Font.ITALIC, 35));
                     motif.setForeground(new Color(225,221,136));
                     break;
                 }
                 case JOUEUR_NOYE: {
-                    motif = new JLabel("Un aventurier s'est noyé!");
-                    motif.setFont(new Font("Serif", Font.ITALIC, 30));
+                    motif = new JLabel("Un aventurier s'est noyé!",SwingConstants.CENTER);
+                    motif.setFont(new Font("Serif", Font.ITALIC, 35));
                     motif.setForeground(new Color(225,221,136));
                     break;
                 }
                 case TRESOR_COULE: {
-                    motif = new JLabel("Un trésor a sombré!");
-                    motif.setFont(new Font("Serif", Font.ITALIC, 30));
+                    motif = new JLabel("Un trésor a sombré!",SwingConstants.CENTER);
+                    motif.setFont(new Font("Serif", Font.ITALIC, 35));
                     motif.setForeground(new Color(225,221,136));
                     break;
                 }
@@ -82,11 +72,8 @@ public class VuePanel_Defaite extends JPanel {
                     break;
             }
         }
-        panSud.add(new JLabel());
-        panSud.add(motif);
-        panSud.add(new JLabel());
-        panSud.setOpaque(false);
-        this.add(panSud, BorderLayout.SOUTH);
+        
+        this.add(motif, BorderLayout.SOUTH);
 
         setVisible(true);
     }
