@@ -32,6 +32,7 @@ public class IHMJeu extends Observe {
     private JPanel mainPanel;
     private JPanel panelCentre1;
     private JPanel panelSud2;
+    private JPanel sousPanel1;
 
     //Vues qu'elle possède
     private VuePanel_Initialisation vIni;
@@ -96,7 +97,7 @@ public class IHMJeu extends Observe {
 
         panelCentre1.add(vPlat, BorderLayout.CENTER);
         
-        JPanel sousPanel1 = new JPanel(new BorderLayout());
+        sousPanel1 = new JPanel(new BorderLayout());
         sousPanel1.add(vAven, BorderLayout.CENTER);
         sousPanel1.add(vMessage, BorderLayout.SOUTH);
         panelCentre1.add(sousPanel1, BorderLayout.EAST);
@@ -119,11 +120,16 @@ public class IHMJeu extends Observe {
         window.setSize(1400, 800);
 
         //On enlève les panels liés à au joueur prédécent
-       // panelCentre1.remove(vPlat);
-        panelCentre1.remove(vAven);
+        //panelCentre1.remove(vNiveau);
+        panelCentre1.remove(sousPanel1);
         panelSud2.remove(vMainAven);
         panelSud2.remove(vActionAven);
 
+        sousPanel1 = new JPanel(new BorderLayout());
+        sousPanel1.add(vAven, BorderLayout.CENTER);
+        sousPanel1.add(vMessage, BorderLayout.SOUTH);
+        panelCentre1.add(sousPanel1, BorderLayout.EAST);
+        
         //Mis à jour des variables
         setGrille(g);
         setAventurier(a);
@@ -143,7 +149,7 @@ public class IHMJeu extends Observe {
         //panelCentre1.add(vNiveau, BorderLayout.WEST);
         
         //panelCentre1.add(vPlat, BorderLayout.CENTER);
-        panelCentre1.add(vAven, BorderLayout.EAST);
+        //panelCentre1.add(vAven, BorderLayout.EAST);
         panelSud2.add(vMainAven, BorderLayout.WEST);
         panelSud2.add(vActionAven, BorderLayout.CENTER);
         window.setVisible(true);
