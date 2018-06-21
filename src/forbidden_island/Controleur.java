@@ -982,7 +982,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 }
 
                 // Ici on vérifie que la partie n'est ni perdu ni gagner pour continuer
-                if (gagnerPartie()) {
+                if (perdrePartie()) {
+                    
+                    System.out.println("perdue");
+                    //demande à l'IHM d'afficher la défaite
+                    //vueIHMJeu
+                    vueIHMJeu.victoire();
+                } else if (gagnerPartie()) {
+                    
                     System.out.println("gagnée");
                     //demande à l'IHM d'afficher la victoire
                     vueIHMJeu.victoire();

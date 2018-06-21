@@ -34,7 +34,7 @@ public class VuePanel_Victoire extends JPanel {
         this.add(ile, BorderLayout.NORTH);
 
         //CENTRE
-        ImageIcon logoVic = new ImageIcon("images/victoire/victoire.png");
+        ImageIcon logoVic = new ImageIcon("images/victoire/victoire_photoshop.png");
         JLabel vic = new JLabel("", SwingConstants.CENTER);
         vic.setIcon(logoVic);
 
