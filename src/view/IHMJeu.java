@@ -219,8 +219,9 @@ public class IHMJeu extends Observe {
     //Affichage Défaite
     public void defaite(Defaite d) {
         mainPanel.removeAll();
-        vDefaite.TypeDefaite(d);
+        vDefaite = new VuePanel_Defaite(d);
         mainPanel.add(vDefaite);
+        window.setVisible(true);
 
     }
     
