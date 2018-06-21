@@ -14,6 +14,7 @@ public class Deck_Innondation extends Deck {
         for (String nomTuile : nomTuiles) { //remember francis <3
             CarteInnondation carte = new CarteInnondation(nomTuile); 
             getPioche().push(carte);
+            melangerPioche();
         }
     }
 }
