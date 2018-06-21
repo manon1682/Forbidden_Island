@@ -50,9 +50,9 @@ public class VuePanel_Plateau extends JPanel {
         initTuiles(grille);
         
         try{
-            contourPassage = ImageIO.read((new FileInputStream("images/Tile_Movement_Icon@2x.png")));
-            contourPossible = ImageIO.read((new FileInputStream("images/Tile_Flood_Icon@2x.png")));
-            fond = ImageIO.read((new FileInputStream("images/mer.jpg")));
+            contourPassage = ImageIO.read((new FileInputStream("images/hover_movement.png")));
+            contourPossible = ImageIO.read((new FileInputStream("images/hover_assecher.png")));
+            fond = ImageIO.read((new FileInputStream("images/background/test.jpg")));
         } catch (IOException ex) {
             ex.fillInStackTrace();
         }
