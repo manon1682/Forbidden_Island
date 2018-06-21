@@ -42,7 +42,6 @@ public class IHMJeu extends Observe {
     private VuePanel_Main vMainAven;
     private VuePanel_Victoire vVictoire;
     private VuePanel_Defaite vDefaite;
-    //private VuePanel_Superposition vSup;
 
     //Variables
     private ArrayList<Aventurier> joueurs;
@@ -63,7 +62,6 @@ public class IHMJeu extends Observe {
         window.pack();
         window.setVisible(false);
 
-        //vSup = new VuePanel_Superposition();
     }
 
     public void afficherInitiale(Grille g, ArrayList<Aventurier> joueurs, Aventurier a, int jauge, int nbAction) {
@@ -106,7 +104,6 @@ public class IHMJeu extends Observe {
 
         window.add(mainPanel);
 
-        //vSup.addPanel(mainPanel, 1,0);
         window.setVisible(true);
     }
 
@@ -253,9 +250,6 @@ public class IHMJeu extends Observe {
         mainPanel.removeAll();
         vDefaite = new VuePanel_Defaite(d);
         mainPanel.add(vDefaite);
-
-//        vVictoire = new VuePanel_Victoire();
-//        mainPanel.add(vVictoire);
 
         window.setVisible(true);
 
