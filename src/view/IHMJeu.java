@@ -119,7 +119,7 @@ public class IHMJeu extends Observe {
         window.setSize(1400, 800);
 
         //On enlève les panels liés à au joueur prédécent
-        //panelCentre1.remove(vNiveau);
+       // panelCentre1.remove(vPlat);
         panelCentre1.remove(vAven);
         panelSud2.remove(vMainAven);
         panelSud2.remove(vActionAven);
@@ -135,6 +135,7 @@ public class IHMJeu extends Observe {
         
         vMainAven = new VuePanel_Main(joueurCourant, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
+        vPlat.majTuiles(grille);
         vPlat.majTuiles(joueurs);
 
         //Fin de l'initialisation
