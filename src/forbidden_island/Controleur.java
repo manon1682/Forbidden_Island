@@ -364,6 +364,8 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         Tuile tuile = grille.getTuileAvecNom(nomTuile);
         if (tuile.getEtat() != EtatTuile.coulée) {
             tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
+            //On met à jour la grille
+            vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
             if (tuile.getEtat() == EtatTuile.coulée) {
                 coule(tuile);
             }
@@ -381,7 +383,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
                     vueIHMJeu.setSauvType(TypesMessages.DEPLACER);
 
                     //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("Vous coulez, déplacez-vous sur une des tuiles");
+                    vueIHMJeu.getVText().ajoutMessage("La tuile sur laquelle vous êtes va couler, déplacez-vous");
                     // On affiche l'IHM avec les tuiles possibles
                     boolean[][] g = sauvegarde.deplacementPossible(grille);
                     vueIHMJeu.afficherTuilePossible(g);
@@ -412,6 +414,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
             } else {
                 c++;
             }
+
         }
         return (l < 6) || (a.estRole("Pilote"));
     }
@@ -634,6 +637,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 deck_I.melangerDefausse();
                 deck_I.getPioche().addAll(deck_I.getDefausse());
             }
+
             CarteInnondation carte = (CarteInnondation) deck_I.pioche();
 
             while (!(inondee(carte.getLieu()))) {
@@ -1093,15 +1097,11 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         }
 
-        if (type != TypesMessages.NOUVELLE_PARTIE
-                && type != TypesMessages.TOUR_SUIVANT
-                && type != TypesMessages.UTILISER_CARTE_HELICO
-                && type != TypesMessages.UTILISER_CARTE_SAC_SABLE
-                && type != TypesMessages.CARTE_CLICK
-                && type != TypesMessages.DEFAUSSER_CARTE
-                && type != TypesMessages.COULE
-                && m.getTuile()
-                != null) {
+        if (((type == TypesMessages.ASSECHER
+                || type == TypesMessages.DEPLACER
+                || type == TypesMessages.PRENDRE_TRESOR
+                || type == TypesMessages.SPECIALE)
+                && m.getTuile() != null) || (type == TypesMessages.DONNER_CARTE && m.getJoueur() != null)) {
             //On décrémente le nombre d'action
             nbAction = nbAction - 1;
 
