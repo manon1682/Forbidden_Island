@@ -42,6 +42,7 @@ public class IHMJeu extends Observe {
     private VuePanel_Main vMainAven;
     private VuePanel_Victoire vVictoire;
     private VuePanel_Defaite vDefaite;
+    private VuePanel_MessageBox vMessage;
     //private VuePanel_Superposition vSup;
 
     //Variables
@@ -80,6 +81,7 @@ public class IHMJeu extends Observe {
         vAven = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
         vMainAven = new VuePanel_Main(joueurCourant, this);
+        vMessage = new VuePanel_MessageBox();
         //Fin de l'initialisation
 
         mainPanel = new JPanel(new BorderLayout());
@@ -93,7 +95,11 @@ public class IHMJeu extends Observe {
         panelCentre1.add(new JLabel(""), BorderLayout.WEST); //On enleve vueNiveauLeTempsDe
         
         panelCentre1.add(vPlat, BorderLayout.CENTER);
-        panelCentre1.add(vAven, BorderLayout.EAST);
+        
+        JPanel sousPanel1 = new JPanel(new BorderLayout());
+        sousPanel1.add(vAven, BorderLayout.CENTER);
+        sousPanel1.add(vMessage, BorderLayout.SOUTH);
+        panelCentre1.add(sousPanel1, BorderLayout.EAST);
 
         //Ajout 2 panel au Panel Sud2 > vueMainAven centre / gauche | vueActionAven > à droite
         panelSud2.add(vMainAven, BorderLayout.WEST);
@@ -135,7 +141,7 @@ public class IHMJeu extends Observe {
         //On replace les nouveaux panels créés
         //panelCentre1.add(vNiveau, BorderLayout.WEST);
         
-        panelCentre1.add(vPlat, BorderLayout.CENTER);
+        //panelCentre1.add(vPlat, BorderLayout.CENTER);
         panelCentre1.add(vAven, BorderLayout.EAST);
         panelSud2.add(vMainAven, BorderLayout.WEST);
         panelSud2.add(vActionAven, BorderLayout.CENTER);
@@ -188,6 +194,10 @@ public class IHMJeu extends Observe {
     public VuePanel_Main getvMainAven() {
         return vMainAven;
     }
+    
+    public VuePanel_MessageBox getVText(){
+        return vMessage;
+    }
 
     public VuePanel_ActionAventurier getvActionAven() {
         return vActionAven;
@@ -201,10 +211,7 @@ public class IHMJeu extends Observe {
     public void afficherTuilePossibleIngenieur(boolean[][] g) {
         this.afficherTuilePossible(g);
         getvActionAven().finirTour();
-        
-        panelSud2.remove(vMainAven);
-        vMainAven = new VuePanel_Main(joueurCourant);
-        panelSud2.add(vMainAven, BorderLayout.CENTER);
+        desactivationCarte();
 
     }
 
@@ -214,6 +221,12 @@ public class IHMJeu extends Observe {
 
     public void setSauvType(TypesMessages t) {
         sauvType = t;
+    }
+    
+    public void desactivationCarte(){
+        panelSud2.remove(vMainAven);
+        vMainAven = new VuePanel_Main(joueurCourant);
+        panelSud2.add(vMainAven, BorderLayout.CENTER);
     }
 
     //Affichage Victoire

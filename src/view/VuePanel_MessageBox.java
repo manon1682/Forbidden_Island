@@ -20,20 +20,20 @@ import javax.swing.ScrollPaneConstants;
  * @author blanquan
  */
 public class VuePanel_MessageBox extends JPanel {
-    
-//    private final JEditorPane html ;    
-//    private final JScrollPane scrollPane;
-    String texte ;
 
+//    private final JEditorPane html ;    
+    private JScrollPane scrollPane;
+    private JLabel msg;
 
     public VuePanel_MessageBox() {
         this.setBackground(Color.GREEN);
-        
-        JPanel caseMsgTemporaire = new JPanel();    
-        JLabel msgboxTempo = new JLabel("niveau eaud");
-        caseMsgTemporaire.add(msgboxTempo);
 
-        
+        msg = new JLabel("Bienvenue sur l'île Interdite");
+        scrollPane = new JScrollPane(msg);
+
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        //panMsg.add(msg);
+
         /*
         à contiuer mercredi > antoine
        
@@ -56,9 +56,12 @@ public class VuePanel_MessageBox extends JPanel {
         mainPanel.add(scrollPane, BorderLayout.CENTER) ;
         
         this.texte = "" ;
-        */
-        this.add(caseMsgTemporaire);
+         */
+        this.add(scrollPane);
     }
-        
-    
+
+    public void ajoutMessage(String text) {
+        msg.setText(text);
+    }
+
 }

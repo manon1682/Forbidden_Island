@@ -37,9 +37,6 @@ public class VuePanel_EtatPartie extends JPanel {
     
     //créer 4 images supplémentaires si on peut pas modif transparance sur les images
 
-    //case 5
-    private VuePanel_MessageBox vText;
-
     //=====
     private IHMJeu ihm;
 
@@ -76,16 +73,13 @@ public class VuePanel_EtatPartie extends JPanel {
             }
         }
 
-        //case 5 
-        vText = new VuePanel_MessageBox();
-
         a = aventurier;
         //fin initialisation
 
         //couleur pour les test
         this.setBackground(Color.ORANGE);
 
-        JPanel grilleCoequipier = new JPanel(new GridLayout(5, 1));
+        JPanel grilleCoequipier = new JPanel(new GridLayout(4, 1));
 
         //Case 1 de la grilleCoequipier (Liste Tresor obtenus des Aventuriers et bouton fermerJeu)
         JPanel containerCase1 = new JPanel(new BorderLayout());
@@ -109,9 +103,6 @@ public class VuePanel_EtatPartie extends JPanel {
             }
         }
 
-        //Case 5 de la grilleCoequipier (MessageBox)
-        grilleCoequipier.add(vText);
-
         //Ajout des éléments à la fenêtre principale;
         this.add(grilleCoequipier);
 
@@ -130,4 +121,5 @@ public class VuePanel_EtatPartie extends JPanel {
     public JButton getBtnPrendreTresor() {
         return btnPrendreTresor;
     }
+    
 }

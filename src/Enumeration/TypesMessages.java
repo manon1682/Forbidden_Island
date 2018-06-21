@@ -20,5 +20,6 @@ public enum TypesMessages {
     TOUR_SUIVANT,
     NOUVELLE_PARTIE,
     SPECIALE,
-    CARTE_CLICK;
+    CARTE_CLICK,
+    COULE;
 }
