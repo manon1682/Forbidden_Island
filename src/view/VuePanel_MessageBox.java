@@ -22,16 +22,16 @@ import javax.swing.ScrollPaneConstants;
 public class VuePanel_MessageBox extends JPanel {
 
 //    private final JEditorPane html ;    
-    private JScrollPane scrollPane;
+ //   private JScrollPane scrollPane;
     private JLabel msg;
 
     public VuePanel_MessageBox() {
         this.setBackground(Color.GREEN);
 
         msg = new JLabel("Bienvenue sur l'île Interdite");
-        scrollPane = new JScrollPane(msg);
+       // scrollPane = new JScrollPane(msg);
 
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+       // scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         //panMsg.add(msg);
 
         /*
@@ -57,7 +57,7 @@ public class VuePanel_MessageBox extends JPanel {
         
         this.texte = "" ;
          */
-        this.add(scrollPane);
+        this.add(msg);
     }
 
     public void ajoutMessage(String text) {

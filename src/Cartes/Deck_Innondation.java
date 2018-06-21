@@ -10,8 +10,7 @@ public class Deck_Innondation extends Deck {
         setPioche(nomTuile);
     }
 
-    private void setPioche(ArrayList<String> nomTuiles) {
-            
+    private void setPioche(ArrayList<String> nomTuiles) {    
         for (String nomTuile : nomTuiles) { //remember francis <3
             CarteInnondation carte = new CarteInnondation(nomTuile); 
             getPioche().push(carte);
