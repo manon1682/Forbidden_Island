@@ -84,7 +84,36 @@ public class VuePanel_EtatPartie extends JPanel {
 
         //couleur pour les test
         this.setBackground(Color.ORANGE);
+        
+        this.generation(null);
 
+        //Fermeture du jeu
+        btnPrendreTresor.addActionListener(
+                new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message m = new Message(TypesMessages.PRENDRE_TRESOR);
+                ihm.notifierObservateur(m);
+            }
+        });
+
+    }
+
+    public JButton getBtnPrendreTresor() {
+        return btnPrendreTresor;
+    }
+    
+    public void donnerCarte(ArrayList<Aventurier> js){
+        this.removeAll();
+        this.generation(js);
+    }
+    
+    public void desactiverDonCarte(){
+        this.removeAll();
+        this.generation(null);
+    }
+    
+    public void generation(ArrayList<Aventurier> js){
         JPanel grilleCoequipier = new JPanel(new GridLayout(5, 1));
 
         //Case 1 de la grilleCoequipier (Liste Tresor obtenus des Aventuriers et bouton fermerJeu)
@@ -104,30 +133,16 @@ public class VuePanel_EtatPartie extends JPanel {
         //nouvelle case 2 à 4
         for (Aventurier joueur : joueurs) {
             if (!(joueur.equals(a))) {
-                VuePanel_Main vInv = new VuePanel_Main(joueur);
+                System.out.println((js != null ? (js.contains(joueur) ? true : false) : false));
+                VuePanel_Main vInv = new VuePanel_Main(joueur,ihm,(js != null ? (js.contains(joueur) ? true : false) : false));
                 grilleCoequipier.add(vInv);
             }
         }
 
         //Case 5 de la grilleCoequipier (MessageBox)
         grilleCoequipier.add(vText);
-
         //Ajout des éléments à la fenêtre principale;
         this.add(grilleCoequipier);
-
-        //Fermeture du jeu
-        btnPrendreTresor.addActionListener(
-                new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Message m = new Message(TypesMessages.PRENDRE_TRESOR);
-                ihm.notifierObservateur(m);
-            }
-        });
-
     }
 
-    public JButton getBtnPrendreTresor() {
-        return btnPrendreTresor;
-    }
 }

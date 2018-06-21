@@ -69,6 +69,7 @@ public class VuePanel_Carte extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Message m = new Message(TypesMessages.DONNER_CARTE);
+                    ihm.getIHM().setSauvCarte(vueCarte);
                     ihm.setSauvType(TypesMessages.DONNER_CARTE);
                     m.setVueCarte(vueCarte);
                     ihm.notifierObservateur(m);

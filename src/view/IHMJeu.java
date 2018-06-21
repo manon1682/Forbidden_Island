@@ -50,6 +50,7 @@ public class IHMJeu extends Observe {
     private Aventurier joueurCourant;
     private Grille grille;
     private int jaugeInnondation;
+    private VuePanel_Carte sauvCarte;
 
     public IHMJeu() {
 
@@ -156,6 +157,15 @@ public class IHMJeu extends Observe {
         vPlat.afficherPossible(grille);
         vPlat.repaint();
     }
+    
+    public void afficherJoueursPossible(ArrayList<Aventurier> js){
+        System.out.println("Voilou ihmJeu");
+        vAven.donnerCarte(js);
+    }
+    
+    public void desafficherJoueursPossible(){
+        vAven.desactiverDonCarte();
+    }
 
     public void miseAJourNbAction(int nbAction) {
         vActionAven.misAJourNbAction(nbAction);
@@ -209,6 +219,14 @@ public class IHMJeu extends Observe {
     
     public void setSauvType(TypesMessages t) {
         vActionAven.setSauvType(t);
+    }
+    
+    public void setSauvCarte(VuePanel_Carte carte){
+        this.sauvCarte = carte;
+    }
+    
+    public VuePanel_Carte getSauvCarte(){
+        return sauvCarte;
     }
     
     //Affichage Victoire

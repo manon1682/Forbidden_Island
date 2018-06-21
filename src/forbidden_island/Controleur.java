@@ -844,10 +844,12 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 // Si le joueur est null cela signifie qu'on vient d'appuyer sur le bouton "Donner carte"
                 if (m.getJoueur() == null) {
                     ArrayList<Aventurier> recepteurPossible = aventuriersPourDonnerCarte(joueurCourant);
-                    //vueA.afficherJoueursPossible();
+                    vueIHMJeu.afficherJoueursPossible(recepteurPossible);
                 } else {
                     //Sinon on donne la carte au joueur choisi
                     joueurCourant.donnerCarte(m.getJoueur(), m.getVueCarte().getCarte());
+                    vueIHMJeu.desafficherJoueursPossible();
+                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                 }
 
                 break;
