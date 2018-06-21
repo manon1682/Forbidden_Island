@@ -35,7 +35,6 @@ public class VuePanel_Carte extends JPanel {
     private JButton defausser;
     private JButton utiliser;
     private VuePanel_Main ihm;
-    private VuePanel_Carte vueCarte;
 
     //Panel layout des boutons
     private JPanel mainPanel;
@@ -44,7 +43,8 @@ public class VuePanel_Carte extends JPanel {
 
         carte = new CarteTresor(c);
         nb = n;
-        this.setPreferredSize(new Dimension(90, 120));
+        this.setPreferredSize(new Dimension(128, 188));
+        //this.setSize(new Dimension(128, 188));
 
         if (n != 0) {
             donner = new JButton("Donner");
@@ -53,15 +53,11 @@ public class VuePanel_Carte extends JPanel {
 
             //Layout des boutons sur la carte
             mainPanel = new JPanel(new GridLayout(3, 1));
-            //  mainPanel.add(new JLabel());
             mainPanel.add(defausser);
-            // mainPanel.add(new JLabel());
             mainPanel.add(utiliser);
             mainPanel.add(donner);
-            //mainPanel.add(new JLabel());
 
             add(mainPanel);
-            vueCarte = this;
 
             //ActionListener des boutons
             donner.addActionListener(
@@ -69,9 +65,9 @@ public class VuePanel_Carte extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Message m = new Message(TypesMessages.DONNER_CARTE);
-                    ihm.getIHM().setSauvCarte(vueCarte);
+                    ihm.getIHM().setSauvCarte(getThis());
                     ihm.setSauvType(TypesMessages.DONNER_CARTE);
-                    m.setVueCarte(vueCarte);
+                    m.setVueCarte(getThis());
                     ihm.notifierObservateur(m);
                 }
             });
@@ -82,7 +78,7 @@ public class VuePanel_Carte extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     Message m = new Message(TypesMessages.DEFAUSSER_CARTE);
                     ihm.setSauvType(TypesMessages.DEFAUSSER_CARTE);
-                    m.setVueCarte(vueCarte);
+                    m.setVueCarte(getThis());
                     ihm.notifierObservateur(m);
                 }
             });
@@ -99,7 +95,7 @@ public class VuePanel_Carte extends JPanel {
                         m = new Message(TypesMessages.UTILISER_CARTE_SAC_SABLE);
                     }
                     ihm.setSauvType(m.getType());
-                    m.setVueCarte(vueCarte);
+                    m.setVueCarte(getThis());
                     ihm.notifierObservateur(m);
                 }
             });
@@ -109,14 +105,19 @@ public class VuePanel_Carte extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width)) - 2;
-        setDim(new Dimension(size, size));
+        /*if(this.getSize().width > this.getSize().height){
+            int size = this.getSize().height;
+        } else {
+            int size = this.getSize().width;
+        }*/
+        //int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width)) - 2;
+        //setDim(new Dimension(size, size));
 
         if (nb != 0) {
-            g.drawImage(carte.utilisation().getImage(), 0, 0, dim.width, dim.height, null);
+            g.drawImage(carte.utilisation().getImage(), 0, 0, this.getWidth(), this.getHeight()/*(int)((this.getWidth())*1.5)*/, null);
             g.setColor(Color.BLACK);
-            g.setFont(new Font("Arial", Font.BOLD, dim.height / 4));
-            g.drawString("x " + nb, dim.width / 2, dim.height / 4);
+            g.setFont(new Font("Arial", Font.BOLD, this.getHeight() / 4));
+            g.drawString("x " + nb, this.getWidth() / 2, this.getHeight() / 4);
         }
     }
 
@@ -142,6 +143,10 @@ public class VuePanel_Carte extends JPanel {
 
     public JButton getDefausser() {
         return defausser;
+    }
+    
+    public VuePanel_Carte getThis(){
+        return this;
     }
 
 }
