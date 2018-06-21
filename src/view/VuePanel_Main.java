@@ -36,6 +36,7 @@ public class VuePanel_Main extends JPanel {
 
     public VuePanel_Main(Aventurier aventurier, IHMJeu ihmJ) {
 
+        
         //Initialisation
         ihm = ihmJ;
         a = aventurier;

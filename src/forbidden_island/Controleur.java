@@ -231,14 +231,19 @@ public class Controleur implements Observateur {
     }
 
     public void initJauge(TypesNiveaux type) {
-        if (type == TypesNiveaux.NOVICE) {
-            jaugeInnondation = 1;
-        } else if (type == TypesNiveaux.NORMAL) {
-            jaugeInnondation = 2;
-        } else if (type == TypesNiveaux.ELITE) {
-            jaugeInnondation = 3;
-        } else {
-            jaugeInnondation = 4;
+        switch (type) {
+            case NOVICE:
+                jaugeInnondation = 1;
+                break;
+            case NORMAL:
+                jaugeInnondation = 2;
+                break;
+            case ELITE:
+                jaugeInnondation = 3;
+                break;
+            case LEGENDAIRE:
+                jaugeInnondation = 4;
+                break;
         }
     }
 
@@ -402,7 +407,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
                 c++;
             }
         }
-        return (l < 6) || (a.getRole() == "Pilote");
+        return (l < 6) || (a.estRole("Pilote"));
     }
 
     public Aventurier joueurSuivant() {
@@ -564,9 +569,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
     public boolean actionSpecialePossible() {
         //Si le joueur est un ingénieur
         if (joueurCourant.estRole("Ingénieur")) {
-            Ingénieur ingenieur = (Ingénieur) joueurCourant;
+            //Ingénieur ingenieur = (Ingénieur) joueurCourant;
             //Si le double asséchement est impossible
-            if (!(ingenieur.doubleAssechementPossible(grille))) {
+            /*if (!(ingenieur.doubleAssechementPossible(grille))) {
                 //On met à jour sa capacité spéciale
                 ingenieur.setCapaciteUtilisee(-1);
                 joueurCourant = ingenieur;
@@ -576,10 +581,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 ingenieur.setCapaciteUtilisee(0);
                 joueurCourant = ingenieur;
                 return true;
-            }
+            }*/
+            return ((Ingénieur) joueurCourant).doubleAssechementPossible(grille);
         } else if (joueurCourant.estRole("Pilote")) {
             return !((Pilote) joueurCourant).capaciteUtilisee();
-
         } else {
             return false;
         }
@@ -606,18 +611,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
     }
 
     public void finirTour() {
-        //On récupère la vue des action de la vue de l'IHM Jeu
-        VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
+        //On désactive les boutons des action sauf "Finir tour"
+        vueIHMJeu.getvActionAven().finirTour();
 
-        //Activation ou non du bouton "Déplacer"
-        vueTemp.getBtnDeplacer().setEnabled(false);
-
-        //Activation ou non du bouton "Assécher"
-        vueTemp.getBtnAssecher().setEnabled(false);
-
-        //Activation ou non du bouton "Action spéciale"
-        vueTemp.getBtnActionSpeciale().setEnabled(false);
-
+        //Désactiver aussi les boutons des cartes donner mais pas utiliser
     }
 
     public ArrayList<CarteInnondation> tirageCarteInnondation() {
@@ -740,8 +737,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         if (type != TypesMessages.NOUVELLE_PARTIE
                 && type != TypesMessages.CARTE_CLICK) {
-            //On désaffiche les cartes précédemment encadrées
-            vueIHMJeu.getvPlat().desaficherPossible();
+                //On désaffiche les cartes précédemment encadrées
+                vueIHMJeu.getvPlat().desaficherPossible();
         }
 
         switch (type) {
@@ -751,9 +748,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     g = joueurCourant.deplacementPossible(grille);
                     // On affiche l'IHM avec les tuiles possibles
                     vueIHMJeu.afficherTuilePossible(g);
-                    //actionPossible();
-                    //Desactivation ou non du bouton "Déplacer"
-                    //vueIHMJeu.getvActionAven().getBtnDeplacer().setEnabled(false);
                 } else {
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
@@ -762,7 +756,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     int c = tuile.getColonne();
 
                     joueurCourant.deplacer(l, c);
-                    //actionPossible();
                     vueIHMJeu.getvPlat().majTuiles(joueurs);
                 }
 
@@ -774,10 +767,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     g = joueurCourant.assechementPossible(getGrille());
                     // On affiche l'IHM avec les tuiles possibles
                     vueIHMJeu.afficherTuilePossible(g);
-                    // actionPossible();
-                    //Desactivation ou non du bouton "Assécher"
-                    //  vueIHMJeu.getvActionAven().getBtnAssecher().setEnabled(false);
-
                 } else {
                     //Sinon on asséche la tuile choisie
                     String nom = m.getTuile();
@@ -813,13 +802,16 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 if (m.getTuile() == null) {
                     // On met à jour sa capacité utilisée
                     ((Ingénieur) joueurCourant).setCapaciteUtilisee(1);
-                    vueIHMJeu.assechementIngenieur();
+                    g = joueurCourant.assechementPossible(getGrille());
+                    // On affiche l'IHM avec les tuiles possibles
+                    vueIHMJeu.afficherTuilePossible(g);
                 } else {
                     //Sinon on assèche la tuile choisie
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
                     tuile.asseche();
 
+                    g = joueurCourant.assechementPossible(getGrille());
                     Ingénieur ingenieur = (Ingénieur) joueurCourant;
 
                     //Si sa capacité utilisée = 1, le joueur en est à son 1er asséchement
@@ -827,12 +819,12 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         //On incrémente son nombre d'action pour qu'une fois décrémenté cela n'ai pas d'incidence
                         nbAction = nbAction + 1;
                         ingenieur.setCapaciteUtilisee(2);
-                        vueIHMJeu.assechementIngenieur();
+                        vueIHMJeu.getvPlat().desaficherPossible();
+                        vueIHMJeu.afficherTuilePossibleIngenieur(g);
                     } else if (ingenieur.getCapaciteUtilisee() == 2) {
                         //Si sa capacité utilisée = 2, le joueur en est à son 2ème asséchement
                         //On met à jour sa capacité spéciale
                         ingenieur.setCapaciteUtilisee(0);
-                        //actionPossible();
                     }
                     joueurCourant = ingenieur;
                     vueIHMJeu.getvPlat().majTuiles(grille);
@@ -1020,7 +1012,11 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         }
 
         //Affiche les boutons d'actions possibles
-        if (!defaussementEnCours && nbAction != 0) {
+        if (joueurCourant.estRole("Ingénieur")) {
+            if (((Ingénieur) joueurCourant).getCapaciteUtilisee() != 2) {
+                actionPossible();
+            }
+        } else if (!defaussementEnCours) {
             actionPossible();
         }
 
@@ -1036,7 +1032,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             nbAction = nbAction - 1;
 
             vueIHMJeu.miseAJourNbAction(nbAction);
-            actionPossible();
 
             //Si le joueur n'a plus d'action on fini son tour
             if (nbAction == 0) {

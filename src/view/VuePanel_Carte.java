@@ -35,7 +35,6 @@ public class VuePanel_Carte extends JPanel {
     private JButton defausser;
     private JButton utiliser;
     private VuePanel_Main ihm;
-    private VuePanel_Carte vueCarte;
 
     //Panel layout des boutons
     private JPanel mainPanel;
@@ -53,15 +52,11 @@ public class VuePanel_Carte extends JPanel {
 
             //Layout des boutons sur la carte
             mainPanel = new JPanel(new GridLayout(3, 1));
-            //  mainPanel.add(new JLabel());
             mainPanel.add(defausser);
-            // mainPanel.add(new JLabel());
             mainPanel.add(utiliser);
             mainPanel.add(donner);
-            //mainPanel.add(new JLabel());
 
             add(mainPanel);
-            vueCarte = this;
 
             //ActionListener des boutons
             donner.addActionListener(
@@ -70,7 +65,7 @@ public class VuePanel_Carte extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     Message m = new Message(TypesMessages.DONNER_CARTE);
                     ihm.setSauvType(TypesMessages.DONNER_CARTE);
-                    m.setVueCarte(vueCarte);
+                    m.setVueCarte(getThis());
                     ihm.notifierObservateur(m);
                 }
             });
@@ -81,7 +76,7 @@ public class VuePanel_Carte extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     Message m = new Message(TypesMessages.DEFAUSSER_CARTE);
                     ihm.setSauvType(TypesMessages.DEFAUSSER_CARTE);
-                    m.setVueCarte(vueCarte);
+                    m.setVueCarte(getThis());
                     ihm.notifierObservateur(m);
                 }
             });
@@ -98,7 +93,7 @@ public class VuePanel_Carte extends JPanel {
                         m = new Message(TypesMessages.UTILISER_CARTE_SAC_SABLE);
                     }
                     ihm.setSauvType(m.getType());
-                    m.setVueCarte(vueCarte);
+                    m.setVueCarte(getThis());
                     ihm.notifierObservateur(m);
                 }
             });
@@ -141,6 +136,10 @@ public class VuePanel_Carte extends JPanel {
 
     public JButton getDefausser() {
         return defausser;
+    }
+    
+    public VuePanel_Carte getThis(){
+        return this;
     }
 
 }
