@@ -46,12 +46,12 @@ public class VuePanel_EtatPartie extends JPanel {
     private Aventurier a;
     private ArrayList<Aventurier> joueurs;
 
-    public VuePanel_EtatPartie(Aventurier aventurier, ArrayList<Aventurier> js, IHMJeu ihm) {
+    public VuePanel_EtatPartie(Aventurier aventurier, ArrayList<Aventurier> as, IHMJeu ihm) {
 
         //Initialisation
         this.ihm = ihm;
         a = aventurier;
-        joueurs = js;
+        joueurs = as;
         //Case 1 de la grilleCoequipier
         btnPrendreTresor = new JButton("Prendre trésor");
         tresorCristalArdent = new JLabel();
@@ -114,6 +114,7 @@ public class VuePanel_EtatPartie extends JPanel {
     }
     
     public void generation(ArrayList<Aventurier> js){
+        this.removeAll();
         JPanel grilleCoequipier = new JPanel(new GridLayout(5, 1));
 
         //Case 1 de la grilleCoequipier (Liste Tresor obtenus des Aventuriers et bouton fermerJeu)
@@ -133,7 +134,6 @@ public class VuePanel_EtatPartie extends JPanel {
         //nouvelle case 2 à 4
         for (Aventurier joueur : joueurs) {
             if (!(joueur.equals(a))) {
-                System.out.println((js != null ? (js.contains(joueur) ? true : false) : false));
                 VuePanel_Main vInv = new VuePanel_Main(joueur,ihm,(js != null ? (js.contains(joueur) ? true : false) : false));
                 grilleCoequipier.add(vInv);
             }

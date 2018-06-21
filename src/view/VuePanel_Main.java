@@ -143,7 +143,6 @@ public class VuePanel_Main extends JPanel {
         setClickable(clickable);
 
         if (isClickable()) {
-            System.out.println("Changement background");
             this.setBackground(Color.green);
 
         }
@@ -172,10 +171,13 @@ public class VuePanel_Main extends JPanel {
                 this.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent me) {
-                        Message m = new Message(TypesMessages.DONNER_CARTE);
-                        m.setJoueur(((VuePanel_Main) me.getComponent()).getA());
-                        m.setVueCarte(ihm.getSauvCarte());
-                        ihm.notifierObservateur(m);
+                        if (isClickable()) {
+                            Message m = new Message(TypesMessages.DONNER_CARTE);
+                            m.setJoueur(((VuePanel_Main) me.getComponent()).getA());
+                            m.setVueCarte(ihm.getSauvCarte());
+                            ((VuePanel_Main)me.getComponent()).setClickable(false);
+                            ihm.notifierObservateur(m);
+                        }
                     }
 
                     @Override
