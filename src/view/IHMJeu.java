@@ -125,6 +125,7 @@ public class IHMJeu extends Observe {
         //vNiveau = new VuePanel_Niveau(jaugeInnondation);
         //vNiveau.setJauge(jaugeInnondation);
         vAven = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
+        
         vMainAven = new VuePanel_Main(joueurCourant, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
         vPlat.majTuiles(joueurs);
@@ -132,7 +133,8 @@ public class IHMJeu extends Observe {
         //Fin de l'initialisation
         //On replace les nouveaux panels créés
         //panelCentre1.add(vNiveau, BorderLayout.WEST);
-        panelCentre1.add(vPlat, BorderLayout.CENTER);
+        
+        //panelCentre1.add(vPlat, BorderLayout.CENTER);
         panelCentre1.add(vAven, BorderLayout.EAST);
         panelSud2.add(vMainAven, BorderLayout.WEST);
         panelSud2.add(vActionAven, BorderLayout.CENTER);
@@ -152,8 +154,8 @@ public class IHMJeu extends Observe {
         vPlat.afficherPossible(grille);
         vPlat.repaint();
     }
-
-    public void afficherJoueursPossible(ArrayList<Aventurier> js) {
+    
+    public void afficherJoueursPossible(ArrayList<Aventurier> js){
         vAven.donnerCarte(js);
     }
 
