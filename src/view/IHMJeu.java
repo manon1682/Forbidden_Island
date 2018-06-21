@@ -12,6 +12,7 @@ import forbidden_island.Grille;
 import forbidden_island.Observe;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -49,6 +50,7 @@ public class IHMJeu extends Observe {
     private Aventurier joueurCourant;
     private Grille grille;
     private int jaugeInnondation;
+    private VuePanel_Carte sauvCarte;
     private TypesMessages sauvType;
 
     public IHMJeu() {
@@ -155,6 +157,15 @@ public class IHMJeu extends Observe {
         vPlat.afficherPossible(grille);
         vPlat.repaint();
     }
+    
+    public void afficherJoueursPossible(ArrayList<Aventurier> js){
+        System.out.println("Voilou ihmJeu");
+        vAven.donnerCarte(js);
+    }
+    
+    public void desafficherJoueursPossible(){
+        vAven.desactiverDonCarte();
+    }
 
     public void miseAJourNbAction(int nbAction) {
         vActionAven.misAJourNbAction(nbAction);
@@ -203,7 +214,8 @@ public class IHMJeu extends Observe {
         getvActionAven().finirTour();
         
         panelSud2.remove(vMainAven);
-        vMainAven = new VuePanel_Main(joueurCourant);
+        vMainAven = new VuePanel_Main(joueurCourant,this,false);
+        vMainAven.setPreferredSize(new Dimension(768,188));
         panelSud2.add(vMainAven, BorderLayout.CENTER);
 
     }
@@ -215,7 +227,15 @@ public class IHMJeu extends Observe {
     public void setSauvType(TypesMessages t) {
         sauvType = t;
     }
-
+    
+    public void setSauvCarte(VuePanel_Carte carte){
+        this.sauvCarte = carte;
+    }
+    
+    public VuePanel_Carte getSauvCarte(){
+        return sauvCarte;
+    }
+    
     //Affichage Victoire
     public void victoire() {
         mainPanel.removeAll();

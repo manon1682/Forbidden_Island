@@ -33,6 +33,7 @@ public class VuePanel_Main extends JPanel {
 
     private IHMJeu ihm;
     private Aventurier a;
+    private boolean clickable;
 
     public VuePanel_Main(Aventurier aventurier, IHMJeu ihmJ) {
 
@@ -95,7 +96,6 @@ public class VuePanel_Main extends JPanel {
                         Message m = new Message(TypesMessages.CARTE_CLICK);
                         m.setVueCarte((VuePanel_Carte) e.getSource());
                         ihm.notifierObservateur(m);
-
                     }
 
                     @Override
@@ -109,7 +109,6 @@ public class VuePanel_Main extends JPanel {
                             carte.getDonner().setVisible(false);
                             carte.getDefausser().setVisible(false);
                             repaint();
-
                         }
                     }
                 });
@@ -122,10 +121,11 @@ public class VuePanel_Main extends JPanel {
 
     }
 
-    public VuePanel_Main(Aventurier aventurier) {
+    public VuePanel_Main(Aventurier aventurier, IHMJeu ihmJ, boolean clickable) {
         //Initialisation
         this.setPreferredSize(new Dimension(768/2,188/2));
         a = aventurier;
+        ihm = ihmJ;
 
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setLayout(new BorderLayout());
@@ -139,7 +139,15 @@ public class VuePanel_Main extends JPanel {
         add(main, BorderLayout.CENTER);
 
         CarteUtilisable laCarte = CarteUtilisable.PIERRE_SACRE;
-        
+
+        setClickable(clickable);
+
+        if (isClickable()) {
+            System.out.println("Changement background");
+            this.setBackground(Color.green);
+
+        }
+
         for (int i = 0; i < 6; i++) {
             int n = 0;
             for (CarteTresor carte : a.getMainA()) {
@@ -160,6 +168,34 @@ public class VuePanel_Main extends JPanel {
             main.add(carte);
             laCarte = laCarte.getNext();
 
+            if (isClickable()) {
+                this.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent me) {
+                        Message m = new Message(TypesMessages.DONNER_CARTE);
+                        m.setJoueur(((VuePanel_Main) me.getComponent()).getA());
+                        m.setVueCarte(ihm.getSauvCarte());
+                        ihm.notifierObservateur(m);
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent me) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent me) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent me) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent me) {
+                    }
+                });
+
+            }
         }
     }
 
@@ -169,6 +205,26 @@ public class VuePanel_Main extends JPanel {
 
     public void setSauvType(TypesMessages t) {
         ihm.setSauvType(t);
+    }
+
+    public Aventurier getA() {
+        return a;
+    }
+
+    public void setA(Aventurier a) {
+        this.a = a;
+    }
+
+    public boolean isClickable() {
+        return clickable;
+    }
+
+    public void setClickable(boolean clickable) {
+        this.clickable = clickable;
+    }
+    
+    public IHMJeu getIHM(){
+        return ihm;
     }
 
 }
