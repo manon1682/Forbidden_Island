@@ -956,18 +956,18 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On initialise le nombre d'actions selon si c'est un navigateur ou non
                 nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
 
-                //On affiche la fenêtre de jeu
-                vueIHMJeu.afficherInitiale(grille, joueurs, joueurCourant, jaugeInnondation, nbAction);
 
                 //Tirage de 6 cartes Inondation
                 for (int i = 0; i < 6; i++) {
-                   CarteInnondation crt = (CarteInnondation) deck_I.pioche();
-                   //Inonde la carte
-                   inondee(crt.getLieu().toString());
-                   //L'ajoute à la défausse
-                   deck_I.getDefausse().add(crt);
+                    CarteInnondation crt = (CarteInnondation) deck_I.pioche();
+                    //Inonde la carte
+                    inondee(crt.getLieu().toString());
+                    //L'ajoute à la défausse
+                    deck_I.getDefausse().add(crt);
                 }
                 
+                //On affiche la fenêtre de jeu
+                vueIHMJeu.afficherInitiale(grille, joueurs, joueurCourant, jaugeInnondation, nbAction);
                 //On affiche un message
                 vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de jouer");
 
