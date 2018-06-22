@@ -222,11 +222,7 @@ public class VuePanel_Initialisation extends JPanel {
         
         panelBas.add(new JLabel());
         panelBas.add(btnManuel);
-        panelBas.add(new JLabel());
-        panelBas.add(new JLabel());
-        panelBas.add(new JLabel());
-        panelBas.add(new JLabel());
-        panelBas.add(new JLabel());
+        ajouterLabelVide(panelBas, 5);   
         panelBas.add(btnValider);
         panelBas.add(new JLabel());
         
@@ -258,9 +254,7 @@ public class VuePanel_Initialisation extends JPanel {
                         labNomJ = new JLabel("Nom Aventurier : ", SwingConstants.RIGHT);
                         labNomJ.setForeground(Color.white);
                         labNomJ.setFont(new Font("Arial", Font.PLAIN, 20));
-                        panelCentre.add(new JLabel());
-                        panelCentre.add(new JLabel());
-                        panelCentre.add(new JLabel());
+                        ajouterLabelVide(panelCentre, 3);
                         panelCentre.add(labNomJ);
                         panelCentre.add(saisirJ.get(i));
                         panelCentre.add(new JLabel());
@@ -313,6 +307,12 @@ public class VuePanel_Initialisation extends JPanel {
 
         window.setVisible(true);
 
+    }
+    
+    public void ajouterLabelVide(JPanel panel, int nbLabel){
+        for(int i = 0; i<nbLabel; i++){
+            panel.add(new JLabel());
+        }
     }
 
     @Override
