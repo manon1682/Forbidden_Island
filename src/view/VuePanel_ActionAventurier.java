@@ -5,12 +5,8 @@
  */
 package view;
 
-import Aventurier.Aventurier;
-import Aventurier.Ingénieur;
-import Aventurier.Pilote;
 import Enumeration.TypesMessages;
 import forbidden_island.Message;
-import forbidden_island.Observe;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -36,13 +32,13 @@ public class VuePanel_ActionAventurier extends JPanel {
 
         //initialisation
         ihm = ihmJ;
-        
+
         //btnDeplacer
         btnDeplacer = new JButton();
-        ImageIcon logoDeplacer = new ImageIcon("images/buttons/buttonDeplacer.png");
+        ImageIcon logoDeplacer = new ImageIcon("images/buttons/buttonDeplacer2.png");
         JLabel labelDep = new JLabel();    
         Image imageDeplacer = logoDeplacer.getImage(); 
-        Image newimgDeplacer = imageDeplacer.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        Image newimgDeplacer = imageDeplacer.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
         logoDeplacer = new ImageIcon(newimgDeplacer); 
         labelDep.setIcon(logoDeplacer);   
         
@@ -50,13 +46,13 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnDeplacer.setBackground(Color.red);
         btnDeplacer.setBorder(null);
         btnDeplacer.setOpaque(false);
-               
+
         //btnAssecher
         btnAssecher = new JButton();
-        ImageIcon logoAssecher = new ImageIcon("images/buttons/buttonAssecher.png");
+        ImageIcon logoAssecher = new ImageIcon("images/buttons/buttonAssecher2.png");
         JLabel labelAss = new JLabel();    
         Image imageAssecher = logoAssecher.getImage(); 
-        Image newimgAssecher = imageAssecher.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        Image newimgAssecher = imageAssecher.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
         logoAssecher = new ImageIcon(newimgAssecher); 
         labelAss.setIcon(logoAssecher);   
         
@@ -64,13 +60,13 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnAssecher.setBackground(Color.red);
         btnAssecher.setBorder(null);
         btnAssecher.setOpaque(false);
-        
+
         //btn Action Spé
         btnActionSpeciale = new JButton();
-        ImageIcon logoActionSpeciale = new ImageIcon("images/buttons/buttonActionSpeciale.png");
+        ImageIcon logoActionSpeciale = new ImageIcon("images/buttons/buttonActionSpeciale2.png");
         JLabel labelAP = new JLabel();    
         Image imageActionSpeciale = logoActionSpeciale.getImage(); 
-        Image newimgActionSpeciale = imageActionSpeciale.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        Image newimgActionSpeciale = imageActionSpeciale.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
         logoActionSpeciale = new ImageIcon(newimgActionSpeciale); 
         labelAP.setIcon(logoActionSpeciale);   
         
@@ -79,32 +75,48 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnActionSpeciale.setBorder(null);
         btnActionSpeciale.setOpaque(false);        
         
-        btnTerminerTour = new JButton("Terminer Tour");
+        btnTerminerTour = new JButton();
+        ImageIcon logoTerminerTour = new ImageIcon("images/buttons/buttonTerminerTour2.png");
+        JLabel labelTT = new JLabel();    
+        Image imageTerminerTour = logoTerminerTour.getImage(); 
+        Image newimgTerminerTour = imageTerminerTour.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
+        logoTerminerTour = new ImageIcon(newimgTerminerTour); 
+        labelTT.setIcon(logoTerminerTour);   
+        
+        btnTerminerTour.setIcon(logoTerminerTour);
+        btnTerminerTour.setBackground(Color.red);
+        btnTerminerTour.setBorder(null);
+        btnTerminerTour.setOpaque(false); 
+        
+        
         nbActionText = new JLabel("Nombre action dispo : ");
         nbActionInt = new JLabel(Integer.toString(nbAction));
         //fin initialisation
 
         //test pour couleur :
-        this.setBackground(Color.CYAN);
+        //this.setBackground(Color.CYAN);
 
-        JPanel grilleAction = new JPanel(new GridLayout(2, 3));
+        JPanel grilleAction = new JPanel(new GridLayout(1, 1));
+        JPanel grillebtnAction = new JPanel(new GridLayout(2, 2));
+        JPanel grilleNbAction = new JPanel(new GridLayout(2, 1));
 
-
-        grilleAction.add(btnDeplacer);
-
-        grilleAction.add(btnAssecher);
-
-        grilleAction.add(btnActionSpeciale);
-
-        grilleAction.add(nbActionText);
-
-        grilleAction.add(nbActionInt);
-
-        grilleAction.add(btnTerminerTour);
-
-        // grilleAction.add(new JLabel("")); //inutile ici
 
         
+        grillebtnAction.add(btnDeplacer);
+        grillebtnAction.add(btnAssecher);
+        grillebtnAction.add(btnActionSpeciale);
+        
+        grillebtnAction.add(btnTerminerTour);
+        
+        grilleNbAction.add(nbActionText);
+
+        grilleNbAction.add(nbActionInt);
+        
+        grilleAction.add(grilleNbAction);
+        grilleAction.add(grillebtnAction);
+
+
+        // grilleAction.add(new JLabel("")); //inutile ici
         grilleAction.setOpaque(false);
         this.add(grilleAction);
 
@@ -115,7 +127,7 @@ public class VuePanel_ActionAventurier extends JPanel {
                 ihm.setSauvType(TypesMessages.DEPLACER);
                 Message m = new Message(TypesMessages.DEPLACER);
                 ihm.notifierObservateur(m);
-                
+
                 btnDeplacer.setEnabled(false);
             }
 
@@ -128,7 +140,7 @@ public class VuePanel_ActionAventurier extends JPanel {
                 ihm.setSauvType(TypesMessages.ASSECHER);
                 Message m = new Message(TypesMessages.ASSECHER);
                 ihm.notifierObservateur(m);
-                
+
                 btnAssecher.setEnabled(false);
             }
 
@@ -141,7 +153,7 @@ public class VuePanel_ActionAventurier extends JPanel {
                 Message m = new Message(TypesMessages.SPECIALE);
                 ihm.setSauvType(TypesMessages.SPECIALE);
                 ihm.notifierObservateur(m);
-                
+
                 btnActionSpeciale.setEnabled(false);
             }
 
@@ -150,7 +162,7 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnTerminerTour.addActionListener(
                 new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {              
+            public void actionPerformed(ActionEvent e) {
                 Message m = new Message(TypesMessages.TERMINER_TOUR);
                 ihm.notifierObservateur(m);
             }
@@ -172,8 +184,8 @@ public class VuePanel_ActionAventurier extends JPanel {
     public JButton getBtnTerminerTour() {
         return btnTerminerTour;
     }
-    
-    public void finirTour(){
+
+    public void finirTour() {
         //Activation ou non du bouton "Déplacer"
         getBtnDeplacer().setEnabled(false);
 
@@ -183,9 +195,9 @@ public class VuePanel_ActionAventurier extends JPanel {
         //Activation ou non du bouton "Action spéciale"
         getBtnActionSpeciale().setEnabled(false);
     }
-    
-    public void misAJourNbAction(int nbAction){
+
+    public void misAJourNbAction(int nbAction) {
         nbActionInt.setText(Integer.toString(nbAction));
     }
-    
+
 }
