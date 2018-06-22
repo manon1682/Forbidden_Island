@@ -364,9 +364,9 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
 
     public boolean inondee(String nomTuile) {
         Tuile tuile = grille.getTuileAvecNom(nomTuile);
-        if (tuile.getEtat() != EtatTuile.coulée) {
-            tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
-            if (tuile.getEtat() == EtatTuile.coulée) {
+        if (tuile.getEtat() != EtatTuile.COULEE) {
+            tuile.setEtat((tuile.getEtat() == EtatTuile.SECHE ? EtatTuile.INONDEE : EtatTuile.COULEE));
+            if (tuile.getEtat() == EtatTuile.COULEE) {
                 coule(tuile);
             }
             return true;
@@ -447,24 +447,24 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
          */
 
         //Cas 1 : un trésor a coulé
-        if ((grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.coulée
-                && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.coulée
+        if ((grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.COULEE
+                && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.COULEE
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Temple du Soleil").getTresor()) == false)
-                || (grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.coulée
-                && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.coulée
+                || (grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.COULEE
+                && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.COULEE
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("La Caverne des Ombres").getTresor()) == false)
-                || (grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.coulée
-                && grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.coulée
+                || (grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.COULEE
+                && grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.COULEE
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Palais des Marees").getTresor()) == false)
-                || (grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.coulée
-                && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.coulée
+                || (grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.COULEE
+                && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.COULEE
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false)) {
             vueIHMJeu.defaite(Defaite.TRESOR_COULE);
             return true;
         }
 
         //Cas 2 : l'héliport a coulé
-        if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.coulée) {
+        if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.COULEE) {
             vueIHMJeu.defaite(Defaite.HELIPORT_COULE);
             return true;
         }
@@ -655,21 +655,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         //Pioche autant de carte que la jauge l'indique
         for (int i = 0; i < niveauInnondation(); i++) {
-            //S'il n'y a plus de carte dans la pioche
-            if (deck_I.getPioche().isEmpty()) {
-                //On mélange la défausse et la met dans la pioche
-                deck_I.melangerDefausse();
-                deck_I.getPioche().addAll(deck_I.getDefausse());
-            }
-
+            
             CarteInnondation carte = (CarteInnondation) deck_I.pioche();
+            
             while (!(inondee(carte.getLieu().toString()))) {
-                //S'il n'y a plus de carte dans la pioche
-                if (deck_I.getPioche().isEmpty()) {
-                    //On mélange la défausse et la met dans la pioche
-                    deck_I.melangerDefausse();
-                    deck_I.getPioche().addAll(deck_I.getDefausse());
-                }
                 carte = (CarteInnondation) deck_I.pioche();
             }
 
@@ -679,7 +668,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //Ajoute ces cartes à la défausse
         deck_I.getDefausse().addAll(cartes);
 
-        //return cartes;
         return cartes;
     }
 
@@ -715,7 +703,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     deck_I.melangerDefausse();
                     deck_I.getPioche().addAll(deck_I.getDefausse());
                 }
-
             }
         }
 
