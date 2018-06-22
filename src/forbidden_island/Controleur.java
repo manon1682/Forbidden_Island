@@ -562,7 +562,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         if (defaussementEnCours) {
             //On affiche un message
-            vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
+            vueIHMJeu.getVText().ajoutMessage("Défaussez vous de " + (joueurCourant.getMainA().size() - 5) + " carte(s)");
 
             //On récupère la vue des action de la vue de l'IHM Jeu
             VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
@@ -582,6 +582,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             //Desativation du bouton "Prendre trésor"
             vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(false);
         } else {
+            if (vueIHMJeu.getVText().getMessage().equals("Défaussez vous de 1 carte(s)")) {
+                vueIHMJeu.getVText().ajoutMessage("Plus besoin de vous défaussez");
+            }
             //On récupère la vue des action de la vue de l'IHM Jeu
             VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
 
@@ -810,11 +813,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 // Si le joueur est null cela signifie qu'on vient d'appuyer sur le bouton "Donner carte"
                 if (m.getJoueur() == null) {
                     //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("Choissez le joueur destinataire");
+                    vueIHMJeu.getVText().ajoutMessage("Choisissez le joueur destinataire");
 
                     ArrayList<Aventurier> recepteurPossible = aventuriersPourDonnerCarte(joueurCourant);
                     vueIHMJeu.afficherJoueursPossible(recepteurPossible);
                 } else {
+                    //On affiche un message
+                    vueIHMJeu.getVText().ajoutMessage("Carte donnée");
+
                     //Sinon on donne la carte au joueur choisi
                     joueurCourant.donnerCarte(m.getJoueur(), m.getVueCarte().getCarte());
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
@@ -823,6 +829,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case PRENDRE_TRESOR:
+                //On affiche un message
+                vueIHMJeu.getVText().ajoutMessage("Vous avez pris le trésor !");
                 prendreTresor(joueurCourant);
 
                 break;
@@ -956,18 +964,17 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On initialise le nombre d'actions selon si c'est un navigateur ou non
                 nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
 
-                //On affiche la fenêtre de jeu
-                vueIHMJeu.afficherInitiale(grille, joueurs, joueurCourant, jaugeInnondation, nbAction);
-
                 //Tirage de 6 cartes Inondation
                 for (int i = 0; i < 6; i++) {
-                   CarteInnondation crt = (CarteInnondation) deck_I.pioche();
-                   //Inonde la carte
-                   inondee(crt.getLieu().toString());
-                   //L'ajoute à la défausse
-                   deck_I.getDefausse().add(crt);
+                    CarteInnondation crt = (CarteInnondation) deck_I.pioche();
+                    //Inonde la carte
+                    inondee(crt.getLieu().toString());
+                    //L'ajoute à la défausse
+                    deck_I.getDefausse().add(crt);
                 }
-                
+
+                //On affiche la fenêtre de jeu
+                vueIHMJeu.afficherInitiale(grille, joueurs, joueurCourant, jaugeInnondation, nbAction);
                 //On affiche un message
                 vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de jouer");
 
@@ -991,7 +998,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     vueIHMJeu.victoire();
                 } else if (!perdrePartie()) {
                     joueurCourant = joueurSuivant();
-                    
+
                     vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
                     //On initialise le nombre d'actions selon si c'est un navigateur ou non
                     nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
@@ -1001,6 +1008,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 }
 
                 break;
+
 
         }
 
