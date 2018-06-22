@@ -6,6 +6,7 @@
 package view;
 
 import Aventurier.Aventurier;
+import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Enumeration.Defaite;
 import Enumeration.TypesMessages;
@@ -45,8 +46,7 @@ public class IHMJeu extends Observe {
     private VuePanel_Victoire vVictoire;
     private VuePanel_Defaite vDefaite;
     private VuePanel_MessageBox vMessage;
-    private VuePanel_CartesTPiochees vPiocheTresor;
-    private VuePanel_CartesIPioche vPiocheInondation;
+    private VuePanel_CartesPiochees vPioche;
 
     //Variables
     private ArrayList<Aventurier> joueurs;
@@ -288,25 +288,18 @@ public class IHMJeu extends Observe {
 
     }
 
+
     
-    //Appel de la vue d'affichage des carte trésors priochées
-    public void afficherCartePiocheT(ArrayList<CarteTresor> cartesTresors) {
+    //Appel de la vue d'affichage des carte piochées
+    public void afficherCartePiochees(ArrayList<CarteTresor> cartesTresors, ArrayList<CarteInnondation> cartesInnondation) {
+            
         window.setResizable(false);
         mainPanel.removeAll();
-        vPiocheTresor = new VuePanel_CartesTPiochees(cartesTresors, this);
-        mainPanel.add(vPiocheTresor);
+        vPioche = new VuePanel_CartesPiochees(cartesTresors, cartesInnondation, this);
+        mainPanel.add(vPioche);
 
-        window.setVisible(true);
-    }
-    
-    //Appel de la vue d'affichage des carte inondation priochées
-    public void afficherCartePiocheI(ArrayList<CarteInondation> cartesTresors) {
-        window.setResizable(false);
-        mainPanel.removeAll();
-        vPiocheInondation = new VuePanel_CartesTPiochees(cartesTresors, this);
-        mainPanel.add(vPiocheInondation;
-
-        window.setVisible(true);
+       window.setVisible(true);
+   
     }
 
 }

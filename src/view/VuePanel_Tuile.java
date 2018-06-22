@@ -60,7 +60,6 @@ public class VuePanel_Tuile extends JPanel{
         this.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                System.out.println(((VuePanel_Tuile)me.getComponent()).getNomTuile());
                 if(((VuePanel_Tuile)me.getComponent()).isPossible()){
                     Message m = new Message(vPlat.getType());
                     m.setTuile(((VuePanel_Tuile)me.getComponent()).getNomTuile());
