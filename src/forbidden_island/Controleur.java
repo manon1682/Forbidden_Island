@@ -365,14 +365,12 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
     public boolean inondee(String nomTuile) {
         Tuile tuile = grille.getTuileAvecNom(nomTuile);
         if (tuile.getEtat() != EtatTuile.coulée) {
-            System.out.println("TRUETRUETRUE");
             tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
             if (tuile.getEtat() == EtatTuile.coulée) {
                 coule(tuile);
             }
             return true;
         } else {
-            System.out.println("FALSEFALSEFALSE");
             return false;
         }
     }
@@ -388,31 +386,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
     }
 
     public void evasion(Aventurier a) { //Vérifie qu'un aventurier coincé sur une tuile qui coule peut s'échaper
-        /*int l = 0;
-        int c = 0;
-
-        boolean[][] gBool = a.deplacementPossible(grille);
-
-        //S'il s'agit d'un Pilote il peut utiliser sa capacité spéciale
-        if (a.estRole("Pilote")) {
-            gBool = ((Pilote) a).deplacementPossibleSpecial(grille);
-        }
-
-        while (l < 6 && !gBool[l][c]) {
-            if (c == 5) {
-                l++;
-                c = 0;
-            } else {
-                c++;
-            }
-
-        }
-
-        //On est sortie de la boucle avant d'avoir fait toute la grille
-        if (l < 6) {
-            a.deplacer(l, c);
-        } else partiePerdue = true;*/
-
+        
         //New méthode pour les déplacer aléatoirement autour d'eux
         boolean[][] gBool = a.deplacementPossible(grille);
         ArrayList<int[]> pos = new ArrayList<>();
@@ -528,7 +502,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         }
 
         return false;
-
     }
 
     public boolean assechementPossible() {
