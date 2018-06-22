@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 /**
@@ -38,8 +39,10 @@ public class VuePanel_Plateau extends JPanel {
     private boolean activer;
     private VuePanel_Plateau plat;
     private BufferedImage fond;
+    //private BufferedImage cadre;
     private BufferedImage contourPassage;
     private BufferedImage contourCourant;
+    
     
     public VuePanel_Plateau(Grille grille, ArrayList<Aventurier> js, IHMJeu ihm) {
         activer = false;
@@ -53,6 +56,7 @@ public class VuePanel_Plateau extends JPanel {
             contourPassage = ImageIO.read((new FileInputStream("images/hover_movement.png")));
             contourCourant = ImageIO.read((new FileInputStream("images/hover_assecher.png")));
             fond = ImageIO.read((new FileInputStream("images/background/test.jpg")));
+            //cadre = ImageIO.read((new FileInputStream("images/Cadre.png")));
         } catch (IOException ex) {
             ex.fillInStackTrace();
         }
@@ -138,6 +142,7 @@ public class VuePanel_Plateau extends JPanel {
     @Override
     public void paint(Graphics g) {
         g.drawImage(fond, 0, 0, plat.getWidth() , plat.getHeight(),null);
+        //g.drawImage(cadre, 0, 0, plat.getWidth() , plat.getHeight(),null);
         repaintTuiles();
     }
 

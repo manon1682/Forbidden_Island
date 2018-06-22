@@ -132,43 +132,42 @@ public class VuePanel_Tuile extends JPanel{
        //Si la tuile possede un emplacement a tresor on affiche sa version avec ou sans le tresor 
        //en fonction du fait que les aventurier l'est deja pris ou non
         if(etat == EtatTuile.SECHE){
-            g.drawImage((!possedeTresor ? (tuileNormaleNoTresor != null ? tuileNormaleNoTresor : tuileNormale) : tuileNormale), 0, 0, dim.width, dim.height, null);
+            g.drawImage((!possedeTresor ? (tuileNormaleNoTresor != null ? tuileNormaleNoTresor : tuileNormale) : tuileNormale), (this.getSize().width - dim.width)/2, 0, dim.width, dim.height, null);
             afficherPion(g);
         } else if(etat == EtatTuile.INONDEE) {
-            g.drawImage((!possedeTresor ? (tuileInondeeNoTresor != null ? tuileInondeeNoTresor : tuileInondee) : tuileInondee), 0, 0, dim.width, dim.height, null);
+            g.drawImage((!possedeTresor ? (tuileInondeeNoTresor != null ? tuileInondeeNoTresor : tuileInondee) : tuileInondee), (this.getSize().width - dim.width)/2, 0, dim.width, dim.height, null);
             afficherPion(g);
         } else {
-            g.drawImage(imgCoulee, 0, 0, dim.width, dim.height, null);
+            //g.drawImage(imgCoulee, 0, 0, dim.width, dim.height, null);
         }
         
         //Filtre jaune sur les tuile possible pour le deplacement et l'assèchement
         if(isPossible()){
             g.setColor(new Color(250,250,0,100));
-            g.fillRect(0, 0, dim.width, dim.height);
+            g.fillRect((this.getSize().width - dim.width)/2, 0, dim.width, dim.height);
         }
         
         //Cadre jaune si joueur courant est sur cette tuile
         if(isCourant()){
-            g.drawImage(vPlat.getContourCourant(), 0, 0, dim.width, dim.height, null);
+            g.drawImage(vPlat.getContourCourant(), (this.getSize().width - dim.width)/2, 0, dim.width, dim.height, null);
         }
         
         //Cadre vert si tuile non coulée et la souris est passer dessus 
         if(isCadre() && etat != EtatTuile.COULEE){
-            g.drawImage(vPlat.getContourPassage(), 0, 0, dim.width, dim.height, null);
+            g.drawImage(vPlat.getContourPassage(), (this.getSize().width - dim.width)/2, 0, dim.width, dim.height, null);
         }
     }
     
     public void afficherPion(Graphics g){
-        int cX = 0;
+        int cX = (this.getSize().width - dim.width)/2;
         int cY = 0;
         for(Pion j : joueur){
             g.drawImage(j.getImage(),cX,cY,dim.width/2,dim.height/2,null);
-            cY = (cX == 0 ? cY : dim.height/2);
-            cX = (cX == 0 ? dim.width/2 : 0);
+            cY = (cX == (this.getSize().width - dim.width)/2 ? cY : dim.height/2);
+            cX = (cX == (this.getSize().width - dim.width)/2 ? (this.getSize().width - dim.width)/2 + dim.width/2 : (this.getSize().width - dim.width)/2);
         }
     }
-    
-    
+   
     
     public String getNomFichierTuile(String nomTuile){
         String nom;

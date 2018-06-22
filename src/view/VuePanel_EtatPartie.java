@@ -16,6 +16,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -90,8 +91,9 @@ public class VuePanel_EtatPartie extends JPanel {
         //fin initialisation
 
         //couleur pour les test
-        this.setBackground(Color.ORANGE);
-
+        //this.setBackground(Color.ORANGE);
+        this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        
         this.generation(null);
 
         //Prendre un trésor
@@ -137,7 +139,9 @@ public class VuePanel_EtatPartie extends JPanel {
         containerCase1.add(btnPrendreTresor, BorderLayout.WEST);
 
         grilleCoequipier.add(containerCase1);
-
+        
+        //grilleCoequipier.setBackground(Color.gray);
+        
         //nouvelle case 2 à 4
         for (Aventurier joueur : joueurs) {
             if (!(joueur.equals(a))) {
