@@ -1077,21 +1077,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On affiche l'IHM qui sera mise à jour
                 vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
 
-                //Pour le défaussent des cartes
-                if (joueurCourant.getMainA().size() > 5) {
-                    //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
-                    defausse();
-                } else {
-                    defaussementEnCours = false;
-                    //On affiche les actions possibles
-                    actionPossible();
-                    //On affiche l'IHM qui sera mise à jour selon les actions
-                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
-                    //On affiche les actions possibles
-                    //actionPossible();
-                }
-
                 break;
 
         }
