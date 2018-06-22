@@ -234,8 +234,6 @@ public class IHMJeu extends Observe {
     public void afficherTuilePossibleIngenieur(boolean[][] g) {
         this.afficherTuilePossible(g);
         getvActionAven().finirTour();
-        
-        desactivationCarte();
     }
 
     //Getter et Setter de SauvType
@@ -246,18 +244,7 @@ public class IHMJeu extends Observe {
     public void setSauvType(TypesMessages t) {
         sauvType = t;
     }
-    
-    
-    //N'affiche plus les boutons lorsque l'on passe sur les cartes
-    public void desactivationCarte(){
-        panelSud2.remove(vMainAven);
-        panelSud2.remove(vActionAven);
-        vMainAven = new VuePanel_Main(joueurCourant, this);
-        panelSud2.add(vMainAven, BorderLayout.CENTER);
-        panelSud2.add(vActionAven, BorderLayout.EAST);
-    }
 
-    
     //Getter et Setter de SauvCarte
     public void setSauvCarte(VuePanel_Carte carte) {
         this.sauvCarte = carte;
