@@ -52,6 +52,11 @@ public class Deck_Tresor extends Deck {
     public ArrayList<CarteTresor> piocher(){
         ArrayList<CarteTresor> cartePiocher = new ArrayList<CarteTresor>();
         cartePiocher.add((CarteTresor)this.pioche());
+        if (getPioche().isEmpty()) {
+            //On mélange la défausse et la met dans la pioche
+            melangerDefausse();
+            getPioche().addAll(getDefausse());
+        }
         cartePiocher.add((CarteTresor)this.pioche());
         return cartePiocher;
     }
