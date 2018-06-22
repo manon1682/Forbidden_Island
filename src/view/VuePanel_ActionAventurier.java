@@ -28,10 +28,10 @@ public class VuePanel_ActionAventurier extends JPanel {
 
     private IHMJeu ihm;
 
-    public VuePanel_ActionAventurier(IHMJeu ihmJ, int nbAction) {
+    public VuePanel_ActionAventurier(IHMJeu ihmJeu, int nbAction) {
 
         //initialisation
-        ihm = ihmJ;
+        ihm = ihmJeu;
 
         //btnDeplacer
         btnDeplacer = new JButton();
@@ -41,7 +41,7 @@ public class VuePanel_ActionAventurier extends JPanel {
         Image newimgDeplacer = imageDeplacer.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
         logoDeplacer = new ImageIcon(newimgDeplacer);
         labelDep.setIcon(logoDeplacer);
-
+        
         btnDeplacer.setIcon(logoDeplacer);
         btnDeplacer.setBackground(Color.red);
         btnDeplacer.setBorder(null);
@@ -61,7 +61,7 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnAssecher.setBorder(null);
         btnAssecher.setOpaque(false);
 
-        //btn Action Spé
+        //btn Action Spéciale
         btnActionSpeciale = new JButton();
         ImageIcon logoActionSpeciale = new ImageIcon("images/buttons/buttonActionSpeciale.png");
         JLabel labelAP = new JLabel();
@@ -75,6 +75,7 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnActionSpeciale.setBorder(null);
         btnActionSpeciale.setOpaque(false);
 
+        //btn Terminer Tour
         btnTerminerTour = new JButton("Terminer Tour");
         nbActionText = new JLabel("Nombre action dispo : ");
         nbActionInt = new JLabel(Integer.toString(nbAction));
@@ -86,18 +87,12 @@ public class VuePanel_ActionAventurier extends JPanel {
         JPanel grilleAction = new JPanel(new GridLayout(2, 3));
 
         grilleAction.add(btnDeplacer);
-
         grilleAction.add(btnAssecher);
-
         grilleAction.add(btnActionSpeciale);
-
         grilleAction.add(nbActionText);
-
         grilleAction.add(nbActionInt);
-
         grilleAction.add(btnTerminerTour);
-
-        // grilleAction.add(new JLabel("")); //inutile ici
+        
         grilleAction.setOpaque(false);
         this.add(grilleAction);
 
