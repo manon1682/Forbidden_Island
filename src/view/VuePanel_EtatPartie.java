@@ -69,6 +69,7 @@ public class VuePanel_EtatPartie extends JPanel {
                 logo = new ImageIcon("images/tresors/cristal.png");
                 Image imageCA = logo.getImage();
                 Image newimgCA = imageCA.getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
+                logo = new ImageIcon(newimgCA); 
                 
                 tresorCristalArdent.setIcon(logo);
             } else if (tr == Tresor.PIERRE_SACRE) {

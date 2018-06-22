@@ -8,6 +8,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
@@ -29,34 +30,7 @@ public class VuePanel_MessageBox extends JPanel {
         this.setBackground(Color.GREEN);
 
         msg = new JLabel("Bienvenue sur l'île Interdite");
-       // scrollPane = new JScrollPane(msg);
-
-       // scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        //panMsg.add(msg);
-
-        /*
-        à contiuer mercredi > antoine
-       
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        this.add(mainPanel);
-        
-        html = new JEditorPane();
-        html.setContentType("text/html");
-        scrollPane = new JScrollPane(html);
-        this.scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2, false));
-        
-        html.setMinimumSize(new Dimension(180, 280));
-        html.setPreferredSize(new Dimension(180, 280));
-        scrollPane.setPreferredSize(new Dimension(180, 280));
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setMinimumSize(new Dimension(180, 280));
-        
-        html.setText("<html><h1 style=\"text-align:center; color:blue;\">Bienvenue dans<br>l'Île Interdite</h1></html>");
-        mainPanel.add(scrollPane, BorderLayout.CENTER) ;
-        
-        this.texte = "" ;
-         */
+        msg.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
         this.add(msg);
     }
 
