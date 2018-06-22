@@ -39,7 +39,7 @@ public class VuePanel_Plateau extends JPanel {
     private VuePanel_Plateau plat;
     private BufferedImage fond;
     private BufferedImage contourPassage;
-    private BufferedImage contourPossible;
+    private BufferedImage contourCourant;
     
     public VuePanel_Plateau(Grille grille, ArrayList<Aventurier> js, IHMJeu ihm) {
         activer = false;
@@ -51,7 +51,7 @@ public class VuePanel_Plateau extends JPanel {
         
         try{
             contourPassage = ImageIO.read((new FileInputStream("images/hover_movement.png")));
-            contourPossible = ImageIO.read((new FileInputStream("images/hover_assecher.png")));
+            contourCourant = ImageIO.read((new FileInputStream("images/hover_assecher.png")));
             fond = ImageIO.read((new FileInputStream("images/background/test.jpg")));
         } catch (IOException ex) {
             ex.fillInStackTrace();
@@ -169,8 +169,8 @@ public class VuePanel_Plateau extends JPanel {
         return contourPassage;
     }
 
-    public BufferedImage getContourPossible() {
-        return contourPossible;
+    public BufferedImage getContourCourant() {
+        return contourCourant;
     }
     
     public void majTresor(String tr){
@@ -178,6 +178,19 @@ public class VuePanel_Plateau extends JPanel {
             for(int c = 0; c<6 ; c++){
                 if((tuiles[l][c].possedeTresor() ? tuiles[l][c].getTresor().equals(tr): false)){
                     tuiles[l][c].setPossedeTresor(false);
+                }
+            }
+        }
+    }
+    
+    
+    public void majCourant(Aventurier a){
+        for(int l = 0; l<6 ; l++){
+            for(int c = 0; c<6 ; c++){
+                if(!tuiles[l][c].getJoueur().isEmpty()){
+                    tuiles[l][c].setCourant(tuiles[l][c].getJoueur().contains(a.getPion()));
+                } else {
+                    tuiles[l][c].setCourant(false);
                 }
             }
         }

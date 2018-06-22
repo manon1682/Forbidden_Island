@@ -1038,6 +1038,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
         }
+        
+        if(type == TypesMessages.DEPLACER ||  type == TypesMessages.SPECIALE){
+            vueIHMJeu.getvPlat().majCourant(joueurCourant);
+        }
 
         if (((type == TypesMessages.ASSECHER
                 || type == TypesMessages.DEPLACER
