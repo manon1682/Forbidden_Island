@@ -39,33 +39,27 @@ public class VuePanel_Defaite extends JPanel {
         def.setIcon(logoDef);
 
         this.add(def, BorderLayout.CENTER);
+        motif = new JLabel("", SwingConstants.CENTER);
+        motif.setFont(new Font("Serif", Font.ITALIC, 35));
+        motif.setForeground(new Color(225, 221, 136));
 
         //SUD : Traitement des différentes défaites
         if (null != d) {
             switch (d) {
                 case HELIPORT_COULE: {
-
-                    motif = new JLabel("Votre Héliport a coulé ! Vous n'avez pas pu vous échapper !", SwingConstants.CENTER);
-                    motif.setFont(new Font("Serif", Font.ITALIC, 35));
-                    motif.setForeground(new Color(225, 221, 136));
+                    motif.setText("Votre Héliport a coulé ! Vous n'avez pas pu vous échapper !");
                     break;
                 }
                 case INONDATION_ELEVEE: {
-                    motif = new JLabel("Niveau d'inondation trop élevé ! Vous vous êtes noyés !", SwingConstants.CENTER);
-                    motif.setFont(new Font("Serif", Font.ITALIC, 35));
-                    motif.setForeground(new Color(225, 221, 136));
+                    motif.setText("Niveau d'inondation trop élevé ! Vous vous êtes noyés !");
                     break;
                 }
                 case JOUEUR_NOYE: {
-                    motif = new JLabel("Un aventurier s'est noyé !", SwingConstants.CENTER);
-                    motif.setFont(new Font("Serif", Font.ITALIC, 35));
-                    motif.setForeground(new Color(225, 221, 136));
+                    motif.setText("Un aventurier s'est noyé !");
                     break;
                 }
                 case TRESOR_COULE: {
-                    motif = new JLabel("Un trésor a sombré !", SwingConstants.CENTER);
-                    motif.setFont(new Font("Serif", Font.ITALIC, 35));
-                    motif.setForeground(new Color(225, 221, 136));
+                    motif.setText("Un trésor a sombré !");
                     break;
                 }
                 default:

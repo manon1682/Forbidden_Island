@@ -35,12 +35,12 @@ public class VuePanel_ActionAventurier extends JPanel {
 
         //btnDeplacer
         btnDeplacer = new JButton();
-        ImageIcon logoDeplacer = new ImageIcon("images/buttons/buttonDeplacer.png");
-        JLabel labelDep = new JLabel();
-        Image imageDeplacer = logoDeplacer.getImage();
-        Image newimgDeplacer = imageDeplacer.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-        logoDeplacer = new ImageIcon(newimgDeplacer);
-        labelDep.setIcon(logoDeplacer);
+        ImageIcon logoDeplacer = new ImageIcon("images/buttons/buttonDeplacer2.png");
+        JLabel labelDep = new JLabel();    
+        Image imageDeplacer = logoDeplacer.getImage(); 
+        Image newimgDeplacer = imageDeplacer.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
+        logoDeplacer = new ImageIcon(newimgDeplacer); 
+        labelDep.setIcon(logoDeplacer);   
         
         btnDeplacer.setIcon(logoDeplacer);
         btnDeplacer.setBackground(Color.red);
@@ -49,13 +49,13 @@ public class VuePanel_ActionAventurier extends JPanel {
 
         //btnAssecher
         btnAssecher = new JButton();
-        ImageIcon logoAssecher = new ImageIcon("images/buttons/buttonAssecher.png");
-        JLabel labelAss = new JLabel();
-        Image imageAssecher = logoAssecher.getImage();
-        Image newimgAssecher = imageAssecher.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-        logoAssecher = new ImageIcon(newimgAssecher);
-        labelAss.setIcon(logoAssecher);
-
+        ImageIcon logoAssecher = new ImageIcon("images/buttons/buttonAssecher2.png");
+        JLabel labelAss = new JLabel();    
+        Image imageAssecher = logoAssecher.getImage(); 
+        Image newimgAssecher = imageAssecher.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
+        logoAssecher = new ImageIcon(newimgAssecher); 
+        labelAss.setIcon(logoAssecher);   
+        
         btnAssecher.setIcon(logoAssecher);
         btnAssecher.setBackground(Color.red);
         btnAssecher.setBorder(null);
@@ -63,36 +63,60 @@ public class VuePanel_ActionAventurier extends JPanel {
 
         //btn Action Spéciale
         btnActionSpeciale = new JButton();
-        ImageIcon logoActionSpeciale = new ImageIcon("images/buttons/buttonActionSpeciale.png");
-        JLabel labelAP = new JLabel();
-        Image imageActionSpeciale = logoActionSpeciale.getImage();
-        Image newimgActionSpeciale = imageActionSpeciale.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
-        logoActionSpeciale = new ImageIcon(newimgActionSpeciale);
-        labelAP.setIcon(logoActionSpeciale);
-
+        ImageIcon logoActionSpeciale = new ImageIcon("images/buttons/buttonActionSpeciale2.png");
+        JLabel labelAP = new JLabel();    
+        Image imageActionSpeciale = logoActionSpeciale.getImage(); 
+        Image newimgActionSpeciale = imageActionSpeciale.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
+        logoActionSpeciale = new ImageIcon(newimgActionSpeciale); 
+        labelAP.setIcon(logoActionSpeciale);   
+        
         btnActionSpeciale.setIcon(logoActionSpeciale);
         btnActionSpeciale.setBackground(Color.red);
         btnActionSpeciale.setBorder(null);
-        btnActionSpeciale.setOpaque(false);
-
-        //btn Terminer Tour
-        btnTerminerTour = new JButton("Terminer Tour");
+        btnActionSpeciale.setOpaque(false);        
+        
+        btnTerminerTour = new JButton();
+        ImageIcon logoTerminerTour = new ImageIcon("images/buttons/buttonTerminerTour2.png");
+        JLabel labelTT = new JLabel();    
+        Image imageTerminerTour = logoTerminerTour.getImage(); 
+        Image newimgTerminerTour = imageTerminerTour.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
+        logoTerminerTour = new ImageIcon(newimgTerminerTour); 
+        labelTT.setIcon(logoTerminerTour);   
+        
+        btnTerminerTour.setIcon(logoTerminerTour);
+        btnTerminerTour.setBackground(Color.red);
+        btnTerminerTour.setBorder(null);
+        btnTerminerTour.setOpaque(false); 
+        
+        
         nbActionText = new JLabel("Nombre action dispo : ");
         nbActionInt = new JLabel(Integer.toString(nbAction));
         //fin initialisation
 
         //test pour couleur :
-        this.setBackground(Color.CYAN);
+        //this.setBackground(Color.CYAN);
 
-        JPanel grilleAction = new JPanel(new GridLayout(2, 3));
+        JPanel grilleAction = new JPanel(new GridLayout(1, 1));
+        JPanel grillebtnAction = new JPanel(new GridLayout(2, 2));
+        JPanel grilleNbAction = new JPanel(new GridLayout(2, 1));
 
-        grilleAction.add(btnDeplacer);
-        grilleAction.add(btnAssecher);
-        grilleAction.add(btnActionSpeciale);
-        grilleAction.add(nbActionText);
-        grilleAction.add(nbActionInt);
-        grilleAction.add(btnTerminerTour);
+
         
+        grillebtnAction.add(btnDeplacer);
+        grillebtnAction.add(btnAssecher);
+        grillebtnAction.add(btnActionSpeciale);
+        
+        grillebtnAction.add(btnTerminerTour);
+        
+        grilleNbAction.add(nbActionText);
+
+        grilleNbAction.add(nbActionInt);
+        
+        grilleAction.add(grilleNbAction);
+        grilleAction.add(grillebtnAction);
+
+
+        // grilleAction.add(new JLabel("")); //inutile ici
         grilleAction.setOpaque(false);
         this.add(grilleAction);
 

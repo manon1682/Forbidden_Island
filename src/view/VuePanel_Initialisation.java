@@ -191,10 +191,10 @@ public class VuePanel_Initialisation extends JPanel {
 
         // **** Fin PanelHaut ****
         // **** Panel Centre ****
-        panelCentre = new JPanel(new GridLayout(18, 3));
+        panelCentre = new JPanel(new GridLayout(10, 3));
         panelCentre.setOpaque(false);
 
-        for (int i = 0; i < 54; i++) {
+        for (int i = 0; i < 30; i++) {
             panelCentre.add(new JLabel());
         }
 
@@ -239,7 +239,7 @@ public class VuePanel_Initialisation extends JPanel {
 
                     nbJ = choixNbJoueur.getSelectedIndex() + 2;
 
-                    for (int i = 0; i < 54; i++) {
+                    for (int i = 0; i < 30; i++) {
                         panelCentre.remove(0);
                     }
 
@@ -257,7 +257,7 @@ public class VuePanel_Initialisation extends JPanel {
                         panelCentre.add(new JLabel());
 
                     }
-                    for (int i = 0; i < 54 - 6 * nbJ; i++) {
+                    for (int i = 0; i < 30 - 6 * nbJ; i++) {
                         panelCentre.add(new JLabel());
 
                     }

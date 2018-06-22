@@ -65,6 +65,7 @@ public class VuePanel_Tuile extends JPanel{
                     Message m = new Message(vPlat.getType());
                     m.setTuile(((VuePanel_Tuile)me.getComponent()).getNomTuile());
                     vPlat.transmettreMessage(m); 
+                    //On génère un message contenant un tuile pour le deplacement d'un joueur
                 }
             }
 
@@ -78,6 +79,7 @@ public class VuePanel_Tuile extends JPanel{
 
             @Override
             public void mouseEntered(MouseEvent me) {
+                //On affiche un cadre autour des tuiles sur lesquels la souris passe
                 ((VuePanel_Tuile)me.getComponent()).setCadre(true);
                 ((VuePanel_Tuile)me.getComponent()).repaint();
             }
@@ -100,15 +102,15 @@ public class VuePanel_Tuile extends JPanel{
         initImage();
     }
     
-    public void initImage(){
+    public void initImage(){ //Charge les images des tuiles
         if(getNomFichierTuile(nomTuile) != null){
             tuileNormaleNoTresor = null;
             tuileInondeeNoTresor = null;
             
-            try {
+            try { //Inondée et séche
                 tuileNormale = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+".png")));
                 tuileInondee = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Innonde.png")));
-                if(possedeTresor){
+                if(possedeTresor){ //Si la tuile a un amplacement a tresor on charge les version sans tresor
                     tuileNormaleNoTresor = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_NoTresor.png")));
                     tuileInondeeNoTresor = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Innonde_NoTresor.png")));
                 }
@@ -122,6 +124,10 @@ public class VuePanel_Tuile extends JPanel{
     public void paint(Graphics g){
         int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
         setDim(new Dimension(size, size));
+        
+        //En fonction de l'etat de la tuile on affiche l'image correspondante
+       //Si la tuile possede un emplacement a tresor on affiche sa version avec ou sans le tresor 
+       //en fonction du fait que les aventurier l'est deja pris ou non
         if(etat == EtatTuile.SECHE){
             g.drawImage((!possedeTresor ? (tuileNormaleNoTresor != null ? tuileNormaleNoTresor : tuileNormale) : tuileNormale), 0, 0, dim.width, dim.height, null);
             afficherPion(g);
@@ -129,30 +135,25 @@ public class VuePanel_Tuile extends JPanel{
             g.drawImage((!possedeTresor ? (tuileInondeeNoTresor != null ? tuileInondeeNoTresor : tuileInondee) : tuileInondee), 0, 0, dim.width, dim.height, null);
             afficherPion(g);
         }
+        
+        //Filtre jaune sur les tuile possible pour le deplacement et l'assèchement
         if(isPossible()){
             g.setColor(new Color(250,250,0,100));
             g.fillRect(0, 0, dim.width, dim.height);
         }
         
+        //Cadre jaune si joueur courant est sur cette tuile
         if(isCourant()){
             g.drawImage(vPlat.getContourCourant(), 0, 0, dim.width, dim.height, null);
         }
         
+        //Cadre vert si tuile non coulée et la souris est passer dessus 
         if(isCadre() && etat != EtatTuile.COULEE){
-            /*BasicStroke nStrock = new BasicStroke(3.0f); //Augmente épaisseur du contour de la tuile
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setStroke(nStrock);
-            g2.setColor(Color.GREEN);
-            g2.drawRect(dim.width/28, dim.height/28, dim.width-dim.width/14, dim.height-dim.height/14);*/
             g.drawImage(vPlat.getContourPassage(), 0, 0, dim.width, dim.height, null);
         }
-        
-        
-        
     }
     
     public void afficherPion(Graphics g){
-        
         int cX = 0;
         int cY = 0;
         for(Pion j : joueur){
