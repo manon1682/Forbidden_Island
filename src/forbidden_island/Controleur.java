@@ -1009,6 +1009,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 break;
 
+
         }
 
         if (type == TypesMessages.DEPLACER || type == TypesMessages.SPECIALE) {
