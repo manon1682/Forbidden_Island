@@ -5,6 +5,7 @@
  */
 package view;
 
+import Aventurier.Aventurier;
 import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Enumeration.TypesMessages;
@@ -29,12 +30,12 @@ import javax.swing.SwingConstants;
  */
 public class VuePanel_CartesPiochees extends JPanel {
 
-    public VuePanel_CartesPiochees(ArrayList<CarteTresor> cartesTresors, ArrayList<CarteInnondation> cartesInnondation, IHMJeu ihm) {
+    public VuePanel_CartesPiochees(ArrayList<CarteTresor> cartesTresors, ArrayList<CarteInnondation> cartesInnondation, String joueur, IHMJeu ihm) {
         setLayout(new BorderLayout());
         setBackground(new Color(0, 0, 0, 210));
 
-        JLabel pioche = new JLabel("Votre Pioche",SwingConstants.CENTER);
-        pioche.setFont(new Font("Serif", Font.BOLD, 35));
+        JLabel pioche = new JLabel("Pioche de " + joueur,SwingConstants.CENTER);
+        pioche.setFont(new Font("Serif", Font.ITALIC, 35));
         pioche.setForeground(new Color(225, 221, 136));
         this.add(pioche, BorderLayout.NORTH);
 
@@ -42,7 +43,7 @@ public class VuePanel_CartesPiochees extends JPanel {
         JPanel affiche = new JPanel(new GridLayout(4, 1));
         affiche.setOpaque(false);
         JLabel piocheT = new JLabel("Cartes Trésor piochées : ");
-        piocheT.setFont(new Font("Serif", Font.ITALIC, 35));
+        piocheT.setFont(new Font("Serif", Font.ITALIC, 25));
         piocheT.setForeground(new Color(225, 221, 136));
         affiche.add(piocheT);
 
@@ -63,7 +64,7 @@ public class VuePanel_CartesPiochees extends JPanel {
 
         //Affichage cartes inondation
         JLabel piocheI = new JLabel("Cartes Inondation piochées : ");
-        piocheI.setFont(new Font("Serif", Font.ITALIC, 35));
+        piocheI.setFont(new Font("Serif", Font.ITALIC, 25));
         piocheI.setForeground(new Color(225, 221, 136));
         affiche.add(piocheI);
         JPanel affl4 = new JPanel(new GridLayout(1, cartesTresors.size()));
@@ -78,11 +79,22 @@ public class VuePanel_CartesPiochees extends JPanel {
 
         this.add(affiche, BorderLayout.CENTER);
 
-        
+        //Bouton Ok
         JButton ok = new JButton("OK");
-        ok.setFont(new Font("Serif", Font.ITALIC, 35));
-        this.add(ok, BorderLayout.SOUTH);
+        ok.setFont(new Font("Serif", Font.ITALIC, 20));
+        
+        JPanel panOk = new JPanel(new GridLayout(1, 5));
+        panOk.add(new JLabel());
+        panOk.add(new JLabel());
+        panOk.add(ok);
+        panOk.add(new JLabel());
+        panOk.add(new JLabel());
+        panOk.setOpaque(false);
+        
+        this.add(panOk, BorderLayout.SOUTH);
 
+        
+        //ActionListener de ok
         ok.addActionListener(
                 new ActionListener() {
             @Override

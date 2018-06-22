@@ -745,7 +745,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         vueIHMJeu.getvPlat().majTuiles(grille);
         //vueIHMJeu.getvPlat().repaint();
         //On affiche les cartes piochées
-        vueIHMJeu.afficherCartePiochees(cartesTresors,cartesInnondation);
+        vueIHMJeu.afficherCartePiochees(cartesTresors,cartesInnondation,joueurCourant.getPseudo());
 
     }
 
