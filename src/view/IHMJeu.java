@@ -220,11 +220,6 @@ public class IHMJeu extends Observe {
         return vActionAven;
     }
 
-    public void afficherTuilePossibleIngenieur(boolean[][] g) {
-        this.afficherTuilePossible(g);
-        getvActionAven().finirTour();
-    }
-
     //Getter et Setter de SauvType
     public TypesMessages getSauvType() {
         return sauvType;
