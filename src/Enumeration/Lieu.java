@@ -18,10 +18,10 @@ public enum Lieu {
     LA_PORTE_DE_BRONZE("La Porte de Bronze","LaPorteDeBronze"),
     LA_CAVERNE_DES_OMBRES("La Caverne des Ombres","LaCaverneDesOmbres"),
     LA_PORTE_DE_FER("La Porte de Fer","LaPorteDeFer"),
-    LA_PORTE_D_OR("La Porte d’Or","LaPortedOr"),
+    LA_PORTE_D_OR("La Porte d’Or","LaPorteDOr"),
     LES_FALAISES_DE_L_OUBLI("Les Falaises de l’Oubli","LesFalaisesDeLOubli"),
     LE_PALAIS_DE_CORAIL("Le Palais de Corail","LePalaisDeCorail"),
-    LA_PORTE_D_ARGENT("La Porte d’Argent","LaPorteArgent"),
+    LA_PORTE_D_ARGENT("La Porte d’Argent","LaPortedArgent"),
     LES_DUNES_DE_L_ILLUSION("Les Dunes de l’Illusion","LesDunesDeLIllusion"),
     HELIPORT("Heliport","Heliport"),
     LA_PORTE_DE_CUIVRE("La Porte de Cuivre","LaPorteDeCuivre"),
@@ -36,7 +36,7 @@ public enum Lieu {
     LE_TEMPLE_DE_LA_LUNE("Le Temple de La Lune","LeTempleDeLaLune"),
     LE_PALAIS_DES_MAREES("Le Palais des Marees","LePalaisDesMarees"),
     LE_VAL_DU_CREPUSCULE("Le Val du Crepuscule","LeValDuCrepuscule"),
-    LA_TOUR_DU_GUET("La Tour du Guet","LaTourDuGuet"),
+    LA_TOUR_DU_GUET("La Tour du Guet","LaTourDeGuet"),
     LE_JARDIN_DES_MURMURES("Le Jardin des Murmures","LeJardinDesMurmures");
             
     private String label;
