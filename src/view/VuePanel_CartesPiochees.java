@@ -47,8 +47,10 @@ public class VuePanel_CartesPiochees extends JPanel {
         piocheT.setForeground(new Color(225, 221, 136));
         affiche.add(piocheT);
 
-        JPanel affl2 = new JPanel(new GridLayout(1, 2));
+        JPanel affl2 = new JPanel(new GridLayout(1, 6));
         affl2.setOpaque(false);
+        affl2.add(new JLabel());
+        affl2.add(new JLabel());
         for (CarteTresor carte : cartesTresors) {
             ImageIcon imgCarte = new ImageIcon(carte.utilisation().getImage());
             Image imageCT = imgCarte.getImage();
@@ -60,6 +62,9 @@ public class VuePanel_CartesPiochees extends JPanel {
             aff.setFont(new Font("Arial", Font.PLAIN, 20));
             affl2.add(aff);
         }
+        affl2.add(new JLabel());
+        affl2.add(new JLabel());
+        
         affiche.add(affl2);
 
         //Affichage cartes inondation
