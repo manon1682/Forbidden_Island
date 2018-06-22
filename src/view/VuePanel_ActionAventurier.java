@@ -5,12 +5,8 @@
  */
 package view;
 
-import Aventurier.Aventurier;
-import Aventurier.Ingénieur;
-import Aventurier.Pilote;
 import Enumeration.TypesMessages;
 import forbidden_island.Message;
-import forbidden_island.Observe;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -36,7 +32,7 @@ public class VuePanel_ActionAventurier extends JPanel {
 
         //initialisation
         ihm = ihmJ;
-        
+
         //btnDeplacer
         btnDeplacer = new JButton();
         ImageIcon logoDeplacer = new ImageIcon("images/buttons/buttonDeplacer2.png");
@@ -50,7 +46,7 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnDeplacer.setBackground(Color.red);
         btnDeplacer.setBorder(null);
         btnDeplacer.setOpaque(false);
-               
+
         //btnAssecher
         btnAssecher = new JButton();
         ImageIcon logoAssecher = new ImageIcon("images/buttons/buttonAssecher2.png");
@@ -64,7 +60,7 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnAssecher.setBackground(Color.red);
         btnAssecher.setBorder(null);
         btnAssecher.setOpaque(false);
-        
+
         //btn Action Spé
         btnActionSpeciale = new JButton();
         ImageIcon logoActionSpeciale = new ImageIcon("images/buttons/buttonActionSpeciale2.png");
@@ -80,7 +76,7 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnActionSpeciale.setOpaque(false);        
         
         btnTerminerTour = new JButton();
-        ImageIcon logoTerminerTour = new ImageIcon("images/buttons/buttonActionSpeciale2.png");
+        ImageIcon logoTerminerTour = new ImageIcon("images/buttons/buttonTerminerTour2.png");
         JLabel labelTT = new JLabel();    
         Image imageTerminerTour = logoTerminerTour.getImage(); 
         Image newimgTerminerTour = imageTerminerTour.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
@@ -121,8 +117,6 @@ public class VuePanel_ActionAventurier extends JPanel {
 
 
         // grilleAction.add(new JLabel("")); //inutile ici
-
-        
         grilleAction.setOpaque(false);
         this.add(grilleAction);
 
@@ -133,7 +127,7 @@ public class VuePanel_ActionAventurier extends JPanel {
                 ihm.setSauvType(TypesMessages.DEPLACER);
                 Message m = new Message(TypesMessages.DEPLACER);
                 ihm.notifierObservateur(m);
-                
+
                 btnDeplacer.setEnabled(false);
             }
 
@@ -146,7 +140,7 @@ public class VuePanel_ActionAventurier extends JPanel {
                 ihm.setSauvType(TypesMessages.ASSECHER);
                 Message m = new Message(TypesMessages.ASSECHER);
                 ihm.notifierObservateur(m);
-                
+
                 btnAssecher.setEnabled(false);
             }
 
@@ -159,7 +153,7 @@ public class VuePanel_ActionAventurier extends JPanel {
                 Message m = new Message(TypesMessages.SPECIALE);
                 ihm.setSauvType(TypesMessages.SPECIALE);
                 ihm.notifierObservateur(m);
-                
+
                 btnActionSpeciale.setEnabled(false);
             }
 
@@ -168,7 +162,7 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnTerminerTour.addActionListener(
                 new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {              
+            public void actionPerformed(ActionEvent e) {
                 Message m = new Message(TypesMessages.TERMINER_TOUR);
                 ihm.notifierObservateur(m);
             }
@@ -190,8 +184,8 @@ public class VuePanel_ActionAventurier extends JPanel {
     public JButton getBtnTerminerTour() {
         return btnTerminerTour;
     }
-    
-    public void finirTour(){
+
+    public void finirTour() {
         //Activation ou non du bouton "Déplacer"
         getBtnDeplacer().setEnabled(false);
 
@@ -201,9 +195,9 @@ public class VuePanel_ActionAventurier extends JPanel {
         //Activation ou non du bouton "Action spéciale"
         getBtnActionSpeciale().setEnabled(false);
     }
-    
-    public void misAJourNbAction(int nbAction){
+
+    public void misAJourNbAction(int nbAction) {
         nbActionInt.setText(Integer.toString(nbAction));
     }
-    
+
 }

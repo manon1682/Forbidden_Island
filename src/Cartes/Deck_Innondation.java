@@ -1,8 +1,6 @@
 package Cartes;
 
 import Enumeration.Lieu;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Stack;
 
 public class Deck_Innondation extends Deck {
@@ -14,8 +12,8 @@ public class Deck_Innondation extends Deck {
 
     private void setPioche() {
         Lieu lieu = Lieu.LE_PONT_DES_ABIMES;
-        while(lieu != null){
-            CarteInnondation carte = new CarteInnondation(lieu); 
+        while (lieu != null) {
+            CarteInnondation carte = new CarteInnondation(lieu);
             getPioche().push(carte);
             lieu = lieu.getNext();
         }
