@@ -681,7 +681,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //vueIHMJeu.desactivationCarte();
     }
 
-    public void tirageCarteInnondation() {
+    public ArrayList<CarteInnondation> tirageCarteInnondation() {
         ArrayList<CarteInnondation> cartes = new ArrayList<>();
 
         //Pioche autant de carte que la jauge l'indique
@@ -713,6 +713,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         deck_I.getDefausse().addAll(cartes);
 
         //return cartes;
+        return cartes;
     }
 
     public void tirageCarte() {
@@ -743,10 +744,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             }
         }
         
-        tirageCarteInnondation();
         //TIRAGE DES CARTES INONDATIONS
         //Tire les carte inondations
-        //ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
+        ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
         //Ajoute ces cartes à la défausse
         //deck_I.getDefausse().addAll(cartesInnondation);
         //Pour repeindre la plateau avec les nouvelles cartes inondées
