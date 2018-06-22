@@ -48,6 +48,8 @@ public class VuePanel_Tuile extends JPanel{
     private BufferedImage tuileNormaleNoTresor;
     private BufferedImage tuileInondeeNoTresor;
     
+    private BufferedImage imgCoulee;
+    
     
     public VuePanel_Tuile(String nom, EtatTuile etat, Dimension dim,VuePanel_Plateau plat){
         joueur = new ArrayList<>();
@@ -107,9 +109,10 @@ public class VuePanel_Tuile extends JPanel{
             tuileNormaleNoTresor = null;
             tuileInondeeNoTresor = null;
             
-            try { //Inondée et séche
-                tuileNormale = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+".png")));
-                tuileInondee = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Innonde.png")));
+            try { //Inondée ,séche et coulée
+                imgCoulee = ImageIO.read(new FileInputStream("images/Tile_Flood_Water@2x.png"));
+                tuileNormale = ImageIO.read(new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+".png"));
+                tuileInondee = ImageIO.read(new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Innonde.png"));
                 if(possedeTresor){ //Si la tuile a un amplacement a tresor on charge les version sans tresor
                     tuileNormaleNoTresor = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_NoTresor.png")));
                     tuileInondeeNoTresor = ImageIO.read((new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Innonde_NoTresor.png")));
@@ -134,6 +137,8 @@ public class VuePanel_Tuile extends JPanel{
         } else if(etat == EtatTuile.INONDEE) {
             g.drawImage((!possedeTresor ? (tuileInondeeNoTresor != null ? tuileInondeeNoTresor : tuileInondee) : tuileInondee), 0, 0, dim.width, dim.height, null);
             afficherPion(g);
+        } else {
+            g.drawImage(imgCoulee, 0, 0, dim.width, dim.height, null);
         }
         
         //Filtre jaune sur les tuile possible pour le deplacement et l'assèchement
