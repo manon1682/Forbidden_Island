@@ -150,9 +150,8 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnTerminerTour.addActionListener(
                 new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                ihm.setSauvType(TypesMessages.TOUR_SUIVANT);
-                Message m = new Message(TypesMessages.TOUR_SUIVANT);
+            public void actionPerformed(ActionEvent e) {              
+                Message m = new Message(TypesMessages.TERMINER_TOUR);
                 ihm.notifierObservateur(m);
             }
         });

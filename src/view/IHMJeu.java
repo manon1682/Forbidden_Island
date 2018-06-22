@@ -6,6 +6,8 @@
 package view;
 
 import Aventurier.Aventurier;
+import Cartes.CarteInnondation;
+import Cartes.CarteTresor;
 import Enumeration.Defaite;
 import Enumeration.TypesMessages;
 import forbidden_island.Grille;
@@ -44,7 +46,7 @@ public class IHMJeu extends Observe {
     private VuePanel_Victoire vVictoire;
     private VuePanel_Defaite vDefaite;
     private VuePanel_MessageBox vMessage;
-    //private VuePanel_Superposition vSup;
+    private VuePanel_CartesPiochees vPioche;
 
     //Variables
     private ArrayList<Aventurier> joueurs;
@@ -118,14 +120,29 @@ public class IHMJeu extends Observe {
     public void afficher(Grille g, Aventurier a, int jauge, int nbAction) {
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1400, 800);
-
+        window.setResizable(true);
         //On enlève les panels liés à au joueur prédécent
         //panelCentre1.remove(vNiveau);
+        mainPanel.removeAll();
+
+        
         panelCentre1.remove(sousPanel1);
         sousPanel1.remove(vEtatPartie);
         sousPanel1.remove(vMessage);
         panelSud2.remove(vMainAven);
         panelSud2.remove(vActionAven);
+
+
+        
+        sousPanel1 = new JPanel(new BorderLayout());
+        vEtatPartie = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
+        
+        
+        sousPanel1.add(vEtatPartie, BorderLayout.CENTER);
+        sousPanel1.add(vMessage, BorderLayout.SOUTH);
+        panelCentre1.add(sousPanel1, BorderLayout.EAST);
+        
+        
         
         //Mis à jour des variables
         setGrille(g);
@@ -149,8 +166,12 @@ public class IHMJeu extends Observe {
         panelSud2.add(vActionAven, BorderLayout.CENTER);
         
         
+        mainPanel.add(panelCentre1, BorderLayout.CENTER);
+        mainPanel.add(panelSud2, BorderLayout.SOUTH);
         
+        mainPanel.updateUI();
         window.setVisible(true);
+        
 
     }
 
@@ -266,6 +287,20 @@ public class IHMJeu extends Observe {
 
         window.setVisible(true);
 
+    }
+
+
+    
+    //Appel de la vue d'affichage des carte piochées
+    public void afficherCartePiochees(ArrayList<CarteTresor> cartesTresors, ArrayList<CarteInnondation> cartesInnondation) {
+            
+        window.setResizable(false);
+        mainPanel.removeAll();
+        vPioche = new VuePanel_CartesPiochees(cartesTresors, cartesInnondation, this);
+        mainPanel.add(vPioche);
+
+       window.setVisible(true);
+   
     }
 
 }

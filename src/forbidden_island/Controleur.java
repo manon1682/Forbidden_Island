@@ -721,8 +721,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         //On ajoute les cartes à la main du joueur
         joueurCourant.getMainA().addAll(cartesTresors);
-        //On affiche les cartes piochées
-//        vueA.afficherCartePioche(cartesTresors);
 
         //PREND EN COMPTE LA MONTEE DES EAUX
         //On regarde le nombre de carte montée des eaux que le joueur a pioché
@@ -747,7 +745,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         vueIHMJeu.getvPlat().majTuiles(grille);
         //vueIHMJeu.getvPlat().repaint();
         //On affiche les cartes piochées
-//        vueA.afficherCartePioche(cartesInnondation);
+        vueIHMJeu.afficherCartePiochees(cartesTresors,cartesInnondation);
 
     }
 
@@ -1045,7 +1043,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 break;
 
-            case TOUR_SUIVANT:
+            case TERMINER_TOUR:
+
                 //Si le joueur était un pilote, on met à jour sa capacité spéciale
                 if (joueurCourant.estRole("Pilote")) {
                     ((Pilote) joueurCourant).setCapaciteUtilisee(false);
@@ -1060,11 +1059,34 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //demande à l'IHM d'afficher la victoire
                     vueIHMJeu.victoire();
                 } else {
-                    joueurCourant = joueurSuivant();
-                    //On initialise le nombre d'actions selon si c'est un navigateur ou non
-                    nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
 
-                    //On affiche l'IHM qui sera mise à jour
+                    // On tire les cartes
+                    tirageCarte();
+                }
+                break;
+
+
+
+            case TOUR_SUIVANT:
+
+                joueurCourant = joueurSuivant();
+                sauvegarde = joueurCourant;
+                //On initialise le nombre d'actions selon si c'est un navigateur ou non
+                nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
+
+                //On affiche l'IHM qui sera mise à jour
+                vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+
+                //Pour le défaussent des cartes
+                if (joueurCourant.getMainA().size() > 5) {
+                    //On affiche un message
+                    vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
+                    defausse();
+                } else {
+                    defaussementEnCours = false;
+                    //On affiche les actions possibles
+                    actionPossible();
+                    //On affiche l'IHM qui sera mise à jour selon les actions
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                     //On affiche les actions possibles
                     //actionPossible();
