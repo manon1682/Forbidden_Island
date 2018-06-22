@@ -996,24 +996,22 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 tirageCarte();
 
-                // Ici on vérifie que la partie n'est ni perdu ni gagner pour continue
-                perdrePartie();
-
-                if (gagnerPartie()) {
-                    //demande à l'IHM d'afficher la victoire
-                    vueIHMJeu.victoire();
-                }
-
                 break;
 
             case TOUR_SUIVANT:
+                // Ici on vérifie que la partie n'est ni perdu ni gagner pour continue
+                if (gagnerPartie()) {
+                    //demande à l'IHM d'afficher la victoire
+                    vueIHMJeu.victoire();
+                } else if(!perdrePartie()){
+                    joueurCourant = joueurSuivant();
+                    //On initialise le nombre d'actions selon si c'est un navigateur ou non
+                    nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
 
-                joueurCourant = joueurSuivant();
-                //On initialise le nombre d'actions selon si c'est un navigateur ou non
-                nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
+                    //On affiche l'IHM qui sera mise à jour
+                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
 
-                //On affiche l'IHM qui sera mise à jour
-                vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+                }
 
                 break;
 
