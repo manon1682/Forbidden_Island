@@ -97,7 +97,7 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnTerminerTour.setOpaque(false);
 
         nbActionText = new JLabel();
-        ImageIcon logoNbActionText = new ImageIcon("images/buttons/nbaction.png");
+        ImageIcon logoNbActionText = new ImageIcon("images/buttons/nombreActionDispo.png");
         Image imageNbActionText = logoNbActionText.getImage();
         Image newimgNbActionText = imageNbActionText.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
         logoNbActionText = new ImageIcon(newimgNbActionText);
