@@ -258,7 +258,7 @@ public class IHMJeu extends Observe {
     public void defaite(Defaite d) {
         window.setResizable(false);
         mainPanel.removeAll();
-        vDefaite = new VuePanel_Defaite(d);
+        vDefaite = new VuePanel_Defaite(d, this);
         mainPanel.add(vDefaite);
 
         window.setVisible(true);

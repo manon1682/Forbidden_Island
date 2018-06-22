@@ -647,9 +647,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         //Pioche autant de carte que la jauge l'indique
         for (int i = 0; i < niveauInnondation(); i++) {
-            
+
             CarteInnondation carte = (CarteInnondation) deck_I.pioche();
-            
+
             while (!(inondee(carte.getLieu().toString()))) {
                 carte = (CarteInnondation) deck_I.pioche();
             }
@@ -1003,7 +1003,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 if (gagnerPartie()) {
                     //demande à l'IHM d'afficher la victoire
                     vueIHMJeu.victoire();
-                } else if(!perdrePartie()){
+                } else if (!perdrePartie()) {
                     joueurCourant = joueurSuivant();
                     //On initialise le nombre d'actions selon si c'est un navigateur ou non
                     nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
@@ -1015,9 +1015,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 break;
 
+
         }
-        
-        if(type == TypesMessages.DEPLACER ||  type == TypesMessages.SPECIALE){
+
+        if (type == TypesMessages.DEPLACER || type == TypesMessages.SPECIALE) {
             vueIHMJeu.getvPlat().majCourant(joueurCourant);
         }
 

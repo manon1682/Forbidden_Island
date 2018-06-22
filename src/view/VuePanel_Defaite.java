@@ -6,10 +6,15 @@
 package view;
 
 import Enumeration.Defaite;
+import Enumeration.TypesMessages;
+import forbidden_island.Message;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -22,7 +27,7 @@ public class VuePanel_Defaite extends JPanel {
 
     private JLabel motif;
 
-    public VuePanel_Defaite(Defaite d) {
+    public VuePanel_Defaite(Defaite d, IHMJeu ihm) {
         setLayout(new BorderLayout());
         setBackground(new Color(0, 0, 0, 210));
 
@@ -66,7 +71,7 @@ public class VuePanel_Defaite extends JPanel {
                     break;
             }
         }
-
+        
         this.add(motif, BorderLayout.SOUTH);
 
         setVisible(true);
