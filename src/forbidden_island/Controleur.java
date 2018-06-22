@@ -619,7 +619,12 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
     public void actionPossible() {
 
+        defaussementEnCours = joueurCourant.getMainA().size() > 5;
+
         if (defaussementEnCours) {
+            //On affiche un message
+            vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
+
             //On récupère la vue des action de la vue de l'IHM Jeu
             VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
 
@@ -637,8 +642,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             //Desativation du bouton "Prendre trésor"
             vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(false);
-            defaussementEnCours = true;
         } else {
+            //On affiche un message
+            vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
             //On récupère la vue des action de la vue de l'IHM Jeu
             VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
 
@@ -738,7 +744,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //Pour repeindre la plateau avec les nouvelles cartes inondées
         vueIHMJeu.setGrille(grille);
         vueIHMJeu.getvPlat().majTuiles(grille);
-        vueIHMJeu.getvPlat().repaint();
+        //vueIHMJeu.getvPlat().repaint();
         //On affiche les cartes piochées
         vueIHMJeu.afficherCartePiochees(cartesTresors,cartesInnondation);
 
@@ -921,6 +927,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     vueIHMJeu.afficherTuilePossible(g);
 
                 } else {
+                    //On affiche un message
+                    vueIHMJeu.getVText().ajoutMessage("Déplacement fait");
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
 
@@ -958,6 +966,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     vueIHMJeu.afficherTuilePossible(g);
 
                 } else {
+                    //On affiche un message
+                    vueIHMJeu.getVText().ajoutMessage("Assèchement fait");
                     String nom = m.getTuile();
                     Tuile tuile = grille.getTuileAvecNom(nom);
 
@@ -1001,8 +1011,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On affiche l'IHM qui sera mise à jour
                 vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
 
-                defaussementEnCours = (joueurCourant.getMainA().size() > 5);
-
                 actionPossible();
 
                 break;
@@ -1037,22 +1045,22 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     ((Pilote) joueurCourant).setCapaciteUtilisee(false);
                 }
 
-                // Ici on vérifie que la partie n'est ni perdu ni gagner pour continuer
                 tirageCarte();
-                if (perdrePartie()) {
 
-                    System.out.println("perdu");
+                // Ici on vérifie que la partie n'est ni perdu ni gagner pour continue
+                perdrePartie();
 
-                } else if (gagnerPartie()) {
-                    System.out.println("gagnée");
+                if (gagnerPartie()) {
                     //demande à l'IHM d'afficher la victoire
                     vueIHMJeu.victoire();
-
                 } else {
+
                     // On tire les cartes
                     tirageCarte();
                 }
                 break;
+
+
 
             case TOUR_SUIVANT:
 
@@ -1075,24 +1083,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     actionPossible();
                     //On affiche l'IHM qui sera mise à jour selon les actions
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
-
-                    System.out.println("Nb carte : " + joueurCourant.getMainA().size());
-
-                    defaussementEnCours = (joueurCourant.getMainA().size() > 5);
-                    //Pour le défaussent des cartes
-                    if (defaussementEnCours) {
-                        //On affiche un message
-                        vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
-                    } else {
-                        //On affiche un message
-                        vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
-                    }
-                    //On affiche l'IHM qui sera mise à jour
-                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                     //On affiche les actions possibles
                     actionPossible();
                 }
-
+                
                 break;
 
         }

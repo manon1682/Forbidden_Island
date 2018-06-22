@@ -127,6 +127,8 @@ public class IHMJeu extends Observe {
 
         
         panelCentre1.remove(sousPanel1);
+        sousPanel1.remove(vEtatPartie);
+        sousPanel1.remove(vMessage);
         panelSud2.remove(vMainAven);
         panelSud2.remove(vActionAven);
 
@@ -146,21 +148,20 @@ public class IHMJeu extends Observe {
         setGrille(g);
         setAventurier(a);
         jaugeInnondation = jauge;
+        
         //Mis à jour des vues
-        //vNiveau = new VuePanel_Niveau(jaugeInnondation);
         //vNiveau.setJauge(jaugeInnondation);
-        
-        
+        vEtatPartie = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
         vMainAven = new VuePanel_Main(joueurCourant, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
         vPlat.majTuiles(grille);
         vPlat.majTuiles(joueurs);
-
-        //Fin de l'initialisation
-        //On replace les nouveaux panels créés
-        //panelCentre1.add(vNiveau, BorderLayout.WEST);
         
-        //panelCentre1.add(vAven, BorderLayout.EAST);
+        //On replace les nouveaux panels créés
+       // panelCentre1.add(vNiveau, BorderLayout.WEST);
+        panelCentre1.add(sousPanel1, BorderLayout.EAST);
+        sousPanel1.add(vEtatPartie, BorderLayout.CENTER);
+        sousPanel1.add(vMessage, BorderLayout.SOUTH);
         panelSud2.add(vMainAven, BorderLayout.WEST);
         panelSud2.add(vActionAven, BorderLayout.CENTER);
         
