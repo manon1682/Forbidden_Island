@@ -39,10 +39,10 @@ public class VuePanel_ActionAventurier extends JPanel {
         
         //btnDeplacer
         btnDeplacer = new JButton();
-        ImageIcon logoDeplacer = new ImageIcon("images/buttons/buttonDeplacer.png");
+        ImageIcon logoDeplacer = new ImageIcon("images/buttons/buttonDeplacer2.png");
         JLabel labelDep = new JLabel();    
         Image imageDeplacer = logoDeplacer.getImage(); 
-        Image newimgDeplacer = imageDeplacer.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        Image newimgDeplacer = imageDeplacer.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
         logoDeplacer = new ImageIcon(newimgDeplacer); 
         labelDep.setIcon(logoDeplacer);   
         
@@ -53,10 +53,10 @@ public class VuePanel_ActionAventurier extends JPanel {
                
         //btnAssecher
         btnAssecher = new JButton();
-        ImageIcon logoAssecher = new ImageIcon("images/buttons/buttonAssecher.png");
+        ImageIcon logoAssecher = new ImageIcon("images/buttons/buttonAssecher2.png");
         JLabel labelAss = new JLabel();    
         Image imageAssecher = logoAssecher.getImage(); 
-        Image newimgAssecher = imageAssecher.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        Image newimgAssecher = imageAssecher.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
         logoAssecher = new ImageIcon(newimgAssecher); 
         labelAss.setIcon(logoAssecher);   
         
@@ -67,10 +67,10 @@ public class VuePanel_ActionAventurier extends JPanel {
         
         //btn Action Spé
         btnActionSpeciale = new JButton();
-        ImageIcon logoActionSpeciale = new ImageIcon("images/buttons/buttonActionSpeciale.png");
+        ImageIcon logoActionSpeciale = new ImageIcon("images/buttons/buttonActionSpeciale2.png");
         JLabel labelAP = new JLabel();    
         Image imageActionSpeciale = logoActionSpeciale.getImage(); 
-        Image newimgActionSpeciale = imageActionSpeciale.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        Image newimgActionSpeciale = imageActionSpeciale.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
         logoActionSpeciale = new ImageIcon(newimgActionSpeciale); 
         labelAP.setIcon(logoActionSpeciale);   
         
@@ -79,28 +79,46 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnActionSpeciale.setBorder(null);
         btnActionSpeciale.setOpaque(false);        
         
-        btnTerminerTour = new JButton("Terminer Tour");
+        btnTerminerTour = new JButton();
+        ImageIcon logoTerminerTour = new ImageIcon("images/buttons/buttonActionSpeciale2.png");
+        JLabel labelTT = new JLabel();    
+        Image imageTerminerTour = logoTerminerTour.getImage(); 
+        Image newimgTerminerTour = imageTerminerTour.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH);
+        logoTerminerTour = new ImageIcon(newimgTerminerTour); 
+        labelTT.setIcon(logoTerminerTour);   
+        
+        btnTerminerTour.setIcon(logoTerminerTour);
+        btnTerminerTour.setBackground(Color.red);
+        btnTerminerTour.setBorder(null);
+        btnTerminerTour.setOpaque(false); 
+        
+        
         nbActionText = new JLabel("Nombre action dispo : ");
         nbActionInt = new JLabel(Integer.toString(nbAction));
         //fin initialisation
 
         //test pour couleur :
-        this.setBackground(Color.CYAN);
+        //this.setBackground(Color.CYAN);
 
-        JPanel grilleAction = new JPanel(new GridLayout(2, 3));
+        JPanel grilleAction = new JPanel(new GridLayout(1, 1));
+        JPanel grillebtnAction = new JPanel(new GridLayout(2, 2));
+        JPanel grilleNbAction = new JPanel(new GridLayout(2, 1));
 
 
-        grilleAction.add(btnDeplacer);
+        
+        grillebtnAction.add(btnDeplacer);
+        grillebtnAction.add(btnAssecher);
+        grillebtnAction.add(btnActionSpeciale);
+        
+        grillebtnAction.add(btnTerminerTour);
+        
+        grilleNbAction.add(nbActionText);
 
-        grilleAction.add(btnAssecher);
+        grilleNbAction.add(nbActionInt);
+        
+        grilleAction.add(grilleNbAction);
+        grilleAction.add(grillebtnAction);
 
-        grilleAction.add(btnActionSpeciale);
-
-        grilleAction.add(nbActionText);
-
-        grilleAction.add(nbActionInt);
-
-        grilleAction.add(btnTerminerTour);
 
         // grilleAction.add(new JLabel("")); //inutile ici
 
