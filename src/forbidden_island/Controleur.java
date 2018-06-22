@@ -329,10 +329,12 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         }
 
         //2. si la liste des tresorsObtenus des aventurier est complète
-        boolean listeTresorComplete = false;
-        if (Aventurier.getTresorsObtenus().size() == 3) {
+        /*boolean listeTresorComplete = false;
+        if (Aventurier.getTresorsObtenus().size() == 4) {
             listeTresorComplete = true;
-        }
+        }*/
+        //2. si la liste des tresorsObtenus des aventurier est complète
+        boolean listeTresorComplete = Aventurier.getTresorsObtenus().size() == 4;
 
         //3. si y'a un role hélico, alors c'est good, sinon check si il y a une carte hélico
         boolean pilotePresent = false;
@@ -745,7 +747,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         vueIHMJeu.getvPlat().majTuiles(grille);
         //vueIHMJeu.getvPlat().repaint();
         //On affiche les cartes piochées
-        vueIHMJeu.afficherCartePiochees(cartesTresors,cartesInnondation);
+        vueIHMJeu.afficherCartePiochees(cartesTresors, cartesInnondation);
 
     }
 
@@ -760,10 +762,20 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         if (type != TypesMessages.NOUVELLE_PARTIE
                 && type != TypesMessages.CARTE_CLICK) {
+            if (type != TypesMessages.DONNER_CARTE) {
+                //On désaffiche les récepteur précédemment encadrés
+                vueIHMJeu.getvAven().desactiverDonCarte();
+            }
             //On désaffiche les cartes précédemment encadrées
             vueIHMJeu.getvPlat().desaficherPossible();
         }
 
+        /*if (type != TypesMessages.NOUVELLE_PARTIE
+                && type != TypesMessages.DONNER_CARTE
+                && type != TypesMessages.CARTE_CLICK){
+            //On désaffiche les récepteur précédemment encadrés
+            vueIHMJeu.getvAven().desactiverDonCarte();
+        }*/
         switch (type) {
 
             case DEPLACER:
@@ -785,7 +797,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.deplacer(l, c);
                     vueIHMJeu.getvPlat().majTuiles(joueurs);
                 }
-               // actionPossible();
+                // actionPossible();
 
                 break;
 
@@ -808,7 +820,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //actionPossible();
                     vueIHMJeu.getvPlat().majTuiles(grille);
                 }
-               // actionPossible();
+                // actionPossible();
                 break;
 
             case SPECIALE:
@@ -834,7 +846,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         ((Pilote) joueurCourant).setCapaciteUtilisee(true);
                         vueIHMJeu.getvPlat().majTuiles(joueurs);
                     }
-                  //  actionPossible();
+                    //  actionPossible();
                 } else //Sinon il s'agit de l'ingénieur
                 // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Action spéciale"
                 if (m.getTuile() == null) {
@@ -845,7 +857,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     g = joueurCourant.assechementPossible(getGrille());
                     // On affiche l'IHM avec les tuiles possibles
                     vueIHMJeu.afficherTuilePossible(g);
-                  //  actionPossible();
+                    //  actionPossible();
                 } else {
                     //On affiche un message
                     vueIHMJeu.getVText().ajoutMessage("Assèchement fait");
@@ -864,8 +876,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         //On incrémente son nombre d'action pour qu'une fois décrémenté cela n'ai pas d'incidence
                         nbAction = nbAction + 1;
                         ingenieur.setCapaciteUtilisee(2);
-                        //On force a choisir une autre tuile
-
                         //On désaffiche les anciennes tuiles et réaffiche les nouvelles
                         vueIHMJeu.getvPlat().desaficherPossible();
                         vueIHMJeu.afficherTuilePossibleIngenieur(g);
@@ -873,7 +883,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         //Si sa capacité utilisée = 2, le joueur en est à son 2ème asséchement
                         //On met à jour sa capacité spéciale
                         ingenieur.setCapaciteUtilisee(0);
-                       // actionPossible();
+                        // actionPossible();
                         vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                     }
                     joueurCourant = ingenieur;
@@ -896,7 +906,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                 }
 
-               // actionPossible();
+                // actionPossible();
                 break;
 
             case PRENDRE_TRESOR:
@@ -942,7 +952,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 }
 
                 ///actionPossible();
-
                 break;
 
             case UTILISER_CARTE_SAC_SABLE:
@@ -979,16 +988,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 }
 
                 //actionPossible();
-
                 break;
 
             case CARTE_CLICK:
                 //Afficher le bouton "Utiliser carte" et "Donner carte" et "Défausser" avec la méthode qui renvoie un boolean
                 VuePanel_Carte carte = m.getVueCarte();
-                
+
                 //Dans tous les cas on regarde si on peut l'utiliser
                 //carte.getUtiliser().setVisible(utiliserCartePossible(carte.getCarte()));
-                
                 if (nbAction != 0) {
                     if (defaussementEnCours) {
                         // affiche le bouton Défausser
@@ -996,10 +1003,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     } else {
                         //afficher le bouton Donner
                         carte.getDonner().setVisible(donnerCartePossible());
-                       // actionPossible();
+                        // actionPossible();
                     }
                     //Dans tous les cas on regarde si on peut l'utiliser
-                   // carte.getUtiliser().setVisible(utiliserCartePossible(carte.getCarte()));
+                    // carte.getUtiliser().setVisible(utiliserCartePossible(carte.getCarte()));
                 }
 
                 //Dans tous les cas on regarde si on peut l'utiliser
@@ -1017,7 +1024,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
 
                 //actionPossible();
-
                 break;
 
             case NOUVELLE_PARTIE:
@@ -1058,14 +1064,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 if (gagnerPartie()) {
                     //demande à l'IHM d'afficher la victoire
                     vueIHMJeu.victoire();
-                } else {
-
-                    // On tire les cartes
-                    tirageCarte();
                 }
+
                 break;
-
-
 
             case TOUR_SUIVANT:
 
@@ -1100,7 +1101,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //Si le joueur n'a plus d'action on fini son tour
         if (nbAction == 0) {
             finirTour();
-        } else if (!(joueurCourant.estRole("Ingénieur") && ((Ingénieur)joueurCourant).getCapaciteUtilisee() == 2)) {
+        } else if (!(joueurCourant.estRole("Ingénieur") && ((Ingénieur) joueurCourant).getCapaciteUtilisee() == 2)) {
             actionPossible();
         }
 
