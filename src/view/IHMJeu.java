@@ -292,11 +292,11 @@ public class IHMJeu extends Observe {
 
     
     //Appel de la vue d'affichage des carte piochées
-    public void afficherCartePiochees(ArrayList<CarteTresor> cartesTresors, ArrayList<CarteInnondation> cartesInnondation) {
+    public void afficherCartePiochees(ArrayList<CarteTresor> cartesTresors, ArrayList<CarteInnondation> cartesInnondation, String joueur) {
             
         window.setResizable(false);
         mainPanel.removeAll();
-        vPioche = new VuePanel_CartesPiochees(cartesTresors, cartesInnondation, this);
+        vPioche = new VuePanel_CartesPiochees(cartesTresors, cartesInnondation, joueur, this);
         mainPanel.add(vPioche);
 
        window.setVisible(true);

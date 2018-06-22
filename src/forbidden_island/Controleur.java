@@ -747,7 +747,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         vueIHMJeu.getvPlat().majTuiles(grille);
         //vueIHMJeu.getvPlat().repaint();
         //On affiche les cartes piochées
-        vueIHMJeu.afficherCartePiochees(cartesTresors, cartesInnondation);
+        vueIHMJeu.afficherCartePiochees(cartesTresors,cartesInnondation,joueurCourant.getPseudo());
 
     }
 
@@ -1071,7 +1071,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             case TOUR_SUIVANT:
 
                 joueurCourant = joueurSuivant();
-                sauvegarde = joueurCourant;
                 //On initialise le nombre d'actions selon si c'est un navigateur ou non
                 nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
 
