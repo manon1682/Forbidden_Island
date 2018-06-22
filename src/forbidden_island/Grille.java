@@ -20,7 +20,8 @@ public class Grille {
                 sinon c < 6 && l < 6
         */
         int c = 0;
-        int l = 0;   
+        int l = 0;
+        System.out.println("Debut while");
         while ((tuiles[l][c] != null ? (c < 6 && l < 6 && !tuiles[l][c].getNom().equalsIgnoreCase(nomTuile)) : (c < 6 && l < 6))) {
             if (c == 5) {
                 l++;
@@ -28,7 +29,9 @@ public class Grille {
             } else {
                 c++;
             }
+            System.out.println("L : " + l + " C :" + c);
         }
+        System.out.println("While finis");
         return tuiles[l][c];
 
     }

@@ -75,7 +75,7 @@ public class VuePanel_CartesPiochees extends JPanel {
         JPanel affl4 = new JPanel(new GridLayout(1, cartesTresors.size()));
         affl4.setOpaque(false);
         for (CarteInnondation carte : cartesInnondation) {
-            JLabel aff = new JLabel(carte.getLieu());
+            JLabel aff = new JLabel(carte.getLieu().toString());
             aff.setForeground(Color.white);
             aff.setFont(new Font("Arial", Font.PLAIN, 20));
             affl4.add(aff);
