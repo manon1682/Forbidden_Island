@@ -674,7 +674,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(false);
 
         //Désactiver aussi les boutons des cartes donner mais pas utiliser
-        vueIHMJeu.desactivationCarte();
+        //vueIHMJeu.desactivationCarte();
     }
 
     public ArrayList<CarteInnondation> tirageCarteInnondation() {
@@ -717,7 +717,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             deck_T.melangerDefausse();
             deck_T.getPioche().addAll(deck_T.getDefausse());
         }
-
         cartesTresors = deck_T.piocher();
 
         //On ajoute les cartes à la main du joueur
@@ -788,7 +787,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     joueurCourant.deplacer(l, c);
                     vueIHMJeu.getvPlat().majTuiles(joueurs);
                 }
-                actionPossible();
+               // actionPossible();
 
                 break;
 
@@ -811,7 +810,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //actionPossible();
                     vueIHMJeu.getvPlat().majTuiles(grille);
                 }
-                actionPossible();
+               // actionPossible();
                 break;
 
             case SPECIALE:
@@ -837,7 +836,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         ((Pilote) joueurCourant).setCapaciteUtilisee(true);
                         vueIHMJeu.getvPlat().majTuiles(joueurs);
                     }
-                    actionPossible();
+                  //  actionPossible();
                 } else //Sinon il s'agit de l'ingénieur
                 // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Action spéciale"
                 if (m.getTuile() == null) {
@@ -848,7 +847,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     g = joueurCourant.assechementPossible(getGrille());
                     // On affiche l'IHM avec les tuiles possibles
                     vueIHMJeu.afficherTuilePossible(g);
-                    actionPossible();
+                  //  actionPossible();
                 } else {
                     //On affiche un message
                     vueIHMJeu.getVText().ajoutMessage("Assèchement fait");
@@ -876,7 +875,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         //Si sa capacité utilisée = 2, le joueur en est à son 2ème asséchement
                         //On met à jour sa capacité spéciale
                         ingenieur.setCapaciteUtilisee(0);
-                        actionPossible();
+                       // actionPossible();
                         vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                     }
                     joueurCourant = ingenieur;
@@ -899,12 +898,12 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                 }
 
-                actionPossible();
+               // actionPossible();
                 break;
 
             case PRENDRE_TRESOR:
                 prendreTresor(joueurCourant);
-                actionPossible();
+                //actionPossible();
                 break;
 
             case UTILISER_CARTE_HELICO:
@@ -944,7 +943,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 }
 
-                actionPossible();
+                ///actionPossible();
 
                 break;
 
@@ -981,14 +980,17 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 }
 
-                actionPossible();
+                //actionPossible();
 
                 break;
 
             case CARTE_CLICK:
                 //Afficher le bouton "Utiliser carte" et "Donner carte" et "Défausser" avec la méthode qui renvoie un boolean
                 VuePanel_Carte carte = m.getVueCarte();
-
+                
+                //Dans tous les cas on regarde si on peut l'utiliser
+                //carte.getUtiliser().setVisible(utiliserCartePossible(carte.getCarte()));
+                
                 if (nbAction != 0) {
                     if (defaussementEnCours) {
                         // affiche le bouton Défausser
@@ -996,11 +998,14 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     } else {
                         //afficher le bouton Donner
                         carte.getDonner().setVisible(donnerCartePossible());
-                        actionPossible();
+                       // actionPossible();
                     }
                     //Dans tous les cas on regarde si on peut l'utiliser
-                    carte.getUtiliser().setVisible(utiliserCartePossible(carte.getCarte()));
+                   // carte.getUtiliser().setVisible(utiliserCartePossible(carte.getCarte()));
                 }
+
+                //Dans tous les cas on regarde si on peut l'utiliser
+                carte.getUtiliser().setVisible(utiliserCartePossible(carte.getCarte()));
 
                 break;
 
@@ -1013,7 +1018,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On affiche l'IHM qui sera mise à jour
                 vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
 
-                actionPossible();
+                //actionPossible();
 
                 break;
 
@@ -1033,7 +1038,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 //On affiche la fenêtre de jeu
                 vueIHMJeu.afficherInitiale(grille, joueurs, joueurCourant, jaugeInnondation, nbAction);
-                actionPossible();
+                //actionPossible();
 
                 //On affiche un message
                 vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
@@ -1062,27 +1067,35 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //On affiche l'IHM qui sera mise à jour
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
                     //On affiche les actions possibles
-                    actionPossible();
+                    //actionPossible();
                 }
-                
+
                 break;
 
         }
 
         if (((type == TypesMessages.ASSECHER
                 || type == TypesMessages.DEPLACER
-                || type == TypesMessages.PRENDRE_TRESOR
                 || type == TypesMessages.SPECIALE)
-                && m.getTuile() != null) || (type == TypesMessages.DONNER_CARTE && m.getJoueur() != null)) {
+                && m.getTuile() != null) || (type == TypesMessages.DONNER_CARTE && m.getJoueur() != null)
+                || type == TypesMessages.PRENDRE_TRESOR) {
             //On décrémente le nombre d'action
             nbAction = nbAction - 1;
 
             vueIHMJeu.miseAJourNbAction(nbAction);
 
-            //Si le joueur n'a plus d'action on fini son tour
+            /*//Si le joueur n'a plus d'action on fini son tour
             if (nbAction == 0) {
                 finirTour();
-            }
+            }*/
         }
+
+        //Si le joueur n'a plus d'action on fini son tour
+        if (nbAction == 0) {
+            finirTour();
+        } else if (!(joueurCourant.estRole("Ingénieur") && ((Ingénieur)joueurCourant).getCapaciteUtilisee() == 2)) {
+            actionPossible();
+        }
+
     }
 }
