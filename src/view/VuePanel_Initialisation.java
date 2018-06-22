@@ -104,7 +104,7 @@ public class VuePanel_Initialisation extends JPanel {
         panelHaut = new JPanel(new BorderLayout());
         panelHaut.setOpaque(false);
 
-        //PanelHautTitre
+        //PanelHautTitre (division 1/2 de PanelHaut)
         panelHautTitre = new JPanel();
         panelHautTitre.setOpaque(false);
 
@@ -114,16 +114,17 @@ public class VuePanel_Initialisation extends JPanel {
         panelHautTitre.add(logoT);
         panelHaut.add(panelHautTitre, BorderLayout.NORTH);
 
-        //PanelHautCentre : GridLayout 4,1
+        //PanelHautCentre : GridLayout 4,1 (division 2/2 de PanelHaut)
         panelHautCentre = new JPanel(new GridLayout(4, 1));
         panelHautCentre.setOpaque(false);
-        //Ligne 1 Saut de ligne
+        
+        //PanelHautCentre : Ligne 1 Saut de ligne
         panelHautCentre.add(new JLabel());
 
-        //Ligne 2 Sélection du niveau
+        //PanelHautCentre : Ligne 2 Sélection du niveau de 
         panHauCent1 = new JPanel(new GridLayout(1, 7));
         panHauCent1.setOpaque(false);
-        labNiv = new JLabel("Niveau : ", SwingConstants.RIGHT);
+        labNiv = new JLabel("Difficulté : ", SwingConstants.RIGHT);
         labNiv.setForeground(Color.white);
         labNiv.setFont(new Font("Arial", Font.PLAIN, 20));
         panHauCent1.add(labNiv);
