@@ -384,7 +384,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
     }
 
     public void evasion(Aventurier a) { //Vérifie qu'un aventurier coincé sur une tuile qui coule peut s'échaper
-        int l = 0;
+        /*int l = 0;
         int c = 0;
 
         boolean[][] gBool = a.deplacementPossible(grille);
@@ -407,9 +407,48 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         //On est sortie de la boucle avant d'avoir fait toute la grille
         if (l < 6) {
             a.deplacer(l, c);
-        } else {
-            partiePerdue = false;
+        } else partiePerdue = true;*/
+        
+        //New méthode pour les déplacer aléatoirement autour d'eux
+        
+        boolean[][] gBool = a.deplacementPossible(grille);
+        ArrayList<int[]> pos = new ArrayList<>();
+        for(int l = 0; l < 6; l++){
+            for(int c = 0; c < 6; c++){
+                if(gBool[l][c]){
+                    int[] i = new int[2];
+                    i[0] = l;
+                    i[1] = c;
+                    pos.add(i);
+                }
+            }
         }
+        if(!pos.isEmpty()){
+            int rand = ThreadLocalRandom.current().nextInt(0, pos.size());
+            a.deplacer(pos.get(rand)[0], pos.get(rand)[1]);
+        } else if(a.estRole("Pilote")){
+            boolean[][] gBoolPilote = ((Pilote)a).deplacementPossibleSpecial(grille);
+            ArrayList<int[]> posPilote = new ArrayList<>();
+            for(int l = 0; l < 6; l++){
+                for(int c = 0; c < 6; c++){
+                    if(gBoolPilote[l][c]){
+                        int[] i = new int[2];
+                        i[0] = l;
+                        i[1] = c;
+                        posPilote.add(i);
+                    }
+                }
+            }
+            if(!posPilote.isEmpty()){
+                int rand = ThreadLocalRandom.current().nextInt(0, posPilote.size());
+                a.deplacer(posPilote.get(rand)[0], posPilote.get(rand)[1]);
+            } else {
+                partiePerdue = true;
+            }
+        } else {
+            partiePerdue = true;
+        }
+        vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
     }
 
     public Aventurier joueurSuivant() {
@@ -1001,6 +1040,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 }
 
                 // Ici on vérifie que la partie n'est ni perdu ni gagner pour continuer
+                tirageCarte();
                 if (perdrePartie()) {
 
                     System.out.println("perdu");
@@ -1011,8 +1051,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     vueIHMJeu.victoire();
 
                 } else {
-
-                    tirageCarte();
                     joueurCourant = joueurSuivant();
                     sauvegarde = joueurCourant;
                     //On initialise le nombre d'actions selon si c'est un navigateur ou non
