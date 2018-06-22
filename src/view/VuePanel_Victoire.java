@@ -41,9 +41,7 @@ public class VuePanel_Victoire extends JPanel {
         this.add(vic, BorderLayout.CENTER);
 
         //SUD
-
-
-        motif = new JLabel("Vous avez récupéré tous les trésors et vous vous êtes enfuis en Hélicoptère!", SwingConstants.CENTER);
+        motif = new JLabel("Vous avez récupéré tous les trésors et vous vous êtes enfuis en Hélicoptère !", SwingConstants.CENTER);
         motif.setFont(new Font("Serif", Font.ITALIC, 35));
         motif.setForeground(new Color(225, 221, 136));
         

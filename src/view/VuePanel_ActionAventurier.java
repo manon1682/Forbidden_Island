@@ -105,7 +105,7 @@ public class VuePanel_ActionAventurier extends JPanel {
 
 //        nbActionInt = new JLabel(Integer.toString(nbAction));
         nbActionInt = new JLabel();
-        ImageIcon logoNbActionInt = new ImageIcon("images/buttons/nombre3.png");
+        ImageIcon logoNbActionInt = chargementImageNbAction(nbAction);
         Image imageNbActionInt = logoNbActionInt.getImage();
         Image newimgNbActionInt = imageNbActionInt.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
         logoNbActionInt = new ImageIcon(newimgNbActionInt);
@@ -209,7 +209,35 @@ public class VuePanel_ActionAventurier extends JPanel {
     }
 
     public void misAJourNbAction(int nbAction) {
-        nbActionInt.setText(Integer.toString(nbAction));
+        //nbActionInt.setText(Integer.toString(nbAction));
+        ImageIcon logoNbActionInt = chargementImageNbAction(nbAction);
+        Image imageNbActionInt = logoNbActionInt.getImage();
+        Image newimgNbActionInt = imageNbActionInt.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
+        logoNbActionInt = new ImageIcon(newimgNbActionInt);
+        nbActionInt.setIcon(logoNbActionInt);
+    }
+    
+    public ImageIcon chargementImageNbAction(int nb){
+        ImageIcon img;
+        switch(nb){
+            case 0:{
+                img = new ImageIcon("images/buttons/nombre0.png");
+            } break;
+            case 1:{
+                img = new ImageIcon("images/buttons/nombre1.png");
+            } break;
+            case 2:{
+                img = new ImageIcon("images/buttons/nombre2.png");
+            } break;
+            case 3:{
+                img = new ImageIcon("images/buttons/nombre3.png");
+            } break;
+            default:{
+                img = new ImageIcon("images/buttons/nombre4.png");
+            } break;
+        }
+        return img;
+        
     }
     
     public void paintComponent(Graphics g) {

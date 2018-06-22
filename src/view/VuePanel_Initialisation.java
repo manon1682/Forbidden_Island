@@ -121,7 +121,7 @@ public class VuePanel_Initialisation extends JPanel {
         //PanelHautCentre : Ligne 1 Saut de ligne
         panelHautCentre.add(new JLabel());
 
-        //PanelHautCentre : Ligne 2 Sélection du niveau de 
+        //PanelHautCentre : Ligne 2 Sélection du niveau de difficulté 
         panHauCent1 = new JPanel(new GridLayout(1, 7));
         panHauCent1.setOpaque(false);
         labNiv = new JLabel("Difficulté : ", SwingConstants.RIGHT);
@@ -171,7 +171,7 @@ public class VuePanel_Initialisation extends JPanel {
         panHauCent1.add(new JLabel());
         panelHautCentre.add(panHauCent1);
 
-        //Ligne 3 Nombre Joueur  
+        //PanelHautCentre : Ligne 3 Nombre Joueur  
         panHauCent2 = new JPanel(new GridLayout(1, 3));
         panHauCent2.setOpaque(false);
         labNbJ = new JLabel("Nombre de joueurs : ", SwingConstants.RIGHT);
@@ -183,7 +183,7 @@ public class VuePanel_Initialisation extends JPanel {
         panHauCent2.add(new JLabel());
         panelHautCentre.add(panHauCent2);
 
-        //Ligne 4 Saut de Ligne
+        //PanelHautCentre : Ligne 4 Saut de Ligne
         panelHautCentre.add(new JLabel());
 
         panelHaut.add(panelHautCentre, BorderLayout.CENTER);
@@ -191,10 +191,11 @@ public class VuePanel_Initialisation extends JPanel {
         this.add(panelHaut, BorderLayout.NORTH);
 
         // **** Fin PanelHaut ****
+        
         // **** Panel Centre ****
         panelCentre = new JPanel(new GridLayout(10, 3));
         panelCentre.setOpaque(false);
-
+        //On rempli le panel de vide en attendant qu'un nombre de joueur soit sélectionné
         for (int i = 0; i < 30; i++) {
             panelCentre.add(new JLabel());
         }
@@ -202,15 +203,17 @@ public class VuePanel_Initialisation extends JPanel {
         this.add(BorderLayout.CENTER, panelCentre);
 
         // **** Fin PanelCentre ****
+        
         // **** Panel bas ****
-        //Valider Aspect
+        
+        //Aspect bouton "Valider"
         btnValider = new JButton();
         ImageIcon logoValider = new ImageIcon("images/icones/iconChecked.png");
         JLabel logoVal = new JLabel();
         logoVal.setIcon(logoValider);
         btnValider.setIcon(logoValider);
 
-        //Manuel Aspect
+        //Aspect bouton "Manuel"
         btnManuel = new JButton();
         ImageIcon logoManuel = new ImageIcon("images/icones/iconBook.png");
         JLabel logoMan = new JLabel();
@@ -232,10 +235,15 @@ public class VuePanel_Initialisation extends JPanel {
         this.add(BorderLayout.SOUTH, panelBas);
 
         // **** Fin PanelBas ****
+        
+        
+        //ActionListener du bouton Valider
         btnValider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                //Si le nombre de joueur n'a pas encore été validé on le valide 
+                //et on fait rentrer les nom de joueurs
                 if (choixNbJoueur.isEnabled()) {
 
                     nbJ = choixNbJoueur.getSelectedIndex() + 2;
@@ -264,7 +272,7 @@ public class VuePanel_Initialisation extends JPanel {
                     }
                     choixNbJoueur.setEnabled(false);
                     window.setVisible(true);
-                } else {
+                } else { //Si le nombre de joueur a été validé on envoie le tout au controleur
 
                     ArrayList<String> nom = new ArrayList<>();
 
@@ -275,7 +283,7 @@ public class VuePanel_Initialisation extends JPanel {
                     Message m = new Message(TypesMessages.NOUVELLE_PARTIE);
                     m.setNom(nom);
 
-                    //If pour renvoye le niveau de difficulté sélectionné
+                    //If pour créer le message avec le niveau de difficulté sélectionné
                     if (boutNiv[0].isSelected()) {
                         m.setNiveau(TypesNiveaux.NOVICE);
                     } else if (boutNiv[1].isSelected()) {
@@ -285,7 +293,7 @@ public class VuePanel_Initialisation extends JPanel {
                     } else {
                         m.setNiveau(TypesNiveaux.LEGENDAIRE);
                     }
-
+                    
                     ihm.notifierObservateur(m);
                 }
 
