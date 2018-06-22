@@ -964,10 +964,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     } else {
                         //afficher le bouton Donner
                         carte.getDonner().setVisible(donnerCartePossible());
+                        actionPossible();
                     }
                     //Dans tous les cas on regarde si on peut l'utiliser
                     carte.getUtiliser().setVisible(utiliserCartePossible(carte.getCarte()));
-                    actionPossible();
                 }
 
                 break;
@@ -1045,11 +1045,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                         vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
                         defausse();
                     } else {
-                        defaussementEnCours = false;
-                        //On affiche les actions possibles
-                        actionPossible();
                         //On affiche l'IHM qui sera mise à jour selon les actions
                         vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+                          //On affiche les actions possibles
+                        actionPossible();
                         //On affiche un message
                         vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
                     }
