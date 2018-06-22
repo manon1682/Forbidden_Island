@@ -37,6 +37,7 @@ public class VuePanel_Tuile extends JPanel{
     private boolean possible;
     private boolean cadre;
     private boolean possedeTresor = false;
+    private boolean courant;
     private String tresor;
     private ArrayList<Pion> joueur;
     private VuePanel_Plateau vPlat;
@@ -121,10 +122,10 @@ public class VuePanel_Tuile extends JPanel{
     public void paint(Graphics g){
         int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
         setDim(new Dimension(size, size));
-        if(etat == EtatTuile.sèche){
+        if(etat == EtatTuile.SECHE){
             g.drawImage((!possedeTresor ? (tuileNormaleNoTresor != null ? tuileNormaleNoTresor : tuileNormale) : tuileNormale), 0, 0, dim.width, dim.height, null);
             afficherPion(g);
-        } else if(etat == EtatTuile.inondée){
+        } else if(etat == EtatTuile.INONDEE) {
             g.drawImage((!possedeTresor ? (tuileInondeeNoTresor != null ? tuileInondeeNoTresor : tuileInondee) : tuileInondee), 0, 0, dim.width, dim.height, null);
             afficherPion(g);
         }
@@ -133,7 +134,11 @@ public class VuePanel_Tuile extends JPanel{
             g.fillRect(0, 0, dim.width, dim.height);
         }
         
-        if(isCadre() && etat != EtatTuile.coulée){
+        if(isCourant()){
+            g.drawImage(vPlat.getContourCourant(), 0, 0, dim.width, dim.height, null);
+        }
+        
+        if(isCadre() && etat != EtatTuile.COULEE){
             /*BasicStroke nStrock = new BasicStroke(3.0f); //Augmente épaisseur du contour de la tuile
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(nStrock);
@@ -141,6 +146,8 @@ public class VuePanel_Tuile extends JPanel{
             g2.drawRect(dim.width/28, dim.height/28, dim.width-dim.width/14, dim.height-dim.height/14);*/
             g.drawImage(vPlat.getContourPassage(), 0, 0, dim.width, dim.height, null);
         }
+        
+        
         
     }
     
@@ -325,6 +332,14 @@ public class VuePanel_Tuile extends JPanel{
     
     public String getTresor(){
         return tresor;
+    }
+
+    public boolean isCourant() {
+        return courant;
+    }
+
+    public void setCourant(boolean courant) {
+        this.courant = courant;
     }
     
 }

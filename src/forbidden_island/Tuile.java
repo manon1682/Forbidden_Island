@@ -16,23 +16,22 @@ public class Tuile {
 
     public Tuile(String nom, int ligne, int colonne) {
         this.setNom(nom);
-        this.setEtat(EtatTuile.sèche);
+        this.setEtat(EtatTuile.SECHE);
         this.setLigne(ligne);
         this.setColonne(colonne);
     }
 
     public boolean verifTuileD() {
-        return getEtat() != EtatTuile.coulée;
+        return getEtat() != EtatTuile.COULEE;
     }
 
     public boolean verifTuileDPlongeur() {
-        return getEtat() != EtatTuile.sèche;
+        return getEtat() != EtatTuile.SECHE;
     }
 
     //Vérifie que la tuile n'est pas sèche et pas coulée pour l'asséchement
     public boolean verifTuileA() {
-        return getEtat() == EtatTuile.inondée;
-
+        return getEtat() == EtatTuile.INONDEE;
     }
 
     public int getLigne() {
@@ -42,13 +41,13 @@ public class Tuile {
     public int getColonne() {
         return colonne;
     }
-    
+
     public Tresor getTresor() {
         return tresor;
     }
 
     public void asseche() {
-        setEtat(EtatTuile.sèche);
+        setEtat(EtatTuile.SECHE);
     }
 
     public void setEtat(EtatTuile etat) {
@@ -58,8 +57,8 @@ public class Tuile {
     public EtatTuile getEtat() {
         return this.etat;
     }
-    
-    public String getNom(){
+
+    public String getNom() {
         return this.nom;
     }
 

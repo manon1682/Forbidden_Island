@@ -12,6 +12,7 @@ package Enumeration;
 public enum TypesMessages {
     DEPLACER,
     ASSECHER,
+    SPECIALE,
     DONNER_CARTE,
     PRENDRE_TRESOR,
     UTILISER_CARTE_HELICO,
@@ -20,7 +21,5 @@ public enum TypesMessages {
     TERMINER_TOUR,
     TOUR_SUIVANT,
     NOUVELLE_PARTIE,
-    SPECIALE,
-    CARTE_CLICK,
-    COULE;
+    CARTE_CLICK;
 }

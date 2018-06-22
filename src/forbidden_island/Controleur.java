@@ -27,13 +27,9 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import view.IHMJeu;
 import view.VuePanel_ActionAventurier;
-import view.VueAventurier;
 import view.VuePanel_Carte;
-import view.VuePanel_Initialisation;
-import view.VuePanel_Plateau;
 
 public class Controleur implements Observateur {
 
@@ -43,7 +39,6 @@ public class Controleur implements Observateur {
     private Deck_Innondation deck_I;
     private int jaugeInnondation; //débute à 1 et finit 10 > tête de mort
     private Aventurier joueurCourant;
-    private Aventurier sauvegarde;//Pour pouvoir reprendre les tours dans l'ordre quand un joueur coule
     private IHMJeu vueIHMJeu;
     private int nbAction = 3;
     private boolean partiePerdue = false;
@@ -364,9 +359,9 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
 
     public boolean inondee(String nomTuile) {
         Tuile tuile = grille.getTuileAvecNom(nomTuile);
-        if (tuile.getEtat() != EtatTuile.coulée) {
-            tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
-            if (tuile.getEtat() == EtatTuile.coulée) {
+        if (tuile.getEtat() != EtatTuile.COULEE) {
+            tuile.setEtat((tuile.getEtat() == EtatTuile.SECHE ? EtatTuile.INONDEE : EtatTuile.COULEE));
+            if (tuile.getEtat() == EtatTuile.COULEE) {
                 coule(tuile);
             }
             return true;
@@ -376,7 +371,6 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
     }
 
     public void coule(Tuile tuile) {    //Si une tuile coule on vérifie que ça ne tue pas un aventurier si ça en tue un la partie est perdue
-        sauvegarde = joueurCourant;
         for (Aventurier joueur : joueurs) {
             if (joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()) {
                 evasion(joueur);
@@ -387,7 +381,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
 
     public void evasion(Aventurier a) { //Vérifie qu'un aventurier coincé sur une tuile qui coule peut s'échaper
 
-        //New méthode pour les déplacer aléatoirement autour d'eux
+        //Méthode pour les déplacer aléatoirement autour d'eux
         boolean[][] gBool = a.deplacementPossible(grille);
         ArrayList<int[]> pos = new ArrayList<>();
         for (int l = 0; l < 6; l++) {
@@ -447,42 +441,38 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
          */
 
         //Cas 1 : un trésor a coulé
-        if ((grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.coulée
-                && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.coulée
+        if ((grille.getTuileAvecNom("Le Temple du Soleil").getEtat() == EtatTuile.COULEE
+                && grille.getTuileAvecNom("Le Temple de La Lune").getEtat() == EtatTuile.COULEE
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Temple du Soleil").getTresor()) == false)
-                || (grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.coulée
-                && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.coulée
+                || (grille.getTuileAvecNom("La Caverne des Ombres").getEtat() == EtatTuile.COULEE
+                && grille.getTuileAvecNom("La Caverne du Brasier").getEtat() == EtatTuile.COULEE
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("La Caverne des Ombres").getTresor()) == false)
-                || (grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.coulée
-                && grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.coulée
+                || (grille.getTuileAvecNom("Le Palais des Marees").getEtat() == EtatTuile.COULEE
+                && grille.getTuileAvecNom("Le Palais de Corail").getEtat() == EtatTuile.COULEE
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Palais des Marees").getTresor()) == false)
-                || (grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.coulée
-                && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.coulée
+                || (grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.COULEE
+                && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.COULEE
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false)) {
-            System.out.println("Normalement 1 tresor a totallement coulé");
             vueIHMJeu.defaite(Defaite.TRESOR_COULE);
             return true;
         }
 
         //Cas 2 : l'héliport a coulé
-        if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.coulée) {
-            System.out.println("Normalement l'heliport a coulé");
+        if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.COULEE) {
             vueIHMJeu.defaite(Defaite.HELIPORT_COULE);
             return true;
         }
 
-        //cas 3 : 3. Si un joueur est sur une tuile Île qui sombre 
+        //cas 3 : Si un joueur est sur une tuile Île qui sombre 
         //et qu’il n’y a pas de tuile adjacente où nager ;
         //PLONGEUR & HELICO DIFF 
-        if (partiePerdue) { //modifié dans la méthode evasions<coulee<inonde-
-            System.out.println("Normalement un joueur vient de se noyer");
+        if (partiePerdue) { //modifié dans la méthode evasions<coulee<inonde
             vueIHMJeu.defaite(Defaite.JOUEUR_NOYE);
             return true;
         }
 
         //Cas 4 : le niveau d'eau est trop haut
         if (niveauInnondation() == 6) { // 6 correspond à la tête de mort
-            System.out.println("Normalement le niveau d'innondation est trop élevé");
             vueIHMJeu.defaite(Defaite.INONDATION_ELEVEE);
             return true;
         }
@@ -620,8 +610,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             //Desativation du bouton "Prendre trésor"
             vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(false);
         } else {
-            //On affiche un message
-            vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
             //On récupère la vue des action de la vue de l'IHM Jeu
             VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
 
@@ -659,22 +647,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         //Pioche autant de carte que la jauge l'indique
         for (int i = 0; i < niveauInnondation(); i++) {
-            //S'il n'y a plus de carte dans la pioche
-            if (deck_I.getPioche().isEmpty()) {
-                //On mélange la défausse et la met dans la pioche
-                deck_I.melangerDefausse();
-                deck_I.getPioche().addAll(deck_I.getDefausse());
-            }
-
+            
             CarteInnondation carte = (CarteInnondation) deck_I.pioche();
+            
             while (!(inondee(carte.getLieu().toString()))) {
-                System.out.println(carte.getLieu().toString());
-                //S'il n'y a plus de carte dans la pioche
-                if (deck_I.getPioche().isEmpty()) {
-                    //On mélange la défausse et la met dans la pioche
-                    deck_I.melangerDefausse();
-                    deck_I.getPioche().addAll(deck_I.getDefausse());
-                }
                 carte = (CarteInnondation) deck_I.pioche();
             }
 
@@ -684,7 +660,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //Ajoute ces cartes à la défausse
         deck_I.getDefausse().addAll(cartes);
 
-        //return cartes;
         return cartes;
     }
 
@@ -713,18 +688,22 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On supprime la carte de la main du joueur et on l'ajoute à la défausse
                 joueurCourant.removeMainA(carte);
                 deck_T.getDefausse().push(carte);
+
+                //Si la défausse Innondation n'est pas vide
+                if (!(deck_I.getDefausse().isEmpty())) {
+                    //On mélange la défausse et la met dans la pioche
+                    deck_I.melangerDefausse();
+                    deck_I.getPioche().addAll(deck_I.getDefausse());
+                }
             }
         }
 
         //TIRAGE DES CARTES INONDATIONS
         //Tire les carte inondations
         ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
-        //Ajoute ces cartes à la défausse
-        //deck_I.getDefausse().addAll(cartesInnondation);
         //Pour repeindre la plateau avec les nouvelles cartes inondées
         vueIHMJeu.setGrille(grille);
         vueIHMJeu.getvPlat().majTuiles(grille);
-        //vueIHMJeu.getvPlat().repaint();
         //On affiche les cartes piochées
         vueIHMJeu.afficherCartePiochees(cartesTresors, cartesInnondation, joueurCourant.getPseudo());
 
@@ -754,10 +733,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             case DEPLACER:
                 if (m.getTuile() == null) {
                     //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("Choisissez une tuile");
                     g = joueurCourant.deplacementPossible(grille);
                     // On affiche l'IHM avec les tuiles possibles
                     vueIHMJeu.afficherTuilePossible(g);
+                    vueIHMJeu.getVText().ajoutMessage("Choisissez une tuile");
                 } else {
                     //On affiche un message
                     vueIHMJeu.getVText().ajoutMessage("Déplacement fait");
@@ -799,7 +778,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Action spéciale"
                     if (m.getTuile() == null) {
                         //On affiche un message
-                        vueIHMJeu.getVText().ajoutMessage("Vous pouvez vous déplacer sur n'importe quelle tuile");
+                        vueIHMJeu.getVText().ajoutMessage("Choisissez une tuile");
                         // On affiche l'IHM avec les tuiles possibles
                         g = ((Pilote) joueurCourant).deplacementPossibleSpecial(grille);
                         vueIHMJeu.afficherTuilePossible(g);
@@ -821,7 +800,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Action spéciale"
                 else if (m.getTuile() == null) {
                     //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("Vous pouvez asséchez 2 tuiles pour une action");
+                    vueIHMJeu.getVText().ajoutMessage("Choisissez deux tuile");
                     // On met à jour sa capacité utilisée
                     ((Ingénieur) joueurCourant).setCapaciteUtilisee(1);
                     g = joueurCourant.assechementPossible(getGrille());
@@ -886,7 +865,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On vient juste d'appuyer sur le bouton "Utiliser"
                 if (m.getTuile() == null) {
                     //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("Vous pouvez vous déplacer sur n'importe quelle tuile");
+                    vueIHMJeu.getVText().ajoutMessage("Choisissez une tuile");
                     Tuile[][] tuiles = grille.getTuiles();
 
                     for (int l = 0; l < 6; l++) {
@@ -925,7 +904,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On vient juste d'appuyer sur le bouton "Utiliser"
                 if (m.getTuile() == null) {
                     //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("Vous pouvez assècher n'importe quelle tuile");
+                    vueIHMJeu.getVText().ajoutMessage("Choisissez une tuile");
                     Tuile[][] tuiles = grille.getTuiles();
 
                     for (int l = 0; l < 6; l++) {
@@ -990,7 +969,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             case NOUVELLE_PARTIE:
                 //On initialise les joueurs
                 initJoueur(m.getNom().size(), m.getNom());
-                sauvegarde = joueurCourant;
                 //On initialise le niveau du jeu
                 initJauge(m.getNiveau());
                 //On désaffiche la fenêtre d'initialisation
@@ -1038,6 +1016,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
         }
+        
+        if(type == TypesMessages.DEPLACER ||  type == TypesMessages.SPECIALE){
+            vueIHMJeu.getvPlat().majCourant(joueurCourant);
+        }
 
         if (((type == TypesMessages.ASSECHER
                 || type == TypesMessages.DEPLACER
@@ -1057,6 +1039,5 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         else if (!(joueurCourant.estRole("Ingénieur") && ((Ingénieur) joueurCourant).getCapaciteUtilisee() == 2)) {
             actionPossible();
         }
-
     }
 }
