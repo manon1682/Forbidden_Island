@@ -493,6 +493,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         if (tr != null && !(joueurCourant.getTresor().contains(tr))) {
             //On récupère les cartes Trésor correspondant au trésor de la tuile
             ArrayList<CarteTresor> cartesTre = joueurCourant.mainTresor(tr);
+            
             //Si le joueur possède plus de 4 cartes de ce trésor il peut le récuper
             if (cartesTre.size() >= 4) {
                 return true;
@@ -599,7 +600,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             //Activation ou non du bouton "Prendre trésor"
             vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(prendreTresorPossible());
-
             //Le bouton "Donner carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
             //Le bouton "Utiliser carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
         }
