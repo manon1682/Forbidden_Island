@@ -36,7 +36,7 @@ public enum Lieu {
     LE_TEMPLE_DE_LA_LUNE("Le Temple de La Lune","LeTempleDeLaLune"),
     LE_PALAIS_DES_MAREES("Le Palais des Marees","LePalaisDesMarees"),
     LE_VAL_DU_CREPUSCULE("Le Val du Crepuscule","LeValDuCrepuscule"),
-    LA_TOUR_DU_GUET("La Tour du Guet","LaTourDuGuet"),
+    LA_TOUR_DU_GUET("La Tour du Guet","LaTourDeGuet"),
     LE_JARDIN_DES_MURMURES("Le Jardin des Murmures","LeJardinDesMurmures");
             
     private String label;
@@ -56,6 +56,8 @@ public enum Lieu {
         try {
              tempImageCarte = ImageIO.read(new FileInputStream("images/cartes/"+nomImage+".png"));
         } catch (Exception e) {
+            System.out.println("Carte : " + this.toString());
+            System.out.println("SEGHI");
              tempImageCarte = null;
         }
         imageCarte = tempImageCarte;

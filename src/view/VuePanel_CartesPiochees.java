@@ -50,8 +50,10 @@ public class VuePanel_CartesPiochees extends JPanel {
         JPanel affl2 = new JPanel(new GridLayout(1, 6));
         affl2.setOpaque(false);
         affl2.add(new JLabel());
+        
         affl2.add(new JLabel());
         for (CarteTresor carte : cartesTresors) {
+            
             ImageIcon imgCarte = new ImageIcon(carte.utilisation().getImage());
             Image imageCT = imgCarte.getImage();
             Image newimgCT = imageCT.getScaledInstance(128, 188, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
@@ -74,10 +76,15 @@ public class VuePanel_CartesPiochees extends JPanel {
         affiche.add(piocheI);
         JPanel affl4 = new JPanel(new GridLayout(1, cartesTresors.size()));
         affl4.setOpaque(false);
-        for (CarteInnondation carte : cartesInnondation) {
-            JLabel aff = new JLabel(carte.getLieu().toString());
-            aff.setForeground(Color.white);
-            aff.setFont(new Font("Arial", Font.PLAIN, 20));
+        
+        for (CarteInnondation carte : cartesInnondation) { 
+            
+            ImageIcon imgCarteI = new ImageIcon(carte.getLieu().getImage());
+            Image imageCI = imgCarteI.getImage();
+            Image newimgCI = imageCI.getScaledInstance(128, 188, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
+            imgCarteI = new ImageIcon(newimgCI);
+            JLabel aff = new JLabel("", SwingConstants.CENTER);
+            aff.setIcon(imgCarteI);
             affl4.add(aff);
         }
         affiche.add(affl4);
