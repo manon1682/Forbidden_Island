@@ -459,30 +459,26 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 || (grille.getTuileAvecNom("Le Jardin des Murmures").getEtat() == EtatTuile.coulée
                 && grille.getTuileAvecNom("Le Jardin des Hurlements").getEtat() == EtatTuile.coulée
                 && Aventurier.TresorsObtenus(grille.getTuileAvecNom("Le Jardin des Murmures").getTresor()) == false)) {
-            System.out.println("Normalement 1 tresor a totallement coulé");
             vueIHMJeu.defaite(Defaite.TRESOR_COULE);
             return true;
         }
 
         //Cas 2 : l'héliport a coulé
         if (grille.getTuileAvecNom("Heliport").getEtat() == EtatTuile.coulée) {
-            System.out.println("Normalement l'heliport a coulé");
             vueIHMJeu.defaite(Defaite.HELIPORT_COULE);
             return true;
         }
 
-        //cas 3 : 3. Si un joueur est sur une tuile Île qui sombre 
+        //cas 3 : Si un joueur est sur une tuile Île qui sombre 
         //et qu’il n’y a pas de tuile adjacente où nager ;
         //PLONGEUR & HELICO DIFF 
-        if (partiePerdue) { //modifié dans la méthode evasions<coulee<inonde-
-            System.out.println("Normalement un joueur vient de se noyer");
+        if (partiePerdue) { //modifié dans la méthode evasions<coulee<inonde
             vueIHMJeu.defaite(Defaite.JOUEUR_NOYE);
             return true;
         }
 
         //Cas 4 : le niveau d'eau est trop haut
         if (niveauInnondation() == 6) { // 6 correspond à la tête de mort
-            System.out.println("Normalement le niveau d'innondation est trop élevé");
             vueIHMJeu.defaite(Defaite.INONDATION_ELEVEE);
             return true;
         }
@@ -668,7 +664,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             CarteInnondation carte = (CarteInnondation) deck_I.pioche();
             while (!(inondee(carte.getLieu().toString()))) {
-                System.out.println(carte.getLieu().toString());
                 //S'il n'y a plus de carte dans la pioche
                 if (deck_I.getPioche().isEmpty()) {
                     //On mélange la défausse et la met dans la pioche
@@ -713,18 +708,23 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On supprime la carte de la main du joueur et on l'ajoute à la défausse
                 joueurCourant.removeMainA(carte);
                 deck_T.getDefausse().push(carte);
+
+                //Si la défausse Innondation n'est pas vide
+                if (!(deck_I.getDefausse().isEmpty())) {
+                    //On mélange la défausse et la met dans la pioche
+                    deck_I.melangerDefausse();
+                    deck_I.getPioche().addAll(deck_I.getDefausse());
+                }
+
             }
         }
 
         //TIRAGE DES CARTES INONDATIONS
         //Tire les carte inondations
         ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
-        //Ajoute ces cartes à la défausse
-        //deck_I.getDefausse().addAll(cartesInnondation);
         //Pour repeindre la plateau avec les nouvelles cartes inondées
         vueIHMJeu.setGrille(grille);
         vueIHMJeu.getvPlat().majTuiles(grille);
-        //vueIHMJeu.getvPlat().repaint();
         //On affiche les cartes piochées
         vueIHMJeu.afficherCartePiochees(cartesTresors, cartesInnondation, joueurCourant.getPseudo());
 
