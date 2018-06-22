@@ -88,11 +88,6 @@ public class VuePanel_EtatPartie extends JPanel {
             }
         }
 
-        ImageIcon imageIcon = new ImageIcon("./img/imageName.png"); 
-        Image image = imageIcon.getImage();  
-        Image newimg = image.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône  
-        imageIcon = new ImageIcon(newimg);  
-
         a = aventurier;
         //fin initialisation
 
