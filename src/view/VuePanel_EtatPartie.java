@@ -11,12 +11,10 @@ import Enumeration.TypesMessages;
 import forbidden_island.Message;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.Clock;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -36,8 +34,6 @@ public class VuePanel_EtatPartie extends JPanel {
     private JLabel tresorCaliceOrdre;   // "
     private JLabel tresorPierreSacre;   // "
 
-    //créer 4 images supplémentaires si on peut pas modif transparance sur les images
-    //=====
     private IHMJeu ihm;
 
     private Aventurier a;
@@ -49,6 +45,7 @@ public class VuePanel_EtatPartie extends JPanel {
         this.ihm = ihm;
         a = aventurier;
         joueurs = as;
+
         //Case 1 de la grilleCoequipier
         btnPrendreTresor = new JButton("Prendre trésor");
         tresorCristalArdent = new JLabel();
@@ -60,31 +57,31 @@ public class VuePanel_EtatPartie extends JPanel {
             ImageIcon logo;
             if (tr == Tresor.CALICE_DE_ORDRE) {
                 logo = new ImageIcon("images/tresors/calice.png");
-                Image imageCO = logo.getImage(); 
+                Image imageCO = logo.getImage();
                 Image newimgCO = imageCO.getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
-                logo = new ImageIcon(newimgCO); 
-                
+                logo = new ImageIcon(newimgCO);
+
                 tresorCaliceOrdre.setIcon(logo);
             } else if (tr == Tresor.CRISTAL_ARDENT) {
                 logo = new ImageIcon("images/tresors/cristal.png");
                 Image imageCA = logo.getImage();
                 Image newimgCA = imageCA.getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
-                logo = new ImageIcon(newimgCA); 
-                
+                logo = new ImageIcon(newimgCA);
+
                 tresorCristalArdent.setIcon(logo);
             } else if (tr == Tresor.PIERRE_SACRE) {
                 logo = new ImageIcon("images/tresors/pierre.png");
-                Image imagePS = logo.getImage(); 
+                Image imagePS = logo.getImage();
                 Image newimgPS = imagePS.getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône  
-                logo = new ImageIcon(newimgPS); 
-                
+                logo = new ImageIcon(newimgPS);
+
                 tresorPierreSacre.setIcon(logo);
             } else {
                 logo = new ImageIcon("images/tresors/zephyr.png");
                 Image imageSZ = logo.getImage();
                 Image newimgSZ = imageSZ.getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
-                logo = new ImageIcon(newimgSZ); 
-                
+                logo = new ImageIcon(newimgSZ);
+
                 tresorStatueZephir.setIcon(logo);
             }
         }
@@ -148,7 +145,7 @@ public class VuePanel_EtatPartie extends JPanel {
                 grilleCoequipier.add(vInv);
             }
         }
-        
+
         //Ajout des éléments à la fenêtre principale;
         this.add(grilleCoequipier);
     }

@@ -90,8 +90,8 @@ public class IHMJeu extends Observe {
         panelSud2 = new JPanel(new BorderLayout());
 
         //Ajout 3 panel au Panel Centre1 >
-//        panelCentre1.add(vNiveau, BorderLayout.WEST);
-        panelCentre1.add(new JLabel(""), BorderLayout.WEST); //On enleve vueNiveauLeTempsDe
+        panelCentre1.add(vNiveau, BorderLayout.WEST);
+        //panelCentre1.add(new JLabel(""), BorderLayout.WEST); //On enleve vueNiveauLeTempsDe
 
         panelCentre1.add(vPlat, BorderLayout.CENTER);
         vPlat.majCourant(joueurCourant);
@@ -119,7 +119,7 @@ public class IHMJeu extends Observe {
         window.setSize(1400, 800);
         window.setResizable(true);
         //On enlève les panels liés à au joueur prédécent
-        //panelCentre1.remove(vNiveau);
+        panelCentre1.remove(vNiveau);
         mainPanel.removeAll();
 
         panelCentre1.remove(sousPanel1);
@@ -141,7 +141,7 @@ public class IHMJeu extends Observe {
         jaugeInnondation = jauge;
 
         //Mis à jour des vues
-        //vNiveau.setJauge(jaugeInnondation);
+        vNiveau.setJauge(jaugeInnondation);
         vEtatPartie = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
         vMainAven = new VuePanel_Main(joueurCourant, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
@@ -150,7 +150,7 @@ public class IHMJeu extends Observe {
         vPlat.majCourant(joueurCourant);
         
         //On replace les nouveaux panels créés
-        // panelCentre1.add(vNiveau, BorderLayout.WEST);
+        panelCentre1.add(vNiveau, BorderLayout.WEST);
         panelCentre1.add(sousPanel1, BorderLayout.EAST);
         sousPanel1.add(vEtatPartie, BorderLayout.CENTER);
         sousPanel1.add(vMessage, BorderLayout.SOUTH);
@@ -220,11 +220,6 @@ public class IHMJeu extends Observe {
         return vActionAven;
     }
 
-    public void afficherTuilePossibleIngenieur(boolean[][] g) {
-        this.afficherTuilePossible(g);
-        getvActionAven().finirTour();
-    }
-
     //Getter et Setter de SauvType
     public TypesMessages getSauvType() {
         return sauvType;
@@ -258,7 +253,7 @@ public class IHMJeu extends Observe {
     public void defaite(Defaite d) {
         window.setResizable(false);
         mainPanel.removeAll();
-        vDefaite = new VuePanel_Defaite(d);
+        vDefaite = new VuePanel_Defaite(d, this);
         mainPanel.add(vDefaite);
 
         window.setVisible(true);

@@ -36,10 +36,10 @@ public class VuePanel_ActionAventurier extends JPanel {
 
     private IHMJeu ihm;
 
-    public VuePanel_ActionAventurier(IHMJeu ihmJ, int nbAction) {
+    public VuePanel_ActionAventurier(IHMJeu ihmJeu, int nbAction) {
 
         //initialisation
-        ihm = ihmJ;
+        ihm = ihmJeu;
 
         //btnDeplacer
         btnDeplacer = new JButton();
@@ -69,7 +69,7 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnAssecher.setBorder(null);
         btnAssecher.setOpaque(false);
 
-        //btn Action Spé
+        //btn Action Spéciale
         btnActionSpeciale = new JButton();
         ImageIcon logoActionSpeciale = new ImageIcon("images/buttons/buttonActionSpeciale3.png");
         JLabel labelAP = new JLabel();

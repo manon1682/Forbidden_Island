@@ -28,7 +28,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -43,32 +42,35 @@ public class VuePanel_Initialisation extends JPanel {
     private int height;
     private int width;
 
-    private JPanel panelCentre;
-    private JComboBox choixNbJoueur;
+    
     private String[] nbjoueurs;
+
+    private JPanel panelCentre;
     private JPanel panelHaut;
     private JPanel panelHautTitre;
     private JPanel panelHautCentre;
     private JPanel panHauCent1;
     private JPanel panHauCent2;
     private JPanel panelBas;
+
     private JButton btnValider;
     private JButton btnManuel;
-    private JLabel labTitre;
-    private JTextField saisieNom;
 
+    private JTextField saisieNom;
+    private JLabel labTitre;
     private JLabel labNbJ;
     private JLabel labNomJ;
 
-    private JRadioButton bouton;
+    //Selection des joueurs
+    private JComboBox choixNbJoueur;
     private int nbJ;
     private ArrayList<JTextField> saisirJ = new ArrayList<>();
 
     //Sélection Niveau
     private JLabel labNiv;
     private ButtonGroup groupeNiv;
-    private JRadioButton[] boutNiv;
-
+    private JRadioButton[] boutNiv;    
+    private JRadioButton bouton;
 
     //Image fond
     private Image image;
@@ -102,26 +104,27 @@ public class VuePanel_Initialisation extends JPanel {
         panelHaut = new JPanel(new BorderLayout());
         panelHaut.setOpaque(false);
 
-        //PanelHautTitre
+        //PanelHautTitre (division 1/2 de PanelHaut)
         panelHautTitre = new JPanel();
         panelHautTitre.setOpaque(false);
-        
+
         ImageIcon logoTitre = new ImageIcon("images/logo/ile-interdite-logo.png");
         JLabel logoT = new JLabel();
         logoT.setIcon(logoTitre);
         panelHautTitre.add(logoT);
         panelHaut.add(panelHautTitre, BorderLayout.NORTH);
 
-        //PanelHautCentre : GridLayout 4,1
+        //PanelHautCentre : GridLayout 4,1 (division 2/2 de PanelHaut)
         panelHautCentre = new JPanel(new GridLayout(4, 1));
         panelHautCentre.setOpaque(false);
-        //Ligne 1 Saut de ligne
+        
+        //PanelHautCentre : Ligne 1 Saut de ligne
         panelHautCentre.add(new JLabel());
 
-        //Ligne 2 Sélection du niveau
+        //PanelHautCentre : Ligne 2 Sélection du niveau de 
         panHauCent1 = new JPanel(new GridLayout(1, 7));
         panHauCent1.setOpaque(false);
-        labNiv = new JLabel("Niveau : ", SwingConstants.RIGHT);
+        labNiv = new JLabel("Difficulté : ", SwingConstants.RIGHT);
         labNiv.setForeground(Color.white);
         labNiv.setFont(new Font("Arial", Font.PLAIN, 20));
         panHauCent1.add(labNiv);
@@ -164,7 +167,6 @@ public class VuePanel_Initialisation extends JPanel {
         panHauCent1.add(boutNiv[1]);
         panHauCent1.add(boutNiv[2]);
         panHauCent1.add(boutNiv[3]);
-      
 
         panHauCent1.add(new JLabel());
         panelHautCentre.add(panHauCent1);
@@ -190,10 +192,10 @@ public class VuePanel_Initialisation extends JPanel {
 
         // **** Fin PanelHaut ****
         // **** Panel Centre ****
-        panelCentre = new JPanel(new GridLayout(18, 3));
+        panelCentre = new JPanel(new GridLayout(10, 3));
         panelCentre.setOpaque(false);
 
-        for (int i = 0; i < 54; i++) {
+        for (int i = 0; i < 30; i++) {
             panelCentre.add(new JLabel());
         }
 
@@ -201,35 +203,31 @@ public class VuePanel_Initialisation extends JPanel {
 
         // **** Fin PanelCentre ****
         // **** Panel bas ****
-        
         //Valider Aspect
         btnValider = new JButton();
         ImageIcon logoValider = new ImageIcon("images/icones/iconChecked.png");
-        JLabel logoVal = new JLabel();        
+        JLabel logoVal = new JLabel();
         logoVal.setIcon(logoValider);
         btnValider.setIcon(logoValider);
-        
- 
-        
+
         //Manuel Aspect
         btnManuel = new JButton();
         ImageIcon logoManuel = new ImageIcon("images/icones/iconBook.png");
         JLabel logoMan = new JLabel();
         logoMan.setIcon(logoManuel);
-        btnManuel.setIcon(logoManuel);        
+        btnManuel.setIcon(logoManuel);
         panelBas = new JPanel(new GridLayout(2, 9));
         panelBas.setOpaque(false);
-        
+
         panelBas.add(new JLabel());
         panelBas.add(btnManuel);
-        ajouterLabelVide(panelBas, 5);   
+        ajouterLabelVide(panelBas, 5);
         panelBas.add(btnValider);
         panelBas.add(new JLabel());
-        
-        for(int i = 0; i< 9; i++){
+
+        for (int i = 0; i < 9; i++) {
             panelBas.add(new JLabel());
         }
-
 
         this.add(BorderLayout.SOUTH, panelBas);
 
@@ -242,12 +240,12 @@ public class VuePanel_Initialisation extends JPanel {
 
                     nbJ = choixNbJoueur.getSelectedIndex() + 2;
 
-                    for (int i = 0; i < 54; i++) {
+                    for (int i = 0; i < 30; i++) {
                         panelCentre.remove(0);
                     }
 
                     for (int i = 0; i < nbJ; i++) {
-                        saisieNom  =new JTextField("Joueur " + (i + 1));
+                        saisieNom = new JTextField("Joueur " + (i + 1));
                         saisieNom.setBorder(null);
                         saisirJ.add(saisieNom);
 
@@ -260,7 +258,7 @@ public class VuePanel_Initialisation extends JPanel {
                         panelCentre.add(new JLabel());
 
                     }
-                    for (int i = 0; i < 54 - 6 * nbJ; i++) {
+                    for (int i = 0; i < 30 - 6 * nbJ; i++) {
                         panelCentre.add(new JLabel());
 
                     }
@@ -287,7 +285,7 @@ public class VuePanel_Initialisation extends JPanel {
                     } else {
                         m.setNiveau(TypesNiveaux.LEGENDAIRE);
                     }
-                 
+
                     ihm.notifierObservateur(m);
                 }
 
@@ -308,9 +306,9 @@ public class VuePanel_Initialisation extends JPanel {
         window.setVisible(true);
 
     }
-    
-    public void ajouterLabelVide(JPanel panel, int nbLabel){
-        for(int i = 0; i<nbLabel; i++){
+
+    public void ajouterLabelVide(JPanel panel, int nbLabel) {
+        for (int i = 0; i < nbLabel; i++) {
             panel.add(new JLabel());
         }
     }

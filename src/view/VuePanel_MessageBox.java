@@ -36,4 +36,8 @@ public class VuePanel_MessageBox extends JPanel {
         msg.setText(text);
     }
 
+    public String getMessage() {
+        return msg.getText();
+    }
+
 }

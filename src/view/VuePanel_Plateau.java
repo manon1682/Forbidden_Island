@@ -140,14 +140,6 @@ public class VuePanel_Plateau extends JPanel {
         g.drawImage(fond, 0, 0, plat.getWidth() , plat.getHeight(),null);
         repaintTuiles();
     }
-    
-    private int getColonne(int x) { 
-        return (x * 6) / this.getWidth();
-    }
-        
-    private int getLigne(int y) { 
-        return (y * 6) / this.getHeight();
-    }
 
     public boolean[][] getgPossible() {
         return gPossible;
@@ -173,6 +165,7 @@ public class VuePanel_Plateau extends JPanel {
         return contourCourant;
     }
     
+    //Méthode utilisée pour changer l'image des tuiles ne ayant un emplacement tresor vide
     public void majTresor(String tr){
         for(int l = 0; l<6 ; l++){
             for(int c = 0; c<6 ; c++){
@@ -183,7 +176,7 @@ public class VuePanel_Plateau extends JPanel {
         }
     }
     
-    
+    //Méthode utilisée pour afficher un cadre autour du joueur courant
     public void majCourant(Aventurier a){
         for(int l = 0; l<6 ; l++){
             for(int c = 0; c<6 ; c++){
