@@ -1053,11 +1053,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 if (gagnerPartie()) {
                     //demande à l'IHM d'afficher la victoire
                     vueIHMJeu.victoire();
-                } else {
-
-                    // On tire les cartes
-                    tirageCarte();
-                }
+                } 
                 break;
 
 
@@ -1065,7 +1061,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             case TOUR_SUIVANT:
 
                 joueurCourant = joueurSuivant();
-                sauvegarde = joueurCourant;
                 //On initialise le nombre d'actions selon si c'est un navigateur ou non
                 nbAction = (joueurCourant.estRole("Navigateur") ? 4 : 3);
 
@@ -1073,19 +1068,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
 
                 //Pour le défaussent des cartes
-                if (joueurCourant.getMainA().size() > 5) {
-                    //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
-                    defausse();
-                } else {
-                    defaussementEnCours = false;
-                    //On affiche les actions possibles
-                    actionPossible();
-                    //On affiche l'IHM qui sera mise à jour selon les actions
-                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
-                    //On affiche les actions possibles
-                    actionPossible();
-                }
+                
                 
                 break;
 

@@ -77,11 +77,10 @@ public class VuePanel_CartesPiochees extends JPanel {
         affiche.add(affl4);
 
         this.add(affiche, BorderLayout.CENTER);
+
         
-        JLabel labOk = new JLabel("OK");
-        
-        JButton ok = new JButton();
-       // ok.setText(labOk);
+        JButton ok = new JButton("OK");
+        ok.setFont(new Font("Serif", Font.ITALIC, 35));
         this.add(ok, BorderLayout.SOUTH);
 
         ok.addActionListener(
