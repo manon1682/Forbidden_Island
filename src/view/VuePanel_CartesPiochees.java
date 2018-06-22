@@ -34,29 +34,34 @@ public class VuePanel_CartesPiochees extends JPanel {
         setLayout(new BorderLayout());
         setBackground(new Color(0, 0, 0, 210));
 
-        JLabel pioche = new JLabel("Pioche de " + joueur,SwingConstants.CENTER);
+        JLabel pioche = new JLabel(joueur + " : votre pioche",SwingConstants.CENTER);
         pioche.setFont(new Font("Serif", Font.ITALIC, 35));
         pioche.setForeground(new Color(225, 221, 136));
         this.add(pioche, BorderLayout.NORTH);
+        
+        JPanel ligTresInon = new JPanel(new GridLayout(2, 1)); // GridLayout avec une lige pour trésor et une ligne pour inondation
+        ligTresInon.setOpaque(false);
+        
 
-        //Affichage cartes trésors
-        JPanel affiche = new JPanel(new GridLayout(4, 1));
-        affiche.setOpaque(false);
+        //***** Affichage cartes trésors *****
+        
+        JPanel bordLigTres = new JPanel(new BorderLayout()); // BorderLayout qui contient le titre et les images de trésors
+        bordLigTres.setOpaque(false);
         JLabel piocheT = new JLabel("Cartes Trésor piochées : ");
-        piocheT.setFont(new Font("Serif", Font.ITALIC, 25));
+        piocheT.setFont(new Font("Serif", Font.ITALIC, 23));
         piocheT.setForeground(new Color(225, 221, 136));
-        affiche.add(piocheT);
-
-        JPanel affl2 = new JPanel(new GridLayout(1, 6));
+        bordLigTres.add(piocheT, BorderLayout.NORTH);
+        
+        JPanel affl2 = new JPanel(new GridLayout(1, 6)); // GridLayout qui contient les cartes
         affl2.setOpaque(false);
+        affl2.add(new JLabel());        
         affl2.add(new JLabel());
         
-        affl2.add(new JLabel());
         for (CarteTresor carte : cartesTresors) {
             
             ImageIcon imgCarte = new ImageIcon(carte.utilisation().getImage());
             Image imageCT = imgCarte.getImage();
-            Image newimgCT = imageCT.getScaledInstance(128, 188, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
+            Image newimgCT = imageCT.getScaledInstance(168, 228, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
             imgCarte = new ImageIcon(newimgCT);
             JLabel aff = new JLabel("",SwingConstants.CENTER);            
             aff.setIcon(imgCarte);
@@ -67,29 +72,35 @@ public class VuePanel_CartesPiochees extends JPanel {
         affl2.add(new JLabel());
         affl2.add(new JLabel());
         
-        affiche.add(affl2);
+        bordLigTres.add(affl2, BorderLayout.CENTER);
+        ligTresInon.add(bordLigTres);
 
-        //Affichage cartes inondation
+        //***** Affichage cartes inondation ******
+        
+        JPanel bordLigInon = new JPanel(new BorderLayout()); // BorderLayout qui contient le titre et les images des inondations
+        bordLigInon.setOpaque(false);
         JLabel piocheI = new JLabel("Cartes Inondation piochées : ");
-        piocheI.setFont(new Font("Serif", Font.ITALIC, 25));
+        piocheI.setFont(new Font("Serif", Font.ITALIC, 23));
         piocheI.setForeground(new Color(225, 221, 136));
-        affiche.add(piocheI);
-        JPanel affl4 = new JPanel(new GridLayout(1, cartesTresors.size()));
+        bordLigInon.add(piocheI, BorderLayout.NORTH);
+        JPanel affl4 = new JPanel(new GridLayout(1, cartesTresors.size())); // GridLayout qui contient les cartes
         affl4.setOpaque(false);
         
         for (CarteInnondation carte : cartesInnondation) { 
             
             ImageIcon imgCarteI = new ImageIcon(carte.getLieu().getImage());
             Image imageCI = imgCarteI.getImage();
-            Image newimgCI = imageCI.getScaledInstance(128, 188, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
+            Image newimgCI = imageCI.getScaledInstance(168, 228, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
             imgCarteI = new ImageIcon(newimgCI);
             JLabel aff = new JLabel("", SwingConstants.CENTER);
             aff.setIcon(imgCarteI);
             affl4.add(aff);
         }
-        affiche.add(affl4);
+        bordLigInon.add(affl4,BorderLayout.CENTER);
+        ligTresInon.add(bordLigInon);
+        
 
-        this.add(affiche, BorderLayout.CENTER);
+        this.add(ligTresInon, BorderLayout.CENTER);
 
         //Bouton Ok
         JButton ok = new JButton("OK");
