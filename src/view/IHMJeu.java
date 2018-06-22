@@ -6,6 +6,7 @@
 package view;
 
 import Aventurier.Aventurier;
+import Cartes.CarteTresor;
 import Enumeration.Defaite;
 import Enumeration.TypesMessages;
 import forbidden_island.Grille;
@@ -44,6 +45,7 @@ public class IHMJeu extends Observe {
     private VuePanel_Victoire vVictoire;
     private VuePanel_Defaite vDefaite;
     private VuePanel_MessageBox vMessage;
+    private VuePanel_CartesTPiochees vPioche;
     //private VuePanel_Superposition vSup;
 
     //Variables
@@ -121,14 +123,21 @@ public class IHMJeu extends Observe {
 
         //On enlève les panels liés à au joueur prédécent
         //panelCentre1.remove(vNiveau);
-        panelCentre1.remove(sousPanel1);
-        panelSud2.remove(vMainAven);
-        panelSud2.remove(vActionAven);
+        mainPanel.remove(vPioche);
+
+        
+//        panelCentre1.remove(sousPanel1);
+//        panelSud2.remove(vMainAven);
+//        panelSud2.remove(vActionAven);
+
+
 
         sousPanel1 = new JPanel(new BorderLayout());
         sousPanel1.add(vEtatPartie, BorderLayout.CENTER);
         sousPanel1.add(vMessage, BorderLayout.SOUTH);
         panelCentre1.add(sousPanel1, BorderLayout.EAST);
+        
+        
         
         //Mis à jour des variables
         setGrille(g);
@@ -152,6 +161,10 @@ public class IHMJeu extends Observe {
         //panelCentre1.add(vAven, BorderLayout.EAST);
         panelSud2.add(vMainAven, BorderLayout.WEST);
         panelSud2.add(vActionAven, BorderLayout.CENTER);
+        
+        mainPanel.add(panelCentre1, BorderLayout.CENTER);
+        mainPanel.add(panelSud2, BorderLayout.SOUTH);
+        
         window.setVisible(true);
 
     }
@@ -268,6 +281,15 @@ public class IHMJeu extends Observe {
 
         window.setVisible(true);
 
+    }
+
+    public void afficherCartePiocheT(ArrayList<CarteTresor> cartesTresors) {
+        window.setResizable(false);
+        mainPanel.removeAll();
+        vPioche = new VuePanel_CartesTPiochees(cartesTresors, this);
+        mainPanel.add(vPioche);
+
+        window.setVisible(true);
     }
 
 }
