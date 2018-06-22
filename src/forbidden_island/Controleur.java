@@ -667,7 +667,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             }
 
             CarteInnondation carte = (CarteInnondation) deck_I.pioche();
-            System.out.println("Carte :" + carte.getLieu().toString());
             while (!(inondee(carte.getLieu().toString()))) {
                 System.out.println(carte.getLieu().toString());
                 //S'il n'y a plus de carte dans la pioche
