@@ -88,11 +88,6 @@ public class VuePanel_EtatPartie extends JPanel {
             }
         }
 
-        ImageIcon imageIcon = new ImageIcon("./img/imageName.png"); 
-        Image image = imageIcon.getImage();  
-        Image newimg = image.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône  
-        imageIcon = new ImageIcon(newimg);  
-
         a = aventurier;
         //fin initialisation
 
@@ -129,7 +124,7 @@ public class VuePanel_EtatPartie extends JPanel {
 
     public void generation(ArrayList<Aventurier> js) {
         this.removeAll();
-        JPanel grilleCoequipier = new JPanel(new GridLayout(4, 1));
+        JPanel grilleCoequipier = new JPanel(new GridLayout(4, 1, 0, 5));
 
         //Case 1 de la grilleCoequipier (Liste Tresor obtenus des Aventuriers et bouton fermerJeu)
         JPanel containerCase1 = new JPanel(new BorderLayout());
@@ -152,6 +147,7 @@ public class VuePanel_EtatPartie extends JPanel {
                 grilleCoequipier.add(vInv);
             }
         }
+        
         //Ajout des éléments à la fenêtre principale;
         this.add(grilleCoequipier);
     }

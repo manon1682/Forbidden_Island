@@ -45,8 +45,8 @@ public class IHMJeu extends Observe {
     private VuePanel_Victoire vVictoire;
     private VuePanel_Defaite vDefaite;
     private VuePanel_MessageBox vMessage;
-    private VuePanel_CartesTPiochees vPioche;
-    //private VuePanel_Superposition vSup;
+    private VuePanel_CartesTPiochees vPiocheTresor;
+    private VuePanel_CartesIPioche vPiocheInondation;
 
     //Variables
     private ArrayList<Aventurier> joueurs;
@@ -120,19 +120,22 @@ public class IHMJeu extends Observe {
     public void afficher(Grille g, Aventurier a, int jauge, int nbAction) {
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1400, 800);
-
+        window.setResizable(true);
         //On enlève les panels liés à au joueur prédécent
         //panelCentre1.remove(vNiveau);
-        mainPanel.remove(vPioche);
+        mainPanel.removeAll();
 
         
-//        panelCentre1.remove(sousPanel1);
-//        panelSud2.remove(vMainAven);
-//        panelSud2.remove(vActionAven);
+        panelCentre1.remove(sousPanel1);
+        panelSud2.remove(vMainAven);
+        panelSud2.remove(vActionAven);
 
 
-
+        
         sousPanel1 = new JPanel(new BorderLayout());
+        vEtatPartie = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
+        
+        
         sousPanel1.add(vEtatPartie, BorderLayout.CENTER);
         sousPanel1.add(vMessage, BorderLayout.SOUTH);
         panelCentre1.add(sousPanel1, BorderLayout.EAST);
@@ -146,7 +149,7 @@ public class IHMJeu extends Observe {
         //Mis à jour des vues
         //vNiveau = new VuePanel_Niveau(jaugeInnondation);
         //vNiveau.setJauge(jaugeInnondation);
-        vEtatPartie = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
+        
         
         vMainAven = new VuePanel_Main(joueurCourant, this);
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
@@ -157,15 +160,17 @@ public class IHMJeu extends Observe {
         //On replace les nouveaux panels créés
         //panelCentre1.add(vNiveau, BorderLayout.WEST);
         
-        //panelCentre1.add(vPlat, BorderLayout.CENTER);
         //panelCentre1.add(vAven, BorderLayout.EAST);
         panelSud2.add(vMainAven, BorderLayout.WEST);
         panelSud2.add(vActionAven, BorderLayout.CENTER);
         
+        
         mainPanel.add(panelCentre1, BorderLayout.CENTER);
         mainPanel.add(panelSud2, BorderLayout.SOUTH);
         
+        mainPanel.updateUI();
         window.setVisible(true);
+        
 
     }
 
@@ -283,11 +288,23 @@ public class IHMJeu extends Observe {
 
     }
 
+    
+    //Appel de la vue d'affichage des carte trésors priochées
     public void afficherCartePiocheT(ArrayList<CarteTresor> cartesTresors) {
         window.setResizable(false);
         mainPanel.removeAll();
-        vPioche = new VuePanel_CartesTPiochees(cartesTresors, this);
-        mainPanel.add(vPioche);
+        vPiocheTresor = new VuePanel_CartesTPiochees(cartesTresors, this);
+        mainPanel.add(vPiocheTresor);
+
+        window.setVisible(true);
+    }
+    
+    //Appel de la vue d'affichage des carte inondation priochées
+    public void afficherCartePiocheI(ArrayList<CarteInondation> cartesTresors) {
+        window.setResizable(false);
+        mainPanel.removeAll();
+        vPiocheInondation = new VuePanel_CartesTPiochees(cartesTresors, this);
+        mainPanel.add(vPiocheInondation;
 
         window.setVisible(true);
     }

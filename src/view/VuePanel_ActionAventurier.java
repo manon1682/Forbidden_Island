@@ -13,8 +13,10 @@ import forbidden_island.Message;
 import forbidden_island.Observe;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,9 +36,49 @@ public class VuePanel_ActionAventurier extends JPanel {
 
         //initialisation
         ihm = ihmJ;
-        btnDeplacer = new JButton("Déplacer");
-        btnAssecher = new JButton("Assécher");
-        btnActionSpeciale = new JButton("Action Spécial");
+        
+        //btnDeplacer
+        btnDeplacer = new JButton();
+        ImageIcon logoDeplacer = new ImageIcon("images/buttons/buttonDeplacer.png");
+        JLabel labelDep = new JLabel();    
+        Image imageDeplacer = logoDeplacer.getImage(); 
+        Image newimgDeplacer = imageDeplacer.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        logoDeplacer = new ImageIcon(newimgDeplacer); 
+        labelDep.setIcon(logoDeplacer);   
+        
+        btnDeplacer.setIcon(logoDeplacer);
+        btnDeplacer.setBackground(Color.red);
+        btnDeplacer.setBorder(null);
+        btnDeplacer.setOpaque(false);
+               
+        //btnAssecher
+        btnAssecher = new JButton();
+        ImageIcon logoAssecher = new ImageIcon("images/buttons/buttonAssecher.png");
+        JLabel labelAss = new JLabel();    
+        Image imageAssecher = logoAssecher.getImage(); 
+        Image newimgAssecher = imageAssecher.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        logoAssecher = new ImageIcon(newimgAssecher); 
+        labelAss.setIcon(logoAssecher);   
+        
+        btnAssecher.setIcon(logoAssecher);
+        btnAssecher.setBackground(Color.red);
+        btnAssecher.setBorder(null);
+        btnAssecher.setOpaque(false);
+        
+        //btn Action Spé
+        btnActionSpeciale = new JButton();
+        ImageIcon logoActionSpeciale = new ImageIcon("images/buttons/buttonActionSpeciale.png");
+        JLabel labelAP = new JLabel();    
+        Image imageActionSpeciale = logoActionSpeciale.getImage(); 
+        Image newimgActionSpeciale = imageActionSpeciale.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+        logoActionSpeciale = new ImageIcon(newimgActionSpeciale); 
+        labelAP.setIcon(logoActionSpeciale);   
+        
+        btnActionSpeciale.setIcon(logoActionSpeciale);
+        btnActionSpeciale.setBackground(Color.red);
+        btnActionSpeciale.setBorder(null);
+        btnActionSpeciale.setOpaque(false);        
+        
         btnTerminerTour = new JButton("Terminer Tour");
         nbActionText = new JLabel("Nombre action dispo : ");
         nbActionInt = new JLabel(Integer.toString(nbAction));
@@ -51,6 +93,11 @@ public class VuePanel_ActionAventurier extends JPanel {
 
             if (i == 0) {
                 grilleAction.add(btnDeplacer);
+                
+                
+                
+                
+                
             } else if (i == 1) {
                 grilleAction.add(btnAssecher);
             } else if (i == 2) {
@@ -66,7 +113,8 @@ public class VuePanel_ActionAventurier extends JPanel {
             }
 
         }
-
+        
+        grilleAction.setOpaque(false);
         this.add(grilleAction);
 
         btnDeplacer.addActionListener(

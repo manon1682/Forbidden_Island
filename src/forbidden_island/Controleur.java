@@ -364,8 +364,6 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         Tuile tuile = grille.getTuileAvecNom(nomTuile);
         if (tuile.getEtat() != EtatTuile.coulée) {
             tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
-            //On met à jour la grille
-            vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
             if (tuile.getEtat() == EtatTuile.coulée) {
                 coule(tuile);
             }
@@ -379,35 +377,24 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         sauvegarde = joueurCourant;
         for (Aventurier joueur : joueurs) {
             if (joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()) {
-                if (evasion(joueur)) {
-                    vueIHMJeu.setSauvType(TypesMessages.DEPLACER);
-
-                    //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("La tuile sur laquelle vous êtes va couler, déplacez-vous");
-                    // On affiche l'IHM avec les tuiles possibles
-                    boolean[][] g = sauvegarde.deplacementPossible(grille);
-                    vueIHMJeu.afficherTuilePossible(g);
-
-                    //On désactive tous les boutons pour que le joueur soit obliger de choisir une case où se déplacer
-                    VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
-                    vueTemp.finirTour();
-                    vueTemp.getBtnTerminerTour().setEnabled(false);
-                    vueIHMJeu.desactivationCarte();
-                } else {
-                    partiePerdue = true;
-                }
+                evasion(joueur);
             }
-
         }
 
     }
 
-    public boolean evasion(Aventurier a) { //Vérifie qu'un aventurier coincé sur une tuile qui coule peut s'échaper
+    public void evasion(Aventurier a) { //Vérifie qu'un aventurier coincé sur une tuile qui coule peut s'échaper
         int l = 0;
         int c = 0;
 
         boolean[][] gBool = a.deplacementPossible(grille);
-        while (l < 6 && gBool[l][c] != false) {
+        
+        //S'il s'agit d'un Pilote il peut utiliser sa capacité spéciale
+        if (a.estRole("Pilote")){
+            gBool = ((Pilote)a).deplacementPossibleSpecial(grille);
+        }
+        
+        while (l < 6 && !gBool[l][c]) {
             if (c == 5) {
                 l++;
                 c = 0;
@@ -416,7 +403,11 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
             }
 
         }
-        return (l < 6) || (a.estRole("Pilote"));
+        
+        //On est sortie de la boucle avant d'avoir fait toute la grille
+        if (l < 6){
+            a.deplacer(l, c);
+        } else partiePerdue = false;
     }
 
     public Aventurier joueurSuivant() {
@@ -762,8 +753,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     int l = tuile.getLigne();
                     int c = tuile.getColonne();
 
-                    sauvegarde.deplacer(l, c);
-                    sauvegarde = joueurCourant;
+                    joueurCourant.deplacer(l, c);
                     vueIHMJeu.getvPlat().majTuiles(joueurs);
                 }
                 actionPossible();
@@ -974,10 +964,10 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     } else {
                         //afficher le bouton Donner
                         carte.getDonner().setVisible(donnerCartePossible());
+                        actionPossible();
                     }
                     //Dans tous les cas on regarde si on peut l'utiliser
                     carte.getUtiliser().setVisible(utiliserCartePossible(carte.getCarte()));
-                    actionPossible();
                 }
 
                 break;
@@ -1066,8 +1056,20 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     actionPossible();
                     //On affiche l'IHM qui sera mise à jour selon les actions
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
-                    //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
+
+                    //Pour le défaussent des cartes
+                    if (joueurCourant.getMainA().size() > 5) {
+                        //On affiche un message
+                        vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
+                        defausse();
+                    } else {
+                        //On affiche l'IHM qui sera mise à jour selon les actions
+                        vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+                          //On affiche les actions possibles
+                        actionPossible();
+                        //On affiche un message
+                        vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
+                    }
                 }
 
                 break;
