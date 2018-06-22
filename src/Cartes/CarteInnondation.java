@@ -1,19 +1,21 @@
 package Cartes;
 
+import Enumeration.Lieu;
+
 
 public class CarteInnondation extends Carte {
 
-    private String lieu;
+    private Lieu lieu;
 
-    public CarteInnondation(String lieu) {
+    public CarteInnondation(Lieu lieu) {
         setLieu(lieu);
     }
 
-    public String getLieu() {
+    public Lieu getLieu() {
         return lieu;
     }
 
-    public void setLieu(String lieu) {
+    public void setLieu(Lieu lieu) {
         this.lieu = lieu;
     }
 

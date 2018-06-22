@@ -61,27 +61,28 @@ public class VuePanel_EtatPartie extends JPanel {
             if (tr == Tresor.CALICE_DE_ORDRE) {
                 logo = new ImageIcon("images/tresors/calice.png");
                 Image imageCO = logo.getImage(); 
-                Image newimgCO = imageCO.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
+                Image newimgCO = imageCO.getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
                 logo = new ImageIcon(newimgCO); 
                 
                 tresorCaliceOrdre.setIcon(logo);
             } else if (tr == Tresor.CRISTAL_ARDENT) {
                 logo = new ImageIcon("images/tresors/cristal.png");
                 Image imageCA = logo.getImage();
-                Image newimgCA = imageCA.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
+                Image newimgCA = imageCA.getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
+                logo = new ImageIcon(newimgCA); 
                 
                 tresorCristalArdent.setIcon(logo);
             } else if (tr == Tresor.PIERRE_SACRE) {
                 logo = new ImageIcon("images/tresors/pierre.png");
                 Image imagePS = logo.getImage(); 
-                Image newimgPS = imagePS.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône  
+                Image newimgPS = imagePS.getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône  
                 logo = new ImageIcon(newimgPS); 
                 
                 tresorPierreSacre.setIcon(logo);
             } else {
                 logo = new ImageIcon("images/tresors/zephyr.png");
                 Image imageSZ = logo.getImage();
-                Image newimgSZ = imageSZ.getScaledInstance(120, 120, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
+                Image newimgSZ = imageSZ.getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
                 logo = new ImageIcon(newimgSZ); 
                 
                 tresorStatueZephir.setIcon(logo);
@@ -124,7 +125,7 @@ public class VuePanel_EtatPartie extends JPanel {
 
     public void generation(ArrayList<Aventurier> js) {
         this.removeAll();
-        JPanel grilleCoequipier = new JPanel(new GridLayout(4, 1));
+        JPanel grilleCoequipier = new JPanel(new GridLayout(4, 1, 0, 5));
 
         //Case 1 de la grilleCoequipier (Liste Tresor obtenus des Aventuriers et bouton fermerJeu)
         JPanel containerCase1 = new JPanel(new BorderLayout());
@@ -147,6 +148,7 @@ public class VuePanel_EtatPartie extends JPanel {
                 grilleCoequipier.add(vInv);
             }
         }
+        
         //Ajout des éléments à la fenêtre principale;
         this.add(grilleCoequipier);
     }

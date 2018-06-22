@@ -89,30 +89,21 @@ public class VuePanel_ActionAventurier extends JPanel {
 
         JPanel grilleAction = new JPanel(new GridLayout(2, 3));
 
-        for (int i = 0; i < 6; i++) {
 
-            if (i == 0) {
-                grilleAction.add(btnDeplacer);
-                
-                
-                
-                
-                
-            } else if (i == 1) {
-                grilleAction.add(btnAssecher);
-            } else if (i == 2) {
-                grilleAction.add(btnActionSpeciale);
-            } else if (i == 3) {
-                grilleAction.add(nbActionText);
-            } else if (i == 4) {
-                grilleAction.add(nbActionInt);
-            } else if (i == 5) {
-                grilleAction.add(btnTerminerTour);
-            } else {
-                grilleAction.add(new JLabel("")); //inutile ici
-            }
+        grilleAction.add(btnDeplacer);
 
-        }
+        grilleAction.add(btnAssecher);
+
+        grilleAction.add(btnActionSpeciale);
+
+        grilleAction.add(nbActionText);
+
+        grilleAction.add(nbActionInt);
+
+        grilleAction.add(btnTerminerTour);
+
+        // grilleAction.add(new JLabel("")); //inutile ici
+
         
         grilleAction.setOpaque(false);
         this.add(grilleAction);
@@ -159,9 +150,8 @@ public class VuePanel_ActionAventurier extends JPanel {
         btnTerminerTour.addActionListener(
                 new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                ihm.setSauvType(TypesMessages.TOUR_SUIVANT);
-                Message m = new Message(TypesMessages.TOUR_SUIVANT);
+            public void actionPerformed(ActionEvent e) {              
+                Message m = new Message(TypesMessages.TERMINER_TOUR);
                 ihm.notifierObservateur(m);
             }
         });

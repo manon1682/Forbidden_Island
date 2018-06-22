@@ -1,20 +1,23 @@
 package Cartes;
 
+import Enumeration.Lieu;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Stack;
 
 public class Deck_Innondation extends Deck {
 
-    public Deck_Innondation(ArrayList<String> nomTuile) {
+    public Deck_Innondation() {
         super.setDefausse(new Stack<Carte>());
-        setPioche(nomTuile);
+        setPioche();
     }
 
-    private void setPioche(ArrayList<String> nomTuiles) {    
-        for (String nomTuile : nomTuiles) { //remember francis <3
-            CarteInnondation carte = new CarteInnondation(nomTuile); 
+    private void setPioche() {
+        Lieu lieu = Lieu.LE_PONT_DES_ABIMES;
+        while(lieu != null){
+            CarteInnondation carte = new CarteInnondation(lieu); 
             getPioche().push(carte);
-            melangerPioche();
+            lieu = lieu.getNext();
         }
     }
 }

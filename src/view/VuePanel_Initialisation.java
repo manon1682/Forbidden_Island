@@ -77,6 +77,7 @@ public class VuePanel_Initialisation extends JPanel {
     private VuePanel_Manuel vMan;
 
     public VuePanel_Initialisation(IHMJeu ihm) {
+        //Taille de la fenêtre
         width = 787;
         height = 787;
 
@@ -111,7 +112,7 @@ public class VuePanel_Initialisation extends JPanel {
         panelHautTitre.add(logoT);
         panelHaut.add(panelHautTitre, BorderLayout.NORTH);
 
-        //PanelHautCentre
+        //PanelHautCentre : GridLayout 4,1
         panelHautCentre = new JPanel(new GridLayout(4, 1));
         panelHautCentre.setOpaque(false);
         //Ligne 1 Saut de ligne
@@ -168,7 +169,7 @@ public class VuePanel_Initialisation extends JPanel {
         panHauCent1.add(new JLabel());
         panelHautCentre.add(panHauCent1);
 
-        //Ligne 4 Nombre Joueur  
+        //Ligne 3 Nombre Joueur  
         panHauCent2 = new JPanel(new GridLayout(1, 3));
         panHauCent2.setOpaque(false);
         labNbJ = new JLabel("Nombre de joueurs : ", SwingConstants.RIGHT);
@@ -180,7 +181,7 @@ public class VuePanel_Initialisation extends JPanel {
         panHauCent2.add(new JLabel());
         panelHautCentre.add(panHauCent2);
 
-        //Ligne 5 Saut de Ligne
+        //Ligne 4 Saut de Ligne
         panelHautCentre.add(new JLabel());
 
         panelHaut.add(panelHautCentre, BorderLayout.CENTER);
@@ -221,11 +222,7 @@ public class VuePanel_Initialisation extends JPanel {
         
         panelBas.add(new JLabel());
         panelBas.add(btnManuel);
-        panelBas.add(new JLabel());
-        panelBas.add(new JLabel());
-        panelBas.add(new JLabel());
-        panelBas.add(new JLabel());
-        panelBas.add(new JLabel());
+        ajouterLabelVide(panelBas, 5);   
         panelBas.add(btnValider);
         panelBas.add(new JLabel());
         
@@ -257,9 +254,7 @@ public class VuePanel_Initialisation extends JPanel {
                         labNomJ = new JLabel("Nom Aventurier : ", SwingConstants.RIGHT);
                         labNomJ.setForeground(Color.white);
                         labNomJ.setFont(new Font("Arial", Font.PLAIN, 20));
-                        panelCentre.add(new JLabel());
-                        panelCentre.add(new JLabel());
-                        panelCentre.add(new JLabel());
+                        ajouterLabelVide(panelCentre, 3);
                         panelCentre.add(labNomJ);
                         panelCentre.add(saisirJ.get(i));
                         panelCentre.add(new JLabel());
@@ -282,7 +277,7 @@ public class VuePanel_Initialisation extends JPanel {
                     Message m = new Message(TypesMessages.NOUVELLE_PARTIE);
                     m.setNom(nom);
 
-                    //If pour renvoye le niveau sélectionné
+                    //If pour renvoye le niveau de difficulté sélectionné
                     if (boutNiv[0].isSelected()) {
                         m.setNiveau(TypesNiveaux.NOVICE);
                     } else if (boutNiv[1].isSelected()) {
@@ -312,6 +307,12 @@ public class VuePanel_Initialisation extends JPanel {
 
         window.setVisible(true);
 
+    }
+    
+    public void ajouterLabelVide(JPanel panel, int nbLabel){
+        for(int i = 0; i<nbLabel; i++){
+            panel.add(new JLabel());
+        }
     }
 
     @Override
