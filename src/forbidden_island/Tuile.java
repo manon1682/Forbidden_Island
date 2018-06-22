@@ -32,7 +32,6 @@ public class Tuile {
     //Vérifie que la tuile n'est pas sèche et pas coulée pour l'asséchement
     public boolean verifTuileA() {
         return getEtat() == EtatTuile.INONDEE;
-
     }
 
     public int getLigne() {
@@ -42,7 +41,7 @@ public class Tuile {
     public int getColonne() {
         return colonne;
     }
-    
+
     public Tresor getTresor() {
         return tresor;
     }
@@ -58,8 +57,8 @@ public class Tuile {
     public EtatTuile getEtat() {
         return this.etat;
     }
-    
-    public String getNom(){
+
+    public String getNom() {
         return this.nom;
     }
 

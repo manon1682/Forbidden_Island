@@ -27,13 +27,9 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import view.IHMJeu;
 import view.VuePanel_ActionAventurier;
-import view.VueAventurier;
 import view.VuePanel_Carte;
-import view.VuePanel_Initialisation;
-import view.VuePanel_Plateau;
 
 public class Controleur implements Observateur {
 
@@ -43,7 +39,6 @@ public class Controleur implements Observateur {
     private Deck_Innondation deck_I;
     private int jaugeInnondation; //débute à 1 et finit 10 > tête de mort
     private Aventurier joueurCourant;
-    private Aventurier sauvegarde;//Pour pouvoir reprendre les tours dans l'ordre quand un joueur coule
     private IHMJeu vueIHMJeu;
     private int nbAction = 3;
     private boolean partiePerdue = false;
@@ -376,7 +371,6 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
     }
 
     public void coule(Tuile tuile) {    //Si une tuile coule on vérifie que ça ne tue pas un aventurier si ça en tue un la partie est perdue
-        sauvegarde = joueurCourant;
         for (Aventurier joueur : joueurs) {
             if (joueur.getC() == tuile.getColonne() && joueur.getL() == tuile.getLigne()) {
                 evasion(joueur);
@@ -387,7 +381,7 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
 
     public void evasion(Aventurier a) { //Vérifie qu'un aventurier coincé sur une tuile qui coule peut s'échaper
 
-        //New méthode pour les déplacer aléatoirement autour d'eux
+        //Méthode pour les déplacer aléatoirement autour d'eux
         boolean[][] gBool = a.deplacementPossible(grille);
         ArrayList<int[]> pos = new ArrayList<>();
         for (int l = 0; l < 6; l++) {
@@ -975,7 +969,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             case NOUVELLE_PARTIE:
                 //On initialise les joueurs
                 initJoueur(m.getNom().size(), m.getNom());
-                sauvegarde = joueurCourant;
                 //On initialise le niveau du jeu
                 initJauge(m.getNiveau());
                 //On désaffiche la fenêtre d'initialisation
