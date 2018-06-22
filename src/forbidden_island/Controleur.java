@@ -642,7 +642,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             //Desativation du bouton "Prendre trésor"
             vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(false);
-            defaussementEnCours = true;
         } else {
             //On affiche un message
             vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
@@ -747,7 +746,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         //Pour repeindre la plateau avec les nouvelles cartes inondées
         vueIHMJeu.setGrille(grille);
         vueIHMJeu.getvPlat().majTuiles(grille);
-        vueIHMJeu.getvPlat().repaint();
+        //vueIHMJeu.getvPlat().repaint();
         //On affiche les cartes piochées
 //        vueA.afficherCartePioche(cartesInnondation);
 
@@ -1048,6 +1047,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 }
 
                 tirageCarte();
+
                 // Ici on vérifie que la partie n'est ni perdu ni gagner pour continue
                 perdrePartie();
 
@@ -1064,7 +1064,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //On affiche les actions possibles
                     actionPossible();
                 }
-
+                
                 break;
 
         }
