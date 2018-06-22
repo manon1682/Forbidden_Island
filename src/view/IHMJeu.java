@@ -13,13 +13,9 @@ import Enumeration.TypesMessages;
 import forbidden_island.Grille;
 import forbidden_island.Observe;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 /**
@@ -126,30 +122,24 @@ public class IHMJeu extends Observe {
         //panelCentre1.remove(vNiveau);
         mainPanel.removeAll();
 
-        
         panelCentre1.remove(sousPanel1);
         sousPanel1.remove(vEtatPartie);
         sousPanel1.remove(vMessage);
         panelSud2.remove(vMainAven);
         panelSud2.remove(vActionAven);
 
-
-        
         sousPanel1 = new JPanel(new BorderLayout());
         vEtatPartie = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
-        
-        
+
         sousPanel1.add(vEtatPartie, BorderLayout.CENTER);
         sousPanel1.add(vMessage, BorderLayout.SOUTH);
         panelCentre1.add(sousPanel1, BorderLayout.EAST);
-        
-        
-        
+
         //Mis à jour des variables
         setGrille(g);
         setAventurier(a);
         jaugeInnondation = jauge;
-        
+
         //Mis à jour des vues
         //vNiveau.setJauge(jaugeInnondation);
         vEtatPartie = new VuePanel_EtatPartie(joueurCourant, this.joueurs, this);
@@ -160,20 +150,18 @@ public class IHMJeu extends Observe {
         vPlat.majCourant(joueurCourant);
         
         //On replace les nouveaux panels créés
-       // panelCentre1.add(vNiveau, BorderLayout.WEST);
+        // panelCentre1.add(vNiveau, BorderLayout.WEST);
         panelCentre1.add(sousPanel1, BorderLayout.EAST);
         sousPanel1.add(vEtatPartie, BorderLayout.CENTER);
         sousPanel1.add(vMessage, BorderLayout.SOUTH);
         panelSud2.add(vMainAven, BorderLayout.WEST);
         panelSud2.add(vActionAven, BorderLayout.CENTER);
-        
-        
+
         mainPanel.add(panelCentre1, BorderLayout.CENTER);
         mainPanel.add(panelSud2, BorderLayout.SOUTH);
-        
+
         mainPanel.updateUI();
         window.setVisible(true);
-        
 
     }
 
@@ -189,8 +177,8 @@ public class IHMJeu extends Observe {
         vPlat.afficherPossible(grille);
         vPlat.repaint();
     }
-    
-    public void afficherJoueursPossible(ArrayList<Aventurier> js){
+
+    public void afficherJoueursPossible(ArrayList<Aventurier> js) {
         vEtatPartie.donnerCarte(js);
         window.setVisible(true);
     }
@@ -204,8 +192,7 @@ public class IHMJeu extends Observe {
     }
 
     // Getter
-
-   public void setAventurier(Aventurier aventurier) {
+    public void setAventurier(Aventurier aventurier) {
         this.joueurCourant = aventurier;
     }
 
@@ -224,8 +211,8 @@ public class IHMJeu extends Observe {
     public VuePanel_Main getvMainAven() {
         return vMainAven;
     }
-    
-    public VuePanel_MessageBox getVText(){
+
+    public VuePanel_MessageBox getVText() {
         return vMessage;
     }
 
@@ -278,18 +265,16 @@ public class IHMJeu extends Observe {
 
     }
 
-
-    
     //Appel de la vue d'affichage des carte piochées
     public void afficherCartePiochees(ArrayList<CarteTresor> cartesTresors, ArrayList<CarteInnondation> cartesInnondation, String joueur) {
-            
+
         window.setResizable(false);
         mainPanel.removeAll();
         vPioche = new VuePanel_CartesPiochees(cartesTresors, cartesInnondation, joueur, this);
         mainPanel.add(vPioche);
 
-       window.setVisible(true);
-   
+        window.setVisible(true);
+
     }
 
 }

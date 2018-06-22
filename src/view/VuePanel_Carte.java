@@ -7,10 +7,8 @@ package view;
 
 import Cartes.CarteTresor;
 import Enumeration.CarteUtilisable;
-import Enumeration.EtatTuile;
 import Enumeration.TypesMessages;
 import forbidden_island.Message;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,7 +17,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -109,7 +106,7 @@ public class VuePanel_Carte extends JPanel {
             g.drawImage(carte.utilisation().getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
             g.setColor(Color.BLACK);
             g.setFont(new Font("Arial", Font.BOLD, this.getHeight() / 4));
-            g.drawString("x " + nb, this.getWidth() / 2 - this.getWidth() / 6 , this.getHeight() / 4);
+            g.drawString("x " + nb, this.getWidth() / 2 - this.getWidth() / 6, this.getHeight() / 4);
         }
     }
 
@@ -136,8 +133,8 @@ public class VuePanel_Carte extends JPanel {
     public JButton getDefausser() {
         return defausser;
     }
-    
-    public VuePanel_Carte getThis(){
+
+    public VuePanel_Carte getThis() {
         return this;
     }
 
