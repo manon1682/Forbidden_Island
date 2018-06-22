@@ -83,7 +83,7 @@ public abstract class Aventurier {
         ArrayList<CarteTresor> cartesOK = new ArrayList<>();
 
         for (CarteTresor c : cartes) {
-            if (tr.toString() == c.getNom()) {
+            if (tr.toString().equals(c.getNom())) {
                 cartesOK.add(c);
             }
         }
