@@ -56,6 +56,8 @@ public enum Lieu {
         try {
              tempImageCarte = ImageIO.read(new FileInputStream("images/cartes/"+nomImage+".png"));
         } catch (Exception e) {
+            System.out.println("Carte : " + this.toString());
+            System.out.println("SEGHI");
              tempImageCarte = null;
         }
         imageCarte = tempImageCarte;
