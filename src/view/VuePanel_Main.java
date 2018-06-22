@@ -127,7 +127,7 @@ public class VuePanel_Main extends JPanel {
         a = aventurier;
         ihm = ihmJ;
 
-        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.setBorder(BorderFactory.createLineBorder(a.getPion().getCouleur(),2));
         setLayout(new BorderLayout());
         JPanel main = new JPanel(new GridLayout(1, 6));
         JPanel panelNord = new JPanel(new BorderLayout());
@@ -143,7 +143,7 @@ public class VuePanel_Main extends JPanel {
         setClickable(clickable);
 
         if (isClickable()) {
-            this.setBorder(BorderFactory.createLineBorder(Color.green, 4));
+            this.setBorder(BorderFactory.createLineBorder(Color.magenta, 4));
 
         }
 
