@@ -74,7 +74,7 @@ public class VuePanel_Plateau extends JPanel {
                 if (grille.getTuiles()[l][c] != null){ //&& grille.getTuiles()[l][c].getEtat() != EtatTuile.coulée) {
                     ((VuePanel_Tuile) tuiles[l][c]).setEtat(ts[l][c].getEtat());
                 } else {
-                    tuiles[l][c] = new VuePanel_Tuile("Ocean", EtatTuile.coulée);
+                    tuiles[l][c] = new VuePanel_Tuile("Ocean", EtatTuile.COULEE);
                 }
             }
         }
@@ -100,7 +100,7 @@ public class VuePanel_Plateau extends JPanel {
                 if (grille.getTuiles()[l][c] != null) {
                     tuiles[l][c] = new VuePanel_Tuile(ts[l][c].getNom(), ts[l][c].getEtat(), new Dimension(100, 100),this);
                 } else {
-                    tuiles[l][c] = new VuePanel_Tuile("Ocean", EtatTuile.coulée);
+                    tuiles[l][c] = new VuePanel_Tuile("Ocean", EtatTuile.COULEE);
                 }
             }
         }

@@ -122,10 +122,10 @@ public class VuePanel_Tuile extends JPanel{
     public void paint(Graphics g){
         int size = ((this.getSize().width > this.getSize().height ? this.getSize().height : this.getSize().width))-2;
         setDim(new Dimension(size, size));
-        if(etat == EtatTuile.sèche){
+        if(etat == EtatTuile.SECHE){
             g.drawImage((!possedeTresor ? (tuileNormaleNoTresor != null ? tuileNormaleNoTresor : tuileNormale) : tuileNormale), 0, 0, dim.width, dim.height, null);
             afficherPion(g);
-        } else if(etat == EtatTuile.inondée){
+        } else if(etat == EtatTuile.INONDEE) {
             g.drawImage((!possedeTresor ? (tuileInondeeNoTresor != null ? tuileInondeeNoTresor : tuileInondee) : tuileInondee), 0, 0, dim.width, dim.height, null);
             afficherPion(g);
         }
@@ -138,7 +138,7 @@ public class VuePanel_Tuile extends JPanel{
             g.drawImage(vPlat.getContourCourant(), 0, 0, dim.width, dim.height, null);
         }
         
-        if(isCadre() && etat != EtatTuile.coulée){
+        if(isCadre() && etat != EtatTuile.COULEE){
             /*BasicStroke nStrock = new BasicStroke(3.0f); //Augmente épaisseur du contour de la tuile
             Graphics2D g2 = (Graphics2D) g;
             g2.setStroke(nStrock);

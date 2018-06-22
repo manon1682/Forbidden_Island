@@ -4,12 +4,11 @@ import java.util.Collections;
 import java.util.Stack;
 
 public abstract class Deck {
-    
+
     private Stack<Carte> pioche;
     private Stack<Carte> defausse;
-    
 
-    public Deck(){
+    public Deck() {
         pioche = new Stack<Carte>();
         defausse = new Stack<Carte>();
     }
@@ -25,23 +24,29 @@ public abstract class Deck {
     public void melangerPioche() {
         Collections.shuffle(pioche);
     }
-    
-    public void melangerDefausse(){
+
+    public void melangerDefausse() {
         Collections.shuffle(defausse);
     }
 
-    public Carte pioche(){
-        return getPioche().pop();
+    public Carte pioche() {
+        //Si la pioche est vide
+        if (pioche.isEmpty()) {
+            //On mélange la défausse et la met dans la pioche
+            melangerDefausse();
+            pioche.addAll(defausse);
+        }
+        return pioche.pop();
     }
-    
-    public void defausser(Carte carte){
+
+    public void defausser(Carte carte) {
         this.defausse.push(carte);
     }
-    
+
     public Stack<Carte> getPioche() {
         return pioche;
     }
-    
+
     public Stack<Carte> getDefausse() {
         return defausse;
     }

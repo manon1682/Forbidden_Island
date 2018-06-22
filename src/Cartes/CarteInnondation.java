@@ -2,7 +2,6 @@ package Cartes;
 
 import Enumeration.Lieu;
 
-
 public class CarteInnondation extends Carte {
 
     private Lieu lieu;
