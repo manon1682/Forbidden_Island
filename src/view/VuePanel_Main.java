@@ -61,7 +61,7 @@ public class VuePanel_Main extends JPanel {
             int n = 0;
             //On regarde le nombre de carte correspondant à laCarte
             for (CarteTresor carte : a.getMainA()) {
-                if (carte.getNom().equals(laCarte.toString())) {
+                if (carte.getNom() == laCarte.toString()) {
                     n = n + 1;
                 }
             }

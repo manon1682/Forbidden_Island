@@ -388,12 +388,12 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
         int c = 0;
 
         boolean[][] gBool = a.deplacementPossible(grille);
-        
+
         //S'il s'agit d'un Pilote il peut utiliser sa capacité spéciale
-        if (a.estRole("Pilote")){
-            gBool = ((Pilote)a).deplacementPossibleSpecial(grille);
+        if (a.estRole("Pilote")) {
+            gBool = ((Pilote) a).deplacementPossibleSpecial(grille);
         }
-        
+
         while (l < 6 && !gBool[l][c]) {
             if (c == 5) {
                 l++;
@@ -403,11 +403,13 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
             }
 
         }
-        
+
         //On est sortie de la boucle avant d'avoir fait toute la grille
-        if (l < 6){
+        if (l < 6) {
             a.deplacer(l, c);
-        } else partiePerdue = false;
+        } else {
+            partiePerdue = false;
+        }
     }
 
     public Aventurier joueurSuivant() {
@@ -578,23 +580,46 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
     }
 
     public void actionPossible() {
-        //On récupère la vue des action de la vue de l'IHM Jeu
-        VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
 
-        //Activation ou non du bouton "Déplacer"
-        vueTemp.getBtnDeplacer().setEnabled(deplacementPossible());
+        if (defaussementEnCours) {
+            //On récupère la vue des action de la vue de l'IHM Jeu
+            VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
 
-        //Activation ou non du bouton "Assécher"
-        vueTemp.getBtnAssecher().setEnabled(assechementPossible());
+            //Desactivation du bouton "Déplacer"
+            vueTemp.getBtnDeplacer().setEnabled(false);
 
-        //Activation ou non du bouton "Action spéciale"
-        vueTemp.getBtnActionSpeciale().setEnabled(actionSpecialePossible());
+            //Desativation du bouton "Assécher"
+            vueTemp.getBtnAssecher().setEnabled(false);
 
-        //Activation ou non du bouton "Prendre trésor"
-        vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(prendreTresorPossible());
+            //Desativation du bouton "Action spéciale"
+            vueTemp.getBtnActionSpeciale().setEnabled(false);
 
-        //Le bouton "Donner carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
-        //Le bouton "Utiliser carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
+            //Desativation du bouton "Terminer tour"
+            vueTemp.getBtnTerminerTour().setEnabled(false);
+
+            //Desativation du bouton "Prendre trésor"
+            vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(false);
+            defaussementEnCours = true;
+        } else {
+            //On récupère la vue des action de la vue de l'IHM Jeu
+            VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
+
+            //Activation ou non du bouton "Déplacer"
+            vueTemp.getBtnDeplacer().setEnabled(deplacementPossible());
+
+            //Activation ou non du bouton "Assécher"
+            vueTemp.getBtnAssecher().setEnabled(assechementPossible());
+
+            //Activation ou non du bouton "Action spéciale"
+            vueTemp.getBtnActionSpeciale().setEnabled(actionSpecialePossible());
+
+            //Activation ou non du bouton "Prendre trésor"
+            vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(prendreTresorPossible());
+
+            //Le bouton "Donner carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
+            //Le bouton "Utiliser carte" sera activé uniquement lors d'un clic sur une carte (Donc dans traiter message)
+        }
+
     }
 
     public void finirTour() {
@@ -606,8 +631,6 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
         //Désactiver aussi les boutons des cartes donner mais pas utiliser
         vueIHMJeu.desactivationCarte();
-
-        // vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
     }
 
     public ArrayList<CarteInnondation> tirageCarteInnondation() {
@@ -665,27 +688,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             if (carte.getNom().equals(CarteUtilisable.MONTEE_EAU.toString())) {
                 //Monte la jauge d'un cran
                 jaugeInnondation = jaugeInnondation + 1;
-            }
-
-            //Si la jauge a augmenté (donc on a tiré une carte "Montée des eaux")
-            if (ancienneJauge != jaugeInnondation) {
-                //Si le tas de défausse n'est pas vide
-                if (!(deck_I.getDefausse().isEmpty())) {
-                    //On mélange la défausse
-                    deck_I.melangerDefausse();
-                    //On remet la défausse dans la pioche
-                    deck_I.getPioche().addAll(deck_I.getDefausse());
-
-                    //Tire les carte inondations
-                    ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
-                    //Ajoute ces cartes à la défausse
-                    deck_I.getDefausse().addAll(cartesInnondation);
-                    //Pour repeindre la plateau avec les nouvelles cartes inondées
-                    vueIHMJeu.setGrille(grille);
-                    vueIHMJeu.getvPlat().majTuiles(grille);
-                    //On affiche les cartes piochées
-//            vueA.afficherCartePioche(cartesInnondation);
-                }
+                //On supprime la carte de la main du joueur et on l'ajoute à la défausse
+                joueurCourant.removeMainA(carte);
+                deck_T.getDefausse().push(carte);
             }
         }
 
@@ -704,24 +709,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
     }
 
     public void defausse() {
-        //On récupère la vue des action de la vue de l'IHM Jeu
-        VuePanel_ActionAventurier vueTemp = vueIHMJeu.getvActionAven();
 
-        //Desactivation du bouton "Déplacer"
-        vueTemp.getBtnDeplacer().setEnabled(false);
-
-        //Desativation du bouton "Assécher"
-        vueTemp.getBtnAssecher().setEnabled(false);
-
-        //Desativation du bouton "Action spéciale"
-        vueTemp.getBtnActionSpeciale().setEnabled(false);
-
-        //Desativation du bouton "Terminer tour"
-        vueTemp.getBtnTerminerTour().setEnabled(false);
-
-        //Desativation du bouton "Prendre trésor"
-        vueIHMJeu.getvAven().getBtnPrendreTresor().setEnabled(false);
-        defaussementEnCours = true;
     }
 
     @Override
@@ -787,7 +775,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     // Si la tuile est null cela signifie qu'on vient d'appuyer sur le bouton "Action spéciale"
                     if (m.getTuile() == null) {
                         //On affiche un message
-                        vueIHMJeu.getVText().ajoutMessage("Vous pouvez vous déplacer sur n'importe qu'elle tuile non coulée");
+                        vueIHMJeu.getVText().ajoutMessage("Vous pouvez vous déplacer sur n'importe quelle tuile");
                         // On affiche l'IHM avec les tuiles possibles
                         g = ((Pilote) joueurCourant).deplacementPossibleSpecial(grille);
                         vueIHMJeu.afficherTuilePossible(g);
@@ -879,7 +867,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On vient juste d'appuyer sur le bouton "Utiliser"
                 if (m.getTuile() == null) {
                     //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("Vous pouvez vous déplacer sur n'importe qu'elle tuile non coulée");
+                    vueIHMJeu.getVText().ajoutMessage("Vous pouvez vous déplacer sur n'importe quelle tuile");
                     Tuile[][] tuiles = grille.getTuiles();
 
                     for (int l = 0; l < 6; l++) {
@@ -910,9 +898,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 }
 
-                if (!defaussementEnCours) {
-                    actionPossible();
-                }
+                actionPossible();
 
                 break;
 
@@ -920,7 +906,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //On vient juste d'appuyer sur le bouton "Utiliser"
                 if (m.getTuile() == null) {
                     //On affiche un message
-                    vueIHMJeu.getVText().ajoutMessage("Vous pouvez assècher n'importe quelle tuile innondée");
+                    vueIHMJeu.getVText().ajoutMessage("Vous pouvez assècher n'importe quelle tuile");
                     Tuile[][] tuiles = grille.getTuiles();
 
                     for (int l = 0; l < 6; l++) {
@@ -947,9 +933,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
                 }
 
-                if (!defaussementEnCours) {
-                    actionPossible();
-                }
+                actionPossible();
 
                 break;
 
@@ -973,19 +957,17 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 break;
 
             case DEFAUSSER_CARTE:
+                //On récupère la carte choisie
                 CarteTresor c = m.getVueCarte().getCarte();
+                //On l'enlève de la main du joueur eet on la met dans la défausse
                 joueurCourant.removeMainA(c);
-                deck_T.getPioche().add(c);
+                deck_T.getDefausse().push(c);
                 //On affiche l'IHM qui sera mise à jour
                 vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
 
-                if (joueurCourant.getMainA().size() > 5) {
-                    defausse();
-                } else {
-                    defaussementEnCours = false;
+                defaussementEnCours = (joueurCourant.getMainA().size() > 5);
 
-                    actionPossible();
-                }
+                actionPossible();
 
                 break;
 
@@ -1039,19 +1021,21 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                     //On affiche l'IHM qui sera mise à jour
                     vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
 
+                    System.out.println("Nb carte : " + joueurCourant.getMainA().size());
+
+                    defaussementEnCours = (joueurCourant.getMainA().size() > 5);
                     //Pour le défaussent des cartes
-                    if (joueurCourant.getMainA().size() > 5) {
+                    if (defaussementEnCours) {
                         //On affiche un message
                         vueIHMJeu.getVText().ajoutMessage("Vous avez trop de carte, défaussez-en");
-                        defausse();
                     } else {
-                        //On affiche l'IHM qui sera mise à jour selon les actions
-                        vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
-                          //On affiche les actions possibles
-                        actionPossible();
                         //On affiche un message
                         vueIHMJeu.getVText().ajoutMessage(joueurCourant.getRole() + " : " + joueurCourant.getPseudo() + " à vous de joueur");
                     }
+                    //On affiche l'IHM qui sera mise à jour
+                    vueIHMJeu.afficher(grille, joueurCourant, jaugeInnondation, nbAction);
+                    //On affiche les actions possibles
+                    actionPossible();
                 }
 
                 break;
