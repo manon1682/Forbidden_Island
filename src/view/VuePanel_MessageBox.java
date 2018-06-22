@@ -21,9 +21,7 @@ import javax.swing.ScrollPaneConstants;
  * @author blanquan
  */
 public class VuePanel_MessageBox extends JPanel {
-
-//    private final JEditorPane html ;    
- //   private JScrollPane scrollPane;
+    
     private JLabel msg;
 
     public VuePanel_MessageBox() {
