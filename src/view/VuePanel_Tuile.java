@@ -37,6 +37,7 @@ public class VuePanel_Tuile extends JPanel{
     private boolean possible;
     private boolean cadre;
     private boolean possedeTresor = false;
+    private boolean courant;
     private String tresor;
     private ArrayList<Pion> joueur;
     private VuePanel_Plateau vPlat;
@@ -133,9 +134,20 @@ public class VuePanel_Tuile extends JPanel{
             g.fillRect(0, 0, dim.width, dim.height);
         }
         
+        if(isCourant()){
+            g.drawImage(vPlat.getContourCourant(), 0, 0, dim.width, dim.height, null);
+        }
+        
         if(isCadre() && etat != EtatTuile.COULEE){
+            /*BasicStroke nStrock = new BasicStroke(3.0f); //Augmente épaisseur du contour de la tuile
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(nStrock);
+            g2.setColor(Color.GREEN);
+            g2.drawRect(dim.width/28, dim.height/28, dim.width-dim.width/14, dim.height-dim.height/14);*/
             g.drawImage(vPlat.getContourPassage(), 0, 0, dim.width, dim.height, null);
         }
+        
+        
         
     }
     
@@ -320,6 +332,14 @@ public class VuePanel_Tuile extends JPanel{
     
     public String getTresor(){
         return tresor;
+    }
+
+    public boolean isCourant() {
+        return courant;
+    }
+
+    public void setCourant(boolean courant) {
+        this.courant = courant;
     }
     
 }

@@ -94,7 +94,8 @@ public class IHMJeu extends Observe {
         panelCentre1.add(new JLabel(""), BorderLayout.WEST); //On enleve vueNiveauLeTempsDe
 
         panelCentre1.add(vPlat, BorderLayout.CENTER);
-
+        vPlat.majCourant(joueurCourant);
+        
         sousPanel1 = new JPanel(new BorderLayout());
         sousPanel1.add(vEtatPartie, BorderLayout.CENTER);
         sousPanel1.add(vMessage, BorderLayout.SOUTH);
@@ -146,7 +147,8 @@ public class IHMJeu extends Observe {
         vActionAven = new VuePanel_ActionAventurier(this, nbAction);
         vPlat.majTuiles(grille);
         vPlat.majTuiles(joueurs);
-
+        vPlat.majCourant(joueurCourant);
+        
         //On replace les nouveaux panels créés
         // panelCentre1.add(vNiveau, BorderLayout.WEST);
         panelCentre1.add(sousPanel1, BorderLayout.EAST);
