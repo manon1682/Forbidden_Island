@@ -154,7 +154,7 @@ public class Controleur implements Observateur {
 
     public void initDeck() {
         deck_T = new Deck_Tresor();
-        deck_I = new Deck_Innondation(chargerNomTuile());
+        deck_I = new Deck_Innondation();
     }
 
     public void initJoueur(int n, ArrayList<String> nom) {
@@ -363,12 +363,14 @@ que votre équipe décolle de l’Île Interdite et gagne ! OU ALORS IL FAUT UN 
     public boolean inondee(String nomTuile) {
         Tuile tuile = grille.getTuileAvecNom(nomTuile);
         if (tuile.getEtat() != EtatTuile.coulée) {
+            System.out.println("TRUETRUETRUE");
             tuile.setEtat((tuile.getEtat() == EtatTuile.sèche ? EtatTuile.inondée : EtatTuile.coulée));
             if (tuile.getEtat() == EtatTuile.coulée) {
                 coule(tuile);
             }
             return true;
         } else {
+            System.out.println("FALSEFALSEFALSE");
             return false;
         }
     }
@@ -672,7 +674,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
         vueIHMJeu.desactivationCarte();
     }
 
-    public ArrayList<CarteInnondation> tirageCarteInnondation() {
+    public void tirageCarteInnondation() {
         ArrayList<CarteInnondation> cartes = new ArrayList<>();
 
         //Pioche autant de carte que la jauge l'indique
@@ -685,8 +687,9 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
             }
 
             CarteInnondation carte = (CarteInnondation) deck_I.pioche();
-
-            while (!(inondee(carte.getLieu()))) {
+            System.out.println("Carte :" + carte.getLieu().toString());
+            while (!(inondee(carte.getLieu().toString()))) {
+                System.out.println(carte.getLieu().toString());
                 //S'il n'y a plus de carte dans la pioche
                 if (deck_I.getPioche().isEmpty()) {
                     //On mélange la défausse et la met dans la pioche
@@ -698,8 +701,11 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
 
             cartes.add(carte);
         }
+        
+        //Ajoute ces cartes à la défausse
+        deck_I.getDefausse().addAll(cartes);
 
-        return cartes;
+        //return cartes;
     }
 
     public void tirageCarte() {
@@ -732,12 +738,13 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 deck_T.getDefausse().push(carte);
             }
         }
-
+        
+        tirageCarteInnondation();
         //TIRAGE DES CARTES INONDATIONS
         //Tire les carte inondations
-        ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
+        //ArrayList<CarteInnondation> cartesInnondation = tirageCarteInnondation();
         //Ajoute ces cartes à la défausse
-        deck_I.getDefausse().addAll(cartesInnondation);
+        //deck_I.getDefausse().addAll(cartesInnondation);
         //Pour repeindre la plateau avec les nouvelles cartes inondées
         vueIHMJeu.setGrille(grille);
         vueIHMJeu.getvPlat().majTuiles(grille);
