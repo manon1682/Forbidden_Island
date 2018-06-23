@@ -985,6 +985,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //Si le joueur était un pilote, on met à jour sa capacité spéciale
                 if (joueurCourant.estRole("Pilote")) {
                     ((Pilote) joueurCourant).setCapaciteUtilisee(false);
+                } else if(joueurCourant.estRole("Ingénieur")){
+                    ((Ingénieur) joueurCourant).setCapaciteUtilisee(0);
                 }
 
                 tirageCarte();
