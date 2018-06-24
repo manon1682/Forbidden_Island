@@ -59,6 +59,7 @@ public class IHMJeu extends Observe {
         vIni.repaint();
         this.window = new JFrame();
         window.setLayout(new BorderLayout());
+        window.setExtendedState(window.getExtendedState() | JFrame.MAXIMIZED_BOTH);
         window.pack();
         window.setVisible(false);
 
