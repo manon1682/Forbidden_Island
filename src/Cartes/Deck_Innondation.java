@@ -2,6 +2,7 @@ package Cartes;
 
 import Enumeration.Lieu;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Stack;
 
 public class Deck_Innondation extends Deck {
@@ -18,5 +19,6 @@ public class Deck_Innondation extends Deck {
             getPioche().push(carte);
             lieu = lieu.getNext();
         }
+        melangerPioche();
     }
 }

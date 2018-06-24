@@ -53,7 +53,13 @@ public class VuePanel_EtatPartie extends JPanel {
         tresorStatueZephir = new JLabel();
         tresorCaliceOrdre = new JLabel();
         tresorPierreSacre = new JLabel();
+        tresorCristalArdent.setOpaque(false);
+        tresorStatueZephir.setOpaque(false);
+        tresorCaliceOrdre.setOpaque(false);
+        tresorPierreSacre.setOpaque(false);
 
+        //this.setBackground(Color.darkGray);
+        
         for (Tresor tr : aventurier.getTresor()) {
             ImageIcon logo;
             if (tr == Tresor.CALICE_DE_ORDRE) {
@@ -92,8 +98,9 @@ public class VuePanel_EtatPartie extends JPanel {
 
         //couleur pour les test
         //this.setBackground(Color.ORANGE);
-        this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        //this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         
+
         this.generation(null);
 
         //Prendre un trésor
@@ -134,13 +141,16 @@ public class VuePanel_EtatPartie extends JPanel {
         grilleTresor.add(tresorStatueZephir);
         grilleTresor.add(tresorCristalArdent);
         grilleTresor.add(tresorCaliceOrdre);
-
+        grilleTresor.setOpaque(false);
+        
         containerCase1.add(grilleTresor, BorderLayout.CENTER);
         containerCase1.add(btnPrendreTresor, BorderLayout.WEST);
-
-        grilleCoequipier.add(containerCase1);
+        containerCase1.setOpaque(false);
         
-        //grilleCoequipier.setBackground(Color.gray);
+        grilleCoequipier.add(containerCase1);
+        grilleCoequipier.setOpaque(false);
+        
+        //grilleCoequipier.setBackground(Color.DARK_GRAY);
         
         //nouvelle case 2 à 4
         for (Aventurier joueur : joueurs) {

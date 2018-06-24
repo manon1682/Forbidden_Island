@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -49,6 +50,7 @@ public class VuePanel_Niveau extends JPanel {
         //fin ini;
         
         this.setPreferredSize(new Dimension(120,260));
+        //this.setBorder(BorderFactory.createLineBorder(Color.black , 2));
         
         try {
             imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge1-1.png"))));
@@ -67,8 +69,9 @@ public class VuePanel_Niveau extends JPanel {
     }
     
     @Override
-    public void paint(Graphics g){
-        
+    public void paintComponent(Graphics g){
+        //g.setColor(Color.darkGray);
+        //g.fillRect(0, 0, this.getWidth(), this.getHeight());
         g.drawImage(imgsJauge.get(jaugeInnondation-1), 0, 0, this.getWidth(), this.getHeight(), null);
     }
     

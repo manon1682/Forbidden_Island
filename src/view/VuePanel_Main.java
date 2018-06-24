@@ -52,7 +52,7 @@ public class VuePanel_Main extends JPanel {
 
         panelNord.add(new JLabel(aventurier.getPseudo()), BorderLayout.WEST);
         panelNord.add(new JLabel(aventurier.getRole()), BorderLayout.EAST);
-
+        
         add(panelNord, BorderLayout.NORTH);
         add(main, BorderLayout.CENTER);
 

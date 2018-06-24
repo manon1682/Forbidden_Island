@@ -51,6 +51,8 @@ public class VuePanel_Plateau extends JPanel {
         joueurs = js;
         tuiles = new VuePanel_Tuile[6][6];
         initTuiles(grille);
+        this.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.black));
+        //this.setBorder(BorderFactory.createLineBorder(Color.black,2));
         
         try{
             contourPassage = ImageIO.read((new FileInputStream("images/hover_movement.png")));
@@ -140,7 +142,7 @@ public class VuePanel_Plateau extends JPanel {
     }
     
     @Override
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
         g.drawImage(fond, 0, 0, plat.getWidth() , plat.getHeight(),null);
         //g.drawImage(cadre, 0, 0, plat.getWidth() , plat.getHeight(),null);
         repaintTuiles();

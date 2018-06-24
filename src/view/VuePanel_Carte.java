@@ -102,6 +102,9 @@ public class VuePanel_Carte extends JPanel {
     public void paint(Graphics g) {
         //Pour peindre les images
 
+        //g.setColor(Color.darkGray);
+        //g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        
         if (nb != 0) {
             g.drawImage(carte.utilisation().getImage(), 0, 0, this.getWidth(), this.getHeight(), null);
             g.setColor(Color.BLACK);
