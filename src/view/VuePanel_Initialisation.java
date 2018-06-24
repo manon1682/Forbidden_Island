@@ -16,6 +16,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,7 +44,6 @@ public class VuePanel_Initialisation extends JPanel {
     private int height;
     private int width;
 
-    
     private String[] nbjoueurs;
 
     private JPanel panelCentre;
@@ -69,7 +70,7 @@ public class VuePanel_Initialisation extends JPanel {
     //Sélection Niveau
     private JLabel labNiv;
     private ButtonGroup groupeNiv;
-    private JRadioButton[] boutNiv;    
+    private JRadioButton[] boutNiv;
     private JRadioButton bouton;
 
     //Image fond
@@ -117,7 +118,7 @@ public class VuePanel_Initialisation extends JPanel {
         //PanelHautCentre : GridLayout 4,1 (division 2/2 de PanelHaut)
         panelHautCentre = new JPanel(new GridLayout(4, 1));
         panelHautCentre.setOpaque(false);
-        
+
         //PanelHautCentre : Ligne 1 Saut de ligne
         panelHautCentre.add(new JLabel());
 
@@ -195,17 +196,32 @@ public class VuePanel_Initialisation extends JPanel {
         // **** Panel Centre ****
         panelCentre = new JPanel(new GridLayout(10, 3));
         panelCentre.setOpaque(false);
+        
+        //Par défaut, deux joueurs sont sélectionnés
+        nbJ = 2;
+        for (int i = 0; i < 2; i++) {
+                    saisieNom = new JTextField("Joueur " + (i+1));
+                    saisieNom.setBorder(null);
+                    saisirJ.add(saisieNom);
+
+                    labNomJ = new JLabel("Nom Aventurier : ", SwingConstants.RIGHT);
+                    labNomJ.setForeground(Color.white);
+                    labNomJ.setFont(new Font("Arial", Font.PLAIN, 20));
+                    ajouterLabelVide(panelCentre, 3);
+                    panelCentre.add(labNomJ);
+                    panelCentre.add(saisirJ.get(i));
+                    panelCentre.add(new JLabel());
+
+                }
         //On rempli le panel de vide en attendant qu'un nombre de joueur soit sélectionné
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 18; i++) {
             panelCentre.add(new JLabel());
         }
 
         this.add(BorderLayout.CENTER, panelCentre);
 
         // **** Fin PanelCentre ****
-        
         // **** Panel bas ****
-        
         //Aspect bouton "Valider"
         btnValider = new JButton();
         ImageIcon logoValider = new ImageIcon("images/icones/iconChecked.png");
@@ -235,86 +251,103 @@ public class VuePanel_Initialisation extends JPanel {
         this.add(BorderLayout.SOUTH, panelBas);
 
         // **** Fin PanelBas ****
-        
-        
-        //ActionListener du bouton Valider
-        btnValider.addActionListener(new ActionListener() {
+        choixNbJoueur.addItemListener(
+                new ItemListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-
-                //Si le nombre de joueur n'a pas encore été validé on le valide 
-                //et on fait rentrer les nom de joueurs
-                if (choixNbJoueur.isEnabled()) {
-
-                    nbJ = choixNbJoueur.getSelectedIndex() + 2;
-
-                    for (int i = 0; i < 30; i++) {
-                        panelCentre.remove(0);
-                    }
-
-                    for (int i = 0; i < nbJ; i++) {
-                        saisieNom = new JTextField("Joueur " + (i + 1));
-                        saisieNom.setBorder(null);
-                        saisirJ.add(saisieNom);
-
-                        labNomJ = new JLabel("Nom Aventurier : ", SwingConstants.RIGHT);
-                        labNomJ.setForeground(Color.white);
-                        labNomJ.setFont(new Font("Arial", Font.PLAIN, 20));
-                        ajouterLabelVide(panelCentre, 3);
-                        panelCentre.add(labNomJ);
-                        panelCentre.add(saisirJ.get(i));
-                        panelCentre.add(new JLabel());
-
-                    }
-                    for (int i = 0; i < 30 - 6 * nbJ; i++) {
-                        panelCentre.add(new JLabel());
-
-                    }
-                    choixNbJoueur.setEnabled(false);
-                    window.setVisible(true);
-                } else { //Si le nombre de joueur a été validé on envoie le tout au controleur
-
-                    ArrayList<String> nom = new ArrayList<>();
-
-                    for (JTextField saisi : saisirJ) {
-                        nom.add(saisi.getText());
-                    }
-
-                    Message m = new Message(TypesMessages.NOUVELLE_PARTIE);
-                    m.setNom(nom);
-
-                    //If pour créer le message avec le niveau de difficulté sélectionné
-                    if (boutNiv[0].isSelected()) {
-                        m.setNiveau(TypesNiveaux.NOVICE);
-                    } else if (boutNiv[1].isSelected()) {
-                        m.setNiveau(TypesNiveaux.NORMAL);
-                    } else if (boutNiv[2].isSelected()) {
-                        m.setNiveau(TypesNiveaux.ELITE);
-                    } else {
-                        m.setNiveau(TypesNiveaux.LEGENDAIRE);
-                    }
+            public void itemStateChanged(ItemEvent e) {
+                nbJ = choixNbJoueur.getSelectedIndex() + 2;
+                for (int i = 0; i < 30; i++) {
+                    panelCentre.remove(0);
+                }
+                //On vide l'ArrayList de saisie pour laisser place aux nouveaux textField 
+                saisirJ.removeAll(saisirJ);
+                
+                //Préparation affichage des label et champs de saisie
+                for (int i = 0; i < nbJ; i++) {
+                    labNomJ = new JLabel("Nom Aventurier : ", SwingConstants.RIGHT);
+                    labNomJ.setForeground(Color.white);
+                    labNomJ.setFont(new Font("Arial", Font.PLAIN, 20));
                     
-                    ihm.notifierObservateur(m);
+                    System.out.println("i = "+ i);
+                    saisieNom = new JTextField("Joueur " + (i + 1));
+                    saisieNom.setBorder(null);
+                    saisirJ.add(saisieNom);
+
+                    //saut de ligne
+                    ajouterLabelVide(panelCentre, 3);
+                    
+                    //Ajout des label et champs de saisie
+                    panelCentre.add(labNomJ);
+                    panelCentre.add(saisirJ.get(i));
+                    panelCentre.add(new JLabel());
+
+                }
+                
+                //On complète le GridLayout
+                for (int i = 0; i < 30 - 6 * nbJ; i++) {
+                    panelCentre.add(new JLabel());
+
+                }
+                //Affichage rafraichie
+                panelCentre.updateUI();
+            }
+
+        });
+
+        //ActionListener du bouton Valider
+        btnValider.addActionListener(
+                new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e
+            ) {
+                //Envoie du nom des joueurs au controleur
+                ArrayList<String> nom = new ArrayList<>();
+                int res =0;
+                    res = saisirJ.size()-nbJ;
+                for (int i = 0; i<nbJ  ; i++) {
+                    nom.add(saisirJ.get(i+res).getText());
+                    System.out.println(saisirJ.get(i+res).getText());
                 }
 
+                Message m = new Message(TypesMessages.NOUVELLE_PARTIE);
+                m.setNom(nom);
+
+                //If pour créer le message avec le niveau de difficulté sélectionné
+                if (boutNiv[0].isSelected()) {
+                    m.setNiveau(TypesNiveaux.NOVICE);
+                } else if (boutNiv[1].isSelected()) {
+                    m.setNiveau(TypesNiveaux.NORMAL);
+                } else if (boutNiv[2].isSelected()) {
+                    m.setNiveau(TypesNiveaux.ELITE);
+                } else {
+                    m.setNiveau(TypesNiveaux.LEGENDAIRE);
+                }
+
+                ihm.notifierObservateur(m);
+
             }
-        });
+        }
+        );
 
         //ActionListener du Manuel
         btnManuel.addActionListener(
                 new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e
+            ) {
                 vMan = new VuePanel_Manuel();
                 vMan.afficher();
                 vMan.repaint();
             }
-        });
+        }
+        );
 
-        window.setVisible(true);
+        window.setVisible(
+                true);
 
     }
 
+    //Crée des label vide dans le label passé en paramètre
     public void ajouterLabelVide(JPanel panel, int nbLabel) {
         for (int i = 0; i < nbLabel; i++) {
             panel.add(new JLabel());
