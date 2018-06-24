@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -35,58 +36,40 @@ import javax.swing.JPanel;
 public class VuePanel_Niveau extends JPanel {
 
     private int jaugeInnondation;
-    private int jaugeInnondationPrecedente;
-    
-    private double precedentRatio;
+
     private JButton btnManuel;
-    private BufferedImage imageJauge;
-    private BufferedImage imagePointeur;
+    
+    private ArrayList<BufferedImage> imgsJauge;
     
     public VuePanel_Niveau(int jaugeInn) {
 
-
         //initialisation
-        this.jaugeInnondation = jaugeInn;
-        jaugeInnondationPrecedente = jaugeInnondation;
-        //fin ini
-        precedentRatio = 0.825-(0.083393)*(jaugeInn-1);
+        setJauge(jaugeInn);
+        imgsJauge = new ArrayList<>();
+        //fin ini;
         
         this.setPreferredSize(new Dimension(120,260));
         
         try {
-            //imageJauge = ImageIO.read((new FileInputStream("images/Niveau.png")));
-            imageJauge = ImageIO.read((new FileInputStream("images/jauge/JaugeNv1.png")));
-            imagePointeur = ImageIO.read((new FileInputStream("images/pointeur2.png")));
+            imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge1-1.png"))));
+            imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge2-1.png"))));
+            imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge3-2.png"))));
+            imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge4-1.png"))));
+            imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge5.png"))));
+            imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge6.png"))));
+            imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge7.png"))));
+            imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge8.png"))));
+            imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge9.png"))));
+            imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge10.png"))));
         } catch (IOException ex) {
-                ex.fillInStackTrace();
+            ex.fillInStackTrace();
         }
-        
     }
     
     @Override
     public void paint(Graphics g){
         
-        g.drawImage(imageJauge, 0, 0, this.getWidth(), this.getHeight(), null);
-        g.drawImage(imagePointeur,poiteurPosX(), poiteurPosY(), 30, 30, null);
-        
-    }
-    
-    public int poiteurPosX(){
-        return this.getWidth()/3;
-    }
-    
-    public int poiteurPosY(){
-        if(jaugeInnondation - jaugeInnondationPrecedente != 0){
-            double ratio;
-            if(jaugeInnondation == 8 && jaugeInnondationPrecedente == 7){
-                ratio = 0.075;
-            } else {
-                ratio = 0.083393;
-            }
-            jaugeInnondationPrecedente = jaugeInnondation;
-            precedentRatio = (precedentRatio -ratio);
-        }
-        return (int)(this.getHeight()*precedentRatio)-15;
+        g.drawImage(imgsJauge.get(jaugeInnondation-1), 0, 0, this.getWidth(), this.getHeight(), null);
     }
     
     public void setJauge(int jauge){
