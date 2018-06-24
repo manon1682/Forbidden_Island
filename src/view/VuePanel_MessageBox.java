@@ -25,8 +25,11 @@ public class VuePanel_MessageBox extends JPanel {
     private JLabel msg;
 
     public VuePanel_MessageBox() {
-        this.setBackground(Color.GREEN);
-
+        
+        //this.setBackground(Color.gray);
+        
+        //this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+        
         msg = new JLabel("Bienvenue sur l'île Interdite");
         msg.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
         this.add(msg);

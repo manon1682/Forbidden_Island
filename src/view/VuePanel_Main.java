@@ -43,6 +43,7 @@ public class VuePanel_Main extends JPanel {
         a = aventurier;
         this.setBorder(BorderFactory.createLineBorder(a.getPion().getCouleur(),4));
         
+        
         this.setPreferredSize(new Dimension(768,188));
         
         setLayout(new BorderLayout());
@@ -70,7 +71,8 @@ public class VuePanel_Main extends JPanel {
             VuePanel_Carte carte = new VuePanel_Carte(n, laCarte);
             carte.setIhm(this);
             CarteTresor c = new CarteTresor(laCarte);
-
+            carte.setOpaque(false);
+            
             if (n != 0) {
                 carte.getUtiliser().setVisible(false);
                 carte.getDonner().setVisible(false);
@@ -144,7 +146,7 @@ public class VuePanel_Main extends JPanel {
 
         if (isClickable()) {
             this.setBorder(BorderFactory.createLineBorder(Color.magenta, 4));
-
+            //this.setBackground(Color.gray);
         }
 
         for (int i = 0; i < 6; i++) {
@@ -156,7 +158,7 @@ public class VuePanel_Main extends JPanel {
             }
 
             VuePanel_Carte carte = new VuePanel_Carte(n, laCarte);
-            
+            carte.setOpaque(false);
             if (n != 0) {
                 carte.getUtiliser().setVisible(false);
                 carte.getDonner().setVisible(false);

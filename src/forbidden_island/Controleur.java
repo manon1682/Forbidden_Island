@@ -225,10 +225,6 @@ public class Controleur implements Observateur {
         getDeck_T().defausser(carte);
     }
 
-    public void asseche(Tuile tuile) {
-        tuile.asseche();
-    }
-
     public void prendreTresor(Aventurier a) {
         int l = a.getL();
         int c = a.getC();
@@ -985,6 +981,8 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
                 //Si le joueur était un pilote, on met à jour sa capacité spéciale
                 if (joueurCourant.estRole("Pilote")) {
                     ((Pilote) joueurCourant).setCapaciteUtilisee(false);
+                } else if(joueurCourant.estRole("Ingénieur")){
+                    ((Ingénieur) joueurCourant).setCapaciteUtilisee(0);
                 }
 
                 tirageCarte();
