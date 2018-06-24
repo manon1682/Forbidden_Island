@@ -43,9 +43,7 @@ public class VuePanel_Tuile extends JPanel{
     
     private BufferedImage tuileNormaleNoTresor;
     private BufferedImage tuileInondeeNoTresor;
-    
-    private BufferedImage imgCoulee;
-    
+        
     
     public VuePanel_Tuile(String nom, EtatTuile etat, Dimension dim,VuePanel_Plateau plat){
         joueur = new ArrayList<>();
@@ -106,7 +104,6 @@ public class VuePanel_Tuile extends JPanel{
             tuileInondeeNoTresor = null;
             
             try { //Inondée ,séche et coulée
-                imgCoulee = ImageIO.read(new FileInputStream("images/Tile_Flood_Water@2x.png"));
                 tuileNormale = ImageIO.read(new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+".png"));
                 tuileInondee = ImageIO.read(new FileInputStream("images/tuiles/"+getNomFichierTuile(nomTuile)+"_Innonde.png"));
                 if(possedeTresor){ //Si la tuile a un amplacement a tresor on charge les version sans tresor
