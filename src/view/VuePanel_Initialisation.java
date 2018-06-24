@@ -268,7 +268,6 @@ public class VuePanel_Initialisation extends JPanel {
                     labNomJ.setForeground(Color.white);
                     labNomJ.setFont(new Font("Arial", Font.PLAIN, 20));
                     
-                    System.out.println("i = "+ i);
                     saisieNom = new JTextField("Joueur " + (i + 1));
                     saisieNom.setBorder(null);
                     saisirJ.add(saisieNom);
@@ -306,7 +305,6 @@ public class VuePanel_Initialisation extends JPanel {
                     res = saisirJ.size()-nbJ;
                 for (int i = 0; i<nbJ  ; i++) {
                     nom.add(saisirJ.get(i+res).getText());
-                    System.out.println(saisirJ.get(i+res).getText());
                 }
 
                 Message m = new Message(TypesMessages.NOUVELLE_PARTIE);
