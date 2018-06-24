@@ -225,10 +225,6 @@ public class Controleur implements Observateur {
         getDeck_T().defausser(carte);
     }
 
-    public void asseche(Tuile tuile) {
-        tuile.asseche();
-    }
-
     public void prendreTresor(Aventurier a) {
         int l = a.getL();
         int c = a.getC();

@@ -54,7 +54,8 @@ public class VuePanel_Niveau extends JPanel {
         this.setPreferredSize(new Dimension(120,260));
         
         try {
-            imageJauge = ImageIO.read((new FileInputStream("images/Niveau.png")));
+            //imageJauge = ImageIO.read((new FileInputStream("images/Niveau.png")));
+            imageJauge = ImageIO.read((new FileInputStream("images/jauge/JaugeNv1.png")));
             imagePointeur = ImageIO.read((new FileInputStream("images/pointeur2.png")));
         } catch (IOException ex) {
                 ex.fillInStackTrace();
