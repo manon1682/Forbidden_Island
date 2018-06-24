@@ -115,9 +115,7 @@ public class IHMJeu extends Observe {
     }
 
     public void afficher(Grille g, Aventurier a, int jauge, int nbAction) {
-        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        window.setSize(1400, 800);
-        window.setResizable(true);
+
         //On enlève les panels liés à au joueur prédécent
         panelCentre1.remove(vNiveau);
         mainPanel.removeAll();
