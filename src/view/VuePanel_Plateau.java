@@ -15,8 +15,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -39,7 +37,7 @@ public class VuePanel_Plateau extends JPanel {
     private boolean activer;
     private VuePanel_Plateau plat;
     private BufferedImage fond;
-    //private BufferedImage cadre;
+
     private BufferedImage contourPassage;
     private BufferedImage contourCourant;
     
@@ -52,18 +50,15 @@ public class VuePanel_Plateau extends JPanel {
         tuiles = new VuePanel_Tuile[6][6];
         initTuiles(grille);
         this.setBorder(BorderFactory.createMatteBorder(0, 2, 2, 2, Color.black));
-        //this.setBorder(BorderFactory.createLineBorder(Color.black,2));
         
         try{
             contourPassage = ImageIO.read((new FileInputStream("images/hover_movement.png")));
             contourCourant = ImageIO.read((new FileInputStream("images/hover_assecher.png")));
             fond = ImageIO.read((new FileInputStream("images/background/test.jpg")));
-            //cadre = ImageIO.read((new FileInputStream("images/Cadre.png")));
         } catch (IOException ex) {
             ex.fillInStackTrace();
         }
         
-        //this.setBackground(Color.blue);
         this.setLayout(new GridLayout(6, 6));
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
@@ -77,7 +72,7 @@ public class VuePanel_Plateau extends JPanel {
         Tuile[][] ts = grille.getTuiles();
         for (int l = 0; l < 6; l++) {
             for (int c = 0; c < 6; c++) {
-                if (grille.getTuiles()[l][c] != null){ //&& grille.getTuiles()[l][c].getEtat() != EtatTuile.coulée) {
+                if (grille.getTuiles()[l][c] != null){
                     ((VuePanel_Tuile) tuiles[l][c]).setEtat(ts[l][c].getEtat());
                 } else {
                     tuiles[l][c] = new VuePanel_Tuile("Ocean", EtatTuile.COULEE);
@@ -144,7 +139,6 @@ public class VuePanel_Plateau extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(fond, 0, 0, plat.getWidth() , plat.getHeight(),null);
-        //g.drawImage(cadre, 0, 0, plat.getWidth() , plat.getHeight(),null);
         repaintTuiles();
     }
 
@@ -195,6 +189,4 @@ public class VuePanel_Plateau extends JPanel {
             }
         }
     }
-    
-    
 }

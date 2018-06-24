@@ -8,19 +8,15 @@ package view;
 import Aventurier.Aventurier;
 import Enumeration.EtatTuile;
 import forbidden_island.Message;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import util.Utils.Pion;
@@ -137,8 +133,6 @@ public class VuePanel_Tuile extends JPanel{
         } else if(etat == EtatTuile.INONDEE) {
             g.drawImage((!possedeTresor ? (tuileInondeeNoTresor != null ? tuileInondeeNoTresor : tuileInondee) : tuileInondee), (this.getSize().width - dim.width)/2, 0, dim.width, dim.height, null);
             afficherPion(g);
-        } else {
-            //g.drawImage(imgCoulee, 0, 0, dim.width, dim.height, null);
         }
         
         //Filtre jaune sur les tuile possible pour le deplacement et l'assèchement

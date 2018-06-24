@@ -5,16 +5,11 @@
  */
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.BorderFactory;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
 /**
  *
@@ -26,12 +21,9 @@ public class VuePanel_MessageBox extends JPanel {
 
     public VuePanel_MessageBox() {
         
-        //this.setBackground(Color.gray);
-        
-        //this.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-        
+        this.setBackground(new Color(225, 221, 136));
         msg = new JLabel("Bienvenue sur l'île Interdite");
-        msg.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
+        msg.setFont(new Font("Serif", Font.ITALIC, 18));
         this.add(msg);
         this.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.black));
 

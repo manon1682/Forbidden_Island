@@ -10,13 +10,12 @@ import Enumeration.Tresor;
 import Enumeration.TypesMessages;
 import forbidden_island.Message;
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -49,16 +48,11 @@ public class VuePanel_EtatPartie extends JPanel {
 
         //Case 1 de la grilleCoequipier
         btnPrendreTresor = new JButton("Prendre trésor");
+        btnPrendreTresor.setFont(new Font("Serif", Font.ITALIC, 14));
         tresorCristalArdent = new JLabel();
         tresorStatueZephir = new JLabel();
         tresorCaliceOrdre = new JLabel();
         tresorPierreSacre = new JLabel();
-        tresorCristalArdent.setOpaque(false);
-        tresorStatueZephir.setOpaque(false);
-        tresorCaliceOrdre.setOpaque(false);
-        tresorPierreSacre.setOpaque(false);
-
-        //this.setBackground(Color.darkGray);
         
         for (Tresor tr : aventurier.getTresor()) {
             ImageIcon logo;
@@ -95,11 +89,6 @@ public class VuePanel_EtatPartie extends JPanel {
 
         a = aventurier;
         //fin initialisation
-
-        //couleur pour les test
-        //this.setBackground(Color.ORANGE);
-        //this.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        
 
         this.generation(null);
 
@@ -149,9 +138,7 @@ public class VuePanel_EtatPartie extends JPanel {
         
         grilleCoequipier.add(containerCase1);
         grilleCoequipier.setOpaque(false);
-        
-        //grilleCoequipier.setBackground(Color.DARK_GRAY);
-        
+                
         //nouvelle case 2 à 4
         for (Aventurier joueur : joueurs) {
             if (!(joueur.equals(a))) {

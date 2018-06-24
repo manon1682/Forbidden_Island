@@ -7,7 +7,6 @@ import Aventurier.*;
 import Aventurier.Explorateur;
 import Aventurier.Ingénieur;
 import Aventurier.Messager;
-import Cartes.Carte;
 import Cartes.CarteInnondation;
 import Cartes.CarteTresor;
 import Cartes.Deck;
@@ -53,7 +52,7 @@ public class Controleur implements Observateur {
 
     public ArrayList<String> chargerNomTuile() {
         File fileNomTuile = new File("src/nomTuile");
-        ArrayList<String> nomTuile = new ArrayList<String>();
+        ArrayList<String> nomTuile = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileNomTuile))) {
             String ligne;
             while ((ligne = br.readLine()) != null) {
@@ -535,7 +534,7 @@ symboles des trésors) sombrent avant que vous n’ayez pris leurs trésors resp
     public boolean utiliserCartePossible(CarteTresor carte) {
         String nom = carte.getNom();
         //La carte est une carte qu'on peut utliser (autre qu'une carte trésor)
-        if ((nom == CarteUtilisable.HELICO.toString()) || nom == CarteUtilisable.SAC_SABLE.toString()) {
+        if ((nom.equals(CarteUtilisable.HELICO.toString())) || nom.equals(CarteUtilisable.SAC_SABLE.toString())) {
             return true;
         } else {
             return false;

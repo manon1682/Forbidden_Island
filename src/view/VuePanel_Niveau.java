@@ -5,29 +5,14 @@
  */
 package view;
 
-import Enumeration.EtatTuile;
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Insets;
-import java.awt.Label;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -50,7 +35,6 @@ public class VuePanel_Niveau extends JPanel {
         //fin ini;
         
         this.setPreferredSize(new Dimension(120,260));
-        //this.setBorder(BorderFactory.createLineBorder(Color.black , 2));
         
         try {
             imgsJauge.add(ImageIO.read((new FileInputStream("images/jauge/tubeJauge1-1.png"))));
@@ -70,13 +54,10 @@ public class VuePanel_Niveau extends JPanel {
     
     @Override
     public void paintComponent(Graphics g){
-        //g.setColor(Color.darkGray);
-        //g.fillRect(0, 0, this.getWidth(), this.getHeight());
         g.drawImage(imgsJauge.get(jaugeInnondation-1), 0, 0, this.getWidth(), this.getHeight(), null);
     }
     
     public void setJauge(int jauge){
         this.jaugeInnondation = jauge;
-    }
-    
+    }   
 }

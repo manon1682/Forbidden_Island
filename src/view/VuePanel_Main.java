@@ -13,17 +13,13 @@ import forbidden_island.Message;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 
 /**
  *
@@ -50,8 +46,14 @@ public class VuePanel_Main extends JPanel {
         JPanel main = new JPanel(new GridLayout(1, 6));
         JPanel panelNord = new JPanel(new BorderLayout());
 
-        panelNord.add(new JLabel(aventurier.getPseudo()), BorderLayout.WEST);
-        panelNord.add(new JLabel(aventurier.getRole()), BorderLayout.EAST);
+        
+        JLabel pseudo = new JLabel(aventurier.getPseudo());
+        JLabel role = new JLabel(aventurier.getRole());
+        pseudo.setFont(new Font("Serif", Font.ITALIC, 14));
+        role.setFont(new Font("Serif", Font.ITALIC, 14));
+        
+        panelNord.add(pseudo, BorderLayout.WEST);
+        panelNord.add(role, BorderLayout.EAST);
         
         add(panelNord, BorderLayout.NORTH);
         add(main, BorderLayout.CENTER);
@@ -134,8 +136,13 @@ public class VuePanel_Main extends JPanel {
         JPanel main = new JPanel(new GridLayout(1, 6));
         JPanel panelNord = new JPanel(new BorderLayout());
 
-        panelNord.add(new JLabel(aventurier.getPseudo()), BorderLayout.WEST);
-        panelNord.add(new JLabel(aventurier.getRole()), BorderLayout.EAST);
+        JLabel pseudo = new JLabel(aventurier.getPseudo());
+        JLabel role = new JLabel(aventurier.getRole());
+        pseudo.setFont(new Font("Serif", Font.ITALIC, 12));
+        role.setFont(new Font("Serif", Font.ITALIC, 12));        
+        
+        panelNord.add(pseudo, BorderLayout.WEST);
+        panelNord.add(role, BorderLayout.EAST);
 
         add(panelNord, BorderLayout.NORTH);
         add(main, BorderLayout.CENTER);

@@ -16,6 +16,5 @@ public class Forbidden_Island {
      */
     public static void main(String[] args) {
         Controleur c = new Controleur();
-     
     }
 }

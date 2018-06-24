@@ -371,5 +371,4 @@ public class VuePanel_Initialisation extends JPanel {
     public void desafficher() {
         window.setVisible(false);
     }
-
 }

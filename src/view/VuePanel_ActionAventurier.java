@@ -7,23 +7,19 @@ package view;
 
 import Enumeration.TypesMessages;
 import forbidden_island.Message;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 /**
  *
  * @author blanquan
@@ -103,7 +99,6 @@ public class VuePanel_ActionAventurier extends JPanel {
         logoNbActionText = new ImageIcon(newimgNbActionText);
         nbActionText.setIcon(logoNbActionText);
 
-//        nbActionInt = new JLabel(Integer.toString(nbAction));
         nbActionInt = new JLabel();
         ImageIcon logoNbActionInt = chargementImageNbAction(nbAction);
         Image imageNbActionInt = logoNbActionInt.getImage();
@@ -121,15 +116,12 @@ public class VuePanel_ActionAventurier extends JPanel {
         this.add(btnTerminerTour);
         this.add(nbActionInt);
 
-//        grillebtnAction.setBackground(new Color(32,32,32));
-//        grillebtnAction.setBorder(BorderFactory.createLineBorder(Color.yellow, 3));
         try {
             this.imageFond = ImageIO.read(new FileInputStream("images/background/fondAction.png"));
 
         } catch (IOException ex) {
             System.err.println("Erreur de lecture de fondAction.png");
         }
-
 
 //Action Listener
         btnDeplacer.addActionListener(
@@ -209,7 +201,6 @@ public class VuePanel_ActionAventurier extends JPanel {
     }
 
     public void misAJourNbAction(int nbAction) {
-        //nbActionInt.setText(Integer.toString(nbAction));
         ImageIcon logoNbActionInt = chargementImageNbAction(nbAction);
         Image imageNbActionInt = logoNbActionInt.getImage();
         Image newimgNbActionInt = imageNbActionInt.getScaledInstance(150, 75, java.awt.Image.SCALE_SMOOTH); // Redimension de l'icône 
@@ -237,13 +228,11 @@ public class VuePanel_ActionAventurier extends JPanel {
             } break;
         }
         return img;
-        
     }
     
     public void paintComponent(Graphics g) {
-
+        
         super.paintComponent(g);
         g.drawImage(imageFond, 0, 0, this.getWidth(), this.getHeight(), null, this);
     }
-
 }
